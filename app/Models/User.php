@@ -11,15 +11,22 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $primaryKey = 'idUsuario';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nombreUsuario',
+        'apellidoUsuario',
         'email',
         'password',
+        'tipoUsuario',
+        'profesionUsuario',
+        'especialidadUsuario',
+        'admin',
     ];
 
     /**
@@ -29,19 +36,5 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
 }
