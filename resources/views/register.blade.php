@@ -15,6 +15,9 @@
 		body {
 			background-color: #000;
 		}
+		section {
+			margin-top: 100px;
+		}
 		/* Others */
 		.center-items {
 			display: flex;
@@ -75,7 +78,10 @@
 		}
 		@media (max-width: 991.98px) {
 			.cascading-left {
-				margin-right: 0;
+				margin-left: 0px;
+			}
+			section {
+				margin-top: 0px;
 			}
 		}
 	</style>
@@ -85,7 +91,7 @@
 			<div>
 				<ul>
 					@foreach ($errors->all() as $error)
-						<li>{{ $error + "sadasdds" }}</li>
+						<li>{{ $error }}</li>
 					@endforeach
 				</ul>
 			</div>
@@ -146,20 +152,27 @@
 													</div>
 												</div>
 											</div>
-											<!-- Tipo input -->
-											<div class="form-outline mb-4">
-												<label class="form-label" for="tipoUsuario">Tipo Usuario</label>
-												<input type="text" name="tipoUsuario" id="tipoUsuario" class="input-auth" value="{{ old('tipoUsuario') }}"/>
-											</div>
 											<!-- Profesion input -->
 											<div class="form-outline mb-4">
 												<label class="form-label" for="profesionUsuario">Profesión</label>
-												<input type="text" name="profesionUsuario" id="profesionUsuario" class="input-auth" value="{{ old('profesionUsuario') }}"/>
+												<select name="profesionUsuario" id="profesionUsuario" class="form-select form-select-sm input-auth">
+													<option selected>Selecciona una profesión</option>
+													<option value="Civil">Civil</option>
+													<option value="Arquitectura">Arquitectura</option>
+													<option value="Contador">Contador</option>
+													<option value="Administrador">Administrador</option>
+												</select>
 											</div>
 											<!-- Especialidad input -->
 											<div class="form-outline mb-4">
 												<label class="form-label" for="especialidadUsuario">Especialidad</label>
-												<input type="text" name="especialidadUsuario" id="especialidadUsuario" class="input-auth" value="{{ old('especialidadUsuario') }}"/>
+												<select name="especialidadUsuario" id="especialidadUsuario" class="form-select form-select-sm input-auth">
+													<option selected>Selecciona una especialidad</option>
+													<option value="Civil">Civil</option>
+													<option value="Arquitectura">Arquitectura</option>
+													<option value="Contador">Contador</option>
+													<option value="Administrador">Administrador</option>
+												</select>
 											</div>
 											<!-- Button -->
 											<div class="text-center">

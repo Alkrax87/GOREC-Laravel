@@ -17,10 +17,9 @@ return new class extends Migration
             $table->string('apellidoUsuario');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('tipoUsuario')->nullable();
             $table->string('profesionUsuario')->nullable();
             $table->string('especialidadUsuario')->nullable();
-            $table->boolean('admin')->default(false);
+            $table->boolean('isAdmin')->default(false);
             $table->timestamps(false);
         });
     }

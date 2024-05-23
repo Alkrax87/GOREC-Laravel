@@ -15,6 +15,9 @@
 		body {
 			background-color: #000;
 		}
+		section {
+			margin-top: 150px;
+		}
 		/* Others */
 		.center-items {
 			display: flex;
@@ -75,7 +78,10 @@
 		}
 		@media (max-width: 991.98px) {
 			.cascading-left {
-				margin-right: 0;
+				margin-left: 0px;
+			}
+			section {
+				margin-top: 0px;
 			}
 		}
 	</style>

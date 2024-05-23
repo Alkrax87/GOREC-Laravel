@@ -24,10 +24,8 @@ class RegisterController extends Controller
             'apellidoUsuario' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'tipoUsuario' => 'nullable|string|max:255',
             'profesionUsuario' => 'nullable|string|max:255',
             'especialidadUsuario' => 'nullable|string|max:255',
-            //'admin' => 'required|boolean',
         ]);
 
         User::create([
@@ -35,10 +33,8 @@ class RegisterController extends Controller
             'apellidoUsuario' => $request->apellidoUsuario,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'tipoUsuario' => $request->tipoUsuario,
             'profesionUsuario' => $request->profesionUsuario,
             'especialidadUsuario' => $request->especialidadUsuario,
-            //'admin' => $request->admin,
         ]);
 
         // Después de registrar al usuario, redirige al usuario a la página de inicio de sesión

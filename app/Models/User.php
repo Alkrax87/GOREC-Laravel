@@ -23,10 +23,9 @@ class User extends Authenticatable
         'apellidoUsuario',
         'email',
         'password',
-        'tipoUsuario',
         'profesionUsuario',
         'especialidadUsuario',
-        'admin',
+        'isAdmin',
     ];
 
     /**
