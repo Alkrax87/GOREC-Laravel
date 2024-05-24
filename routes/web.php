@@ -31,5 +31,29 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::get('/usuarios', function () {
+    return view('usuarios');
+});
+Route::get('/roles', function () {
+    return view('roles');
+});
+Route::get('/inversion', function () {
+    return view('inversion');
+});
+Route::get('/segmento', function () {
+    return view('segmento');
+});
+Route::get('/asignaciones', function () {
+    return view('asignaciones');
+});
+Route::get('/complementarios', function () {
+    return view('complementarios');
+});
+Route::get('/especialidad', function () {
+    return view('especialidad');
+});
+Route::get('/reportes', function () {
+    return view('reportes');
+});
 
 

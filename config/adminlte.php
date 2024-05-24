@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'GOREC',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => false,
 
     /*
@@ -63,12 +63,13 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>GORE</b>Cusco',
+    'logo_img' => 'images/logo.png',
+    'logo_img_class' => 'brand-image',
+    //'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'GOREC-Logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -111,13 +112,14 @@ return [
 
     'preloader' => [
         'enabled' => true,
-        'mode' => 'fullscreen',
+        //'mode' => 'cwrapper',
+        'mode' => 'cwrapper',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'path' => 'images/logo.png',
+            'alt' => 'GOREC-logo',
+            'effect' => null,
+            'width' => 100,
+            'height' => 100,
         ],
     ],
 
@@ -134,10 +136,10 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-success',
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
     'usermenu_profile_url' => false,
 
     /*
@@ -154,7 +156,7 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
+    'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => null,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
@@ -217,10 +219,10 @@ return [
     'sidebar_mini' => 'lg',
     'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => false,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
-    'sidebar_scrollbar_auto_hide' => 'l',
+    'sidebar_scrollbar_auto_hide' => 'n',
     'sidebar_nav_accordion' => true,
     'sidebar_nav_animation_speed' => 300,
 
@@ -294,8 +296,61 @@ return [
     */
 
     'menu' => [
-        // Navbar items:
+        // GOREC Options
+        ['header' => 'ADMINISTRADOR'],
         [
+            'text' => 'Usuarios',
+            'url' => 'usuarios',
+            'icon' => 'fas fa-users',
+            'icon_color' => 'red',
+        ],
+        [
+            'text' => 'Roles',
+            'url' => 'roles',
+            'icon' => 'fas fa-user-shield',
+            'icon_color' => 'red'
+        ],
+        ['header' => 'PROYECTOS'],
+        [
+            'text' => 'Inversión',
+            'url' => 'inversion',
+            'icon' => 'fas fa-clipboard-list',
+            'icon_color' => 'red'
+        ],
+        [
+            'text' => 'Segmento',
+            'url' => 'segmento',
+            'icon' => 'fas fa-stream',
+            'icon_color' => 'red'
+        ],
+        [
+            'text' => 'Asignaciones',
+            'url' => 'asignaciones',
+            'icon' => 'fas fa-user-tag',
+            'icon_color' => 'red'
+        ],
+        [
+            'text' => 'Estudios Complementarios',
+            'url' => 'complementarios',
+            'icon' => 'fas fa-briefcase',
+            'icon_color' => 'red'
+        ],
+        [
+            'text' => 'Especialidad',
+            'url' => 'especialidad',
+            'icon' => 'fas fa-users-cog',
+            'icon_color' => 'red'
+        ],
+        ['header' => 'REPORTES'],
+        [
+            'text' => 'Reportes',
+            'url' => 'reportes',
+            'icon' => 'fas fa-chart-bar',
+            'icon_color' => 'red'
+        ],
+
+        // Navbar items:
+        /*[
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
@@ -303,10 +358,10 @@ return [
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
-        ],
+        ],*/
 
         // Sidebar items:
-        [
+        /*[
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
@@ -386,7 +441,7 @@ return [
             'text' => 'information',
             'icon_color' => 'cyan',
             'url' => '#',
-        ],
+        ],*/
     ],
 
     /*
