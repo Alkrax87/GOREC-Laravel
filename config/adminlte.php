@@ -302,51 +302,51 @@ return [
             'text' => 'Usuarios',
             'url' => 'usuarios',
             'icon' => 'fas fa-users',
-            'icon_color' => 'red',
+            'icon_color' => 'white',
         ],
         [
             'text' => 'Roles',
             'url' => 'roles',
             'icon' => 'fas fa-user-shield',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
         ['header' => 'PROYECTOS'],
         [
             'text' => 'Inversión',
             'url' => 'inversion',
             'icon' => 'fas fa-clipboard-list',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
         [
             'text' => 'Segmento',
             'url' => 'segmento',
             'icon' => 'fas fa-stream',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
         [
             'text' => 'Asignaciones',
             'url' => 'asignaciones',
             'icon' => 'fas fa-user-tag',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
         [
             'text' => 'Estudios Complementarios',
             'url' => 'complementarios',
             'icon' => 'fas fa-briefcase',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
         [
             'text' => 'Especialidad',
             'url' => 'especialidad',
             'icon' => 'fas fa-users-cog',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
         ['header' => 'REPORTES'],
         [
             'text' => 'Reportes',
             'url' => 'reportes',
             'icon' => 'fas fa-chart-bar',
-            'icon_color' => 'red'
+            'icon_color' => 'white'
         ],
 
         // Navbar items:

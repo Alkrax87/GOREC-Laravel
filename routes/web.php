@@ -55,5 +55,3 @@ Route::get('/especialidad', function () {
 Route::get('/reportes', function () {
     return view('reportes');
 });
-
-
