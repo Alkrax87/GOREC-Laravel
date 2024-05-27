@@ -46,9 +46,34 @@
                                     <option value="">Seleccione un distrito</option>
                                     <!-- Los distritos se llenarán dinámicamente mediante JavaScript -->
                                 </select>
-                                
                                 <strong>Función Inversión:</strong>
                                 <input type="text" name="funcionInversion" class="form-control" placeholder="Función de la inversión">
+                                
+                                <strong>PRESUPUESTO FORMULACION:</strong>
+                                <input type="text" name="presupuestoFormulacionInversion" class="form-control" placeholder="Presupuesto Formulacion">
+                                <strong>PRESUPUESTO EJECUCION:</strong>
+                                <input type="text" name="presupuestoEjecucionfuncionInversion" class="form-control" placeholder="Presupuesto Ejecucion">
+                                <strong>MODALIDAD DE EJECUCION:</strong>
+                                <select id="provincia" name="modalidadEjecucionInversion" class="form-control">
+                                    <option value="">Seleccione una modalidad</option>
+                                    <option value="DIRECTA">DIRECTA</option>
+                                    <option value="CONTRATA">CONTRATA</option>
+                                    <!-- Agrega más provincias según sea necesario -->
+                                </select>
+                                <strong>ESTADO DE INVERSION:</strong>
+                                <select id="distrito" name="estadoInversion" class="form-control">
+                                    <option value="">Seleccione un distrito</option>
+                                    <option value="POR ELABORAR"> POR ELABORAR</option>
+                                    <option value="PARALIZADO">PARALIZADO</option>
+                                    <option value="EN ELAVORACION">EN ELAVORACION</option>
+                                    <option value="EN GRSLI">EN GRSLI</option>
+                                    <option value="EN LEVANTAMIENTO DE OBSERVACIONES">EN LEVANTAMIENTO DE OBSERVACIONES</option>
+                                    <option value="CON CONFORMIDAD DE GRSLI">CON CONFORMIDAD DE GRSLI</option>
+                                    <option value="EN LEVANTAMIENTO DE OBSERVACIONES">CON REGISTRO DE FASE DE EJECUCION</option>
+                                    <option value="CON CONFORMIDAD DE GRSLI">CON RESOLUCION EJECUTIVA </option>
+                                    <!-- Los distritos se llenarán dinámicamente mediante JavaScript -->
+                                </select>     
+
                                 <strong>Fecha Inicio:</strong>
                                 <input type="date" name="fechaInicioInversion" class="form-control" placeholder="Fecha de inicio">
                                 <strong>Fecha Final:</strong>

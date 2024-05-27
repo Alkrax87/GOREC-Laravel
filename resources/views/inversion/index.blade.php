@@ -3,16 +3,14 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>INVERSIONES</h1>
 @stop
 
 @section('content')
 <div class="container">
     <div class="row">
             <div class="col-lg-12 margin-tb">
-                <div class="float-start">
-                    <h2>Inversiones</h2>
-                </div>
+                
                 <div class="float-end py-3">
                     <a class="btn btn-success" href="#" data-toggle="modal" data-target="#ModalCreate"> Crear nueva inversión</a>
                 </div>
@@ -27,17 +25,23 @@
 
     <table class="table" id="prueba">
         <tr class="table-danger">
-            <th>ID</th>
+            <th>#</th>
             <th>CUI</th>
-            <th>Nombre Inversion</th>
-            <th>Nombre Corto Inversion</th>
-            <th>Nivel Inversion</th>
-            <th>Provincia </th>
-            <th>Distrito </th>
-            <th>Funcion Inversion</th>
-            <th>Fecha Inicio </th>
-            <th>Fecha Final </th>
-            <th>Acciones </th>
+            <th>NOMBRE INVERSION</th>
+            <th>NOMBRE CORTO INVERSION</th>
+            <th>NIVEL INVERSION</th>
+            <th>PROVINCIA</th>
+            <th>DISTRITO </th>
+            <th>FUNCION DE INVERSION</th>
+
+            <th>PRESUPUESTO FORMULACION</th>
+            <th>PRESUPUESTO EJECUCION </th>
+            <th>MODALIDAD DE EJECUCION </th>
+            <th>ESTADO DE INVERSION</th>
+            
+            <th>FECHA INCIO</th>
+            <th>FECHA FINAL</th>
+            <th>ACCIONES </th>
         </tr>
         @foreach ($inversiones as $inversion)
         <tr >
@@ -49,6 +53,12 @@
             <td>{{ $inversion->provinciaInversion}}</td>
             <td>{{ $inversion->distritoInversion}}</td>
             <td>{{ $inversion->funcionInversion}}</td>
+            
+            <td>{{ $inversion->presupuestoFormulacionInversion}}</td>
+            <td>{{ $inversion->presupuestoEjecucionfuncionInversion}}</td>
+            <td>{{ $inversion->modalidadEjecucionInversion}}</td>
+            <td>{{ $inversion->estadoInversion}}</td>
+
             <td>{{ $inversion->fechaInicioInversion}}</td>
             <td>{{ $inversion->fechaFinalInversion}}</td>
             <td>

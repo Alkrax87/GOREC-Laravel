@@ -38,6 +38,18 @@
                                 <input type="text" name="distritoInversion" value="{{ $inversion->distritoInversion }}" class="form-control" placeholder="Distrito de la inversión">
                                 <strong>Función Inversion:</strong>
                                 <input type="text" name="funcionInversion" value="{{ $inversion->funcionInversion}}" class="form-control" placeholder="Función de la inversión">
+                                
+                                <strong>PRESUPUESTO FORMULACION:</strong>
+                                <input type="text" name="presupuestoFormulacionInversion" value="{{ $inversion->presupuestoFormulacionInversion}}" class="form-control" placeholder="Función de la inversión">
+                                <strong>PRESUPUESTO EJECUCION:</strong>
+                                <input type="text" name="presupuestoEjecucionfuncionInversion" value="{{ $inversion->presupuestoEjecucionfuncionInversion}}" class="form-control" placeholder="Función de la inversión">
+                                <strong>MODALIDAD DE EJECUCION:</strong>
+                                <input type="text" name="modalidadEjecucionInversion" value="{{ $inversion->modalidadEjecucionInversion}}" class="form-control" placeholder="Función de la inversión">
+                                <strong>ESTADO DE INVERSION:</strong>
+                                <input type="text" name="estadoInversion" value="{{ $inversion->estadoInversion}}" class="form-control" placeholder="Función de la inversión">
+                                
+                                
+            
                                 <strong>Fecha Inicio:</strong>
                                 <input type="date" name="fechaInicioInversion" value="{{ $inversion->fechaInicioInversion }}" class="form-control" placeholder="Fecha de la inversión">
                                 <strong>Fecha Final:</strong>

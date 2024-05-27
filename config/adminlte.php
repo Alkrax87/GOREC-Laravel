@@ -299,8 +299,8 @@ return [
         // GOREC Options
         ['header' => 'ADMINISTRADOR'],
         [
-            'text' => 'Usuarios',
-            'url' => 'usuarios',
+            'text' => 'Usuario',
+            'url' => 'usuario',
             'icon' => 'fas fa-users',
             'icon_color' => 'white',
         ],

@@ -20,6 +20,12 @@ return new class extends Migration
             $table->string('provinciaInversion');
             $table->string('distritoInversion');
             $table->string('funcionInversion');
+
+            $table->string('presupuestoFormulacionInversion');
+            $table->string('presupuestoEjecucionfuncionInversion');
+            $table->string('modalidadEjecucionInversion');
+            $table->string('estadoInversion');
+
             $table->date('fechaInicioInversion');
             $table->date('fechaFinalInversion');
             $table->timestamps(false);

@@ -17,6 +17,12 @@ class Inversion extends Model
         'provinciaInversion',
         'distritoInversion',
         'funcionInversion',
+
+        'presupuestoFormulacionInversion',
+        'presupuestoEjecucionfuncionInversion',
+        'modalidadEjecucionInversion',
+        'estadoInversion',
+
         'fechaInicioInversion',
         'fechaFinalInversion',
     ];

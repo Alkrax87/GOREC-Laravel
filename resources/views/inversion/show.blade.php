@@ -55,6 +55,36 @@
                             
                             </div>
                         </div>
+                       
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>PRESUPUESTO FORMULACION:</strong>
+                                {{ $inversion->presupuestoFormulacionInversion}}
+                            
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>PRESUPUESTO EJECUCION:</strong>
+                                {{ $inversion->presupuestoEjecucionfuncionInversion}}
+                            
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>MODALIDAD DE EJECUCION:</strong>
+                                {{ $inversion->modalidadEjecucionInversion}}
+                            
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>ESTADO DE INVERSION:</strong>
+                                {{ $inversion->estadoInversion}}
+                            
+                            </div>
+                        </div>
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Fecha Inicio:</strong>
