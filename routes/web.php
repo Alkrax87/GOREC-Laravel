@@ -1,11 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\InversionController;
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('inversion', InversionController::class);
 // Ruta para mostrar el formulario de login
 Route::get('/login', 'App\Http\Controllers\LoginController@showLoginForm')->name('login');
 // Ruta para procesar el inicio de sesión
@@ -37,9 +38,9 @@ Route::get('/usuarios', function () {
 Route::get('/roles', function () {
     return view('roles');
 });
-Route::get('/inversion', function () {
-    return view('inversion');
-});
+//Route::get('/inversion', function () {
+// return view('inversion');
+//});
 Route::get('/segmento', function () {
     return view('segmento');
 });
