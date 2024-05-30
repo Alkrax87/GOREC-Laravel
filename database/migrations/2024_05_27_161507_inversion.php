@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('inversion', function (Blueprint $table) {
@@ -20,24 +17,19 @@ return new class extends Migration
             $table->string('provinciaInversion');
             $table->string('distritoInversion');
             $table->string('funcionInversion');
-
-            $table->string('presupuestoFormulacionInversion');
-            $table->string('presupuestoEjecucionfuncionInversion');
+            $table->decimal('presupuestoFormulacionInversion', 15, 2);
+            $table->decimal('presupuestoEjecucionfuncionInversion', 15, 2);
             $table->string('modalidadEjecucionInversion');
             $table->string('estadoInversion');
-
+            $table->string('avanceTotalInversion')->nullable();
             $table->date('fechaInicioInversion');
             $table->date('fechaFinalInversion');
             $table->timestamps(false);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        //
         Schema::dropIfExists('inversion');
     }
 };
