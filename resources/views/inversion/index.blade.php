@@ -9,12 +9,22 @@
 @section('content')
 <div class="container">
     <div class="row">
-            <div class="col-lg-12 margin-tb">
-                
-                <div class="float-end py-3">
-                    <a class="btn btn-success" href="#" data-toggle="modal" data-target="#ModalCreate"> Crear nueva inversión</a>
-                </div>
+        <div class="col-lg-12 margin-tb">
+            <div class="float-end py-3">
+                <a class="btn btn-success" href="#" data-toggle="modal" data-target="#ModalCreate"> Crear nueva inversión</a>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <form action="{{ route('inversion.index') }}" method="GET" role="search">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Buscar Inversiones" value="{{ request()->input('search') }}">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </span>
+                </div>
+            </form>
         </div>
         <br>
     @if ($message = Session::get('success'))

@@ -9,9 +9,21 @@ class InversionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $inversiones = Inversion::paginate(10); // CambInversion::
+        $search = $request->input('search');
+
+        $query = Inversion::query();
+
+        if ($search) {
+            $query->where('nombreInversion', 'LIKE', "%{$search}%")
+                  ->orWhere('nombreCortoInversion', 'LIKE', "%{$search}%")
+                  ->orWhere('provinciaInversion', 'LIKE', "%{$search}%")
+                  ->orWhere('distritoInversion', 'LIKE', "%{$search}%");
+        }
+
+        $inversiones = $query->paginate(10);
+
         return view('inversion.index', compact('inversiones'));
     }
 
