@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InversionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SegmentoController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('inversion', InversionController::class);
     Route::resource('usuario', UserController::class);
+    Route::resource('segmento', SegmentoController::class);
 
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {

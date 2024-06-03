@@ -1,0 +1,181 @@
+{
+  "Cusco": {
+      "provincias": [
+          {
+              "nombre": "Acomayo",
+              "distritos": [
+                  "Acomayo",
+                  "Acopia",
+                  "Acos",
+                  "Mosoc Llacta",
+                  "Pomacanchi",
+                  "Rondocan",
+                  "Sangarará"
+              ]
+          },
+          {
+              "nombre": "Anta",
+              "distritos": [
+                  "Anta",
+                  "Ancahuasi",
+                  "Cachimayo",
+                  "Chinchaypujio",
+                  "Huarocondo",
+                  "Limatambo",
+                  "Mollepata",
+                  "Pucyura",
+                  "Zurite"
+              ]
+          },
+          {
+              "nombre": "Calca",
+              "distritos": [
+                  "Calca",
+                  "Coya",
+                  "Lamay",
+                  "Lares",
+                  "Pisac",
+                  "San Salvador",
+                  "Taray",
+                  "Yanatile"
+              ]
+          },
+          {
+              "nombre": "Canas",
+              "distritos": [
+                  "Yanaoca",
+                  "Checca",
+                  "Kunturkanki",
+                  "Langui",
+                  "Layo",
+                  "Pampamarca",
+                  "Quehue",
+                  "Túpac Amaru"
+              ]
+          },
+          {
+              "nombre": "Canchis",
+              "distritos": [
+                  "Sicuani",
+                  "Checacupe",
+                  "Combapata",
+                  "Marangani",
+                  "Pitumarca",
+                  "San Pablo",
+                  "San Pedro",
+                  "Tinta"
+              ]
+          },
+          {
+              "nombre": "Chumbivilcas",
+              "distritos": [
+                  "Santo Tomás",
+                  "Capacmarca",
+                  "Chamaca",
+                  "Colquemarca",
+                  "Livitaca",
+                  "Llusco",
+                  "Quiñota",
+                  "Velille"
+              ]
+          },
+          {
+              "nombre": "Cusco",
+              "distritos": [
+                  "Cusco",
+                  "Ccorca",
+                  "Poroy",
+                  "San Jerónimo",
+                  "San Sebastián",
+                  "Santiago",
+                  "Saylla",
+                  "Wanchaq"
+              ]
+          },
+          {
+              "nombre": "Espinar",
+              "distritos": [
+                  "Yauri",
+                  "Condoroma",
+                  "Coporaque",
+                  "Ocoruro",
+                  "Pallpata",
+                  "Pichigua",
+                  "Suykutambo",
+                  "Alto Pichigua"
+              ]
+          },
+          {
+              "nombre": "La Convención",
+              "distritos": [
+                  "Santa Ana",
+                  "Echarate",
+                  "Huayopata",
+                  "Inkawasi",
+                  "Kimbiri",
+                  "Maranura",
+                  "Ocobamba",
+                  "Pichari",
+                  "Quellouno",
+                  "Santa Teresa",
+                  "Vilcabamba",
+                  "Villa Virgen"
+              ]
+          },
+          {
+              "nombre": "Paruro",
+              "distritos": [
+                  "Paruro",
+                  "Accha",
+                  "Ccapi",
+                  "Colcha",
+                  "Huanoquite",
+                  "Omacha",
+                  "Paccaritambo",
+                  "Pillpinto",
+                  "Yaurisque"
+              ]
+          },
+          {
+              "nombre": "Paucartambo",
+              "distritos": [
+                  "Paucartambo",
+                  "Caicay",
+                  "Challabamba",
+                  "Colquepata",
+                  "Huancarani",
+                  "Kosñipata"
+              ]
+          },
+          {
+              "nombre": "Quispicanchi",
+              "distritos": [
+                  "Urcos",
+                  "Andahuaylillas",
+                  "Camanti",
+                  "Ccarhuayo",
+                  "Ccatca",
+                  "Cusipata",
+                  "Huaro",
+                  "Lucre",
+                  "Marcapata",
+                  "Ocongate",
+                  "Oropesa",
+                  "Quiquijana"
+              ]
+          },
+          {
+              "nombre": "Urubamba",
+              "distritos": [
+                  "Urubamba",
+                  "Chinchero",
+                  "Huayllabamba",
+                  "Machupicchu",
+                  "Maras",
+                  "Ollantaytambo",
+                  "Yucay"
+              ]
+          }
+      ]
+  }
+}

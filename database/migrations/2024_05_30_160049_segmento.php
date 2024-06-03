@@ -14,9 +14,9 @@ return new class extends Migration
             $table->date('fechaInicioSegmento');
             $table->date('fechaFinalSegmento');
             $table->unsignedBigInteger('idInversion');
-            $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('restrict');
+            $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');;
             $table->unsignedBigInteger('idUsuario');
-            $table->foreign('idUsuario')->references('idUsuario')->on('users')->onDelete('restrict');
+            $table->foreign('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');;
             $table->timestamps(false);
         });
     }

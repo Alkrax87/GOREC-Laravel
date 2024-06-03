@@ -10,13 +10,10 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // Define la clave primaria
     protected $primaryKey = 'idUsuario';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // Define los atributos asignables en masa
     protected $fillable = [
         'nombreUsuario',
         'apellidoUsuario',
@@ -49,5 +46,11 @@ class User extends Authenticatable
     public function adminlte_profile_url()
     {
         return 'profile/username';
+    }
+
+    // Define la relación inversa con el modelo Segmento
+    public function segmentos()
+    {
+        return $this->hasMany(Segmento::class, 'idUsuario', 'idUsuario');
     }
 }
