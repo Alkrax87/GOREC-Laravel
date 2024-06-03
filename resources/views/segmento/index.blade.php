@@ -45,29 +45,31 @@
                   <td>{{ $segmento->fechaInicioSegmento}}</td>
                   <td>{{ $segmento->fechaFinalSegmento}}</td>
                   <td>{{ $segmento->inversion->nombreInversion }}</td>
-                  <td>{{ $segmento->usuario->nombreUsuario }}</td>
+                  <td>{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
                   <td>
                     <a class="btn btn-info" href="#" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}">
-                      <i class="fas fa-eye"></i>&nbsp;&nbsp; Mostrar
+                      <i class="fas fa-eye"></i>
                     </a>
                     <a class="btn btn-warning" href="#" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}">
-                      <i class="fas fa-edit"></i>&nbsp;&nbsp; Editar
+                      <i class="fas fa-edit"></i>
                     </a>
                     <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}">
-                      <i class="fas fa-trash-alt"></i>&nbsp;&nbsp; Eliminar
+                      <i class="fas fa-trash-alt"></i>
                     </a>
                   </td>
                 </tr>
               @endforeach
             </tbody>
           </table>
+          @include('segmento.create')
         </div>
       </div>
     </div>
   </div>
   @foreach ($segmentos as $segmento)
     @include('segmento.delete', ['segmento' => $segmento])
-    @include('segmento.edit', ['segmento' => $segmento])
+
+    @include('segmento.edit', ['segmento' => $segmento, 'inversiones' => $inversiones, 'usuarios' => $usuarios])
     @include('segmento.show', ['segmento' => $segmento])
   @endforeach
 @stop

@@ -24,7 +24,7 @@
               <b>Inversión:</b>&nbsp; {{ $segmento->inversion->nombreInversion }}
             </div>
             <div class="col-12 py-2">
-              <b>Usuario:</b>&nbsp; {{ $segmento->usuario->nombreUsuario }}
+              <b>Usuario:</b>&nbsp; {{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}
             </div>
             <div class="col-12 py-2 text-center">
               <hr>

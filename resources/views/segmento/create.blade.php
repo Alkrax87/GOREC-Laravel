@@ -37,19 +37,23 @@
               <div class="form-outline mb-4">
                 <label class="form-label" for="idInversion">Inversión</label>
                 <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled selected>Selecciona una inversion</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="" disabled selected>Selecciona una inversión</option>
+                  @foreach ($inversiones as $inversion)
+                    <option value="{{ $inversion->idInversion }}">
+                      {{ $inversion->nombreInversion }}
+                    </option>
+                  @endforeach
                 </select>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idUsuario">Usuario</label>
                 <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled selected>Selecciona un Usuario</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option value="" disabled selected>Selecciona un usuario</option>
+                  @foreach ($usuarios as $usuario)
+                    <option value="{{ $usuario->idUsuario }}">
+                      {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                    </option>
+                  @endforeach
                 </select>
               </div>
             </div>

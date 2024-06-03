@@ -52,7 +52,7 @@
                   <option value="" disabled>Selecciona un usuario</option>
                   @foreach ($usuarios as $usuario)
                     <option value="{{ $usuario->idUsuario }}" {{ $segmento->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>
-                      {{ $usuario->name }}
+                      {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
                     </option>
                   @endforeach
                 </select>
