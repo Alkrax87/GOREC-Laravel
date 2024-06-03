@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     // Ruta para cerrar sesión
     Route::post('/logout', 'App\Http\Controllers\HomeController@logout')->name('logout');
 });
-
+//Test
 /*
 Route::get('/usuarios', function () {
     return view('usuarios');
