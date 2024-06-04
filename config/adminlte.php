@@ -319,7 +319,7 @@ return [
         ],
         [
             'text' => 'Segmento',
-            'url' => 'segmento',
+            'url' => 'avanzeProyecto',
             'icon' => 'fas fa-stream',
             'icon_color' => 'white'
         ],

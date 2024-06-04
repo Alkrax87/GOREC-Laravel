@@ -1,3 +1,4 @@
+<!-- Formulario del modal para crear nueva inversión -->
 <form action="{{ route('inversion.store') }}" method="POST" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="modal fade text-left" id="ModalCreate" tabindex="-1" role="dialog" aria-hidden="true">
@@ -54,24 +55,24 @@
                                 <strong>PRESUPUESTO EJECUCION:</strong>
                                 <input type="text" name="presupuestoEjecucionfuncionInversion" class="form-control" placeholder="Presupuesto Ejecucion">
                                 <strong>MODALIDAD DE EJECUCION:</strong>
-                                <select id="provincia" name="modalidadEjecucionInversion" class="form-control">
+                                <select id="modalidad" name="modalidadEjecucionInversion" class="form-control">
                                     <option value="">Seleccione una modalidad</option>
                                     <option value="DIRECTA">DIRECTA</option>
                                     <option value="CONTRATA">CONTRATA</option>
-                                    <!-- Agrega más provincias según sea necesario -->
+                                    <!-- Agrega más modalidades según sea necesario -->
                                 </select>
                                 <strong>ESTADO DE INVERSION:</strong>
-                                <select id="distrito" name="estadoInversion" class="form-control">
-                                    <option value="">Seleccione un distrito</option>
-                                    <option value="POR ELABORAR"> POR ELABORAR</option>
+                                <select id="estado" name="estadoInversion" class="form-control">
+                                    <option value="">Seleccione un estado</option>
+                                    <option value="POR ELABORAR">POR ELABORAR</option>
                                     <option value="PARALIZADO">PARALIZADO</option>
                                     <option value="EN ELAVORACION">EN ELAVORACION</option>
                                     <option value="EN GRSLI">EN GRSLI</option>
                                     <option value="EN LEVANTAMIENTO DE OBSERVACIONES">EN LEVANTAMIENTO DE OBSERVACIONES</option>
                                     <option value="CON CONFORMIDAD DE GRSLI">CON CONFORMIDAD DE GRSLI</option>
-                                    <option value="EN LEVANTAMIENTO DE OBSERVACIONES">CON REGISTRO DE FASE DE EJECUCION</option>
-                                    <option value="CON CONFORMIDAD DE GRSLI">CON RESOLUCION EJECUTIVA </option>
-                                    <!-- Los distritos se llenarán dinámicamente mediante JavaScript -->
+                                    <option value="CON REGISTRO DE FASE DE EJECUCION">CON REGISTRO DE FASE DE EJECUCION</option>
+                                    <option value="CON RESOLUCION EJECUTIVA">CON RESOLUCION EJECUTIVA</option>
+                                    <!-- Agrega más estados según sea necesario -->
                                 </select>     
 
                                 <strong>Fecha Inicio:</strong>
@@ -81,7 +82,7 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <a class="btn btn-primary" data-dismiss="modal" href="{{ route('inversion.index') }}"> Volver</a>
+                            <a class="btn btn-primary" data-dismiss="modal" href="{{ route('inversion.index') }}">Volver</a>
                             <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                         </div>
                     </div>
@@ -116,5 +117,23 @@
         });
     </script>
 </form>
+
+<!-- Añadir estilo personalizado -->
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+    <style>
+        /* Estilo personalizado para asegurarse de que la flecha aparezca en el select */
+        select.form-control {
+            -webkit-appearance: menulist;
+            -moz-appearance: menulist;
+            appearance: menulist;
+        }
+    </style>
+@stop
+
+
+
 
 

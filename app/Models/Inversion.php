@@ -28,4 +28,27 @@ class Inversion extends Model
     ];
     
     protected $primaryKey = 'idInversion';
+    
+    public function especialidades()
+    {
+        return $this->hasMany(Especialidad::class, 'idInversion');
+    }
+}
+
+
+
+class Fase extends Model
+{
+    protected $fillable = ['nombreFase', 'porcentajeFase', 'idEspecialidad'];
+
+    public function subfases()
+    {
+        return $this->hasMany(Subfase::class, 'idFase');
+    }
+}
+
+class Subfase extends Model
+{
+    protected $fillable = ['nombreSubfase', 'fechaInicioSubfase', 'fechaFinalSubfase', 'idFase'];
+
 }
