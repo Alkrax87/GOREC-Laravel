@@ -3,41 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Models\Inversion;
 class InversionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request)
-    {
-        $search = $request->input('search');
-
-        $query = Inversion::query();
-
-        if ($search) {
-            $query->where('nombreInversion', 'LIKE', "%{$search}%")
-                  ->orWhere('nombreCortoInversion', 'LIKE', "%{$search}%")
-                  ->orWhere('provinciaInversion', 'LIKE', "%{$search}%")
-                  ->orWhere('distritoInversion', 'LIKE', "%{$search}%");
-        }
-
-        $inversiones = $query->paginate(10);
-
-        return view('inversion.index', compact('inversiones'));
+    public function index(Request $request){
+        $inversiones = Inversion::all();
+        $json = File::get(public_path('json/cusco.json'));
+        $data = json_decode($json, true);
+        $provincias = $data['provincias'];
+        return view('inversion.index', compact('inversiones', 'provincias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+    public function create(){
         return view('inversion.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -54,8 +35,14 @@ class InversionController extends Controller
      */
     public function edit($id)
     {
-        $inversion = Inversion::findOrFail($id);
-        return view('inversion.edit',compact('inversion'));
+        $inversiones = Inversion::all();
+        $json = File::get(public_path('json/cusco.json'));
+        $data = json_decode($json, true);
+        $provincias = $data['provincias'];
+        return view('inversion.edit', compact('inversiones', 'provincias'));
+
+        //$inversion = Inversion::findOrFail($id);
+        //return view('inversion.edit',compact('inversion'));
     }
 
     /**

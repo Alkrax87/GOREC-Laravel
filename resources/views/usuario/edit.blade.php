@@ -2,7 +2,7 @@
   {{ method_field('patch') }}
   {{ csrf_field() }}
   <div class="modal fade" id="ModalEdit{{$usuario->idUsuario}}">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title">Editar Usuario</h4>

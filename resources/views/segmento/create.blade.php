@@ -26,13 +26,15 @@
                 <label class="form-label">Nombre Segmento</label>
                 <input type="text" name="nombreSegmento" class="input-auth" placeholder="Nombre Segmento" required/>
               </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Fecha Inicio</label>
-                <input type="date" name="fechaInicioSegmento" class="input-auth" placeholder="Nombre Segmento" required/>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Fecha Final</label>
-                <input type="date" name="fechaFinalSegmento" class="input-auth" placeholder="Nombre Segmento" required/>
+              <div class="row">
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Inicio</label>
+                  <input type="date" name="fechaInicioSegmento" class="input-auth"required/>
+                </div>
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Final</label>
+                  <input type="date" name="fechaFinalSegmento" class="input-auth" required/>
+                </div>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idInversion">Inversión</label>
