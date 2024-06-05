@@ -9,13 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('asignacion_asistente', function (Blueprint $table) {
-            $table->id('idAsignacionAsistente')->primary();
-            $table->unsignedBigInteger('idAsignaciones');
-            $table->foreign('idAsignaciones')->references('idAsignaciones')->on('asignaciones')->onDelete('restrict');
+            $table->unsignedBigInteger('idInversion');
+            $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('idAsistente');
-            $table->foreign('idAsistente')->references('idUsuario')->on('users')->onDelete('restrict');
+            $table->foreign('idAsistente')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('idJefe');
-            $table->foreign('idJefe')->references('idUsuario')->on('users')->onDelete('restrict');
+            $table->foreign('idJefe')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps(false);
         });
     }
