@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Segmento')
 
 @section('content_header')
-  <h1>SEGMENTOS</h1>
+  <h1>Segmentos</h1>
 @stop
 
 @section('content')
@@ -26,36 +26,30 @@
         <!-- Tabla -->
         <div class="table-responsive">
           <table id="segmentosTable" class="table table-bordered table-striped">
-            <thead class="text-center table-header">
+            <thead class="table-header">
               <tr>
-                <th class="text-left">ID</th>
+                <th class="text-left">#</th>
                 <th class="text-left">Nombre</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Final</th>
+                <th class="text-center">Fecha Inicio</th>
+                <th class="text-center">Fecha Final</th>
                 <th>Inversión</th>
-                <th>Usuario</th>
-                <th>Opciones</th>
+                <th class="text-center">Usuario</th>
+                <th class="text-center">Opciones</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($segmentos as $segmento)
-                <tr class="text-center">
-                  <td class="text-left">{{ $segmento->idSegmento}}</td>
-                  <td class="text-left">{{ $segmento->nombreSegmento}}</td>
-                  <td>{{ $segmento->fechaInicioSegmento}}</td>
-                  <td>{{ $segmento->fechaFinalSegmento}}</td>
+                <tr>
+                  <td class="text-left">{{ $loop->index + 1 }}</td>
+                  <td class="text-left">{{ $segmento->nombreSegmento }}</td>
+                  <td class="text-center">{{ $segmento->fechaInicioSegmento }}</td>
+                  <td class="text-center">{{ $segmento->fechaFinalSegmento }}</td>
                   <td>{{ $segmento->inversion->nombreInversion }}</td>
-                  <td>{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
-                  <td>
-                    <a class="btn btn-info" href="#" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}">
-                      <i class="fas fa-eye"></i>
-                    </a>
-                    <a class="btn btn-warning" href="#" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}">
-                      <i class="fas fa-edit"></i>
-                    </a>
-                    <a class="btn btn-danger" href="#" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}">
-                      <i class="fas fa-trash-alt"></i>
-                    </a>
+                  <td class="text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
+                  <td class="text-center style="white-space: nowrap"">
+                    <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
+                    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
                   </td>
                 </tr>
               @endforeach
@@ -68,8 +62,7 @@
   </div>
   @foreach ($segmentos as $segmento)
     @include('segmento.delete', ['segmento' => $segmento])
-
-    @include('segmento.edit', ['segmento' => $segmento, 'inversiones' => $inversiones, 'usuarios' => $usuarios])
+    @include('segmento.edit', ['segmento' => $segmento])
     @include('segmento.show', ['segmento' => $segmento])
   @endforeach
 @stop

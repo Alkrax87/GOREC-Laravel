@@ -1,57 +1,34 @@
-<form action="{{ route('usuario.show', $usuario->idUsuario) }}" method="POST" enctype="multipart/form-data">
-  {{ method_field('patch') }}
+<form action="{{ route('usuario.show', $usuario->idUsuario) }}" method="POST">
   {{ csrf_field() }}
-  <div class="modal fade text-left" id="ModalShow{{$usuario->idUsuario}}" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+  <div class="modal fade" id="ModalShow{{$usuario->idUsuario}}">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">{{ __('Detalle Usuario') }}</h4>
+          <h4 class="modal-title">Detalle Usuario</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <strong>NOMBRE:</strong>
-                {{$usuario->nombreUsuario}}
-              </div>
+            <div class="col-12 py-2">
+              <b>Nombres:</b>&nbsp; {{ $usuario->nombreUsuario }}
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <strong>APELLIDOS:</strong>
-                {{$usuario->apellidoUsuario}}
-              </div>
+            <div class="col-12 py-2">
+              <b>Apellidos:</b>&nbsp; {{ $usuario->apellidoUsuario }}
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <strong>USUARIO:</strong>
-                {{ $usuario->email}}
-              </div>
+            <div class="col-12 py-2">
+              <b>Usuario:</b>&nbsp; {{ $usuario->email }}
             </div>
-            <!--
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <strong>CONTRASEÑA:</strong>
-                {{  $usuario->password}}
-              </div>
+            <div class="col-12 py-2">
+              <b>Profesión:</b>&nbsp; {{ $usuario->profesionUsuario }}
             </div>
-            -->
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <strong>PROFESION:</strong>
-                {{ $usuario->profesionUsuario}}
-              </div>
+            <div class="col-12 py-2">
+              <b>Especialidad:</b>&nbsp; {{ $usuario->especialidadUsuario }}
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-              <div class="form-group">
-                <strong>ESPECIALIDAD:</strong>
-                {{ $usuario->especialidadUsuario}}
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-              <a class="btn btn-primary" data-dismiss="modal" href="{{ route('usuario.index') }}"> Volver</a>
+            <div class="col-12 py-2 text-center">
+              <hr>
+              <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>
           </div>
         </div>

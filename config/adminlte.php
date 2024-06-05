@@ -115,11 +115,11 @@ return [
         //'mode' => 'cwrapper',
         'mode' => 'cwrapper',
         'img' => [
-            'path' => 'images/logo.png',
+            'path' => 'images/logo2.png',
             'alt' => 'GOREC-logo',
             'effect' => null,
-            'width' => 100,
-            'height' => 100,
+            'width' => 250,
+            'height' => 250,
         ],
     ],
 

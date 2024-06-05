@@ -1,4 +1,4 @@
-<form action="{{ route('segmento.store', $segmento->idSegmento) }}" method="POST">
+<form action="{{ route('segmento.store') }}" method="POST">
   {{ csrf_field() }}
   <div class="modal fade" id="ModalCreate">
     <div class="modal-dialog modal-lg">
