@@ -331,7 +331,7 @@ return [
         ],
         [
             'text' => 'Estudios Complementarios',
-            'url' => 'complementarios',
+            'url' => 'complementario',
             'icon' => 'fas fa-briefcase',
             'icon_color' => 'white'
         ],

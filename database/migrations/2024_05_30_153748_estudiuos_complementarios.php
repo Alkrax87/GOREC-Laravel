@@ -11,11 +11,12 @@ return new class extends Migration
         Schema::create('estudios_complementarios', function (Blueprint $table) {
             $table->id('idEstudiosComplementarios')->primary();
             $table->string('nombreEstudiosComplementarios');
+            $table->string('observacionEstudiosComplementarios');
             $table->date('fechaInicioEstudiosComplementarios');
             $table->date('fechaFinalEstudiosComplementarios');
             $table->string('estadoEstudiosComplementarios');
             $table->unsignedBigInteger('idInversion');
-            $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('restrict');
+            $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps(false);
         });
     }

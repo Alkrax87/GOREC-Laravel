@@ -33,11 +33,13 @@ class Inversion extends Model
     {
         return $this->hasMany(Especialidad::class, 'idInversion');
     }
+    public function  complementario()
+    {
+        return $this->hasMany(Complementario::class, 'idInversion');
+    }
 }
 
-
-
-class Fase extends Model
+/*class Fase extends Model
 {
     protected $fillable = ['nombreFase', 'porcentajeFase', 'idEspecialidad'];
 
@@ -51,4 +53,4 @@ class Subfase extends Model
 {
     protected $fillable = ['nombreSubfase', 'fechaInicioSubfase', 'fechaFinalSubfase', 'idFase'];
 
-}
+}*/
