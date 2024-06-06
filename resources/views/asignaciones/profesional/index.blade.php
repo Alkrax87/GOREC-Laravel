@@ -28,23 +28,19 @@
                 <h4 class="py-3">{{ $inversion->nombreInversion }}</h4>
                 <!-- Tabla -->
                 <div class="table-responsive">
-                  <table id="profesionalesTable" class="table table-bordered table-striped w-100">
+                  <table id="profesionalesTable" class="table table-striped w-100">
                     <thead class="table-header">
                       <tr>
-                        <th>#</th>
-                        <th>Inversion</th>
-                        <th>Nombre y Apellidos</th>
-                        <th class="text-center">Opciones</th>
+                        <th class="w-75">Nombre y Apellidos</th>
+                        <th class="text-center w-25">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach ($profesionales as $profesional)
                         <tr>
-                          <td class="text-left">{{ $loop->index + 1 }}</td>
-                          <td>{{ $profesional->inversion->nombreInversion }}</td>
-                          <td>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</td>
+                          <td>{{ $profesional->usuario->apellidoUsuario . ' ' . $profesional->usuario->nombreUsuario }}</td>
                           <td class="text-center" style="white-space: nowrap">
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{ $profesional->idUsuario }}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{ $inversion->idInversion . '-' . $profesional->idUsuario }}"><i class="fas fa-trash-alt"></i></a>
                           </td>
                         </tr>
                       @endforeach

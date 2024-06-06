@@ -1,7 +1,7 @@
 <form action="{{ route('asignaciones.destroy', $profesional->idUsuario) }}" method="POST">
   {{ method_field('delete') }}
   {{ csrf_field() }}
-  <div class="modal fade" id="ModalDelete{{$profesional->idUsuario}}">
+  <div class="modal fade" id="ModalDelete{{ $inversion->idInversion . '-' . $profesional->idUsuario }}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -10,8 +10,10 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <input type="hidden" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
+        <input type="hidden" value="{{ $profesional->idUsuario }}" name="idUsuario" class="input-auth" required/>
         <div class="modal-body">
-          ¿Estas seguro de borrar el segmento <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>?
+          ¿Estas seguro de borrar al profesional <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>?
           <hr>
           <div class="row">
             <div class="col-12 py-2 text-center">

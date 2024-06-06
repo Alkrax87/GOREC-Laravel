@@ -65,7 +65,10 @@
       'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
     ])
     @include('asignaciones.asistente.index', ['inversion' => $inversion])
-    @include('asignaciones.show', ['inversion' => $inversion])
+    @include('asignaciones.show', [
+      'inversion' => $inversion,
+      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
+    ])
   @endforeach
 @stop
 
@@ -82,47 +85,7 @@
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#segmentosTable').DataTable({
-        responsive: true,
-        language: {
-          search: "Buscar:",
-          lengthMenu: "Mostrar _MENU_ registros por página",
-          zeroRecords: "No se encontraron resultados",
-          info: "Mostrando página _PAGE_ de _PAGES_",
-          infoEmpty: "No hay registros disponibles",
-          infoFiltered: "(filtrado de _MAX_ registros totales)",
-          paginate: {
-            first: "Primero",
-            last: "Último",
-            next: "Siguiente",
-            previous: "Anterior"
-          }
-        }
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
       $('#asignacionesTable').DataTable({
-        responsive: true,
-        language: {
-          search: "Buscar:",
-          lengthMenu: "Mostrar _MENU_ registros por página",
-          zeroRecords: "No se encontraron resultados",
-          info: "Mostrando página _PAGE_ de _PAGES_",
-          infoEmpty: "No hay registros disponibles",
-          infoFiltered: "(filtrado de _MAX_ registros totales)",
-          paginate: {
-            first: "Primero",
-            last: "Último",
-            next: "Siguiente",
-            previous: "Anterior"
-          }
-        }
-      });
-    });
-    $(document).ready(function() {
-      $('#profesionalesTable').DataTable({
         responsive: true,
         language: {
           search: "Buscar:",

@@ -23,10 +23,7 @@
           <div class="row">
             <div class="col-12">
               <div class="form-outline mb-4">
-                <div class="form-outline mb-4">
-                  <label class="form-label">ID Inversión</label>
-                  <input type="text" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" placeholder="ID Inversión" required/>
-                </div>
+                <input type="hidden" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
                 <label class="form-label" for="idUsuario">Usuario</label>
                 <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>

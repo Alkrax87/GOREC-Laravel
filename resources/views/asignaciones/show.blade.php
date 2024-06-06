@@ -10,31 +10,32 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-12 py-2">
-              <b>CUI:</b>&nbsp; {{ $inversion->cuiInversion }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Nombre:</b>&nbsp; {{ $inversion->nombreInversion }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Nombre Corto:</b>&nbsp; {{ $inversion->nombreCortoInversion }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Provincia:</b>&nbsp; {{ $inversion->provinciaInversion }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Distrito:</b>&nbsp; {{ $inversion->distritoInversion }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Modalidad Ejecución:</b>&nbsp; {{ $inversion->modalidadEjecucionInversion }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Estado:</b>&nbsp; {{ $inversion->estadoInversion }}
-            </div>
-            <div class="col-12 py-2 text-center">
-              <hr>
-              <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <h2>{{ $inversion->nombreInversion }}</h2>
+                <h6>{{ $inversion->cuiInversion }}</h6>
+                <hr>
+                @foreach ($profesionales as $profesional)
+                  <div class="card">
+                    <div class="card-header">
+                      {{ $profesional->usuario->email }}
+                    </div>
+                    <div class="card-body">
+                      <blockquote class="blockquote mb-0">
+                        <p>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</p>
+                        <footer class="blockquote-footer">Profesión: <cite>{{ $profesional->usuario->profesionUsuario }}</cite></footer>
+                        <footer class="blockquote-footer">Especialidad: <cite>{{ $profesional->usuario->especialidadUsuario }}</cite></footer>
+                      </blockquote>
+                    </div>
+                  </div>
+                  <br>
+                @endforeach
+              </div>
+              <div class="col-12 py-2 text-center">
+                <hr>
+                <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
+              </div>
             </div>
           </div>
         </div>

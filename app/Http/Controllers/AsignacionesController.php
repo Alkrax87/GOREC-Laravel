@@ -16,23 +16,19 @@ class AsignacionesController extends Controller
         return view('asignaciones.index', compact('inversiones','profesionales','usuarios'));
     }
 
-    // public function create(){
-    //     return view('asignaciones.profesional.create', compact('profesionales'));
-    // }
-
     public function store(Request $request){
         $request->validate([
             'idInversion' => 'required|string|max:255|exists:inversion,idInversion',
             'idUsuario' => 'required|string|max:255|exists:users,idUsuario',
         ]);
-
         AsignacionProfesional::create($request->all());
-
         return redirect()->route('asignaciones.index')->with('profesional_message','Profesional agregado correctamente.');
     }
 
-    public function destroy($id) {
-        AsignacionProfesional::where('idUsuario', $id)->delete();
-        return redirect()->route('asignaciones.index')->with('message', 'Elementos eliminados correctamente.');
+    public function destroy(Request $request) {
+        $idInversion = $request->idInversion;
+        $idUsuario = $request->idUsuario;
+        AsignacionProfesional::where('idUsuario', $idUsuario)->where('idInversion', $idInversion)->delete();
+        return redirect()->route('asignaciones.index')->with('profesional_message', 'Elemento eliminados correctamente.');
     }
 }
