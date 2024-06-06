@@ -1,4 +1,4 @@
-<div class="modal fade" id="ModalProfesional{{$inversion->idInversion}}">
+<div class="modal fade" id="ModalProfesional{{ $inversion->idInversion }}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -12,24 +12,23 @@
           <div class="row">
             <!-- Agregar -->
             <div class="col-12 py-2">
-              <button class="btn btn-success" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Profesional</button>
+              <button class="btn btn-success" data-toggle="modal" data-target="#ModalCreate{{ $inversion->idInversion }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Profesional</button>
             </div>
             <div class="col-12">
               <!-- Tabla y alert -->
-              <div class="col-12">
+              <div class="col-12 px-0">
 
                 <!-- Alert -->
-                @if ($message = Session::get('message'))
+                @if ($message = Session::get('profesional_message'))
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
                   </div>
                 @endif
-
-                <h4>{{ $inversion->nombreInversion}}</h4>
-
+                <!-- Titulo -->
+                <h4 class="py-3">{{ $inversion->nombreInversion }}</h4>
                 <!-- Tabla -->
                 <div class="table-responsive">
-                  <table id="segmentosTable" class="table table-bordered table-striped">
+                  <table id="profesionalesTable" class="table table-bordered table-striped w-100">
                     <thead class="table-header">
                       <tr>
                         <th>#</th>
@@ -45,19 +44,20 @@
                           <td>{{ $profesional->inversion->nombreInversion }}</td>
                           <td>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</td>
                           <td class="text-center" style="white-space: nowrap">
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$profesional->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
+                            <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{ $profesional->idUsuario }}"><i class="fas fa-trash-alt"></i></a>
                           </td>
                         </tr>
                       @endforeach
                     </tbody>
                   </table>
-                  @include('asignaciones.profesional.create')
+                  @include('asignaciones.profesional.create', ['inversion' => $inversion ])
                 </div>
               </div>
             </div>
             <div class="col-12 py-2 text-center">
               <hr>
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
+              <button class="btn btn-dark mx-1" data-dismiss="modal"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</button>
             </div>
           </div>
         </div>

@@ -3,43 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use App\Models\Inversion;
-use App\Models\User;
 use App\Models\AsignacionProfesional;
+use App\Models\User;
 
 class AsignacionesController extends Controller
 {
     public function index(Request $request){
         $inversiones = Inversion::all();
-        $usuarios = User::all();
         $profesionales = AsignacionProfesional::all();
-        $json = File::get(public_path('json/cusco.json'));
-        $data = json_decode($json, true);
-        $provincias = $data['provincias'];
-        return view('asignaciones.index', compact('inversiones','provincias','usuarios','profesionales'));
+        $usuarios = User::all();
+        return view('asignaciones.index', compact('inversiones','profesionales','usuarios'));
     }
 
-    public function create(){
-        return view('asignaciones.profesional.create', compact('profesionales'));
-    }
+    // public function create(){
+    //     return view('asignaciones.profesional.create', compact('profesionales'));
+    // }
 
     public function store(Request $request){
         $request->validate([
-            //
+            'idInversion' => 'required|string|max:255|exists:inversion,idInversion',
+            'idUsuario' => 'required|string|max:255|exists:users,idUsuario',
         ]);
 
-        AsignacionProfesional::create([
-            'idInversion' => 3,
-            'idUsuario' => $request->idUsuario,
-        ]);
+        AsignacionProfesional::create($request->all());
 
-
-        return redirect()->route('asignaciones.index')->with('message','Elemento creado correctamente.');
+        return redirect()->route('asignaciones.index')->with('profesional_message','Profesional agregado correctamente.');
     }
 
     public function destroy($id) {
-        $deleted = AsignacionProfesional::where('idUsuario', $id)->delete();
+        AsignacionProfesional::where('idUsuario', $id)->delete();
         return redirect()->route('asignaciones.index')->with('message', 'Elementos eliminados correctamente.');
     }
 }

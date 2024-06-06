@@ -21,7 +21,7 @@
 
         <!-- Tabla -->
         <div class="table-responsive">
-          <table id="segmentosTable" class="table table-bordered table-striped">
+          <table id="asignacionesTable" class="table table-bordered table-striped w-100">
             <thead class="table-header">
               <tr>
                 <th>#</th>
@@ -31,21 +31,21 @@
                 <th>Provincia</th>
                 <th>Distrito</th>
                 <th>Modalidad Ejecución</th>
-                <th>Estado</th>
+                <th class="text-center">Estado</th>
                 <th class="text-center">Opciones</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($inversiones as $inversion)
                 <tr>
-                  <td class="text-left">{{ $loop->index + 1 }}</td>
+                  <td class="text-center">{{ $loop->index + 1 }}</td>
                   <td class="text-center">{{ $inversion->cuiInversion}}</td>
                   <td>{{ $inversion->nombreInversion}}</td>
                   <td>{{ $inversion->nombreCortoInversion}}</td>
                   <td>{{ $inversion->provinciaInversion}}</td>
                   <td>{{ $inversion->distritoInversion}}</td>
                   <td>{{ $inversion->modalidadEjecucionInversion}}</td>
-                  <td>{{ $inversion->estadoInversion}}</td>
+                  <td class="text-center">{{ $inversion->estadoInversion}}</td>
                   <td class="text-center" style="white-space: nowrap">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
                     <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i></a>
@@ -60,7 +60,10 @@
     </div>
   </div>
   @foreach ($inversiones as $inversion)
-    @include('asignaciones.profesional.index', ['inversion' => $inversion])
+    @include('asignaciones.profesional.index', [
+      'inversion' => $inversion,
+      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
+    ])
     @include('asignaciones.asistente.index', ['inversion' => $inversion])
     @include('asignaciones.show', ['inversion' => $inversion])
   @endforeach
@@ -80,6 +83,46 @@
   <script>
     $(document).ready(function() {
       $('#segmentosTable').DataTable({
+        responsive: true,
+        language: {
+          search: "Buscar:",
+          lengthMenu: "Mostrar _MENU_ registros por página",
+          zeroRecords: "No se encontraron resultados",
+          info: "Mostrando página _PAGE_ de _PAGES_",
+          infoEmpty: "No hay registros disponibles",
+          infoFiltered: "(filtrado de _MAX_ registros totales)",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          }
+        }
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#asignacionesTable').DataTable({
+        responsive: true,
+        language: {
+          search: "Buscar:",
+          lengthMenu: "Mostrar _MENU_ registros por página",
+          zeroRecords: "No se encontraron resultados",
+          info: "Mostrando página _PAGE_ de _PAGES_",
+          infoEmpty: "No hay registros disponibles",
+          infoFiltered: "(filtrado de _MAX_ registros totales)",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          }
+        }
+      });
+    });
+    $(document).ready(function() {
+      $('#profesionalesTable').DataTable({
         responsive: true,
         language: {
           search: "Buscar:",
