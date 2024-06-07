@@ -3,14 +3,15 @@
 @section('title', 'Asignaciones')
 
 @section('content_header')
-  <h1>Asignaciones</h1>
+  <h1><i class="fas fa-user-tag"></i> Asignaciones</h1>
+  <hr>
 @stop
 
 @section('content')
   <div class="container-fluid">
     <div class="row">
       <!-- Tabla y alert -->
-      <div class="col-12">
+      <div class="col-12 px-0">
 
         <!-- Alert -->
         @if ($message = Session::get('message'))

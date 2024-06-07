@@ -10,50 +10,48 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="row">
-            <!-- Agregar -->
+            <!-- Titulo -->
             <div class="col-12 py-2">
-              <button class="btn btn-success" data-toggle="modal" data-target="#ModalCreateAsistente{{ $inversion->idInversion }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Asistente</button>
+              <h2>{{ $inversion->nombreInversion }}</h2>
+              <h6>{{ $inversion->cuiInversion }}</h6>
+              <hr>
             </div>
+            <!-- Contenido -->
             <div class="col-12">
-              <!-- Tabla y alert -->
-              <div class="col-12 px-0">
-
-                <!-- Alert -->
-                @if ($message = Session::get('asistente_message'))
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-                  </div>
-                @endif
-                <!-- Titulo -->
-                <h4 class="py-3">{{ $inversion->nombreInversion }}</h4>
-                <!-- Tabla -->
-                <div class="table-responsive">
-                  <table id="asistentesTable" class="table table-striped w-100">
-                    <thead class="table-header">
-                      <tr>
-                        <th>Asistente</th>
-                        <th>Jefe</th>
-                        <th class="text-center w-25">Opciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($asistentes as $asistente)
-                        <tr>
-                          <td>{{ $asistente->usuario->apellidoUsuario . ' ' . $asistente->usuario->nombreUsuario }}</td>
-                          <td>{{ $asistente->jefe->apellidoUsuario . ' ' . $asistente->jefe->nombreUsuario }}</td>
-                          <td class="text-center" style="white-space: nowrap">
-                            <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteAsistente{{ $inversion->idInversion . '-' . $asistente->idAsistente . '-' . $asistente->idJefe }}"><i class="fas fa-trash-alt"></i></a>
-                          </td>
-                        </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
-                  @include('asignaciones.asistente.create')
+              <!-- Alert -->
+              @if ($message = Session::get('asistente_message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
                 </div>
+              @endif
+              <!-- Agregar -->
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateAsistente{{ $inversion->idInversion }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Asistente</button>
+              <!-- Tabla -->
+              <div class="table-responsive">
+                <table id="asistentesTable" class="table table-striped w-100">
+                  <thead class="table-header">
+                    <tr>
+                      <th>Jefe</th>
+                      <th>Asistente</th>
+                      <th class="text-center w-25">Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($asistentes as $asistente)
+                      <tr>
+                        <td>{{ $asistente->jefe->apellidoUsuario . ' ' . $asistente->jefe->nombreUsuario }}</td>
+                        <td>{{ $asistente->usuario->apellidoUsuario . ' ' . $asistente->usuario->nombreUsuario }}</td>
+                        <td class="text-center" style="white-space: nowrap">
+                          <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteAsistente{{ $inversion->idInversion . '-' . $asistente->idAsistente . '-' . $asistente->idJefe }}"><i class="fas fa-trash-alt"></i></a>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+                </table>
+                @include('asignaciones.asistente.create')
               </div>
             </div>
             <div class="col-12 py-2 text-center">
-              <hr>
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button class="btn btn-dark mx-1" data-dismiss="modal"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</button>
             </div>

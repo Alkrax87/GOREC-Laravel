@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Detalle Inversión</h4>
+          <h4 class="modal-title"><i class="fas fa-eye"></i> Detalle Asignacion</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -17,16 +17,16 @@
                 <h6>{{ $inversion->cuiInversion }}</h6>
                 <hr>
                 @foreach ($profesionales as $profesional)
-                  <div class="card">
+                  <div class="card mb-0">
                     <div class="card-header">
                       {{ $profesional->usuario->email }}
                     </div>
-                    <div class="card-body">
+                    <div class="card-body py-0">
                       <blockquote class="blockquote mb-0">
                         <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>
                         <p>Asistentes:</p>
                         @foreach ($asistentes->where('idJefe', $profesional->usuario->idUsuario) as $asistente)
-                          <footer class="blockquote-footer">{{ $asistente->usuario->apellidoUsuario . '' . $asistente->usuario->nombreUsuario }}</footer>
+                          <footer class="blockquote-footer">{{ $asistente->usuario->apellidoUsuario . ' ' . $asistente->usuario->nombreUsuario }}</footer>
                         @endforeach
                       </blockquote>
                     </div>

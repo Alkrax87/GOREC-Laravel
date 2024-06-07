@@ -12,11 +12,10 @@
         </div>
         <input type="hidden" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
         <input type="hidden" value="{{ $profesional->idUsuario }}" name="idUsuario" class="input-auth" required/>
-        <div class="modal-body">
-          ¿Estas seguro de borrar al profesional <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>?
-          <hr>
+        <div class="modal-body text-center">
+          ¿Estas seguro que deseas borrar a <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b> de la lista de profesionales?
           <div class="row">
-            <div class="col-12 py-2 text-center">
+            <div class="col-12 pt-3 text-center">
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button type="submit" class="btn btn-danger mx-1"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp; Eliminar</button>
             </div>

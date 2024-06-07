@@ -33,7 +33,7 @@
                     </option>
                   @endforeach
                 </select>
-                <label class="form-label" for="idAsistente">Asistente</label>
+                <label class="form-label mt-3" for="idAsistente">Asistente</label>
                 <select name="idAsistente" id="idAsistente" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($usuarios as $usuario)
