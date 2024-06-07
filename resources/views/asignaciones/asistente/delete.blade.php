@@ -1,4 +1,4 @@
-<form action="{{ route('asignaciones.destroyAsistente', $asistente->idAsistente) }}" method="POST">
+<form action="{{ route('asistente.destroy', $asistente->idAsistente) }}" method="POST">
   {{ method_field('delete') }}
   {{ csrf_field() }}
   <div class="modal fade" id="ModalDeleteAsistente{{ $inversion->idInversion . '-' . $asistente->idAsistente . '-' . $asistente->idJefe }}">
@@ -10,8 +10,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <input type="text" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
+        <input type="hidden" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
         <input type="hidden" value="{{ $asistente->idAsistente }}" name="idAsistente" class="input-auth" required/>
+        <input type="hidden" value="{{ $asistente->idJefe }}" name="idJefe" class="input-auth" required/>
         <div class="modal-body">
           ¿Estas seguro de borrar al asistente <b>{{ $asistente->usuario->nombreUsuario . ' ' . $asistente->usuario->apellidoUsuario }}</b>?
           <hr>

@@ -1,11 +1,11 @@
-<form action="{{ route('asignaciones.destroy', $profesional->idUsuario) }}" method="POST">
+<form action="{{ route('profesional.destroy', $profesional->idUsuario) }}" method="POST">
   {{ method_field('delete') }}
   {{ csrf_field() }}
   <div class="modal fade" id="ModalDelete{{ $inversion->idInversion . '-' . $profesional->idUsuario }}">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Eliminar Profesional</h4>
+          <h4 class="modal-title"><i class="fas fa-user-tie"></i> Eliminar Profesional</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

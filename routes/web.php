@@ -5,6 +5,8 @@ use App\Http\Controllers\InversionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SegmentoController;
 use App\Http\Controllers\AsignacionesController;
+use App\Http\Controllers\ProfesionalController;
+use App\Http\Controllers\AsistenteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,11 +32,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('usuario', UserController::class);
     Route::resource('segmento', SegmentoController::class);
     Route::resource('asignaciones', AsignacionesController::class);
+    Route::resource('profesional', ProfesionalController::class);
+    Route::resource('asistente', AsistenteController::class);
 
     // Rutas Asistente
-    Route::post('/asignaciones/storeAsistente', [AsignacionesController::class, 'storeAsistente'])->name('asignaciones.storeAsistente');
-    Route::post('/asignaciones/destroyAsistente', [AsignacionesController::class, 'destroyAsistente'])->name('asignaciones.destroyAsistente');
-
+    // Route::post('/asignaciones/storeAsistente', [AsignacionesController::class, 'storeAsistente'])->name('asignaciones.storeAsistente');
+    // Route::post('/asignaciones/destroy', [AsistenteController::class, 'destroy'])->name('asignaciones.destroyAsistente');
+    // Route::post('/asignaciones/destroyAsistente', 'App\Http\Controllers\AsistenteController@destroy')->name('asignaciones.destroyAsistente');
 
 
     // Middleware de administrador aplicado a la ruta del dashboard

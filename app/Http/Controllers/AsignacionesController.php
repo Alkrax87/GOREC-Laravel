@@ -17,38 +17,4 @@ class AsignacionesController extends Controller
         $usuarios = User::all();
         return view('asignaciones.index', compact('inversiones','profesionales','asistentes','usuarios'));
     }
-
-    public function store(Request $request){
-        $request->validate([
-            'idInversion' => 'required|string|max:255|exists:inversion,idInversion',
-            'idUsuario' => 'required|string|max:255|exists:users,idUsuario',
-        ]);
-        AsignacionProfesional::create($request->all());
-        return redirect()->route('asignaciones.index')->with('profesional_message','Profesional agregado correctamente.');
-    }
-
-    public function storeAsistente(Request $request){
-        $request->validate([
-            'idInversion' => 'required|string|max:255|exists:inversion,idInversion',
-            'idAsistente' => 'required|string|max:255|exists:users,idUsuario',
-            'idJefe' => 'required|string|max:255|exists:users,idUsuario',
-        ]);
-        AsignacionAsistente::create($request->all());
-        return redirect()->route('asignaciones.index')->with('asistente_message','Profesional agregado correctamente.');
-    }
-
-    public function destroy(Request $request) {
-        $idInversion = $request->idInversion;
-        $idUsuario = $request->idUsuario;
-        AsignacionProfesional::where('idUsuario', $idUsuario)->where('idInversion', $idInversion)->delete();
-        AsignacionAsistente::where('idJefe', $idUsuario)->delete();
-        return redirect()->route('asignaciones.index')->with('profesional_message', 'Elemento eliminados correctamente.');
-    }
-
-    public function destroyAsistente(Request $request) {
-        $idInversion = $request->idInversion;
-        $idAsistente = $request->idAsistente;
-        AsignacionAsistente::where('idAsistente', $idAsistente)->where('idInversion', $idInversion)->delete();
-        return redirect()->route('asignaciones.index')->with('profesional_message', 'Elemento eliminados correctamente.');
-    }
 }

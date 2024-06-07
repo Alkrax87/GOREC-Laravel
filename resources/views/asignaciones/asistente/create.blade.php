@@ -1,4 +1,4 @@
-<form action="{{ route('asignaciones.storeAsistente') }}" method="POST">
+<form action="{{ route('asistente.store') }}" method="POST">
   @csrf
   <div class="modal fade" id="ModalCreateAsistente{{ $inversion->idInversion }}">
     <div class="modal-dialog modal-md">

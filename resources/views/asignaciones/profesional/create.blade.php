@@ -1,10 +1,10 @@
-<form action="{{ route('asignaciones.store') }}" method="POST">
+<form action="{{ route('profesional.store') }}" method="POST">
   @csrf
   <div class="modal fade" id="ModalCreate{{ $inversion->idInversion }}">
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title">Agregar Profesional</h3>
+          <h3 class="modal-title"><i class="fas fa-user-tie"></i> Agregar Profesional</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
