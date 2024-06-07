@@ -23,9 +23,11 @@
                     </div>
                     <div class="card-body">
                       <blockquote class="blockquote mb-0">
-                        <p>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</p>
-                        <footer class="blockquote-footer">Profesión: <cite>{{ $profesional->usuario->profesionUsuario }}</cite></footer>
-                        <footer class="blockquote-footer">Especialidad: <cite>{{ $profesional->usuario->especialidadUsuario }}</cite></footer>
+                        <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>
+                        <p>Asistentes:</p>
+                        @foreach ($asistentes->where('idJefe', $profesional->usuario->idUsuario) as $asistente)
+                          <footer class="blockquote-footer">{{ $asistente->usuario->apellidoUsuario . '' . $asistente->usuario->nombreUsuario }}</footer>
+                        @endforeach
                       </blockquote>
                     </div>
                   </div>
@@ -33,7 +35,6 @@
                 @endforeach
               </div>
               <div class="col-12 py-2 text-center">
-                <hr>
                 <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               </div>
             </div>
@@ -43,3 +44,9 @@
     </div>
   </div>
 </form>
+
+<style>
+  blockquote {
+    border-left-color: brown;
+  }
+</style>

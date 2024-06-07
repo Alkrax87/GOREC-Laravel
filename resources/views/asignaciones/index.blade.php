@@ -31,7 +31,7 @@
                 <th>Provincia</th>
                 <th>Distrito</th>
                 <th>Modalidad Ejecución</th>
-                <th class="text-center">Estado</th>
+                <th>Estado</th>
                 <th class="text-center">Opciones</th>
               </tr>
             </thead>
@@ -45,7 +45,7 @@
                   <td>{{ $inversion->provinciaInversion}}</td>
                   <td>{{ $inversion->distritoInversion}}</td>
                   <td>{{ $inversion->modalidadEjecucionInversion}}</td>
-                  <td class="text-center">{{ $inversion->estadoInversion}}</td>
+                  <td>{{ $inversion->estadoInversion}}</td>
                   <td class="text-center" style="white-space: nowrap">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
                     <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i></a>
@@ -71,7 +71,8 @@
     ])
     @include('asignaciones.show', [
       'inversion' => $inversion,
-      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
+      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion),
+      'asistentes' => $asistentes->where('idInversion', $inversion->idInversion)
     ])
   @endforeach
 @stop
