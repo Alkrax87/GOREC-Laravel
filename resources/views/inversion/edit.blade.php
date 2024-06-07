@@ -42,7 +42,7 @@
               <div class="row">
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label" for="provinciaInversion">Provincia</label>
-                  <select name="provinciaInversion" id="provinciaInversion" class="form-select form-select-sm input-auth" required>
+                  <select name="provinciaInversion" id="provinciaInversionEdit{{$inversion->idInversion}}" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled>Selecciona una provincia</option>
                     @foreach ($provincias as $provincia)
                       <option value="{{ $provincia['nombre'] }}" data-distritos="{{ json_encode($provincia['distritos']) }}" {{ $provincia['nombre'] == $inversion->provinciaInversion ? 'selected' : '' }}>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label" for="distritoInversion">Distrito</label>
-                  <select name="distritoInversion" id="distritoInversion" class="form-select form-select-sm input-auth" required>
+                  <select name="distritoInversion" id="distritoInversionEdit{{$inversion->idInversion}}" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled>Selecciona un distrito</option>
                     @if($inversion->provinciaInversion)
                       @foreach ($provincias as $provincia)
@@ -126,25 +126,25 @@
       </div>
     </div>
   </div>
-</form>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const inversionId = {{$inversion->idInversion}};
+      const provinciaSelect = document.getElementById('provinciaInversionEdit' + inversionId);
+      const distritoSelect = document.getElementById('distritoInversionEdit' + inversionId);
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const provinciaSelect = document.getElementById('provinciaInversion');
-    const distritoSelect = document.getElementById('distritoInversion');
-
-    provinciaSelect.addEventListener('change', function () {
-      const distritos = JSON.parse(this.selectedOptions[0].getAttribute('data-distritos'));
-      distritoSelect.innerHTML = '<option value="" disabled selected>Selecciona un distrito</option>';
-      distritos.forEach(distrito => {
-        const option = document.createElement('option');
-        option.value = distrito;
-        option.textContent = distrito;
-        distritoSelect.appendChild(option);
+      provinciaSelect.addEventListener('change', function () {
+        const distritos = JSON.parse(this.selectedOptions[0].getAttribute('data-distritos'));
+        distritoSelect.innerHTML = '<option value="" disabled selected>Selecciona un distrito</option>';
+        distritos.forEach(distrito => {
+          const option = document.createElement('option');
+          option.value = distrito;
+          option.textContent = distrito;
+          distritoSelect.appendChild(option);
+        });
       });
     });
-  });
-</script>
+  </script>
+</form>
 
 
 <style>
