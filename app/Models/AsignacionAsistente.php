@@ -18,7 +18,7 @@ class AsignacionAsistente extends Model
     // Define los atributos asignables en masa
     protected $fillable = [
         'idInversion',
-        'idUsuario',
+        'idAsistente',
         'idJefe'
     ];
 
@@ -31,7 +31,7 @@ class AsignacionAsistente extends Model
     // Define la relación con el modelo User (Asistente)
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
+        return $this->belongsTo(User::class, 'idAsistente', 'idUsuario');
     }
 
     // Define la relación con el modelo User (Jefe)

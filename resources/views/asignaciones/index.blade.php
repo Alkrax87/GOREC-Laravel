@@ -64,7 +64,11 @@
       'inversion' => $inversion,
       'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
     ])
-    @include('asignaciones.asistente.index', ['inversion' => $inversion])
+    @include('asignaciones.asistente.index', [
+      'inversion' => $inversion,
+      'asistentes' => $asistentes->where('idInversion', $inversion->idInversion),
+      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
+    ])
     @include('asignaciones.show', [
       'inversion' => $inversion,
       'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)

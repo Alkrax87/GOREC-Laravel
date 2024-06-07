@@ -31,6 +31,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('segmento', SegmentoController::class);
     Route::resource('asignaciones', AsignacionesController::class);
 
+    // Rutas Asistente
+    Route::post('/asignaciones/storeAsistente', [AsignacionesController::class, 'storeAsistente'])->name('asignaciones.storeAsistente');
+    Route::post('/asignaciones/destroyAsistente', [AsignacionesController::class, 'destroyAsistente'])->name('asignaciones.destroyAsistente');
+
+
+
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
