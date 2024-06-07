@@ -2,10 +2,10 @@
   {{ method_field('patch') }}
   {{ csrf_field() }}
   <div class="modal fade" id="ModalEdit{{$inversion->idInversion}}">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Editar Inversion</h4>
+          <h4 class="modal-title"><i class="fas fa-clipboard-list"></i> Editar Inversion</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -117,7 +117,6 @@
               </div>
             </div>
             <div class="col-12 py-2 text-center">
-              <hr>
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
             </div>

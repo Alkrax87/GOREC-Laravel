@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Detalle Inversión</h4>
+          <h4 class="modal-title"><i class="fas fa-clipboard-list"></i> Detalle Inversión</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -51,7 +51,6 @@
               <b>Estado:</b>&nbsp; {{ $inversion->estadoInversion }}
             </div>
             <div class="col-12 py-2 text-center">
-              <hr>
               <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>
           </div>
