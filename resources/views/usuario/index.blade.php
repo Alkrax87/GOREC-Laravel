@@ -3,26 +3,22 @@
 @section('title', 'Usuarios')
 
 @section('content_header')
-  <h1>Usuarios</h1>
+  <h1><i class="fas fa-users"></i> Usuarios</h1>
+  <hr>
 @stop
 
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      <!-- Agregar -->
-      <div class="col-12 py-2">
-        <button class="btn btn-success" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Usuario</button>
-      </div>
-      <!-- Tabla y alert -->
-      <div class="col-12">
-
+      <div class="col-12 px-0">
+        <!-- Agregar -->
+        <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Usuario</button>
         <!-- Alert -->
         @if ($message = Session::get('message'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
           </div>
         @endif
-
         <!-- Tabla -->
         <div class="table-responsive">
           <table id="segmentosTable" class="table table-bordered table-striped">

@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Crear Usuario</h4>
+          <h4 class="modal-title"><i class="fas fa-users"></i> Crear Usuario</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -80,7 +80,6 @@
               </div>
             </div>
             <div class="col-12 py-2 text-center">
-              <hr>
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button type="submit" class="btn btn-success mx-1"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
             </div>

@@ -4,7 +4,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Detalle Usuario</h4>
+          <h4 class="modal-title"><i class="fas fa-users"></i> Detalle Usuario</h4>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -27,7 +27,6 @@
               <b>Especialidad:</b>&nbsp; {{ $usuario->especialidadUsuario }}
             </div>
             <div class="col-12 py-2 text-center">
-              <hr>
               <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>
           </div>
