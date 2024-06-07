@@ -7,6 +7,7 @@ use App\Http\Controllers\SegmentoController;
 use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\AsistenteController;
+use App\Http\Controllers\RolesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('asignaciones', AsignacionesController::class);
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);
+    Route::resource('roles', RolesController::class);
 
     // Rutas Asistente
     // Route::post('/asignaciones/storeAsistente', [AsignacionesController::class, 'storeAsistente'])->name('asignaciones.storeAsistente');
