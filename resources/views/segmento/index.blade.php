@@ -3,26 +3,22 @@
 @section('title', 'Segmento')
 
 @section('content_header')
-  <h1>Segmentos</h1>
+  <h1><i class="fas fa-stream"></i> Segmentos</h1>
+  <hr>
 @stop
 
 @section('content')
   <div class="container-fluid">
     <div class="row">
-      <!-- Agregar -->
-      <div class="col-12 py-2">
-        <button class="btn btn-success" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Segmento</button>
-      </div>
-      <!-- Tabla y alert -->
-      <div class="col-12">
-
+      <div class="col-12 px-0">
+        <!-- Agregar -->
+        <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Segmento</button>
         <!-- Alert -->
         @if ($message = Session::get('message'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
           </div>
         @endif
-
         <!-- Tabla -->
         <div class="table-responsive">
           <table id="segmentosTable" class="table table-bordered table-striped">
@@ -33,7 +29,7 @@
                 <th class="text-center">Fecha Inicio</th>
                 <th class="text-center">Fecha Final</th>
                 <th>Inversión</th>
-                <th class="text-center">Usuario</th>
+                <th>Usuario</th>
                 <th class="text-center">Opciones</th>
               </tr>
             </thead>
@@ -45,7 +41,7 @@
                   <td class="text-center">{{ $segmento->fechaInicioSegmento }}</td>
                   <td class="text-center">{{ $segmento->fechaFinalSegmento }}</td>
                   <td>{{ $segmento->inversion->nombreInversion }}</td>
-                  <td class="text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
+                  <td>{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
                   <td class="text-center style="white-space: nowrap"">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
                     <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
