@@ -12,13 +12,21 @@ return new class extends Migration
             $table->id('idUsuario')->primary();
             $table->string('nombreUsuario');
             $table->string('apellidoUsuario');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('email')->unique()->nullable();
+            $table->string('password')->nullable();
             $table->string('profesionUsuario')->nullable();
             $table->string('especialidadUsuario')->nullable();
             $table->boolean('isAdmin')->default(false);
             $table->timestamps(false);
         });
+
+        DB::table('users')->insert([
+            'nombreUsuario' => 'Admin',
+            'apellidoUsuario' => 'User',
+            'email' => 'admin@gorec.com',
+            'password' => bcrypt('admin123'), // Es importante hashear la contraseña
+            'isAdmin' => true,
+        ]);
     }
 
     public function down(): void

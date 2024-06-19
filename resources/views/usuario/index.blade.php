@@ -40,7 +40,7 @@
                   <td class="text-left">{{ $loop->index + 1 }}</td>
                   <td>{{ $usuario->nombreUsuario }}</td>
                   <td>{{ $usuario->apellidoUsuario }}</td>
-                  <td>{{ $usuario->email }}</td>
+                  <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
                   <td>{{ $usuario->password }}</td>
                   <td>{{ $usuario->profesionUsuario}}</td>
                   <td>{{ $usuario->especialidadUsuario}}</td>

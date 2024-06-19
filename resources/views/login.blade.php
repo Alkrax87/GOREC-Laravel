@@ -13,10 +13,23 @@
 
 	<style>
 		body {
-			background-color: #000;
+			margin: 0;
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			background: url('images/gorec-login-bg.jpg') no-repeat center center fixed;
+			background-size: cover;
 		}
-		section {
-			margin-top: 150px;
+		.overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.3); /* Capa negra con 30% de opacidad */
+			z-index: 1;
 		}
 		/* Others */
 		.center-items {
@@ -71,11 +84,6 @@
 			margin: 1rem 0;
 			width: 50%;
 		}
-		/* Redirection */
-		.register-direction {
-			color: #72081f;
-			text-decoration: none;
-		}
 		@media (max-width: 991.98px) {
 			.cascading-left {
 				margin-left: 0px;
@@ -87,15 +95,6 @@
 	</style>
 
 	<body>
-		@if ($errors->any())
-			<div>
-				<ul>
-					@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-				</ul>
-			</div>
-		@endif
 		<header>
 
 		</header>
@@ -104,21 +103,24 @@
 				<div class="container py-4">
 					<div class="row g-0 align-items-center center-items">
 						<!-- Left  -->
-						<div class="col-lg-6 mb-5 mb-lg-0">
-							<img src="{{ asset('images/gorec-bg.jpg') }}" class="w-100 rounded-4 shadow-4" alt="gorec-bg" />
+						<div class="col-lg-6 mb-5 mb-lg-0 shadow ">
+							<img src="{{ asset('images/gorec.jpg') }}" class="w-100 rounded-4 shadow-4" alt="gorec" />
 						</div>
 						<!-- Right  -->
-						<div class="col-lg-4 mb-5 mb-lg-0">
+						<div class="col-lg-4 mb-5 mb-lg-0 shadow ">
 							<div class="card cascading-left bg-body-tertiary" style="backdrop-filter: blur(30px);">
-								<div class="card-body pt-5 px-5 text-start">
-									<h2 class="fw-bold text-center">Iniciar Sesión</h2>
-									<div class="mt-5">
+								<div class="card-body py-5 px-5 text-start">
+									<h2 class="fw-bold text-center mb-4">Iniciar Sesión</h2>
+									@if ($errors->any())
+										<div class="alert alert-warning mb-4" role="alert">El usuario o la contraseña no son correctos</div>
+									@endif
+									<div class="">
 										<form action="{{ route('login') }}" method="POST">
 											@csrf
-											<!-- Email input -->
+											<!-- Usuario input -->
 											<div class="form-outline mb-4">
-												<label class="form-label">Email</label>
-												<input type="email" name="email" id="email" class="input-auth" placeholder="Joe@gmail.com" required/>
+												<label class="form-label">Usuario</label>
+												<input type="text" name="email" id="email" class="input-auth" placeholder="mgutierrez" required/>
 											</div>
 											<!-- Password input -->
 											<div class="form-outline mb-4">
@@ -130,9 +132,6 @@
 												<button type="submit" class="btn btn-gorec btn-block mb-4">Iniciar Sesión</button>
 											</div>
 										</form>
-										<div class="center-items pt-3">
-											<p>No tienes una cuenta? <a class="register-direction" href="{{ route('register') }}">Regístrate aquí</a>.</p>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -144,7 +143,6 @@
 		<footer>
 
 		</footer>
-
 		<!-- Bootstrap JavaScript Libraries -->
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>

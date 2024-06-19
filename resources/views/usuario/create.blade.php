@@ -32,7 +32,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Usuario</label>
-                <input type="text" name="email" class="input-auth" placeholder="Usuario" required/>
+                <input type="text" name="email" class="input-auth" placeholder="Usuario"/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Contraseña</label>

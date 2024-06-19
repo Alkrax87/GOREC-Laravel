@@ -22,7 +22,7 @@ class UserController extends Controller
         $request->validate([
             'nombreUsuario' => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
-            'email' => 'required|string|max:255|unique:users',
+            'email' => 'nullable|string|max:255|unique:users',
             'password' => 'nullable|string|min:8',
             'profesionUsuario' => 'nullable|string|max:255',
             'especialidadUsuario' => 'nullable|string|max:255',
@@ -37,7 +37,7 @@ class UserController extends Controller
         User::create([
             'nombreUsuario' => $request->nombreUsuario,
             'apellidoUsuario' => $request->apellidoUsuario,
-            'email' => $request->email,
+            'email' => $request->email . '@gorec.com',
             'password' => Hash::make($request->password),
             'profesionUsuario' => $request->profesionUsuario,
             'especialidadUsuario' => $request->especialidadUsuario,

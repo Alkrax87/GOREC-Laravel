@@ -16,11 +16,18 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $username = $request->input('email');
+        $password = $request->input('password');
 
+        $email = $username . '@gorec.com';
+
+        $credentials = [
+            'email' => $email,
+            'password' => $password,
+        ];
+
+        // Si las credenciales son válidas, redirige al usuario a la página de inicio
         if (Auth::attempt($credentials)) {
-
-            // Si las credenciales son válidas, redirige al usuario a la página de inicio
             return redirect()->intended('/home');
         }
 
