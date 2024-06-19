@@ -60,7 +60,7 @@ class UserController extends Controller
         $request->validate([
             'nombreUsuario' => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
+            'email' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8',
             'profesionUsuario' => 'nullable|string|max:255',
             'especialidadUsuario' => 'nullable|string|max:255',
@@ -77,7 +77,7 @@ class UserController extends Controller
 
         $usuario->nombreUsuario = $request->nombreUsuario;
         $usuario->apellidoUsuario = $request->apellidoUsuario;
-        $usuario->email = $request->email;
+        $usuario->email = $request->email . '@gorec.com';
         if ($request->filled('password')) {
             $usuario->password = Hash::make($request->password);
         }

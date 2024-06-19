@@ -28,7 +28,6 @@
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Usuario</th>
-                <th>Contraseña</th>
                 <th>Profesión</th>
                 <th>Especialidad</th>
                 <th class="text-center">Opciones</th>
@@ -41,7 +40,6 @@
                   <td>{{ $usuario->nombreUsuario }}</td>
                   <td>{{ $usuario->apellidoUsuario }}</td>
                   <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
-                  <td>{{ $usuario->password }}</td>
                   <td>{{ $usuario->profesionUsuario}}</td>
                   <td>{{ $usuario->especialidadUsuario}}</td>
                   <td class="text-center" style="white-space: nowrap">

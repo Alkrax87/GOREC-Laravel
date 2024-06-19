@@ -33,7 +33,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Usuario</label>
-                <input type="text" name="email" value="{{ $usuario->email }}" class="input-auth" placeholder="Usuario" required/>
+                <input type="text" name="email" value="{{ str_replace('@gorec.com', '', $usuario->email) }}" class="input-auth" placeholder="Usuario"/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Contraseña</label>

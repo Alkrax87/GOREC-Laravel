@@ -9,26 +9,18 @@ use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\AsistenteController;
 use App\Http\Controllers\RolesController;
 
+// Ruta por defecto
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
-
-// Ruta para mostrar el formulario de login
+// Ruta para mostrar el formulario de login y para procesar el inicio de sesión
 Route::get('/login', 'App\Http\Controllers\LoginController@showLoginForm')->name('login');
-// Ruta para procesar el inicio de sesión
 Route::post('/login', 'App\Http\Controllers\LoginController@login');
-
-// Ruta para mostrar el formulario de registro
-Route::get('/register', 'App\Http\Controllers\RegisterController@showRegistrationForm')->name('register');
-// Ruta para procesar el registro de usuario
-Route::post('/register', 'App\Http\Controllers\RegisterController@register');
 
 // Rutas protegidas (requieren autenticación)
 Route::middleware('auth')->group(function () {
-    // Ruta para mostrar la página de inicio (home)
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
-
     Route::resource('inversion', InversionController::class);
     Route::resource('usuario', UserController::class);
     Route::resource('segmento', SegmentoController::class);
@@ -37,44 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('asistente', AsistenteController::class);
     Route::resource('roles', RolesController::class);
 
-    // Rutas Asistente
-    // Route::post('/asignaciones/storeAsistente', [AsignacionesController::class, 'storeAsistente'])->name('asignaciones.storeAsistente');
-    // Route::post('/asignaciones/destroy', [AsistenteController::class, 'destroy'])->name('asignaciones.destroyAsistente');
-    // Route::post('/asignaciones/destroyAsistente', 'App\Http\Controllers\AsistenteController@destroy')->name('asignaciones.destroyAsistente');
-
-
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
     });*/
 
-    // Ruta para cerrar sesión
+    // Cerrar sesión
     Route::post('/logout', 'App\Http\Controllers\HomeController@logout')->name('logout');
 });
-//Test
-/*
-Route::get('/usuarios', function () {
-    return view('usuarios');
-});
-Route::get('/roles', function () {
-    return view('roles');
-});
-Route::get('/inversion', function () {
-    return view('inversion');
-});
-Route::get('/segmento', function () {
-    return view('segmento');
-});
-Route::get('/asignaciones', function () {
-    return view('asignaciones');
-});
-Route::get('/complementarios', function () {
-    return view('complementarios');
-});
-Route::get('/especialidad', function () {
-    return view('especialidad');
-});
-Route::get('/reportes', function () {
-    return view('reportes');
-});
-*/

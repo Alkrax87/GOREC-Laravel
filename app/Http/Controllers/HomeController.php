@@ -9,7 +9,11 @@ class HomeController extends Controller
 {
     public function showHomeForm()
     {
-        return view('home');
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Pasar los datos del usuario a la vista
+        return view('home', ['user' => $user]);
     }
 
     public function logout(Request $request)
