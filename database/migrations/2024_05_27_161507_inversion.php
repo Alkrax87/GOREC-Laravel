@@ -21,8 +21,8 @@ return new class extends Migration
             $table->decimal('presupuestoEjecucionfuncionInversion', 15, 2);
             $table->string('modalidadEjecucionInversion');
             $table->string('estadoInversion');
-            $table->string('jefeInversion');
-            $table->string('fechaModificacionEstadoInversion');
+            $table->string('jefeInversion')->nullable();
+            $table->string('fechaModificacionEstadoInversion')->nullable();
             $table->string('avanceTotalInversion')->nullable();
             $table->date('fechaInicioInversion');
             $table->date('fechaFinalInversion');
