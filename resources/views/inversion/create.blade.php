@@ -91,8 +91,8 @@
                   <div class="col-6 form-outline mb-4">
                     <label class="form-label" for="estadoInversion">Estado</label>
                     <select name="estadoInversion" id="estadoInversion" class="form-select form-select-sm input-auth" required>
-                      <option value="" disabled selected>Selecciona una estado</option>
-                      <option value="POR ELABORAR">POR ELABORAR</option>
+                      <option value="" disabled>Selecciona una estado</option>
+                      <option value="POR ELABORAR" selected>POR ELABORAR</option>
                       <option value="PARALIZADO">PARALIZADO</option>
                       <option value="EN ELABORACIÓN">EN ELABORACIÓN</option>
                       <option value="EN GRSLI">EN GRSLI</option>

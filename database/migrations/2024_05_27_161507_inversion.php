@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('modalidadEjecucionInversion');
             $table->string('estadoInversion');
             $table->string('jefeInversion');
+            $table->string('fechaModificacionEstadoInversion');
             $table->string('avanceTotalInversion')->nullable();
             $table->date('fechaInicioInversion');
             $table->date('fechaFinalInversion');
