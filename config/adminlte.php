@@ -319,7 +319,7 @@ return [
         ],
         [
             'text' => 'Segmento',
-            'url' => 'segmento',
+            'url' => 'avanzeProyecto',
             'icon' => 'fas fa-stream',
             'icon_color' => 'white'
         ],
@@ -331,7 +331,7 @@ return [
         ],
         [
             'text' => 'Estudios Complementarios',
-            'url' => 'complementarios',
+            'url' => 'complementario',
             'icon' => 'fas fa-briefcase',
             'icon_color' => 'white'
         ],

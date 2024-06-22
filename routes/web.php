@@ -8,6 +8,8 @@ use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\AsistenteController;
 use App\Http\Controllers\RolesController;
+use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\ComplementarioController;
 
 // Ruta por defecto
 Route::get('/', function () {
@@ -28,6 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);
     Route::resource('roles', RolesController::class);
+    Route::resource('avanzeProyecto', ProyectoController::class);
+    Route::resource('complementario', ComplementarioController::class);
 
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {
