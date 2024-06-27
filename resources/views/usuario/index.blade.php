@@ -21,27 +21,43 @@
         @endif
         <!-- Tabla -->
         <div class="table-responsive">
-          <table id="segmentosTable" class="table table-bordered table-striped">
+          <table id="segmentosTable" class="table table-bordered table-striped text-center">
             <thead class="table-header">
               <tr>
                 <th>#</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
+                <th class="text-left">Nombres</th>
+                <th class="text-left">Apellidos</th>
+                <th>Rol</th>
                 <th>Usuario</th>
                 <th>Profesión</th>
                 <th>Especialidad</th>
-                <th class="text-center">Opciones</th>
+                <th>Opciones</th>
               </tr>
             </thead>
             <tbody>
               @foreach ($usuarios as $usuario)
                 <tr>
                   <td class="text-left">{{ $loop->index + 1 }}</td>
-                  <td>{{ $usuario->nombreUsuario }}</td>
-                  <td>{{ $usuario->apellidoUsuario }}</td>
+                  <td class="text-left">{{ $usuario->nombreUsuario }}</td>
+                  <td class="text-left">{{ $usuario->apellidoUsuario }}</td>
+                  @if ($usuario->isAdmin)
+                    <td><b class="text-admin">Administrador</b></td>
+                  @elseif ((str_replace('@gorec.com', '', $usuario->email)) != '')
+                    <td><b class="text-profesional">Profesional</b></td>
+                  @else
+                    <td><b class="text-asistente">Asistente</b></td>
+                  @endif
                   <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
-                  <td>{{ $usuario->profesionUsuario}}</td>
-                  <td>{{ $usuario->especialidadUsuario}}</td>
+                  <td>
+                    @foreach ($usuario->profesiones as $profesion)
+                      {{ $profesion->nombreProfesion }}<br>
+                    @endforeach
+                  </td>
+                  <td>
+                    @foreach ($usuario->especialidades as $especialidad)
+                      {{ $especialidad->nombreEspecialidad }}<br>
+                    @endforeach
+                  </td>
                   <td class="text-center" style="white-space: nowrap">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
                     <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
@@ -67,6 +83,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+  <style>
+    .text-admin {
+      color: darkred;
+    }
+    .text-profesional {
+      color: rgb(3, 148, 3);
+    }
+    .text-asistente {
+      color: darkgoldenrod;
+    }
+  </style>
 @stop
 
 @section('js')

@@ -17,15 +17,31 @@
             <div class="col-12 py-2">
               <b>Apellidos:</b>&nbsp; {{ $usuario->apellidoUsuario }}
             </div>
-            <div class="col-12 py-2">
-              <b>Usuario:</b>&nbsp; {{ $usuario->email }}
+            @if ($usuario->email)
+              <div class="col-12 py-2">
+                <b>Usuario:</b>&nbsp; {{ str_replace('@gorec.com', '', $usuario->email) }}
+              </div>
+            @endif
+            @if ($usuario->profesiones)
+            <div class="col-12 pt-2">
+              <b>Profesión:</b>
+              <ul>
+                @foreach ($usuario->profesiones as $profesion)
+                  <li>{{ $profesion->nombreProfesion }}</li>
+                @endforeach
+              </ul>
             </div>
-            <div class="col-12 py-2">
-              <b>Profesión:</b>&nbsp; {{ $usuario->profesionUsuario }}
-            </div>
-            <div class="col-12 py-2">
-              <b>Especialidad:</b>&nbsp; {{ $usuario->especialidadUsuario }}
-            </div>
+            @endif
+            @if ($usuario->especialidades)
+              <div class="col-12">
+                <b>Especialidad:</b>
+                <ul>
+                  @foreach ($usuario->especialidades as $especialidad)
+                    <li>{{ $especialidad->nombreEspecialidad }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
             <div class="col-12 py-2 text-center">
               <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>

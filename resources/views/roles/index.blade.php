@@ -19,7 +19,7 @@
         @endif
         <!-- Tabla -->
         <div class="table-responsive">
-          <table id="segmentosTable" class="table table-bordered table-striped">
+          <table id="rolesTable" class="table table-bordered table-striped">
             <thead class="table-header">
               <tr>
                 <th>#</th>
@@ -35,7 +35,7 @@
                   <td class="text-left">{{ $loop->index + 1 }}</td>
                   <td>{{ $usuario->nombreUsuario }}</td>
                   <td>{{ $usuario->apellidoUsuario }}</td>
-                  <td class="text-center">{{ str_replace('@gorecusco.com', '', $usuario->email) }}</td>
+                  <td class="text-center">{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
                   <td class="text-center" style="white-space: nowrap">
                     <label class="switch">
                       <input type="checkbox" data-toggle="modal" data-target="#ModalAdmin{{ $usuario->idUsuario }}" @checked($usuario->isAdmin)>
@@ -67,8 +67,17 @@
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
   <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      @foreach ($usuarios as $usuario)
+        $('#ModalAdmin{{$usuario->idUsuario}}').on('hidden.bs.modal', function (e) {
+          window.location.href = '{{ route('roles.index') }}';
+        });
+      @endforeach
+    });
+  </script>
+  <script>
     $(document).ready(function() {
-      $('#segmentosTable').DataTable({
+      $('#rolesTable').DataTable({
         responsive: true,
         language: {
           search: "Buscar:",

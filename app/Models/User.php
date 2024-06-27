@@ -19,16 +19,9 @@ class User extends Authenticatable
         'apellidoUsuario',
         'email',
         'password',
-        'profesionUsuario',
-        'especialidadUsuario',
         'isAdmin',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
     ];
@@ -52,5 +45,13 @@ class User extends Authenticatable
     public function segmentos()
     {
         return $this->hasMany(Segmento::class, 'idUsuario', 'idUsuario');
+    }
+
+    public function profesiones() {
+        return $this->hasMany(Profesiones::class, 'idUsuario', 'idUsuario');
+    }
+
+    public function especialidades() {
+        return $this->hasMany(Especialidades::class, 'idUsuario', 'idUsuario');
     }
 }

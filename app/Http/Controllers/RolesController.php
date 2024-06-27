@@ -8,7 +8,7 @@ use App\Models\User;
 class RolesController extends Controller
 {
     public function index(Request $request){
-        $usuarios = User::all(); // Carga todos los usuarios
+        $usuarios = User::whereNotNull('email')->get();
         return view('roles.index', compact('usuarios'));
     }
 

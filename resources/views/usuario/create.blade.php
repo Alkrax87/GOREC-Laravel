@@ -31,52 +31,72 @@
                 <input type="text" name="apellidoUsuario" class="input-auth" placeholder="Apellidos" required/>
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label">Usuario</label>
-                <input type="text" name="email" class="input-auth" placeholder="Usuario"/>
+                <label class="form-label">Profesión</label>
+                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesion()"><i class="fas fa-plus"></i></button>
+                <div id="profesiones-container">
+                  <div class="input-group mb-2">
+                    <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
+                      <option value="" disabled selected>Selecciona una profesión</option>
+                      <option value="INGENIERÍA CIVIL">INGENIERÍA CIVIL</option>
+                      <option value="INGENIERÍA MECÁNICA">INGENIERÍA MECÁNICA</option>
+                      <option value="INGENIERÍA SANITARIA">INGENIERÍA SANITARIA</option>
+                      <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
+                      <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
+                      <option value="INGENIERÍA DE SISTEMAS">INGENIERÍA DE SISTEMAS</option>
+                      <option value="ARQUITECTO">ARQUITECTO</option>
+                      <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
+                      <option value="ABOGADO">ABOGADO</option>
+                      <option value="ECONOMISTA">ECONOMISTA</option>
+                    </select>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                </div>
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label">Contraseña</label>
-                <input type="password" name="password" class="input-auth" placeholder="********"/>
+                <label class="form-label">Especialidad</label>
+                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidad()"><i class="fas fa-plus"></i></button>
+                <div id="especialidades-container">
+                  <div class="input-group mb-2">
+                    <select name="especialidadUsuario[]" class="form-select form-select-sm input-auth" required>
+                      <option value="" disabled selected>Selecciona una especialidad</option>
+                      <option value="ARQUITECTURA">ARQUITECTURA</option>
+                      <option value="CAPACITACIÓN">CAPACITACIÓN</option>
+                      <option value="ARQUEOLOGIA">ARQUEOLOGIA</option>
+                      <option value="COMUNICACIONES">COMUNICACIONES</option>
+                      <option value="ESTRUCTURAS">ESTRUCTURAS</option>
+                      <option value="ESTUDIOS ECONOMICOS">ESTUDIOS ECONOMICOS</option>
+                      <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
+                      <option value="IMPACTO AMBIENTAL">IMPACTO AMBIENTAL</option>
+                      <option value="INSTALACIONES ELÉCTRICAS">INSTALACIONES ELÉCTRICAS</option>
+                      <option value="INSTALACIONES MECÁNICAS">INSTALACIONES MECÁNICAS</option>
+                      <option value="INSTALACIONES SANITARIAS">INSTALACIONES SANITARIAS</option>
+                      <option value="PRESUPUESTO">PRESUPUESTO</option>
+                      <option value="EVALUACION DE RIESGOS">EVALUACION DE RIESGOS </option>
+                      <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
+                      <option value="TRASPORTES">TRASPORTES</option>
+                      <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
+                      <option value="MODELADOR BIN">MODELADOR BIN</option>
+                      <option value="CORDINADOR BIN">CORDINADOR BIN</option>
+                    </select>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
+                </div>
               </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="profesionUsuario">Profesión</label>
-                <select name="profesionUsuario" id="profesionUsuario" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled selected>Selecciona una profesión</option>
-                  <option value="INGENIERÍA CIVIL">INGENIERÍA CIVIL</option>
-                  <option value="INGENIERÍA MECÁNICA">INGENIERÍA MECÁNICA</option>
-                  <option value="INGENIERÍA SANITARIA">INGENIERÍA SANITARIA</option>
-                  <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
-                  <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
-                  <option value="INGENIERÍA DE SISTEMAS">INGENIERÍA DE SISTEMAS</option>
-                  <option value="ARQUITECTO">ARQUITECTO</option>
-                  <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
-                  <option value="ABOGADO">ABOGADO</option>
-                  <option value="ECONOMISTA">ECONOMISTA</option>
-                </select>
+              <div class="form-check pb-3">
+                <input class="form-check-input" type="checkbox" id="activarCrearCuenta">
+                <label class="form-check-label" for="flexCheckDefault">Crear cuenta en el sistema</label>
               </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="especialidadUsuario">Especialidad</label>
-                <select name="especialidadUsuario" id="especialidadUsuario" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled selected>Selecciona una especialidad</option>
-                  <option value="ARQUITECTURA">ARQUITECTURA</option>
-                  <option value="CAPACITACIÓN">CAPACITACIÓN</option>
-                  <option value="ARQUEOLOGIA">ARQUEOLOGIA</option>
-                  <option value="COMUNICACIONES">COMUNICACIONES</option>
-                  <option value="ESTRUCTURAS">ESTRUCTURAS</option>
-                  <option value="ESTUDIOS ECONOMICOS">ESTUDIOS ECONOMICOS</option>
-                  <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
-                  <option value="IMPACTO AMBIENTAL">IMPACTO AMBIENTAL</option>
-                  <option value="INSTALACIONES ELÉCTRICAS">INSTALACIONES ELÉCTRICAS</option>
-                  <option value="INSTALACIONES MECÁNICAS">INSTALACIONES MECÁNICAS</option>
-                  <option value="INSTALACIONES SANITARIAS">INSTALACIONES SANITARIAS</option>
-                  <option value="PRESUPUESTO">PRESUPUESTO</option>
-                  <option value="EVALUACION DE RIESGOS">EVALUACION DE RIESGOS </option>
-                  <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
-                  <option value="TRASPORTES">TRASPORTES</option>
-                  <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
-                  <option value="MODELADOR BIN">MODELADOR BIN</option>
-                  <option value="CORDINADOR BIN">CORDINADOR BIN</option>
-                </select>
+              <div id="crearCuenta" class="card">
+                <div class="card-body">
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Usuario</label>
+                    <input type="text" name="email" class="input-auth" placeholder="Usuario"/>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" name="password" class="input-auth" placeholder="********"/>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-12 py-2 text-center">
@@ -90,12 +110,89 @@
   </div>
 </form>
 
+<script>
+  function addProfesion() {
+    const container = document.getElementById('profesiones-container');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+      <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
+        <option value="" disabled selected>Selecciona una profesión</option>
+        <option value="INGENIERÍA CIVIL">INGENIERÍA CIVIL</option>
+        <option value="INGENIERÍA MECÁNICA">INGENIERÍA MECÁNICA</option>
+        <option value="INGENIERÍA SANITARIA">INGENIERÍA SANITARIA</option>
+        <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
+        <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
+        <option value="INGENIERÍA DE SISTEMAS">INGENIERÍA DE SISTEMAS</option>
+        <option value="ARQUITECTO">ARQUITECTO</option>
+        <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
+        <option value="ABOGADO">ABOGADO</option>
+        <option value="ECONOMISTA">ECONOMISTA</option>
+      </select>
+      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+    `;
+    container.appendChild(div);
+  }
+
+  function addEspecialidad() {
+    const container = document.getElementById('especialidades-container');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+      <select name="especialidadUsuario[]" class="form-select form-select-sm input-auth" required>
+        <option value="" disabled selected>Selecciona una especialidad</option>
+        <option value="ARQUITECTURA">ARQUITECTURA</option>
+        <option value="CAPACITACIÓN">CAPACITACIÓN</option>
+        <option value="ARQUEOLOGIA">ARQUEOLOGIA</option>
+        <option value="COMUNICACIONES">COMUNICACIONES</option>
+        <option value="ESTRUCTURAS">ESTRUCTURAS</option>
+        <option value="ESTUDIOS ECONOMICOS">ESTUDIOS ECONOMICOS</option>
+        <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
+        <option value="IMPACTO AMBIENTAL">IMPACTO AMBIENTAL</option>
+        <option value="INSTALACIONES ELÉCTRICAS">INSTALACIONES ELÉCTRICAS</option>
+        <option value="INSTALACIONES MECÁNICAS">INSTALACIONES MECÁNICAS</option>
+        <option value="INSTALACIONES SANITARIAS">INSTALACIONES SANITARIAS</option>
+        <option value="PRESUPUESTO">PRESUPUESTO</option>
+        <option value="EVALUACION DE RIESGOS">EVALUACION DE RIESGOS </option>
+        <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
+        <option value="TRASPORTES">TRASPORTES</option>
+        <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
+        <option value="MODELADOR BIN">MODELADOR BIN</option>
+        <option value="CORDINADOR BIN">CORDINADOR BIN</option>
+      </select>
+      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+    `;
+    container.appendChild(div);
+  }
+
+  function removeElement(element) {
+    element.parentNode.remove();
+  }
+</script>
+<script>
+  // Seleccionar el checkbox y el div
+  const activarCrearCuenta = document.getElementById('activarCrearCuenta');
+  const crearCuenta = document.getElementById('crearCuenta');
+
+  // Añadir un listener para el evento 'change'
+  activarCrearCuenta.addEventListener('change', function() {
+    if (this.checked) {
+      crearCuenta.style.display = 'block';
+    } else {
+      crearCuenta.style.display = 'none';
+    }
+  });
+</script>
+
 <style>
   body {
     background-color: #000;
   }
   section {
     margin-top: 100px;
+  }
+  #crearCuenta {
+    display: none;
   }
   /* Others */
   .center-items {
@@ -122,6 +219,13 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     transition: all 0.3s ease-in-out;
+  }
+  .form-check-input:checked {
+    background-color: #9C0C27;
+    border-color: #9C0C27;
+  }
+  .form-check-input:focus {
+    box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
   }
   .input-auth:focus {
     border-color: #72081f;
