@@ -24,6 +24,9 @@
               <b>Nivel:</b>&nbsp; {{ $inversion->nivelInversion }}
             </div>
             <div class="col-12 py-2">
+              <b>Jefe:</b>&nbsp; {{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}
+            </div>
+            <div class="col-12 py-2">
               <b>Provincia:</b>&nbsp; {{ $inversion->provinciaInversion }}
             </div>
             <div class="col-12 py-2">

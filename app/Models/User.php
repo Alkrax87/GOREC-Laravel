@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function especialidades() {
         return $this->hasMany(Especialidades::class, 'idUsuario', 'idUsuario');
     }
+
+    public function inversion(){
+        return $this->hasMany(Inversion::class, 'idUsuario', 'idUsuario');
+    }
 }

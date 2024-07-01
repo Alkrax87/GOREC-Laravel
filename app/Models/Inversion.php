@@ -31,9 +31,18 @@ class Inversion extends Model
         'presupuestoEjecucionfuncionInversion',
         'modalidadEjecucionInversion',
         'estadoInversion',
+        'idUsuario',
+        'fechaModificacionEstadoInversion',
+        'avanceTotalInversion',
         'fechaInicioInversion',
         'fechaFinalInversion',
     ];
+
+    // Define la relación con el modelo User
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
+    }
 
     // Define la relación inversa con el modelo Segmento
     public function segmentos()

@@ -38,6 +38,17 @@
                   <label class="form-label">Nivel</label>
                   <input type="text" name="nivelInversion" class="input-auth" placeholder="Nivel" required/>
                 </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="idUsuario">Jefe de Inversión</label>
+                  <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona un usuario</option>
+                    @foreach ($usuarios as $usuario)
+                      <option value="{{ $usuario->idUsuario }}">
+                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
                 <div class="row">
                   <div class="col-6 form-outline mb-4">
                     <label class="form-label" for="provinciaInversion">Provincia</label>

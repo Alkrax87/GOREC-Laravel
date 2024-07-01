@@ -21,7 +21,8 @@ return new class extends Migration
             $table->decimal('presupuestoEjecucionfuncionInversion', 15, 2);
             $table->string('modalidadEjecucionInversion');
             $table->string('estadoInversion');
-            $table->string('jefeInversion')->nullable();
+            $table->unsignedBigInteger('idUsuario');
+            $table->foreign('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('fechaModificacionEstadoInversion')->nullable();
             $table->string('avanceTotalInversion')->nullable();
             $table->date('fechaInicioInversion');

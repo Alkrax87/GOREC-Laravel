@@ -29,6 +29,7 @@
                 <th>Nombre</th>
                 <th>Nombre Corto</th>
                 <th>Nivel</th>
+                <th>Jefe</th>
                 <th>Provincia</th>
                 <th>Distrito</th>
                 <th>Función</th>
@@ -49,6 +50,7 @@
                   <td>{{ $inversion->nombreInversion}}</td>
                   <td>{{ $inversion->nombreCortoInversion}}</td>
                   <td>{{ $inversion->nivelInversion}}</td>
+                  <td>{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
                   <td>{{ $inversion->provinciaInversion}}</td>
                   <td>{{ $inversion->distritoInversion}}</td>
                   <td>{{ $inversion->funcionInversion}}</td>
