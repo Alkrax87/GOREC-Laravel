@@ -14,7 +14,7 @@
             <div class="row">
               <div class="col-12">
                 <h2>{{ $inversion->nombreInversion }}</h2>
-                <h6>{{ $inversion->cuiInversion }}</h6>
+                <h6>{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</h6>
                 <hr>
                 @foreach ($profesionales as $profesional)
                   <div class="card mb-0">
@@ -24,10 +24,27 @@
                     <div class="card-body py-0">
                       <blockquote class="blockquote mb-0">
                         <b>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>
+                        @if ($profesional->usuario->especialidades->isNotEmpty())
+                            <ul>
+                                @foreach ($profesional->usuario->especialidades as $especialidad)
+                                    <li>{{ $especialidad->nombreEspecialidad }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
                         <p>Asistentes:</p>
                         @foreach ($asistentes->where('idJefe', $profesional->usuario->idUsuario) as $asistente)
-                          <footer class="blockquote-footer">{{ $asistente->usuario->apellidoUsuario . ' ' . $asistente->usuario->nombreUsuario }}</footer>
-                        @endforeach
+                        <footer class="blockquote-footer">
+                            {{ $asistente->usuario->apellidoUsuario . ' ' . $asistente->usuario->nombreUsuario }}
+                            
+                            @if ($asistente->usuario->especialidades->isNotEmpty())
+                                <ul>
+                                    @foreach ($asistente->usuario->especialidades as $especialidad)
+                                        <li>{{ $especialidad->nombreEspecialidad }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </footer>
+                    @endforeach
                       </blockquote>
                     </div>
                   </div>

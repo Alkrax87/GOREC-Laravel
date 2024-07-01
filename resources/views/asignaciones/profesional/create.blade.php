@@ -1,7 +1,7 @@
 <form action="{{ route('profesional.store') }}" method="POST">
   @csrf
   <div class="modal fade" id="ModalCreate{{ $inversion->idInversion }}">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title"><i class="fas fa-user-tie"></i> Agregar Profesional</h3>
@@ -27,9 +27,32 @@
                 <label class="form-label" for="idUsuario">Usuario</label>
                 <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
-                  @foreach ($usuarios as $usuario)
+                  @foreach ($usuariosProfesionales as $usuario)
                     <option value="{{ $usuario->idUsuario }}">
                       {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+
+                      P: (
+                      @if ($usuario->profesiones->isNotEmpty())
+                        @foreach ($usuario->profesiones as $profesion)
+                          {{ $profesion->nombreProfesion }}
+                          @if (!$loop->last)
+                            ,
+                          @endif
+                        @endforeach
+                      @endif
+                      )
+                      &nbsp; | &nbsp;
+                      E: (
+                      @if ($usuario->especialidades->isNotEmpty())
+                        @foreach ($usuario->especialidades as $especialidad)
+                          {{ $especialidad->nombreEspecialidad }}
+                          @if (!$loop->last)
+                            ,
+                          @endif
+                        @endforeach
+                      @endif
+                      )
+
                     </option>
                   @endforeach
                 </select>

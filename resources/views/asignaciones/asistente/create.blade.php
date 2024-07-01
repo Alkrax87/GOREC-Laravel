@@ -36,9 +36,32 @@
                 <label class="form-label mt-3" for="idAsistente">Asistente</label>
                 <select name="idAsistente" id="idAsistente" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
-                  @foreach ($usuarios as $usuario)
+                  @foreach ($usuariosAsistentes as $usuario)
                     <option value="{{ $usuario->idUsuario }}">
                       {{ $usuario->apellidoUsuario . ' ' . $usuario->nombreUsuario }}
+
+                      P: (
+                      @if ($usuario->profesiones->isNotEmpty())
+                        @foreach ($usuario->profesiones as $profesion)
+                          {{ $profesion->nombreProfesion }}
+                          @if (!$loop->last)
+                            ,
+                          @endif
+                        @endforeach
+                      @endif
+                      )
+                      &nbsp; | &nbsp;
+                      E: (
+                      @if ($usuario->especialidades->isNotEmpty())
+                        @foreach ($usuario->especialidades as $especialidad)
+                          {{ $especialidad->nombreEspecialidad }}
+                          @if (!$loop->last)
+                            ,
+                          @endif
+                        @endforeach
+                      @endif
+                      )
+
                     </option>
                   @endforeach
                 </select>

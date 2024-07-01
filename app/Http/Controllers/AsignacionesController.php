@@ -14,7 +14,13 @@ class AsignacionesController extends Controller
         $inversiones = Inversion::all();
         $profesionales = AsignacionProfesional::all();
         $asistentes = AsignacionAsistente::all();
-        $usuarios = User::all();
-        return view('asignaciones.index', compact('inversiones','profesionales','asistentes','usuarios'));
+        $usuariosProfesionales = User::whereNotNull('email')
+            ->where('idUsuario', '!=', 1)
+            ->get();
+
+        $usuariosAsistentes = User::whereNull('email')
+            ->where('idUsuario', '!=', 1)
+            ->get();
+        return view('asignaciones.index', compact('inversiones','profesionales','asistentes','usuariosProfesionales','usuariosAsistentes'));
     }
 }
