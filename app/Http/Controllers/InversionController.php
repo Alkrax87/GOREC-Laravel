@@ -14,7 +14,9 @@ class InversionController extends Controller
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
-        $usuarios = User::whereNotNull('email')->get();
+        $usuarios = User::whereNotNull('email')
+        ->where('idUsuario', '!=', 1)
+        ->get();
         return view('inversion.index', compact('inversiones', 'provincias', 'usuarios'));
     }
 
