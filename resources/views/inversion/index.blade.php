@@ -25,19 +25,19 @@
             <thead class="table-header">
               <tr>
                 <th>#</th>
-                <th>CUI</th>
-                <th>Nombre</th>
-                <th>Nombre Corto</th>
-                <th>Nivel</th>
-                <th>Jefe</th>
-                <th>Provincia</th>
-                <th>Distrito</th>
-                <th>Función</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Final</th>
-                <th class="text-center">Presupuesto Formulación</th>
-                <th class="text-center">Presupuesto Ejecución</th>
-                <th class="text-center">Modalidad Ejecución</th>
+                <th class="text-nowrap">CUI</th>
+                <th class="text-nowrap">Nombre</th>
+                <th class="text-nowrap">Nombre Corto</th>
+                <th class="text-nowrap">Nivel</th>
+                <th class="text-nowrap">Jefe</th>
+                <th class="text-nowrap">Provincia</th>
+                <th class="text-nowrap">Distrito</th>
+                <th class="text-nowrap">Función</th>
+                <th class="text-nowrap">Fecha Inicio</th>
+                <th class="text-nowrap">Fecha Final</th>
+                <th class="text-center text-nowrap">Presupuesto Formulación</th>
+                <th class="text-center text-nowrap">Presupuesto Ejecución</th>
+                <th class="text-center ">Modalidad Ejecución</th>
                 <th>Estado</th>
                 <th class="text-center">Opciones</th>
               </tr>
@@ -56,9 +56,9 @@
                   <td>{{ $inversion->funcionInversion}}</td>
                   <td>{{ $inversion->fechaInicioInversion}}</td>
                   <td>{{ $inversion->fechaFinalInversion}}</td>
-                  <td class="text-center">{{ $inversion->presupuestoFormulacionInversion}}</td>
-                  <td class="text-center">{{ $inversion->presupuestoEjecucionfuncionInversion}}</td>
-                  <td class="text-center">{{ $inversion->modalidadEjecucionInversion}}</td>
+                  <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
+                  <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionfuncionInversion, 2, '.', ',') }}</td>
+                  <td class="text-center">{{ $inversion->modalidadEjecucionInversion }}</td>
                   <td>{{ $inversion->estadoInversion}}</td>
                   <td class="text-center" style="white-space: nowrap">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>

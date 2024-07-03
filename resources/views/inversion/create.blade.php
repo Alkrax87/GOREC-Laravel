@@ -36,7 +36,11 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Nivel</label>
-                  <input type="text" name="nivelInversion" class="input-auth" placeholder="Nivel" required/>
+                  <select name="nivelInversion" id="nivelInversion" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona un nivel</option>
+                    <option value="EXPEDIENTE TÉCNICO">EXPEDIENTE TÉCNICO</option>
+                    <option value="IOARR">IOARR</option>
+                  </select>
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="idUsuario">Jefe de Inversión</label>
@@ -70,7 +74,15 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Función</label>
-                  <input type="text" name="funcionInversion" class="input-auth" placeholder="Función" required/>
+                  <select name="funcionInversion" id="funcionInversion" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona una función</option>
+                    <option value="PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA">PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA</option>
+                    <option value="JUSTICIA">JUSTICIA</option>
+                    <option value="TRANSPORTE">TRANSPORTE</option>
+                    <option value="SANEAMIENTO">SANEAMIENTO</option>
+                    <option value="SALUD">SALUD</option>
+                    <option value="EDUCACIÓN">EDUCACIÓN</option>
+                  </select>
                 </div>
                 <div class="row">
                   <div class="col-6 form-outline mb-4">
@@ -84,11 +96,17 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Presupuesto Formulación</label>
-                  <input type="text" name="presupuestoFormulacionInversion" class="input-auth" placeholder="Presupuesto Formulación" required/>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">s/</span>
+                    <input type="text" name="presupuestoFormulacionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
+                  </div>
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Presupuesto Ejecución</label>
-                  <input type="text" name="presupuestoEjecucionfuncionInversion" class="input-auth" placeholder="Presupuesto Ejecución" required/>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">s/</span>
+                    <input type="text" name="presupuestoEjecucionfuncionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col-6 form-outline mb-4">

@@ -42,10 +42,10 @@
               <b>Fecha Final:</b>&nbsp; {{ $inversion->fechaFinalInversion }}
             </div>
             <div class="col-12 py-2">
-              <b>Formulación:</b>&nbsp; {{ $inversion->presupuestoFormulacionInversion }}
+              <b>Formulación:</b>&nbsp; {{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}
             </div>
             <div class="col-12 py-2">
-              <b>Ejecución:</b>&nbsp; {{ $inversion->presupuestoEjecucionfuncionInversion }}
+              <b>Ejecución:</b>&nbsp; {{ 's/ ' . number_format($inversion->presupuestoEjecucionfuncionInversion, 2, '.', ',') }}
             </div>
             <div class="col-12 py-2">
               <b>Modalidad Ejecución:</b>&nbsp; {{ $inversion->modalidadEjecucionInversion }}
