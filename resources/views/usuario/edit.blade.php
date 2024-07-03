@@ -32,6 +32,24 @@
                 <input type="text" name="apellidoUsuario" value="{{ $usuario->apellidoUsuario }}" class="input-auth" placeholder="Apellidos" required/>
               </div>
               <div class="form-outline mb-4">
+                <label class="form-label" for="categoriaUsuario">Categoría</label>
+                <select name="categoriaUsuario" id="categoriaUsuario" class="form-select form-select-sm input-auth" required>
+                  <option value="" disabled selected>Selecciona una categoría</option>
+                  <option value="" disabled class="bold"><b>PROYECTISTA</b></option>
+                  <option value="DA-I" {{ $usuario->categoriaUsuario == 'DA-I' ? 'selected' : '' }}>DA-I</option>
+                  <option value="DA" {{ $usuario->categoriaUsuario == 'DA' ? 'selected' : '' }}>DA</option>
+                  <option value="PA" {{ $usuario->categoriaUsuario == 'PA' ? 'selected' : '' }}>PA</option>
+                  <option value="PB" {{ $usuario->categoriaUsuario == 'PB' ? 'selected' : '' }}>PB</option>
+                  <option value="PC" {{ $usuario->categoriaUsuario == 'PC' ? 'selected' : '' }}>PC</option>
+                  <option value="" disabled class="bold"><b>ASISTENTE</b></option>
+                  <option value="PD" {{ $usuario->categoriaUsuario == 'PD' ? 'selected' : '' }}>PD</option>
+                  <option value="PE" {{ $usuario->categoriaUsuario == 'PE' ? 'selected' : '' }}>PE</option>
+                  <option value="TA" {{ $usuario->categoriaUsuario == 'TA' ? 'selected' : '' }}>TA</option>
+                  <option value="TB" {{ $usuario->categoriaUsuario == 'TB' ? 'selected' : '' }}>TB</option>
+                  <option value="AA" {{ $usuario->categoriaUsuario == 'AA' ? 'selected' : '' }}>AA</option>
+                </select>
+              </div>
+              <div class="form-outline mb-4">
                 <label class="form-label">Profesión</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesionEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
                 <div id="profesiones-container-edit-{{$usuario->idUsuario}}">
@@ -45,6 +63,11 @@
                         <option value="INGENIERÍA ELÉCTRICA" {{ $profesion->nombreProfesion == 'INGENIERÍA ELÉCTRICA' ? 'selected' : '' }}>INGENIERÍA ELÉCTRICA</option>
                         <option value="INGENIERÍA AMBIENTAL" {{ $profesion->nombreProfesion == 'INGENIERÍA AMBIENTAL' ? 'selected' : '' }}>INGENIERÍA AMBIENTAL</option>
                         <option value="INGENIERÍA DE SISTEMAS" {{ $profesion->nombreProfesion == 'INGENIERÍA DE SISTEMAS' ? 'selected' : '' }}>INGENIERÍA DE SISTEMAS</option>
+                        <option value="INGENIERÍA ELECTROMECÁNICA" {{ $profesion->nombreProfesion == 'INGENIERÍA ELECTROMECÁNICA' ? 'selected' : '' }}>INGENIERÍA ELECTROMECÁNICA</option>
+                        <option value="INGENIERÍA GEOLÓGICA" {{ $profesion->nombreProfesion == 'INGENIERÍA GEOLÓGICA' ? 'selected' : '' }}>INGENIERÍA GEOLÓGICA</option>
+                        <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS" {{ $profesion->nombreProfesion == 'INGENIERÍA DE MECÁNICA DE FLUIDOS' ? 'selected' : '' }}>INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
+                        <option value="ANTROPOLOGÍA" {{ $profesion->nombreProfesion == 'ANTROPOLOGÍA' ? 'selected' : '' }}>ANTROPOLOGÍA</option>
+                        <option value="BIOLOGÍA" {{ $profesion->nombreProfesion == 'BIOLOGÍA' ? 'selected' : '' }}>BIOLOGÍA</option>
                         <option value="ARQUITECTO" {{ $profesion->nombreProfesion == 'ARQUITECTO' ? 'selected' : '' }}>ARQUITECTO</option>
                         <option value="ARQUEÓLOGO" {{ $profesion->nombreProfesion == 'ARQUEÓLOGO' ? 'selected' : '' }}>ARQUEÓLOGO</option>
                         <option value="ABOGADO" {{ $profesion->nombreProfesion == 'ABOGADO' ? 'selected' : '' }}>ABOGADO</option>
@@ -65,17 +88,17 @@
                         <option value="" disabled>Selecciona una especialidad</option>
                         <option value="ARQUITECTURA" {{ $especialidad->nombreEspecialidad == 'ARQUITECTURA' ? 'selected' : '' }}>ARQUITECTURA</option>
                         <option value="CAPACITACIÓN" {{ $especialidad->nombreEspecialidad == 'CAPACITACIÓN' ? 'selected' : '' }}>CAPACITACIÓN</option>
-                        <option value="ARQUEOLOGIA" {{ $especialidad->nombreEspecialidad == 'ARQUEOLOGIA' ? 'selected' : '' }}>ARQUEOLOGIA</option>
+                        <option value="ARQUEOLOGÍA" {{ $especialidad->nombreEspecialidad == 'ARQUEOLOGÍA' ? 'selected' : '' }}>ARQUEOLOGÍA</option>
                         <option value="COMUNICACIONES" {{ $especialidad->nombreEspecialidad == 'COMUNICACIONES' ? 'selected' : '' }}>COMUNICACIONES</option>
                         <option value="ESTRUCTURAS" {{ $especialidad->nombreEspecialidad == 'ESTRUCTURAS' ? 'selected' : '' }}>ESTRUCTURAS</option>
-                        <option value="ESTUDIOS ECONOMICOS" {{ $especialidad->nombreEspecialidad == 'ESTUDIOS ECONOMICOS' ? 'selected' : '' }}>ESTUDIOS ECONOMICOS</option>
+                        <option value="ESTUDIOS ECONÓMICOS" {{ $especialidad->nombreEspecialidad == 'ESTUDIOS ECONÓMICOS' ? 'selected' : '' }}>ESTUDIOS ECONÓMICOS</option>
                         <option value="GESTIÓN DE RIESGOS" {{ $especialidad->nombreEspecialidad == 'GESTIÓN DE RIESGO' ? 'selected' : '' }}>GESTIÓN DE RIESGO</option>
                         <option value="IMPACTO AMBIENTAL" {{ $especialidad->nombreEspecialidad == 'IMPACTO AMBIENTAL' ? 'selected' : '' }}>IMPACTO AMBIENTAL</option>
                         <option value="INSTALACIONES ELÉCTRICAS" {{ $especialidad->nombreEspecialidad == 'INSTALACIONES ELÉCTRICAS' ? 'selected' : '' }}>INSTALACIONES ELÉCTRICAS</option>
                         <option value="INSTALACIONES MECÁNICAS" {{ $especialidad->nombreEspecialidad == 'INSTALACIONES MECÁNICAS' ? 'selected' : '' }}>INSTALACIONES MECÁNICAS</option>
                         <option value="INSTALACIONES SANITARIAS" {{ $especialidad->nombreEspecialidad == 'INSTALACIONES SANITARIAS' ? 'selected' : '' }}>INSTALACIONES SANITARIAS</option>
                         <option value="PRESUPUESTO" {{ $especialidad->nombreEspecialidad == 'PRESUPUESTO' ? 'selected' : '' }}>PRESUPUESTO</option>
-                        <option value="EVALUACION DE RIESGOS" {{ $especialidad->nombreEspecialidad == 'EVALUACION DE RIESGOS' ? 'selected' : '' }}>EVALUACION DE RIESGOS </option>
+                        <option value="EVALUACIÓN DE RIESGOS" {{ $especialidad->nombreEspecialidad == 'EVALUACIÓN DE RIESGOS' ? 'selected' : '' }}>EVALUACIÓN DE RIESGOS </option>
                         <option value="EQUIPAMIENTO" {{ $especialidad->nombreEspecialidad == 'EQUIPAMIENTO' ? 'selected' : '' }}>EQUIPAMIENTO</option>
                         <option value="TRASPORTES" {{ $especialidad->nombreEspecialidad == 'TRASPORTES' ? 'selected' : '' }}>TRASPORTES</option>
                         <option value="SANEAMIENTO FÍSICO LEGAL" {{ $especialidad->nombreEspecialidad == 'SANEAMIENTO FÍSICO LEGAL' ? 'selected' : '' }}>SANEAMIENTO FÍSICO LEGAL</option>
@@ -131,6 +154,11 @@
         <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
         <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
         <option value="INGENIERÍA DE SISTEMAS">INGENIERÍA DE SISTEMAS</option>
+        <option value="INGENIERÍA ELECTROMECÁNICA">INGENIERÍA ELECTROMECÁNICA</option>
+        <option value="INGENIERÍA GEOLÓGICA">INGENIERÍA GEOLÓGICA</option>
+        <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS">INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
+        <option value="ANTROPOLOGÍA">ANTROPOLOGÍA</option>
+        <option value="BIOLOGÍA">BIOLOGÍA</option>
         <option value="ARQUITECTO">ARQUITECTO</option>
         <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
         <option value="ABOGADO">ABOGADO</option>
@@ -150,17 +178,17 @@
         <option value="" disabled selected>Selecciona una especialidad</option>
         <option value="ARQUITECTURA">ARQUITECTURA</option>
         <option value="CAPACITACIÓN">CAPACITACIÓN</option>
-        <option value="ARQUEOLOGIA">ARQUEOLOGIA</option>
+        <option value="ARQUEOLOGÍA">ARQUEOLOGÍA</option>
         <option value="COMUNICACIONES">COMUNICACIONES</option>
         <option value="ESTRUCTURAS">ESTRUCTURAS</option>
-        <option value="ESTUDIOS ECONOMICOS">ESTUDIOS ECONOMICOS</option>
+        <option value="ESTUDIOS ECONÓMICOS">ESTUDIOS ECONÓMICOS</option>
         <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
         <option value="IMPACTO AMBIENTAL">IMPACTO AMBIENTAL</option>
         <option value="INSTALACIONES ELÉCTRICAS">INSTALACIONES ELÉCTRICAS</option>
         <option value="INSTALACIONES MECÁNICAS">INSTALACIONES MECÁNICAS</option>
         <option value="INSTALACIONES SANITARIAS">INSTALACIONES SANITARIAS</option>
         <option value="PRESUPUESTO">PRESUPUESTO</option>
-        <option value="EVALUACION DE RIESGOS">EVALUACION DE RIESGOS </option>
+        <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
         <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
         <option value="TRASPORTES">TRASPORTES</option>
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>

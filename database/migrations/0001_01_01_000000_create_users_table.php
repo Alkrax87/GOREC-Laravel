@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
             $table->boolean('isAdmin')->default(false);
+            $table->string('categoriaUsuario')->nullable();
             $table->timestamps(false);
         });
 
@@ -22,8 +23,9 @@ return new class extends Migration
             'nombreUsuario' => 'Admin',
             'apellidoUsuario' => 'Gorec',
             'email' => 'admin@gorec.com',
-            'password' => bcrypt('admin123'), // Es importante hashear la contraseña
+            'password' => bcrypt('admin123'),
             'isAdmin' => true,
+            'categoriaUsuario' => null,
         ]);
     }
 

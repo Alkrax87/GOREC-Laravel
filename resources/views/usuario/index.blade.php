@@ -29,6 +29,7 @@
                 <th class="text-left">Apellidos</th>
                 <th>Rol</th>
                 <th>Usuario</th>
+                <th>Categoría</th>
                 <th>Profesión</th>
                 <th>Especialidad</th>
                 <th>Opciones</th>
@@ -48,6 +49,7 @@
                     <td><b class="text-asistente">Asistente</b></td>
                   @endif
                   <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
+                  <td>{{ $usuario->categoriaUsuario }}</td>
                   <td>
                     @foreach ($usuario->profesiones as $profesion)
                       {{ $profesion->nombreProfesion }}<br>

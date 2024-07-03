@@ -22,15 +22,18 @@
                 <b>Usuario:</b>&nbsp; {{ str_replace('@gorec.com', '', $usuario->email) }}
               </div>
             @endif
-            @if ($usuario->profesiones)
-            <div class="col-12 pt-2">
-              <b>Profesión:</b>
-              <ul>
-                @foreach ($usuario->profesiones as $profesion)
-                  <li>{{ $profesion->nombreProfesion }}</li>
-                @endforeach
-              </ul>
+            <div class="col-12 py-2">
+              <b>Categoría:</b>&nbsp; {{ $usuario->categoriaUsuario }}
             </div>
+            @if ($usuario->profesiones)
+              <div class="col-12 pt-2">
+                <b>Profesión:</b>
+                <ul>
+                  @foreach ($usuario->profesiones as $profesion)
+                    <li>{{ $profesion->nombreProfesion }}</li>
+                  @endforeach
+                </ul>
+              </div>
             @endif
             @if ($usuario->especialidades)
               <div class="col-12">

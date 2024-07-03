@@ -31,6 +31,24 @@
                 <input type="text" name="apellidoUsuario" class="input-auth" placeholder="Apellidos" required/>
               </div>
               <div class="form-outline mb-4">
+                <label class="form-label" for="categoriaUsuario">Categoría</label>
+                <select name="categoriaUsuario" id="categoriaUsuario" class="form-select form-select-sm input-auth" required>
+                  <option value="" disabled selected>Selecciona una categoría</option>
+                  <option value="" disabled class="bold"><b>PROYECTISTA</b></option>
+                  <option value="DA-I">DA-I</option>
+                  <option value="DA">DA</option>
+                  <option value="PA">PA</option>
+                  <option value="PB">PB</option>
+                  <option value="PC">PC</option>
+                  <option value="" disabled class="bold"><b>ASISTENTE</b></option>
+                  <option value="PD">PD</option>
+                  <option value="PE">PE</option>
+                  <option value="TA">TA</option>
+                  <option value="TB">TB</option>
+                  <option value="AA">AA</option>
+                </select>
+              </div>
+              <div class="form-outline mb-4">
                 <label class="form-label">Profesión</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesion()"><i class="fas fa-plus"></i></button>
                 <div id="profesiones-container">
@@ -43,6 +61,11 @@
                       <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
                       <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
                       <option value="INGENIERÍA DE SISTEMAS">INGENIERÍA DE SISTEMAS</option>
+                      <option value="INGENIERÍA ELECTROMECÁNICA">INGENIERÍA ELECTROMECÁNICA</option>
+                      <option value="INGENIERÍA GEOLÓGICA">INGENIERÍA GEOLÓGICA</option>
+                      <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS">INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
+                      <option value="ANTROPOLOGÍA">ANTROPOLOGÍA</option>
+                      <option value="BIOLOGÍA">BIOLOGÍA</option>
                       <option value="ARQUITECTO">ARQUITECTO</option>
                       <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
                       <option value="ABOGADO">ABOGADO</option>
@@ -61,17 +84,17 @@
                       <option value="" disabled selected>Selecciona una especialidad</option>
                       <option value="ARQUITECTURA">ARQUITECTURA</option>
                       <option value="CAPACITACIÓN">CAPACITACIÓN</option>
-                      <option value="ARQUEOLOGIA">ARQUEOLOGIA</option>
+                      <option value="ARQUEOLOGÍA">ARQUEOLOGÍA</option>
                       <option value="COMUNICACIONES">COMUNICACIONES</option>
                       <option value="ESTRUCTURAS">ESTRUCTURAS</option>
-                      <option value="ESTUDIOS ECONOMICOS">ESTUDIOS ECONOMICOS</option>
+                      <option value="ESTUDIOS ECONÓMICOS">ESTUDIOS ECONÓMICOS</option>
                       <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
                       <option value="IMPACTO AMBIENTAL">IMPACTO AMBIENTAL</option>
                       <option value="INSTALACIONES ELÉCTRICAS">INSTALACIONES ELÉCTRICAS</option>
                       <option value="INSTALACIONES MECÁNICAS">INSTALACIONES MECÁNICAS</option>
                       <option value="INSTALACIONES SANITARIAS">INSTALACIONES SANITARIAS</option>
                       <option value="PRESUPUESTO">PRESUPUESTO</option>
-                      <option value="EVALUACION DE RIESGOS">EVALUACION DE RIESGOS </option>
+                      <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
                       <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
                       <option value="TRASPORTES">TRASPORTES</option>
                       <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
@@ -124,6 +147,11 @@
         <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
         <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
         <option value="INGENIERÍA DE SISTEMAS">INGENIERÍA DE SISTEMAS</option>
+        <option value="INGENIERÍA ELECTROMECÁNICA">INGENIERÍA ELECTROMECÁNICA</option>
+        <option value="INGENIERÍA GEOLÓGICA">INGENIERÍA GEOLÓGICA</option>
+        <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS">INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
+        <option value="ANTROPOLOGÍA">ANTROPOLOGÍA</option>
+        <option value="BIOLOGÍA">BIOLOGÍA</option>
         <option value="ARQUITECTO">ARQUITECTO</option>
         <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
         <option value="ABOGADO">ABOGADO</option>
@@ -143,17 +171,17 @@
         <option value="" disabled selected>Selecciona una especialidad</option>
         <option value="ARQUITECTURA">ARQUITECTURA</option>
         <option value="CAPACITACIÓN">CAPACITACIÓN</option>
-        <option value="ARQUEOLOGIA">ARQUEOLOGIA</option>
+        <option value="ARQUEOLOGÍA">ARQUEOLOGÍA</option>
         <option value="COMUNICACIONES">COMUNICACIONES</option>
         <option value="ESTRUCTURAS">ESTRUCTURAS</option>
-        <option value="ESTUDIOS ECONOMICOS">ESTUDIOS ECONOMICOS</option>
+        <option value="ESTUDIOS ECONÓMICOS">ESTUDIOS ECONÓMICOS</option>
         <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
         <option value="IMPACTO AMBIENTAL">IMPACTO AMBIENTAL</option>
         <option value="INSTALACIONES ELÉCTRICAS">INSTALACIONES ELÉCTRICAS</option>
         <option value="INSTALACIONES MECÁNICAS">INSTALACIONES MECÁNICAS</option>
         <option value="INSTALACIONES SANITARIAS">INSTALACIONES SANITARIAS</option>
         <option value="PRESUPUESTO">PRESUPUESTO</option>
-        <option value="EVALUACION DE RIESGOS">EVALUACION DE RIESGOS </option>
+        <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
         <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
         <option value="TRASPORTES">TRASPORTES</option>
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
@@ -187,6 +215,12 @@
 <style>
   body {
     background-color: #000;
+  }
+  select {
+    font-weight: normal;
+    }
+  select option.bold {
+    font-weight: bold;
   }
   section {
     margin-top: 100px;

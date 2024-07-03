@@ -31,6 +31,7 @@ class UserController extends Controller
             'apellidoUsuario' => 'required|string|max:255',
             'email' => 'nullable|string|max:255|unique:users',
             'password' => 'nullable|string|min:8',
+            'categoriaUsuario' => 'required|string',
             'profesionUsuario' => 'array',
             'especialidadUsuario' => 'array',
         ], [
@@ -38,6 +39,7 @@ class UserController extends Controller
             'apellidoUsuario.required' => 'El campo de apellido es obligatorio.',
             'email.unique' => 'El nombre de usuario  ya está en uso.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'categoriaUsuario.required' => 'El campo de categoría es obligatorio.',
         ]);
 
         // Fin validacion usuario
@@ -47,6 +49,7 @@ class UserController extends Controller
         $data = [
             'nombreUsuario' => $request->nombreUsuario,
             'apellidoUsuario' => $request->apellidoUsuario,
+            'categoriaUsuario' => $request->categoriaUsuario,
         ];
 
         // Validamos si el Usuario ingresado va a tener o no un usuario y contraseña
@@ -106,6 +109,7 @@ class UserController extends Controller
                 Rule::unique('users')->ignore($id, 'idUsuario')// Validación única excepto para el usuario actual
             ],
             'password' => 'nullable|string|min:8',
+            'categoriaUsuario' => 'required|string',
             'profesionUsuario' => 'array',
             'especialidadUsuario' => 'array',
         ], [
@@ -113,6 +117,7 @@ class UserController extends Controller
             'apellidoUsuario.required' => 'El campo de apellido es obligatorio.',
             'email.unique' => 'El nombre de usuario  ya está en uso.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
+            'categoriaUsuario.required' => 'El campo de categoría es obligatorio.',
         ]);
 
         // Fin validacion usuario
@@ -126,6 +131,7 @@ class UserController extends Controller
             'nombreUsuario' => $request->nombreUsuario,
             'apellidoUsuario' => $request->apellidoUsuario,
             'email' => $request->filled('email') ? $request->email . '@gorec.com' : null,
+            'categoriaUsuario' => $request->categoriaUsuario,
         ];
 
         // Actualizar la contraseña si se proporciona una nueva
