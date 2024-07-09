@@ -11,22 +11,21 @@ return new class extends Migration
         Schema::create('inversion', function (Blueprint $table) {
             $table->id('idInversion')->primary();
             $table->string('cuiInversion');
-            $table->string('nombreInversion');
+            $table->string('nombreInversion', 1024);
             $table->string('nombreCortoInversion');
-            $table->string('nivelInversion');
-            $table->string('provinciaInversion');
-            $table->string('distritoInversion');
-            $table->string('funcionInversion');
-            $table->decimal('presupuestoFormulacionInversion', 15, 2);
-            $table->decimal('presupuestoEjecucionfuncionInversion', 15, 2);
-            $table->string('modalidadEjecucionInversion');
-            $table->string('estadoInversion');
             $table->unsignedBigInteger('idUsuario');
             $table->foreign('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('fechaModificacionEstadoInversion')->nullable();
-            $table->string('avanceTotalInversion')->nullable();
+            $table->string('provinciaInversion');
+            $table->string('distritoInversion');
+            $table->string('nivelInversion');
+            $table->string('funcionInversion');
+            $table->string('modalidadInversion');
+            $table->string('estadoInversion');
+            $table->unsignedTinyInteger('avanceInversion')->default(0);
             $table->date('fechaInicioInversion');
             $table->date('fechaFinalInversion');
+            $table->decimal('presupuestoFormulacionInversion', 23, 2);
+            $table->decimal('presupuestoEjecucionInversion', 23, 2);
             $table->timestamps(false);
         });
     }

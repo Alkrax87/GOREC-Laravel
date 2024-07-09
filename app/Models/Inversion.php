@@ -23,54 +23,47 @@ class Inversion extends Model
         'cuiInversion',
         'nombreInversion',
         'nombreCortoInversion',
-        'nivelInversion',
+        'idUsuario',
         'provinciaInversion',
         'distritoInversion',
+        'nivelInversion',
         'funcionInversion',
-        'presupuestoFormulacionInversion',
-        'presupuestoEjecucionfuncionInversion',
-        'modalidadEjecucionInversion',
+        'modalidadInversion',
         'estadoInversion',
-        'idUsuario',
-        'fechaModificacionEstadoInversion',
-        'avanceTotalInversion',
+        'avanceInversion',
         'fechaInicioInversion',
         'fechaFinalInversion',
+        'presupuestoFormulacionInversion',
+        'presupuestoEjecucionInversion',
     ];
 
     // Define la relación con el modelo User
-    public function usuario()
-    {
+    public function usuario(){
         return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
     }
 
     // Define la relación inversa con el modelo Segmento
-    public function segmentos()
-    {
+    public function segmentos(){
         return $this->hasMany(Segmento::class, 'idInversion', 'idInversion');
     }
 
     // Define la relación inversa con el modelo AsignacionProfesional
-    public function profesional()
-    {
+    public function profesional(){
         return $this->hasMany(AsignacionProfesional::class, 'idInversion', 'idInversion');
     }
 
     // Define la relación inversa con el modelo AsignacionAsistente
-    public function asistente()
-    {
+    public function asistente(){
         return $this->hasMany(AsignacionAsistente::class, 'idInversion', 'idInversion');
     }
 
-    // Define la relación inversa con el modelo Especialidad
-    public function especialidades()
-    {
-        return $this->hasMany(Especialidad::class, 'idInversion');
+    // Define la relación inversa con el modelo Estudios Complementarios
+    public function complementario(){
+        return $this->hasMany(Complementario::class, 'idInversion');
     }
 
-    // Define la relación inversa con el modelo Estudios Complementarios
-    public function  complementario()
-    {
-        return $this->hasMany(Complementario::class, 'idInversion');
+    // Define la relación inversa con el modelo Especialidad
+    public function especialidades(){
+        return $this->hasMany(Especialidad::class, 'idInversion');
     }
 }

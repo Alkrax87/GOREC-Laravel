@@ -4,81 +4,85 @@
 
 @section('content_header')
   <h1><i class="fas fa-clipboard-list"></i> Inversiones</h1>
-  <hr>
 @stop
 
 @section('content')
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 px-0">
-        <!-- Agregar -->
-        <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
-        <!-- Alert -->
-        @if ($message = Session::get('message'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-          </div>
-        @endif
-        <!-- Tabla -->
-        <div class="table-responsive">
-          <table id="segmentosTable" class="table table-bordered table-striped">
-            <thead class="table-header">
-              <tr>
-                <th>#</th>
-                <th class="text-nowrap">CUI</th>
-                <th class="text-nowrap">Nombre</th>
-                <th class="text-nowrap">Nombre Corto</th>
-                <th class="text-nowrap">Nivel</th>
-                <th class="text-nowrap">Jefe</th>
-                <th class="text-nowrap">Provincia</th>
-                <th class="text-nowrap">Distrito</th>
-                <th class="text-nowrap">Función</th>
-                <th class="text-nowrap">Fecha Inicio</th>
-                <th class="text-nowrap">Fecha Final</th>
-                <th class="text-center text-nowrap">Presupuesto Formulación</th>
-                <th class="text-center text-nowrap">Presupuesto Ejecución</th>
-                <th class="text-center ">Modalidad Ejecución</th>
-                <th>Estado</th>
-                <th class="text-center">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($inversiones as $inversion)
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <!-- Agregar -->
+          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
+          <!-- Alert -->
+          @if ($message = Session::get('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table id="segmentosTable" class="table table-bordered table-striped">
+              <thead class="table-header">
                 <tr>
-                  <td class="text-left">{{ $loop->index + 1 }}</td>
-                  <td>{{ $inversion->cuiInversion}}</td>
-                  <td>{{ $inversion->nombreInversion}}</td>
-                  <td>{{ $inversion->nombreCortoInversion}}</td>
-                  <td>{{ $inversion->nivelInversion}}</td>
-                  <td>{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
-                  <td>{{ $inversion->provinciaInversion}}</td>
-                  <td>{{ $inversion->distritoInversion}}</td>
-                  <td>{{ $inversion->funcionInversion}}</td>
-                  <td>{{ $inversion->fechaInicioInversion}}</td>
-                  <td>{{ $inversion->fechaFinalInversion}}</td>
-                  <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
-                  <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionfuncionInversion, 2, '.', ',') }}</td>
-                  <td class="text-center">{{ $inversion->modalidadEjecucionInversion }}</td>
-                  <td>{{ $inversion->estadoInversion}}</td>
-                  <td class="text-center" style="white-space: nowrap">
-                    <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
-                  </td>
+                  <th>#</th>
+                  <th class="text-nowrap">CUI</th>
+                  <th class="text-nowrap">Nombre</th>
+                  <th class="text-nowrap">Nombre Corto</th>
+                  <th class="text-center">Jefe</th>
+                  <th class="text-center">Provincia</th>
+                  <th class="text-center">Distrito</th>
+                  <th class="text-center">Nivel</th>
+                  <th class="text-center">Función</th>
+                  <th class="text-center">Modalidad</th>
+                  <th class="text-center">Estado</th>
+                  <th class="text-center">Avance</th>
+                  <th class="text-nowrap">Fecha Inicio</th>
+                  <th class="text-nowrap">Fecha Final</th>
+                  <th class="text-nowrap">Presupuesto Formulación</th>
+                  <th class="text-nowrap">Presupuesto Ejecución</th>
+                  <th class="text-center">Opciones</th>
                 </tr>
-              @endforeach
-            </tbody>
-          </table>
-          @include('inversion.create')
+              </thead>
+              <tbody>
+                @foreach ($inversiones as $inversion)
+                  <tr>
+                    <td class="text-left">{{ $loop->index + 1 }}</td>
+                    <td class="text-nowrap">{{ $inversion->cuiInversion }}</td>
+                    <td>{{ $inversion->nombreInversion }}</td>
+                    <td>{{ $inversion->nombreCortoInversion }}</td>
+                    <td class="text-nowrap">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+                    <td class="text-center">{{ $inversion->provinciaInversion }}</td>
+                    <td class="text-center">{{ $inversion->distritoInversion }}</td>
+                    <td class="text-center">{{ $inversion->nivelInversion }}</td>
+                    <td class="text-center">{{ $inversion->funcionInversion }}</td>
+                    <td class="text-center">{{ $inversion->modalidadInversion }}</td>
+                    <td class="text-center">{{ $inversion->estadoInversion }}</td>
+                    <td class="text-center">{{ $inversion->avanceInversion }}%</td>
+                    <td class="text-center">{{ $inversion->fechaInicioInversion }}</td>
+                    <td class="text-center">{{ $inversion->fechaFinalInversion }}</td>
+                    <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
+                    <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
+                    <td class="text-center text-nowrap">
+                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                      <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+            @include('inversion.create')
+          </div>
         </div>
       </div>
+      @foreach ($inversiones as $inversion)
+        @include('inversion.delete', ['inversion' => $inversion])
+        @include('inversion.edit', ['inversion' => $inversion])
+        @include('inversion.show', ['inversion' => $inversion])
+      @endforeach
     </div>
   </div>
-  @foreach ($inversiones as $inversion)
-    @include('inversion.delete', ['inversion' => $inversion])
-    @include('inversion.edit', ['inversion' => $inversion])
-    @include('inversion.show', ['inversion' => $inversion])
-  @endforeach
 @stop
 
 @section('css')
@@ -93,7 +97,7 @@
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function(){
       $('#segmentosTable').DataTable({
         responsive: true,
         language: {

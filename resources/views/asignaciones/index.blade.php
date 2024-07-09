@@ -45,7 +45,7 @@
                   <td>{{ $inversion->nombreCortoInversion}}</td>
                   <td>{{ $inversion->provinciaInversion}}</td>
                   <td>{{ $inversion->distritoInversion}}</td>
-                  <td>{{ $inversion->modalidadEjecucionInversion}}</td>
+                  <td>{{ $inversion->modalidadInversion}}</td>
                   <td>{{ $inversion->estadoInversion}}</td>
                   <td class="text-center" style="white-space: nowrap">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>

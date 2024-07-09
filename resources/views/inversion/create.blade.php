@@ -28,22 +28,14 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Nombre</label>
-                  <input type="text" name="nombreInversion" class="input-auth" placeholder="Nombre" required/>
+                  <textarea class="form-control input-auth" name="nombreInversion" placeholder="Nombre Inversión" rows="4" required></textarea>
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Nombre Corto</label>
                   <input type="text" name="nombreCortoInversion" class="input-auth" placeholder="Nombre Corto" required/>
                 </div>
                 <div class="form-outline mb-4">
-                  <label class="form-label">Nivel</label>
-                  <select name="nivelInversion" id="nivelInversion" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona un nivel</option>
-                    <option value="EXPEDIENTE TÉCNICO">EXPEDIENTE TÉCNICO</option>
-                    <option value="IOARR">IOARR</option>
-                  </select>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="idUsuario">Jefe de Inversión</label>
+                  <label class="form-label" for="idUsuario">Jefe</label>
                   <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled selected>Selecciona un usuario</option>
                     @foreach ($usuarios as $usuario)
@@ -72,46 +64,32 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label">Función</label>
-                  <select name="funcionInversion" id="funcionInversion" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona una función</option>
-                    <option value="PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA">PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA</option>
-                    <option value="JUSTICIA">JUSTICIA</option>
-                    <option value="TRANSPORTE">TRANSPORTE</option>
-                    <option value="SANEAMIENTO">SANEAMIENTO</option>
-                    <option value="SALUD">SALUD</option>
-                    <option value="EDUCACIÓN">EDUCACIÓN</option>
-                  </select>
-                </div>
                 <div class="row">
-                  <div class="col-6 form-outline mb-4">
-                    <label class="form-label">Fecha Inicio</label>
-                    <input type="date" name="fechaInicioInversion" class="input-auth" required/>
+                  <div class="col-4 form-outline mb-4">
+                    <label class="form-label">Nivel</label>
+                    <select name="nivelInversion" id="nivelInversion" class="form-select form-select-sm input-auth" required>
+                      <option value="" disabled selected>Selecciona un nivel</option>
+                      <option value="EXPEDIENTE TÉCNICO">EXPEDIENTE TÉCNICO</option>
+                      <option value="IOARR">IOARR</option>
+                    </select>
                   </div>
-                  <div class="col-6 form-outline mb-4">
-                    <label class="form-label">Fecha Inicio</label>
-                    <input type="date" name="fechaFinalInversion" class="input-auth" required/>
-                  </div>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label">Presupuesto Formulación</label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text">s/</span>
-                    <input type="text" name="presupuestoFormulacionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
-                  </div>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label">Presupuesto Ejecución</label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text">s/</span>
-                    <input type="text" name="presupuestoEjecucionfuncionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
+                  <div class="col-8 form-outline mb-4">
+                    <label class="form-label">Función</label>
+                    <select name="funcionInversion" id="funcionInversion" class="form-select form-select-sm input-auth" required>
+                      <option value="" disabled selected>Selecciona una función</option>
+                      <option value="PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA">PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA</option>
+                      <option value="JUSTICIA">JUSTICIA</option>
+                      <option value="TRANSPORTE">TRANSPORTE</option>
+                      <option value="SANEAMIENTO">SANEAMIENTO</option>
+                      <option value="SALUD">SALUD</option>
+                      <option value="EDUCACIÓN">EDUCACIÓN</option>
+                    </select>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-6 form-outline mb-4">
-                    <label class="form-label" for="modalidadEjecucionInversion">Modalidad Ejecución</label>
-                    <select name="modalidadEjecucionInversion" id="modalidadEjecucionInversion" class="form-select form-select-sm input-auth" required>
+                    <label class="form-label" for="modalidadInversion">Modalidad</label>
+                    <select name="modalidadInversion" id="modalidadInversion" class="form-select form-select-sm input-auth" required>
                       <option value="" disabled selected>Selecciona una modalidad</option>
                       <option value="DIRECTA">DIRECTA</option>
                       <option value="CONTRATA">CONTRATA</option>
@@ -130,6 +108,32 @@
                       <option value="CON REGISTRO DE FASE DE EJECUCIÓN">CON REGISTRO DE FASE DE EJECUCIÓN</option>
                       <option value="CON RESOLUCIÓN EJECUTIVA">CON RESOLUCIÓN EJECUTIVA</option>
                     </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-outline mb-4">
+                    <label class="form-label">Fecha Inicio</label>
+                    <input type="date" name="fechaInicioInversion" class="input-auth" required/>
+                  </div>
+                  <div class="col-6 form-outline mb-4">
+                    <label class="form-label">Fecha Inicio</label>
+                    <input type="date" name="fechaFinalInversion" class="input-auth" required/>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 form-outline mb-4">
+                    <label class="form-label">Presupuesto Formulación</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">S/</span>
+                      <input type="text" name="presupuestoFormulacionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
+                    </div>
+                  </div>
+                  <div class="col-6 form-outline mb-4">
+                    <label class="form-label">Presupuesto Ejecución</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">S/</span>
+                      <input type="text" name="presupuestoEjecucionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -29,22 +29,14 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Nombre</label>
-                <input type="text" name="nombreInversion" value="{{ $inversion->nombreInversion }}" class="input-auth" placeholder="Nombre" required/>
+                <textarea class="form-control input-auth" name="nombreInversion" placeholder="Nombre Inversión" rows="4" required>{{ $inversion->nombreInversion }}</textarea>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Nombre Corto</label>
                 <input type="text" name="nombreCortoInversion" value="{{ $inversion->nombreCortoInversion }}" class="input-auth" placeholder="Nombre Corto" required/>
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label">Nivel</label>
-                <select name="nivelInversion" id="nivelInversion" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled selected>Selecciona un nivel</option>
-                  <option value="EXPEDIENTE TÉCNICO" {{ $inversion->nivelInversion == 'EXPEDIENTE TÉCNICO' ? 'selected' : '' }}>EXPEDIENTE TÉCNICO</option>
-                  <option value="IOARR" {{ $inversion->nivelInversion == 'IOARR' ? 'selected' : '' }}>IOARR</option>
-                </select>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="idUsuario">Jefe de Inversión</label>
+                <label class="form-label" for="idUsuario">Jefe</label>
                 <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled>Selecciona un usuario</option>
                   @foreach ($usuarios as $usuario)
@@ -84,49 +76,35 @@
                   </select>
                 </div>
               </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Función</label>
-                <select name="funcionInversion" id="funcionInversion" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled selected>Selecciona una función</option>
-                  <option value="PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA" {{ $inversion->funcionInversion == 'PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA' ? 'selected' : '' }}>PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA</option>
-                  <option value="JUSTICIA" {{ $inversion->funcionInversion == 'JUSTICIA' ? 'selected' : '' }}>JUSTICIA</option>
-                  <option value="TRANSPORTE" {{ $inversion->funcionInversion == 'TRANSPORTE' ? 'selected' : '' }}>TRANSPORTE</option>
-                  <option value="SANEAMIENTO" {{ $inversion->funcionInversion == 'SANEAMIENTO' ? 'selected' : '' }}>SANEAMIENTO</option>
-                  <option value="SALUD" {{ $inversion->funcionInversion == 'IOARR' ? 'SALUD' : '' }}>SALUD</option>
-                  <option value="EDUCACIÓN" {{ $inversion->funcionInversion == 'IOARR' ? 'EDUCACIÓN' : '' }}>EDUCACIÓN</option>
-                </select>
-              </div>
               <div class="row">
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label">Fecha Inicio</label>
-                  <input type="date" name="fechaInicioInversion" value="{{ $inversion->fechaInicioInversion }}" class="input-auth" required/>
+                <div class="col-4 form-outline mb-4">
+                  <label class="form-label">Nivel</label>
+                  <select name="nivelInversion" id="nivelInversion" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona un nivel</option>
+                    <option value="EXPEDIENTE TÉCNICO" {{ $inversion->nivelInversion == 'EXPEDIENTE TÉCNICO' ? 'selected' : '' }}>EXPEDIENTE TÉCNICO</option>
+                    <option value="IOARR" {{ $inversion->nivelInversion == 'IOARR' ? 'selected' : '' }}>IOARR</option>
+                  </select>
                 </div>
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label">Fecha Final</label>
-                  <input type="date" name="fechaFinalInversion" value="{{ $inversion->fechaFinalInversion }}" class="input-auth" required/>
-                </div>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Presupuesto Formulación</label>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">s/</span>
-                  <input type="text" name="presupuestoFormulacionInversion" value="{{ $inversion->presupuestoFormulacionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
-                </div>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Presupuesto Ejecución</label>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">s/</span>
-                  <input type="text" name="presupuestoEjecucionfuncionInversion" value="{{ $inversion->presupuestoEjecucionfuncionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
+                <div class="col-8 form-outline mb-4">
+                  <label class="form-label">Función</label>
+                  <select name="funcionInversion" id="funcionInversion" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona una función</option>
+                    <option value="PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA" {{ $inversion->funcionInversion == 'PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA' ? 'selected' : '' }}>PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA</option>
+                    <option value="JUSTICIA" {{ $inversion->funcionInversion == 'JUSTICIA' ? 'selected' : '' }}>JUSTICIA</option>
+                    <option value="TRANSPORTE" {{ $inversion->funcionInversion == 'TRANSPORTE' ? 'selected' : '' }}>TRANSPORTE</option>
+                    <option value="SANEAMIENTO" {{ $inversion->funcionInversion == 'SANEAMIENTO' ? 'selected' : '' }}>SANEAMIENTO</option>
+                    <option value="SALUD" {{ $inversion->funcionInversion == 'IOARR' ? 'SALUD' : '' }}>SALUD</option>
+                    <option value="EDUCACIÓN" {{ $inversion->funcionInversion == 'IOARR' ? 'EDUCACIÓN' : '' }}>EDUCACIÓN</option>
+                  </select>
                 </div>
               </div>
               <div class="row">
                 <div class="col-6 form-outline mb-4">
-                  <label class="form-label" for="modalidadEjecucionInversion">Modalidad Ejecución</label>
-                  <select name="modalidadEjecucionInversion" id="modalidadEjecucionInversion" class="form-select form-select-sm input-auth" required>
+                  <label class="form-label" for="modalidadInversion">Modalidad</label>
+                  <select name="modalidadInversion" id="modalidadInversion" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled selected>Selecciona una modalidad</option>
-                    <option value="DIRECTA" {{ $inversion->modalidadEjecucionInversion == 'DIRECTA' ? 'selected' : '' }}>DIRECTA</option>
-                    <option value="CONTRATA" {{ $inversion->modalidadEjecucionInversion == 'CONTRATA' ? 'selected' : '' }}>CONTRATA</option>
+                    <option value="DIRECTA" {{ $inversion->modalidadInversion == 'DIRECTA' ? 'selected' : '' }}>DIRECTA</option>
+                    <option value="CONTRATA" {{ $inversion->modalidadInversion == 'CONTRATA' ? 'selected' : '' }}>CONTRATA</option>
                   </select>
                 </div>
                 <div class="col-6 form-outline mb-4">
@@ -142,6 +120,32 @@
                     <option value="CON REGISTRO DE FASE DE EJECUCIÓN" {{ $inversion->estadoInversion == 'CON REGISTRO DE FASE DE EJECUCIÓN' ? 'selected' : '' }}>CON REGISTRO DE FASE DE EJECUCIÓN</option>
                     <option value="CON RESOLUCIÓN EJECUTIVA" {{ $inversion->estadoInversion == 'CON RESOLUCIÓN EJECUTIVA' ? 'selected' : '' }}>CON RESOLUCIÓN EJECUTIVA</option>
                   </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Inicio</label>
+                  <input type="date" name="fechaInicioInversion" value="{{ $inversion->fechaInicioInversion }}" class="input-auth" required/>
+                </div>
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Final</label>
+                  <input type="date" name="fechaFinalInversion" value="{{ $inversion->fechaFinalInversion }}" class="input-auth" required/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Presupuesto Formulación</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">S/</span>
+                    <input type="text" name="presupuestoFormulacionInversion" value="{{ $inversion->presupuestoFormulacionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
+                  </div>
+                </div>
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Presupuesto Ejecución</label>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text">S/</span>
+                    <input type="text" name="presupuestoEjecucionInversion" value="{{ $inversion->presupuestoEjecucionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
+                  </div>
                 </div>
               </div>
             </div>

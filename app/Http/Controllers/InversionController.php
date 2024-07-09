@@ -9,135 +9,153 @@ use App\Models\User;
 
 class InversionController extends Controller
 {
+    // Función de carga de datos
     public function index(Request $request){
-        $inversiones = Inversion::all();
+        // Carga de datos de provincias y distritos mediante un JSON
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
-        $usuarios = User::whereNotNull('email')
-        ->where('idUsuario', '!=', 1)
-        ->get();
+
+        // Cargamos los datos de inversion y usuarios
+        $inversiones = Inversion::all();
+        $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+
         return view('inversion.index', compact('inversiones', 'provincias', 'usuarios'));
     }
 
+    // Función que devuelve el formulario de crear
     public function create(){
         return view('inversion.create');
     }
 
-    public function store(Request $request)
-    {
+    // Función de agreagar un registro
+    public function store(Request $request){
+        // Validaciones
         $request->validate([
             'cuiInversion' => 'required|string|max:255',
-            'nombreInversion' => 'required|string|max:255',
+            'nombreInversion' => 'required|string|max:1024',
             'nombreCortoInversion' => 'required|string|max:255',
-            'nivelInversion' => 'required|string|max:255',
+            'idUsuario' => 'required|exists:users,idUsuario',
             'provinciaInversion' => 'required|string|max:255',
             'distritoInversion' => 'required|string|max:255',
+            'nivelInversion' => 'required|string|max:255',
             'funcionInversion' => 'required|string|max:255',
-            'presupuestoFormulacionInversion' => 'required|numeric|between:0,9999999999999.99',
-            'presupuestoEjecucionfuncionInversion' => 'required|numeric|between:0,9999999999999.99',
-            'modalidadEjecucionInversion' => 'required|string|max:255',
+            'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
-            'idUsuario' => 'required|exists:users,idUsuario',
-            'fechaModificacionEstadoInversion' => 'nullable|string|max:255',
-            'avanceTotalInversion' => 'nullable|string|max:255',
             'fechaInicioInversion' => 'required|date',
             'fechaFinalInversion' => 'required|date',
+            'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
+            'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
             'cuiInversion.required' => 'El campo CUI Inversión es obligatorio.',
             'nombreInversion.required' => 'El campo Nombre de Inversión es obligatorio.',
-            'nombreCortoInversion.required' => 'El campo Nombre Corto de Inversión es obligatorio.',
-            'nivelInversion.required' => 'El campo Nivel de Inversión es obligatorio.',
-            'provinciaInversion.required' => 'El campo Provincia de Inversión es obligatorio.',
-            'distritoInversion.required' => 'El campo Distrito de Inversión es obligatorio.',
-            'funcionInversion.required' => 'El campo Función de Inversión es obligatorio.',
-            'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación de Inversión es obligatorio.',
-            'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación de Inversión debe ser un número.',
-            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulación de Inversión debe estar entre 0 y 9999999999999.99.',
-            'presupuestoEjecucionfuncionInversion.required' => 'El campo Presupuesto de Ejecución de Inversión es obligatorio.',
-            'presupuestoEjecucionfuncionInversion.numeric' => 'El campo Presupuesto de Ejecución de Inversión debe ser un número.',
-            'presupuestoEjecucionfuncionInversion.between' => 'El campo Presupuesto de Ejecución de Inversión debe estar entre 0 y 9999999999999.99.',
-            'modalidadEjecucionInversion.required' => 'El campo Modalidad de Ejecución de Inversión es obligatorio.',
-            'estadoInversion.required' => 'El campo Estado de Inversión es obligatorio.',
+            'nombreCortoInversion.required' => 'El campo Nombre Corto es obligatorio.',
             'idUsuario.required' => 'El Usuario es obligatorio.',
             'idUsuario.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
-            'fechaInicioInversion.required' => 'El campo Fecha de Inicio de Inversión es obligatorio.',
-            'fechaInicioInversion.date' => 'El campo Fecha de Inicio de Inversión debe ser una fecha válida.',
-            'fechaFinalInversion.required' => 'El campo Fecha Final de Inversión es obligatorio.',
-            'fechaFinalInversion.date' => 'El campo Fecha Final de Inversión debe ser una fecha válida.',
+            'provinciaInversion.required' => 'El campo Provincia es obligatorio.',
+            'distritoInversion.required' => 'El campo Distrito es obligatorio.',
+            'nivelInversion.required' => 'El campo Nivel es obligatorio.',
+            'funcionInversion.required' => 'El campo Función es obligatorio.',
+            'modalidadInversion.required' => 'El campo Modalidad es obligatorio.',
+            'estadoInversion.required' => 'El campo Estado es obligatorio.',
+            'fechaInicioInversion.required' => 'El campo Fecha Inicio es obligatorio.',
+            'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
+            'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
+            'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
+            'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
+            'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
+            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulacióndebe estar entre 0 y 999999999999999999999.99.',
+            'presupuestoEjecucionInversion.required' => 'El campo Presupuesto de Ejecución es obligatorio.',
+            'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
+            'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
+        // Creamos un registro
         Inversion::create($request->all());
 
         return redirect()->route('inversion.index')->with('success','Inversión creada exitosamente.');
     }
 
-    public function edit($id)
-    {
-        $inversiones = Inversion::all();
+    // Función cargar un elemento en editar
+    public function edit($id){
+        // Carga de datos de provincias y distritos mediante un JSON
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
+
+        // Cargamos los datos de inversion
+        $inversiones = Inversion::all();
+
         return view('inversion.edit', compact('inversiones', 'provincias'));
     }
 
-    public function update(Request $request, $id)
-    {
+    // Función editar un registro
+    public function update(Request $request, $id){
+        // Validaciones
         $request->validate([
             'cuiInversion' => 'required|string|max:255',
-            'nombreInversion' => 'required|string|max:255',
+            'nombreInversion' => 'required|string|max:1024',
             'nombreCortoInversion' => 'required|string|max:255',
-            'nivelInversion' => 'required|string|max:255',
+            'idUsuario' => 'required|exists:users,idUsuario',
             'provinciaInversion' => 'required|string|max:255',
             'distritoInversion' => 'required|string|max:255',
+            'nivelInversion' => 'required|string|max:255',
             'funcionInversion' => 'required|string|max:255',
-            'presupuestoFormulacionInversion' => 'required|numeric|between:0,9999999999999.99',
-            'presupuestoEjecucionfuncionInversion' => 'required|numeric|between:0,9999999999999.99',
-            'modalidadEjecucionInversion' => 'required|string|max:255',
+            'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
-            'idUsuario' => 'required|exists:users,idUsuario',
-            'fechaModificacionEstadoInversion' => 'nullable|string|max:255',
-            'avanceTotalInversion' => 'nullable|string|max:255',
             'fechaInicioInversion' => 'required|date',
             'fechaFinalInversion' => 'required|date',
+            'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
+            'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
             'cuiInversion.required' => 'El campo CUI Inversión es obligatorio.',
             'nombreInversion.required' => 'El campo Nombre de Inversión es obligatorio.',
-            'nombreCortoInversion.required' => 'El campo Nombre Corto de Inversión es obligatorio.',
-            'nivelInversion.required' => 'El campo Nivel de Inversión es obligatorio.',
-            'provinciaInversion.required' => 'El campo Provincia de Inversión es obligatorio.',
-            'distritoInversion.required' => 'El campo Distrito de Inversión es obligatorio.',
-            'funcionInversion.required' => 'El campo Función de Inversión es obligatorio.',
-            'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación de Inversión es obligatorio.',
-            'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación de Inversión debe ser un número.',
-            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulación de Inversión debe estar entre 0 y 9999999999999.99.',
-            'presupuestoEjecucionfuncionInversion.required' => 'El campo Presupuesto de Ejecución de Inversión es obligatorio.',
-            'presupuestoEjecucionfuncionInversion.numeric' => 'El campo Presupuesto de Ejecución de Inversión debe ser un número.',
-            'presupuestoEjecucionfuncionInversion.between' => 'El campo Presupuesto de Ejecución de Inversión debe estar entre 0 y 9999999999999.99.',
-            'modalidadEjecucionInversion.required' => 'El campo Modalidad de Ejecución de Inversión es obligatorio.',
-            'estadoInversion.required' => 'El campo Estado de Inversión es obligatorio.',
+            'nombreCortoInversion.required' => 'El campo Nombre Corto es obligatorio.',
             'idUsuario.required' => 'El Usuario es obligatorio.',
             'idUsuario.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
-            'fechaInicioInversion.required' => 'El campo Fecha de Inicio de Inversión es obligatorio.',
-            'fechaInicioInversion.date' => 'El campo Fecha de Inicio de Inversión debe ser una fecha válida.',
-            'fechaFinalInversion.required' => 'El campo Fecha Final de Inversión es obligatorio.',
-            'fechaFinalInversion.date' => 'El campo Fecha Final de Inversión debe ser una fecha válida.',
+            'provinciaInversion.required' => 'El campo Provincia es obligatorio.',
+            'distritoInversion.required' => 'El campo Distrito es obligatorio.',
+            'nivelInversion.required' => 'El campo Nivel es obligatorio.',
+            'funcionInversion.required' => 'El campo Función es obligatorio.',
+            'modalidadInversion.required' => 'El campo Modalidad es obligatorio.',
+            'estadoInversion.required' => 'El campo Estado es obligatorio.',
+            'fechaInicioInversion.required' => 'El campo Fecha Inicio es obligatorio.',
+            'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
+            'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
+            'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
+            'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
+            'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
+            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulacióndebe estar entre 0 y 999999999999999999999.99.',
+            'presupuestoEjecucionInversion.required' => 'El campo Presupuesto de Ejecución es obligatorio.',
+            'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
+            'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
+        // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
+
+        // Editamos la inversión
         $inversion->update($request->all());
 
         return redirect()->route('inversion.index')->with('success','Inversión actualizada exitosamente.');
     }
 
+    // Función eliminar un registro
     public function destroy($id){
+        // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
+
+        // Eliminamos la inversión
         $inversion->delete();
+
         return redirect()->route('inversion.index')->with('success','Inversión eliminada exitosamente.');
     }
 
+    // Función mostrar un registro
     public function show($id){
+        // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
+
         return view('inversion.show', compact('inversion'));
     }
 }
