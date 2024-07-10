@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -29,17 +30,14 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        return 'https://picsum.photos/300/300';
+        return asset('images/profile.png');
     }
 
     public function adminlte_desc()
     {
-        return 'I\'m a nice guy';
-    }
-
-    public function adminlte_profile_url()
-    {
-        return 'profile/username';
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+        return $this->nombreUsuario . " " . $this->apellidoUsuario;
     }
 
     // Define la relación inversa con el modelo Segmento

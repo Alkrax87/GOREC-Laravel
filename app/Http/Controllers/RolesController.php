@@ -7,11 +7,15 @@ use App\Models\User;
 
 class RolesController extends Controller
 {
+    // Función de carga de datos
     public function index(Request $request){
-        $usuarios = User::whereNotNull('email')->get();
+        // Carga de datos de usuarios que tengan una cuenta
+        $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+
         return view('roles.index', compact('usuarios'));
     }
 
+    // Función editar el rol de un usuario
     public function update(Request $request, $id)
     {
         // Buscar el usuario por ID

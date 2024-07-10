@@ -24,11 +24,11 @@
             <div class="col-12">
               <div class="form-outline mb-4">
                 <label class="form-label">Nombres</label>
-                <input type="text" name="nombreUsuario" class="input-auth" placeholder="Nombres" required/>
+                <input type="text" name="nombreUsuario" class="input-auth" required/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Apellidos</label>
-                <input type="text" name="apellidoUsuario" class="input-auth" placeholder="Apellidos" required/>
+                <input type="text" name="apellidoUsuario" class="input-auth" required/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="categoriaUsuario">Categoría</label>
@@ -113,11 +113,11 @@
                 <div class="card-body">
                   <div class="form-outline mb-4">
                     <label class="form-label">Usuario</label>
-                    <input type="text" name="email" class="input-auth" placeholder="Usuario"/>
+                    <input type="text" name="email" class="input-auth"/>
                   </div>
                   <div class="form-outline mb-4">
                     <label class="form-label">Contraseña</label>
-                    <input type="password" name="password" class="input-auth" placeholder="********"/>
+                    <input type="password" name="password" class="input-auth"/>
                   </div>
                 </div>
               </div>

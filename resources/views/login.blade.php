@@ -22,15 +22,6 @@
 			background: url('images/gorec-login-bg.jpg') no-repeat center center fixed;
 			background-size: cover;
 		}
-		.overlay {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.3); /* Capa negra con 30% de opacidad */
-			z-index: 1;
-		}
 		/* Others */
 		.center-items {
 			display: flex;
@@ -120,12 +111,12 @@
 											<!-- Usuario input -->
 											<div class="form-outline mb-4">
 												<label class="form-label">Usuario</label>
-												<input type="text" name="email" id="email" class="input-auth" placeholder="mgutierrez" required/>
+												<input type="text" name="email" id="email" class="input-auth" required/>
 											</div>
 											<!-- Password input -->
 											<div class="form-outline mb-4">
 												<label class="form-label">Contraseña</label>
-												<input type="password" name="password" id="password" class="input-auth" placeholder="********" required/>
+												<input type="password" name="password" id="password" class="input-auth" required/>
 											</div>
 											<!-- Button -->
 											<div class="text-center">

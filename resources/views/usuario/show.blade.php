@@ -12,22 +12,19 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-12 py-2">
-              <b>Nombres:</b>&nbsp; {{ $usuario->nombreUsuario }}
+              <b><i class="fas fa-user"></i> Nombres y Apellidos:</b>&nbsp; {{ $usuario->nombreUsuario . " " . $usuario->apellidoUsuario }}
             </div>
             <div class="col-12 py-2">
-              <b>Apellidos:</b>&nbsp; {{ $usuario->apellidoUsuario }}
+              <b><i class="fas fa-user-shield"></i> Usuario:</b>&nbsp; {{ str_replace('@gorec.com', '', $usuario->email) }}
             </div>
-            @if ($usuario->email)
+            @if ($usuario->categoriaUsuario)
               <div class="col-12 py-2">
-                <b>Usuario:</b>&nbsp; {{ str_replace('@gorec.com', '', $usuario->email) }}
+                <b><i class="fas fa-clipboard-list"></i> Categoría:</b>&nbsp; {{ $usuario->categoriaUsuario }}
               </div>
             @endif
-            <div class="col-12 py-2">
-              <b>Categoría:</b>&nbsp; {{ $usuario->categoriaUsuario }}
-            </div>
-            @if ($usuario->profesiones)
+            @if ($usuario->profesiones->isNotEmpty())
               <div class="col-12 pt-2">
-                <b>Profesión:</b>
+                <b><i class="fas fa-user-graduate"></i> Profesión:</b>
                 <ul>
                   @foreach ($usuario->profesiones as $profesion)
                     <li>{{ $profesion->nombreProfesion }}</li>
@@ -35,9 +32,9 @@
                 </ul>
               </div>
             @endif
-            @if ($usuario->especialidades)
+            @if ($usuario->especialidades->isNotEmpty())
               <div class="col-12">
-                <b>Especialidad:</b>
+                <b><i class="fas fa-user-cog"></i> Especialidad:</b>
                 <ul>
                   @foreach ($usuario->especialidades as $especialidad)
                     <li>{{ $especialidad->nombreEspecialidad }}</li>

@@ -4,48 +4,49 @@
 
 @section('content_header')
   <h1><i class="fas fa-user-shield"></i> Roles</h1>
-  <hr>
 @stop
 
 @section('content')
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 px-0">
-        <!-- Alert -->
-        @if ($message = Session::get('message'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-          </div>
-        @endif
-        <!-- Tabla -->
-        <div class="table-responsive">
-          <table id="rolesTable" class="table table-bordered table-striped">
-            <thead class="table-header">
-              <tr>
-                <th>#</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th class="text-center">Usuario</th>
-                <th class="text-center">Administrador</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($usuarios as $usuario)
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <!-- Alert -->
+          @if ($message = Session::get('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table id="rolesTable" class="table table-bordered table-striped">
+              <thead class="table-header">
                 <tr>
-                  <td class="text-left">{{ $loop->index + 1 }}</td>
-                  <td>{{ $usuario->nombreUsuario }}</td>
-                  <td>{{ $usuario->apellidoUsuario }}</td>
-                  <td class="text-center">{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
-                  <td class="text-center" style="white-space: nowrap">
-                    <label class="switch">
-                      <input type="checkbox" data-toggle="modal" data-target="#ModalAdmin{{ $usuario->idUsuario }}" @checked($usuario->isAdmin)>
-                      <span class="slider round"></span>
-                    </label>
-                  </td>
+                  <th>#</th>
+                  <th>Nombres</th>
+                  <th>Apellidos</th>
+                  <th class="text-center">Usuario</th>
+                  <th class="text-center">Administrador</th>
                 </tr>
-              @endforeach
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                @foreach ($usuarios as $usuario)
+                  <tr>
+                    <td class="text-left">{{ $loop->index + 1 }}</td>
+                    <td>{{ $usuario->nombreUsuario }}</td>
+                    <td>{{ $usuario->apellidoUsuario }}</td>
+                    <td class="text-center">{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
+                    <td class="text-center" style="white-space: nowrap">
+                      <label class="switch">
+                        <input type="checkbox" data-toggle="modal" data-target="#ModalAdmin{{ $usuario->idUsuario }}" @checked($usuario->isAdmin)>
+                        <span class="slider round"></span>
+                      </label>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

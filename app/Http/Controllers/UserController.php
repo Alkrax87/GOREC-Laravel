@@ -10,17 +10,20 @@ use Hash;
 
 class UserController extends Controller
 {
+    // Función de carga de datos
     public function index(Request $request){
-        // Carga todos los usuarios y los retornamos en la vista index
+        // Carga de datos de usuarios
         $usuarios = User::all();
+
         return view('usuario.index', compact('usuarios'));
     }
 
+    // Función que devuelve el formulario de crear
     public function create(){
-        // Retornamos vista de crear
         return view('usuario.create');
     }
 
+    // Función de agreagar un registro
     public function store(Request $request){
         // Inicio validacion usuario
         $request->merge(['email' => $request->email . '@gorec.com']);
@@ -40,6 +43,8 @@ class UserController extends Controller
             'email.unique' => 'El nombre de usuario  ya está en uso.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
             'categoriaUsuario.required' => 'El campo de categoría es obligatorio.',
+            'profesionUsuario.required' => 'El campo de profesión es obligatorio.',
+            'especialidadUsuario.required' => 'El campo de especialidad es obligatorio.',
         ]);
 
         // Fin validacion usuario
@@ -78,22 +83,18 @@ class UserController extends Controller
             }
         }
 
-        // Retornamos la vista inicial
         return redirect()->route('usuario.index')->with('message','Elemento creado correctamente.');
     }
 
-    public function show($id){
-        // Carga el usuario con un id especifico y los retornamos en la vista de mostrar
-        $usuario = User::findOrFail($id);
-        return view('usuario.show', compact('usuario'));
-    }
-
+    // Función cargar un elemento en editar
     public function edit($id){
-        // Carga el usuario con un id especifico y los retornamos en la vista de editar
+        // Carga el usuario con un id especifico
         $usuario = User::findOrFail($id);
+
         return view('usuario.edit',compact('usuario'));
     }
 
+    // Función editar un registro
     public function update(Request $request, $id){
         // Inicio validacion usuario
         $request->merge(['email' => $request->email . '@gorec.com']);
@@ -118,12 +119,14 @@ class UserController extends Controller
             'email.unique' => 'El nombre de usuario  ya está en uso.',
             'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
             'categoriaUsuario.required' => 'El campo de categoría es obligatorio.',
+            'profesionUsuario.required' => 'El campo de profesión es obligatorio.',
+            'especialidadUsuario.required' => 'El campo de especialidad es obligatorio.',
         ]);
 
         // Fin validacion usuario
         $request->merge(['email' => str_replace('@gorec.com', '', $request->email)]);
 
-        // Buscar el usuario por ID
+        // Buscar el usuario por id
         $usuario = User::findOrFail($id);
 
         // Preparar los datos para actualizar
@@ -166,15 +169,22 @@ class UserController extends Controller
             }
         }
 
-        // Retornamos la vista inicial
         return redirect()->route('usuario.index')->with('message', 'Elemento actualizado correctamente.');
     }
 
+    // Función eliminar un registro
     public function destroy($id){
-        // Carga el usuario con un id especifico para eliminar y los retornamos en la vista inical
+        // Carga el usuario con un id especifico para eliminar
         $usuario = User::findOrFail($id);
         $usuario->delete();
+
         return redirect()->route('usuario.index')->with('message','Elemento eliminado correctamente.');
     }
 
+    // Función mostrar un registro
+    public function show($id){
+        // Buscamos un usuario
+        $usuario = User::findOrFail($id);
+        return view('usuario.show', compact('usuario'));
+    }
 }
