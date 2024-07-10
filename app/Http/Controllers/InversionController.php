@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Inversion;
 use App\Models\User;
+use App\Models\EstadoLog;
 
 class InversionController extends Controller
 {
@@ -19,8 +20,9 @@ class InversionController extends Controller
         // Cargamos los datos de inversion y usuarios
         $inversiones = Inversion::all();
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+        $logs = EstadoLog::all();
 
-        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios'));
+        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs'));
     }
 
     // Función que devuelve el formulario de crear
@@ -134,8 +136,21 @@ class InversionController extends Controller
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
 
+        // Guardamos el estado actual
+        $CurrentEstadoInversion = $inversion->estadoInversion;
+
         // Editamos la inversión
         $inversion->update($request->all());
+
+         // Comprobamos si el estado ha cambiado
+        if ($request->estadoInversion != $CurrentEstadoInversion) {
+            EstadoLog::create([
+                'estadoInversionOLD' => $CurrentEstadoInversion,
+                'estadoInversionNEW' => $request->estadoInversion,
+                'fechaCambioEstado' => now(),
+                'idInversion' => $id,
+            ]);
+        }
 
         return redirect()->route('inversion.index')->with('success','Inversión actualizada exitosamente.');
     }

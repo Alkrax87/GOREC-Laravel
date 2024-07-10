@@ -47,6 +47,11 @@ class Inversion extends Model
         return $this->hasMany(Segmento::class, 'idInversion', 'idInversion');
     }
 
+    // Define la relación inversa con el modelo Segmento
+    public function estado_log(){
+        return $this->hasMany(EstadoLog::class, 'idInversion', 'idInversion');
+    }
+
     // Define la relación inversa con el modelo AsignacionProfesional
     public function profesional(){
         return $this->hasMany(AsignacionProfesional::class, 'idInversion', 'idInversion');

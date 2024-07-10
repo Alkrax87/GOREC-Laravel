@@ -80,6 +80,10 @@
         @include('inversion.delete', ['inversion' => $inversion])
         @include('inversion.edit', ['inversion' => $inversion])
         @include('inversion.show', ['inversion' => $inversion])
+        @include('inversion.estadoLog', [
+          'inversion' => $inversion,
+          'logs' => $logs->where('idInversion', $inversion->idInversion),
+        ])
       @endforeach
     </div>
   </div>
