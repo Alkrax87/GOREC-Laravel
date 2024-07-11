@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('subfase', function (Blueprint $table) {
@@ -13,6 +16,10 @@ return new class extends Migration
             $table->string('nombreSubfase');
             $table->date('fechaInicioSubfase');
             $table->date('fechaFinalSubfase');
+            $table->integer('cantidadDiasSubFase');
+            $table->decimal('porcentajeAvanceProgramadoSubFase', 15, 2);
+            $table->integer('avance_por_usuario_realSubFase');
+            $table->decimal('avanceRealTotalSubFase', 15, 2);
             $table->unsignedBigInteger('idFase');
             $table->foreign('idFase')->references('idFase')->on('fase')->onDelete('restrict');
             $table->timestamps(false);
@@ -24,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('subfase');
     }
 };
+
