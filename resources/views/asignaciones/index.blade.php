@@ -4,78 +4,76 @@
 
 @section('content_header')
   <h1><i class="fas fa-user-tag"></i> Asignaciones</h1>
-  <hr>
 @stop
 
 @section('content')
-  <div class="container-fluid">
-    <div class="row">
-      <!-- Tabla y alert -->
-      <div class="col-12 px-0">
-
-        <!-- Alert -->
-        @if ($message = Session::get('message'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-          </div>
-        @endif
-
-        <!-- Tabla -->
-        <div class="table-responsive">
-          <table id="asignacionesTable" class="table table-bordered table-striped w-100">
-            <thead class="table-header">
-              <tr>
-                <th>#</th>
-                <th>CUI</th>
-                <th>Nombre</th>
-                <th>Nombre Corto</th>
-                <th>Provincia</th>
-                <th>Distrito</th>
-                <th>Modalidad Ejecución</th>
-                <th>Estado</th>
-                <th class="text-center">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($inversiones as $inversion)
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <!-- Alert -->
+          @if ($message = Session::get('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table id="asignacionesTable" class="table table-bordered table-striped w-100">
+              <thead class="table-header">
                 <tr>
-                  <td class="text-center">{{ $loop->index + 1 }}</td>
-                  <td class="text-center">{{ $inversion->cuiInversion}}</td>
-                  <td>{{ $inversion->nombreInversion}}</td>
-                  <td>{{ $inversion->nombreCortoInversion}}</td>
-                  <td>{{ $inversion->provinciaInversion}}</td>
-                  <td>{{ $inversion->distritoInversion}}</td>
-                  <td>{{ $inversion->modalidadInversion}}</td>
-                  <td>{{ $inversion->estadoInversion}}</td>
-                  <td class="text-center" style="white-space: nowrap">
-                    <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i></a>
-                    <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i></a>
-                  </td>
+                  <th>#</th>
+                  <th class="text-nowrap">CUI</th>
+                  <th class="text-nowrap">Inversión</th>
+                  <th class="text-nowrap">Nombre Corto</th>
+                  <th class="text-center">Provincia</th>
+                  <th class="text-center">Distrito</th>
+                  <th class="text-center">Modalidad</th>
+                  <th class="text-center">Estado</th>
+                  <th class="text-center">Opciones</th>
                 </tr>
-              @endforeach
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                @foreach ($inversiones as $inversion)
+                  <tr>
+                    <td class="text-center">{{ $loop->index + 1 }}</td>
+                    <td class="text-center">{{ $inversion->cuiInversion}}</td>
+                    <td>{{ $inversion->nombreInversion}}</td>
+                    <td>{{ $inversion->nombreCortoInversion}}</td>
+                    <td class="text-center">{{ $inversion->provinciaInversion }}</td>
+                    <td class="text-center">{{ $inversion->distritoInversion }}</td>
+                    <td class="text-center">{{ $inversion->modalidadInversion }}</td>
+                    <td class="text-center">{{ $inversion->estadoInversion }}</td>
+                    <td class="text-center" style="white-space: nowrap">
+                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i></a>
+                      <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i></a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
+      @foreach ($inversiones as $inversion)
+        @include('asignaciones.profesional.index', [
+          'inversion' => $inversion,
+          'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
+        ])
+        @include('asignaciones.asistente.index', [
+          'inversion' => $inversion,
+          'asistentes' => $asistentes->where('idInversion', $inversion->idInversion),
+          'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
+        ])
+        @include('asignaciones.show', [
+          'inversion' => $inversion,
+          'profesionales' => $profesionales->where('idInversion', $inversion->idInversion),
+          'asistentes' => $asistentes->where('idInversion', $inversion->idInversion)
+        ])
+      @endforeach
     </div>
   </div>
-  @foreach ($inversiones as $inversion)
-    @include('asignaciones.profesional.index', [
-      'inversion' => $inversion,
-      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
-    ])
-    @include('asignaciones.asistente.index', [
-      'inversion' => $inversion,
-      'asistentes' => $asistentes->where('idInversion', $inversion->idInversion),
-      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion)
-    ])
-    @include('asignaciones.show', [
-      'inversion' => $inversion,
-      'profesionales' => $profesionales->where('idInversion', $inversion->idInversion),
-      'asistentes' => $asistentes->where('idInversion', $inversion->idInversion)
-    ])
-  @endforeach
 @stop
 
 @section('css')

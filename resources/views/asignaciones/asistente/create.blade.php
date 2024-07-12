@@ -1,7 +1,7 @@
 <form action="{{ route('asistente.store') }}" method="POST">
   @csrf
   <div class="modal fade" id="ModalCreateAsistente{{ $inversion->idInversion }}">
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h3 class="modal-title"><i class="fas fa-users-cog"></i> Agregar Asistente</h3>
@@ -29,7 +29,7 @@
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($profesionales as $profesional)
                     <option value="{{ $profesional->idUsuario }}">
-                      {{ $profesional->usuario->apellidoUsuario . ' ' . $profesional->usuario->nombreUsuario }}
+                      {{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}
                     </option>
                   @endforeach
                 </select>
@@ -38,7 +38,7 @@
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($usuariosAsistentes as $usuario)
                     <option value="{{ $usuario->idUsuario }}">
-                      {{ $usuario->apellidoUsuario . ' ' . $usuario->nombreUsuario }}
+                      {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
 
                       P: (
                       @if ($usuario->profesiones->isNotEmpty())

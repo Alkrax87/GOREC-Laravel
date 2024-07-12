@@ -12,9 +12,8 @@
           <div class="row">
             <!-- Titulo -->
             <div class="col-12 py-2">
-              <h2>{{ $inversion->nombreInversion }}</h2>
+              <h2>{{ $inversion->nombreCortoInversion }}</h2>
               <h6>{{ $inversion->cuiInversion }}</h6>
-              <hr>
             </div>
             <!-- Contenido -->
             <div class="col-12">
@@ -31,14 +30,14 @@
                 <table id="profesionalesTable" class="table table-striped w-100">
                   <thead class="table-header">
                     <tr>
-                      <th class="w-75">Apellidos y Nombres</th>
+                      <th class="w-75"><i class="fas fa-user-tie"></i> Profesional</th>
                       <th class="text-center w-25">Opciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     @foreach ($profesionales as $profesional)
                       <tr>
-                        <td>{{ $profesional->usuario->apellidoUsuario . ' ' . $profesional->usuario->nombreUsuario }}</td>
+                        <td>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</td>
                         <td class="text-center" style="white-space: nowrap">
                           <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{ $inversion->idInversion . '-' . $profesional->idUsuario }}"><i class="fas fa-trash-alt"></i></a>
                         </td>
@@ -49,7 +48,7 @@
                 @include('asignaciones.profesional.create', ['inversion' => $inversion ])
               </div>
             </div>
-            <div class="col-12 py-2 text-center">
+            <div class="col-12 pt-4 text-center">
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button class="btn btn-dark mx-1" data-dismiss="modal"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</button>
             </div>
@@ -62,6 +61,28 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#profesionalesTable').DataTable({
+      responsive: true,
+      language: {
+        search: "Buscar:",
+        lengthMenu: "Mostrar _MENU_ registros por página",
+        zeroRecords: "No se encontraron resultados",
+        info: "Mostrando página _PAGE_ de _PAGES_",
+        infoEmpty: "No hay registros disponibles",
+        infoFiltered: "(filtrado de _MAX_ registros totales)",
+        paginate: {
+          first: "Primero",
+          last: "Último",
+          next: "Siguiente",
+          previous: "Anterior"
+        }
+      }
+    });
+  });
+</script>
 
 <style>
   body {
