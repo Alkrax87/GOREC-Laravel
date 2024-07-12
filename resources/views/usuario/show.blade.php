@@ -1,7 +1,7 @@
 <form action="{{ route('usuario.show', $usuario->idUsuario) }}" method="POST">
   {{ csrf_field() }}
   <div class="modal fade" id="ModalShow{{$usuario->idUsuario}}">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-md">
       <div class="modal-content">
         <div class="modal-header">
           <h4 class="modal-title"><i class="fas fa-users"></i> Detalle Usuario</h4>
@@ -23,23 +23,35 @@
               </div>
             @endif
             @if ($usuario->profesiones->isNotEmpty())
-              <div class="col-12 pt-2">
-                <b><i class="fas fa-user-graduate"></i> Profesión:</b>
-                <ul>
-                  @foreach ($usuario->profesiones as $profesion)
-                    <li>{{ $profesion->nombreProfesion }}</li>
-                  @endforeach
-                </ul>
+              <div class="col-12 mt-2">
+                <div class="card text-white bg-dark">
+                  <div class="card-body pb-0">
+                    <div class="col-12">
+                      <b><i class="fas fa-user-graduate"></i> Profesión:</b>
+                      <ul>
+                        @foreach ($usuario->profesiones as $profesion)
+                          <li>{{ $profesion->nombreProfesion }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             @endif
             @if ($usuario->especialidades->isNotEmpty())
               <div class="col-12">
-                <b><i class="fas fa-user-cog"></i> Especialidad:</b>
-                <ul>
-                  @foreach ($usuario->especialidades as $especialidad)
-                    <li>{{ $especialidad->nombreEspecialidad }}</li>
-                  @endforeach
-                </ul>
+                <div class="card text-white bg-dark">
+                  <div class="card-body pb-0">
+                    <div class="col-12">
+                      <b><i class="fas fa-user-cog"></i> Especialidad:</b>
+                      <ul>
+                        @foreach ($usuario->especialidades as $especialidad)
+                          <li>{{ $especialidad->nombreEspecialidad }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </div>
             @endif
             <div class="col-12 py-2 text-center">
