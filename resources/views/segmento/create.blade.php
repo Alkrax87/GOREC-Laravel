@@ -23,13 +23,13 @@
           <div class="row">
             <div class="col-12">
               <div class="form-outline mb-4">
-                <label class="form-label">Nombre Segmento</label>
-                <input type="text" name="nombreSegmento" class="input-auth" placeholder="Nombre Segmento" required/>
+                <label class="form-label">Nombre</label>
+                <input type="text" name="nombreSegmento" class="input-auth" required/>
               </div>
               <div class="row">
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label">Fecha Inicio</label>
-                  <input type="date" name="fechaInicioSegmento" class="input-auth"required/>
+                  <input type="date" name="fechaInicioSegmento" class="input-auth" required/>
                 </div>
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label">Fecha Final</label>
@@ -42,7 +42,7 @@
                   <option value="" disabled selected>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}">
-                      {{ $inversion->nombreInversion }}
+                      {{ $inversion->nombreCortoInversion }}
                     </option>
                   @endforeach
                 </select>

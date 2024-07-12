@@ -4,63 +4,64 @@
 
 @section('content_header')
   <h1><i class="fas fa-stream"></i> Segmentos</h1>
-  <hr>
 @stop
 
 @section('content')
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-12 px-0">
-        <!-- Agregar -->
-        <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Segmento</button>
-        <!-- Alert -->
-        @if ($message = Session::get('message'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-          </div>
-        @endif
-        <!-- Tabla -->
-        <div class="table-responsive">
-          <table id="segmentosTable" class="table table-bordered table-striped">
-            <thead class="table-header">
-              <tr>
-                <th class="text-left">#</th>
-                <th class="text-left">Nombre</th>
-                <th class="text-center">Fecha Inicio</th>
-                <th class="text-center">Fecha Final</th>
-                <th>Inversión</th>
-                <th>Usuario</th>
-                <th class="text-center">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($segmentos as $segmento)
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <!-- Agregar -->
+          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Segmento</button>
+          <!-- Alert -->
+          @if ($message = Session::get('message'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table id="segmentosTable" class="table table-bordered table-striped">
+              <thead class="table-header text-center">
                 <tr>
-                  <td class="text-left">{{ $loop->index + 1 }}</td>
-                  <td class="text-left">{{ $segmento->nombreSegmento }}</td>
-                  <td class="text-center">{{ $segmento->fechaInicioSegmento }}</td>
-                  <td class="text-center">{{ $segmento->fechaFinalSegmento }}</td>
-                  <td>{{ $segmento->inversion->nombreInversion }}</td>
-                  <td>{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
-                  <td class="text-center style="white-space: nowrap"">
-                    <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
-                  </td>
+                  <th class="text-left">#</th>
+                  <th class="text-left">Nombre</th>
+                  <th class="text-center">Usuario</th>
+                  <th>Inversión</th>
+                  <th class="text-nowrap">Fecha Inicio</th>
+                  <th class="text-nowrap">Fecha Final</th>
+                  <th>Opciones</th>
                 </tr>
-              @endforeach
-            </tbody>
-          </table>
-          @include('segmento.create')
+              </thead>
+              <tbody>
+                @foreach ($segmentos as $segmento)
+                  <tr>
+                    <td class="text-left">{{ $loop->index + 1 }}</td>
+                    <td class="text-left">{{ $segmento->nombreSegmento }}</td>
+                    <td class="text-nowrap text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
+                    <td>{{ $segmento->inversion->nombreInversion }}</td>
+                    <td class="text-center">{{ $segmento->fechaInicioSegmento }}</td>
+                    <td class="text-center">{{ $segmento->fechaFinalSegmento }}</td>
+                    <td class="text-nowrap">
+                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+            @include('segmento.create')
+          </div>
         </div>
       </div>
+      @foreach ($segmentos as $segmento)
+        @include('segmento.delete', ['segmento' => $segmento])
+        @include('segmento.edit', ['segmento' => $segmento])
+        @include('segmento.show', ['segmento' => $segmento])
+      @endforeach
     </div>
   </div>
-  @foreach ($segmentos as $segmento)
-    @include('segmento.delete', ['segmento' => $segmento])
-    @include('segmento.edit', ['segmento' => $segmento])
-    @include('segmento.show', ['segmento' => $segmento])
-  @endforeach
 @stop
 
 @section('css')

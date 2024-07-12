@@ -25,7 +25,7 @@
             <div class="col-12">
               <div class="form-outline mb-4">
                 <label class="form-label">Nombre Segmento</label>
-                <input type="text" name="nombreSegmento" value="{{ $segmento->nombreSegmento }}" class="input-auth" placeholder="Nombre Segmento" required/>
+                <input type="text" name="nombreSegmento" value="{{ $segmento->nombreSegmento }}" class="input-auth" required/>
               </div>
               <div class="row">
                 <div class="col-6 form-outline mb-4">
@@ -43,7 +43,7 @@
                   <option value="" disabled>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}" {{ $segmento->idInversion == $inversion->idInversion ? 'selected' : '' }}>
-                      {{ $inversion->nombreInversion }}
+                      {{ $inversion->nombreCortoInversion }}
                     </option>
                   @endforeach
                 </select>

@@ -13,19 +13,19 @@
           <div class="container-fluid">
             <div class="row">
               <div class="col-12 py-2">
-                <b>Nombre:</b>&nbsp; {{ $segmento->nombreSegmento }}
+                <b><i class="fas fa-tag"></i> Nombre:</b>&nbsp; {{ $segmento->nombreSegmento }}
               </div>
               <div class="col-12 py-2">
-                <b>Fecha Inicio:</b>&nbsp; {{ $segmento->fechaInicioSegmento }}
+                <b><i class="fas fa-portrait"></i> Usuario:</b>&nbsp; {{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}
+              </div>
+              <div class="col-6 py-2">
+                <b><i class="fas fa-calendar-alt"></i> Fecha Inicio:</b>&nbsp; {{ $segmento->fechaInicioSegmento }}
+              </div>
+              <div class="col-6 py-2">
+                <b><i class="fas fa-calendar-alt"></i> Fecha Final:</b>&nbsp; {{ $segmento->fechaFinalSegmento }}
               </div>
               <div class="col-12 py-2">
-                <b>Fecha Final:</b>&nbsp; {{ $segmento->fechaFinalSegmento }}
-              </div>
-              <div class="col-12 py-2">
-                <b>Inversión:</b>&nbsp; {{ $segmento->inversion->nombreInversion }}
-              </div>
-              <div class="col-12 py-2">
-                <b>Usuario:</b>&nbsp; {{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}
+                <b><i class="fas fa-file-signature"></i> Inversión:</b>&nbsp; {{ $segmento->inversion->nombreInversion }}
               </div>
               <div class="col-12 py-2 text-center">
                 <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
