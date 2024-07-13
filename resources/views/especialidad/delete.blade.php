@@ -1,17 +1,17 @@
-<form action="{{ route('subfase.destroy', $subfase->idSubfase) }}" method="POST">
+<form action="{{ route('especialidad.destroy', $especialidad->idEspecialidad) }}" method="POST">
     {{ method_field('delete') }}
     {{ csrf_field() }}
-    <div class="modal fade" id="ModalDelete{{$subfase->idSubfase}}">
+    <div class="modal fade" id="ModalDeleteEspecialidad{{$especialidad->idEspecialidad}}">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title">Eliminar Sub Actividad</h4>
+            <h4 class="modal-title">Eliminar Especialidad</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ¿Estas seguro de borrar la Sub Fase <b>{{ $subfase->nombreSubfase}}</b>?
+            ¿Estas seguro de borrar la Especialidad <b>{{ $especialidad->nombreEspecialidad}}</b>?
             <hr>
             <div class="row">
               <div class="col-12 py-2 text-center">
@@ -24,4 +24,3 @@
       </div>
     </div>
 </form>
-

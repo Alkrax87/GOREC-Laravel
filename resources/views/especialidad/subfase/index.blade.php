@@ -1,9 +1,8 @@
-@foreach ($fases as $fase)
-<div class="modal fade" id="ModalSubFase{{ $especialidad->idEspecialidad }}">
+<div class="modal fade" id="ModalSubFase{{ $fase->idFase}}">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title"><i class="fas fa-user-tie"></i> Sub Fase</h3>
+          <h3 class="modal-title"><i class="fas fa-user-tie"></i> Sub Actividad</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -22,7 +21,7 @@
                   </div>
                 @endif
                 <!-- Agregar -->
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalSubFaseCreate{{ $especialidad->idEspecialidad  }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Sub Fase</button>
+                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalSubFaseCreate{{ $fase->idFase }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Sub Actividad</button>
                 <!-- Tabla -->
                 <div class="table-responsive">
                   <table id="profesionalesTable" class="table table-striped w-100">
@@ -52,15 +51,15 @@
                         <td class="text-left">{{ $subfase->porcentajeAvanceProgramadoSubFase}}</td>
                         <td class="text-left">{{ $subfase->avance_por_usuario_realSubFase}}</td>
                         <td class="text-left">{{ $subfase->avanceRealTotalSubFase}}</td>
-                        <td class="text-center style="white-space: nowrap"">
-                          <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditFase{{$fase->idFase}}"><i class="fas fa-edit"></i></a>
-                          <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteFase{{$fase->idFase}}">subfase<i class="fas fa-trash-alt"></i></a>
+                        <td class="text-center" style="white-space: nowrap">
+                          <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditSubFase{{$subfase->idSubfase}}"><i class="fas fa-edit"></i></a>
+                          <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$subfase->idSubfase}}"><i class="fas fa-trash-alt"></i></a>
                         </td>
                     </tr>
                       @endforeach
                     </tbody>
                   </table>
-                  @include('especialidad.subfase.create', ['especialidad' => $especialidad ])
+                  @include('especialidad.subfase.create', ['fase' => $fase ])
                 </div>
               </div>
               <div class="col-12 py-2 text-center">
@@ -69,11 +68,13 @@
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
   </div>
+@foreach ($subfases as $subfase)
+  @include('especialidad.subfase.delete', ['subfase' => $subfase])
+  @include('especialidad.subfase.edit', ['subfase' => $subfase])
 @endforeach
   <style>
     body {

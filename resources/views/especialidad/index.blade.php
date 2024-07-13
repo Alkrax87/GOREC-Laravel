@@ -34,9 +34,7 @@
                 <th class="text-left">Nombre Especialidad</th>
                 <th class="text-left">Porcentaje de Especialidad</th>
                 <th class="text-left">Porcentaje Avance</th>
-                <th class="text-center">id</th>
                 <th class="text-center">Opciones</th>
-                
               </tr>
             </thead>
             <tbody>
@@ -47,11 +45,11 @@
                   <td class="text-left">{{ $especialidad->nombreEspecialidad}}</td>
                   <td class="text-left">{{ $especialidad->porcentajeAvanceEspecialidad}}</td>
                   <td class="text-left">{{ $especialidad->avanceTotalEspecialidad}}</td>
-                  <td class="text-left">{{ $especialidad->idEspecialidad}}</td>
                   <td class="text-center" style="white-space: nowrap"">
                     <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$especialidad->idEspecialidad}}"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalFase{{$especialidad->idEspecialidad}}">fase<i class="fas fa-edit"></i></a>
-                    <a class="btn btn-danger" data-toggle="modal" data-target="#ModalSubFase{{$especialidad->idEspecialidad}}">subfase<i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditEspecialidad{{$especialidad->idEspecialidad}}"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{$especialidad->idEspecialidad}}"><i class="fas fa-trash-alt"></i></a>
+                    <a class="btn btn-warning" data-toggle="modal" data-target="#ModalFase{{$especialidad->idEspecialidad}}"><i class="fas fa-stream"></i></a>
                   </td>
                 </tr>
               @endforeach
@@ -66,17 +64,16 @@
 @foreach ($especialidades as $especialidad)
     @include('especialidad.fase.index', [
       'especialidad' => $especialidad,
-      //'fases2' => $fases->where('idEspecialidad', $especialidad->idEspecialidad)
-    ])
-    @include('especialidad.subfase.index', [
-      'especialidad' => $especialidad,
+      'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
     ])
      @include('especialidad.show', [
       'especialidad' => $especialidad,
       'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
-      'subfases' => $subfases->where('idEspecialidad', $especialidad->idEspecialidad)
     ])
+     @include('especialidad.delete', ['especialidad' => $especialidad])
+     @include('especialidad.edit', ['especialidad' => $especialidad])
 @endforeach
+
 @stop
 
 @section('css')

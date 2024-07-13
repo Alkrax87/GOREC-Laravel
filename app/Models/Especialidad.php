@@ -29,8 +29,8 @@ class Especialidad extends Model
     {
         return $this->belongsTo(Inversion::class, 'idInversion');
     }
-    public function fase()
+    public function fases()
     {
-        return $this->belongsTo(Fase::class, 'idFase');
+        return $this->hasMany(Fase::class, 'idEspecialidad');
     }
 }

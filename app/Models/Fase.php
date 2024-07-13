@@ -24,8 +24,8 @@ class Fase extends Model
     {
         return $this->belongsTo(Especialidad::class, 'idEspecialidad');
     }
-    public function subfase()
+    public function subfases()
     {
-        return $this->belongsTo(Fase::class, 'idSubfase');
+        return $this->hasMany(SubFase::class, 'idFase');
     }
 }

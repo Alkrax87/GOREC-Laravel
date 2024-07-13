@@ -12,17 +12,13 @@ class EspecialidadController extends Controller
 {
     public function index(Request $request)
     {
-        $especialidades = Especialidad::with(['inversion'])->get();
+        $this->recalcularAvanceTotalEspecialidad();
+        $especialidades = Especialidad::all();
         $fases = Fase::all();
         $subfases = SubFase::all();
         $inversiones = Inversion::all(); // Carga todas las inversiones
+        
         return view('especialidad.index', compact('especialidades', 'inversiones', 'fases', 'subfases'));
-    }
-
-    public function create()
-    {
-        $inversiones = Inversion::all(); // Para cargar todas las inversiones
-        return view('especialidad.create', compact('inversiones'));
     }
 
     public function store(Request $request)
@@ -48,15 +44,16 @@ class EspecialidadController extends Controller
         $especialidad->save();
 
         // Recalcular el avance total de todas las especialidades
-        $this->recalcularAvanceTotalEspecialidad();
 
         return redirect()->route('especialidad.index')->with('message', 'Elemento creado correctamente.');
     }
 
     public function show($id)
     {
-        $especialidades = Especialidad::with(['inversion'])->findOrFail($id);
+        $especialidades = Especialidad::with(['fases','subfases'])->findOrFail($id);
         return view('especialidad.show', compact('especialidades'));
+        //$especialidades = Especialidad::with(['fase,subfases'])->findOrFail($id);
+        //return view('especialidad.show', compact('especialidades'));
     }
 
     public function edit($id)
@@ -71,22 +68,18 @@ class EspecialidadController extends Controller
         $request->validate([
             'nombreEspecialidad' => 'required|string|max:255',
             'porcentajeAvanceEspecialidad' => 'required|numeric',
-            'idInversion' => 'required|exists:inversion,idInversion',
         ], [
             'nombreEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
             'porcentajeAvanceEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
-            'idInversion.required' => 'El campo Inversión es obligatorio.',
-            'idInversion.exists' => 'La inversión seleccionada no existe.',
         ]);
 
         $especialidades = Especialidad::findOrFail($id);
         $especialidades->nombreEspecialidad = $request->nombreEspecialidad;
         $especialidades->porcentajeAvanceEspecialidad = $request->porcentajeAvanceEspecialidad;
-        $especialidades->idInversion = $request->idInversion;
         $especialidades->save();
 
         // Recalcular el avance total de todas las especialidades
-        $this->recalcularAvanceTotalEspecialidad();
+        //$this->recalcularAvanceTotalEspecialidad();
 
         return redirect()->route('especialidad.index')->with('message', 'Elemento actualizado correctamente.');
     }
@@ -95,21 +88,21 @@ class EspecialidadController extends Controller
     {
         $especialidades = Especialidad::findOrFail($id);
         $especialidades->delete();
-
         // Recalcular el avance total de todas las especialidades
-        $this->recalcularAvanceTotalEspecialidad();
+        //$this->recalcularAvanceTotalEspecialidad();
 
         return redirect()->route('especialidad.index')->with('message', 'Elemento eliminado correctamente.');
     }
-
     private function recalcularAvanceTotalEspecialidad()
     {
         $especialidades = Especialidad::all();
         foreach ($especialidades as $especialidad) {
             $fases = Fase::where('idEspecialidad', $especialidad->idEspecialidad)->get();
             $sumAvanceTotalFase = $fases->sum('avanceTotalFase');
-            $especialidad->avanceTotalEspecialidad = $especialidad->porcentajeAvanceEspecialidad * $sumAvanceTotalFase / 100;
+            $especialidad->avanceTotalEspecialidad = ($especialidad->porcentajeAvanceEspecialidad * $sumAvanceTotalFase) / 100;
             $especialidad->save();
         }
     }
+
 }
+

@@ -7,19 +7,6 @@ use App\Models\Especialidad;
 
 class FaseController extends Controller
 {
-    public function index(Request $request)
-    {
-        $fases = Fase::with(['especialidad'])->get();
-        $especialidades = Especialidad::all(); // Carga todas las inversiones
-        return view('especialidad.fase.index', compact('fases', 'especialidades'));
-    }
-
-    public function create()
-    {
-        $especialidades = Especialidad::all(); // Para cargar todas las inversiones
-        return view('especialidad.fase.create', compact('especialidades'));
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -37,12 +24,13 @@ class FaseController extends Controller
         $fase->idEspecialidad = $request->idEspecialidad;
         $fase->avanceTotalFase = 0;
         $fase->porcentajeAvanceFase = 0; // Inicializar con 0 para evitar el error
-       
         $fase->save();
-
         // Recalcular el avance total de todas las fases
         $this->recalcularAvanceTotalFase();
-
+        //$this->recalcularAvanceTotalFase();
+        //$especialidadController = new EspecialidadController();
+        //$especialidadController->recalcularAvanceTotalEspecialidad($fase->idEspecialidad);
+        //return redirect()->back()->with('success', 'Subfases creadas y actualizadas con éxito');
         return redirect()->route('especialidad.index')->with('message', 'Elemento creado correctamente.');
     }
 
@@ -63,22 +51,25 @@ class FaseController extends Controller
     {
         $request->validate([
             'nombreFase' => 'required|string|max:255',
-            'idEspecialidad' => 'required|exists:especialidad,idEspecialidad',
+            //'idEspecialidad' => 'required|exists:especialidad,idEspecialidad',
         ], [
             'nombreFase.required' => 'El campo Nombre Segmento es obligatorio.',
-            'idEspecialidad.required' => 'El campo Inversión es obligatorio.',
-            'idEspecialidad.exists' => 'La inversión seleccionada no existe.',
+            //'idEspecialidad.required' => 'El campo Inversión es obligatorio.',
+            //'idEspecialidad.exists' => 'La inversión seleccionada no existe.',
         ]);
 
         $fase = Fase::findOrFail($id);
         $fase->nombreFase = $request->nombreFase;
-        $fase->idEspecialidad = $request->idEspecialidad;
+        //$fase->idEspecialidad = $request->idEspecialidad;
         $fase->save();
 
         // Recalcular el avance total de todas las fases
         $this->recalcularAvanceTotalFase();
+        
+       // $especialidadController = new EspecialidadController();
+        //$especialidadController->recalcularAvanceTotalEspecialidad($fase->idEspecialidad);
 
-        return redirect()->route('fase.index')->with('message', 'Elemento actualizado correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Elemento actualizado correctamente.');
     }
 
     public function destroy($id)
@@ -89,21 +80,25 @@ class FaseController extends Controller
         // Recalcular el avance total de todas las fases
         $this->recalcularAvanceTotalFase();
 
-        return redirect()->route('fase.index')->with('message', 'Elemento eliminado correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Elemento eliminado correctamente.');
     }
 
     private function recalcularAvanceTotalFase()
     {
-        $fases = Fase::all();
-        $totalFases = $fases->count();
+        // Obtener todas las fases agrupadas por idEspecialidad
+        $fasesPorEspecialidad = Fase::all()->groupBy('idEspecialidad');
 
-        if ($totalFases > 0) {
-            $porcentajeAvance = 100 / $totalFases;
-            foreach ($fases as $fase) {
-                $fase->porcentajeAvanceFase = $porcentajeAvance;
-                // Aquí puedes asignar `avanceTotalFase` si tienes un cálculo específico
-                $fase->save();
+        foreach ($fasesPorEspecialidad as $idEspecialidad => $fases) {
+            $totalFases = $fases->count();
+            if ($totalFases > 0) {
+                $porcentajeAvance = 100 / $totalFases;
+                foreach ($fases as $fase) {
+                    $fase->porcentajeAvanceFase = $porcentajeAvance;
+                    // Aquí puedes asignar `avanceTotalFase` si tienes un cálculo específico
+                    $fase->save();
+                }
             }
         }
     }
 }
+   // Verificar que la fase se esté obteniendo y actualizando correctamente

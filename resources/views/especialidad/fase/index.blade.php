@@ -1,9 +1,9 @@
-@foreach ($especialidades as $especialidad)
+
 <div class="modal fade" id="ModalFase{{ $especialidad->idEspecialidad }}">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title"><i class="fas fa-user-tie"></i>Fase</h3>
+          <h3 class="modal-title"><i class="fas fa-user-tie"></i>Actividad</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -21,17 +21,18 @@
                   </div>
                 @endif
                 <!-- Agregar -->
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateFase{{ $especialidad->idEspecialidad  }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Fase</button>
+                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateFase{{ $especialidad->idEspecialidad  }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Actividad</button>
                 <!-- Tabla -->
                 <div class="table-responsive">
                   <table id="profesionalesTable" class="table table-striped w-100">
                     <thead class="table-header">
                       <tr>
                         <th class="text-center">#</th>
-                        <th class="text-center">Especialidad</th>
+                       <!--  <th class="text-center">Especialidad</th> -->
                         <th class="text-left">Nombre Tarea</th>
                         <th class="text-left">Porcentaje de Tarea</th>
                         <th class="text-left">Porcentaje Avance</th>
+                        
                         <th class="text-center w-25">Opciones</th>
                       </tr>
                     </thead>
@@ -39,13 +40,15 @@
                       @foreach ($fases as $fase)
                         <tr>
                             <td class="text-left">{{ $loop->index + 1 }}</td>
-                            <td>{{ $fase->especialidad->nombreEspecialidad}}</td>
+                         <!--    <td>{{ $fase->especialidad->nombreEspecialidad}}</td>-->
                             <td class="text-left">{{ $fase->nombreFase}}</td>
                             <td class="text-left">{{ $fase->porcentajeAvanceFase}}</td>
                             <td class="text-left">{{ $fase->avanceTotalFase}}</td>
-                            <td class="text-center style="white-space: nowrap"">
+                            
+                            <td class="text-center" style="white-space: nowrap"">
                               <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditFase{{$fase->idFase}}"><i class="fas fa-edit"></i></a>
-                              <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteFase{{$fase->idFase}}">subfase<i class="fas fa-trash-alt"></i></a>
+                              <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteFase{{$fase->idFase}}"><i class="fas fa-trash-alt"></i></a>
+                              <a class="btn btn-danger" data-toggle="modal" data-target="#ModalSubFase{{$fase->idFase}}"><i class="fa fa-tasks" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                       @endforeach
@@ -64,7 +67,14 @@
       </div>
     </div>
   </div>
-  @endforeach
+  @foreach ($fases as $fase)
+    @include('especialidad.subfase.index', [
+      'fase' => $fase,
+      'subfases' => $subfases->where('idFase', $fase->idFase)
+      ])
+    @include('especialidad.fase.delete', ['fase' => $fase])
+    @include('especialidad.fase.edit', ['fase' => $fase])
+@endforeach
   <style>
     body {
       background-color: #000;
