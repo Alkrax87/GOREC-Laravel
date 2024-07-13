@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('fase', function (Blueprint $table) {
-        $table->id('idFase')->primary();
-        $table->string('nombreFase');
-        $table->decimal('porcentajeAvanceFase',15, 2);
-        $table->decimal('avanceTotalFase', 15, 2);
-        $table->unsignedBigInteger('idEspecialidad');
-        $table->foreign('idEspecialidad')->references('idEspecialidad')->on('especialidad')->onDelete('cascade');
-        $table->timestamps(false);
+            $table->id('idFase')->primary();
+            $table->string('nombreFase');
+            $table->decimal('porcentajeAvanceFase',15, 2);
+            $table->decimal('avanceTotalFase', 15, 2);
+            $table->unsignedBigInteger('idEspecialidad');
+            $table->foreign('idEspecialidad')->references('idEspecialidad')->on('especialidad')->onDelete('cascade');
+            $table->timestamps(false);
         });
     }
     public function down(): void

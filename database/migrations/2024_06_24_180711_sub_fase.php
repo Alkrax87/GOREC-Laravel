@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('avance_por_usuario_realSubFase');
             $table->decimal('avanceRealTotalSubFase', 15, 2);
             $table->unsignedBigInteger('idFase');
-            $table->foreign('idFase')->references('idFase')->on('fase')->onDelete('restrict');
+            $table->foreign('idFase')->references('idFase')->on('fase')->onDelete('cascade');
             $table->timestamps(false);
         });
     }

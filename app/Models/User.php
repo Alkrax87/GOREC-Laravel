@@ -57,4 +57,8 @@ class User extends Authenticatable
     public function inversion(){
         return $this->hasMany(Inversion::class, 'idUsuario', 'idUsuario');
     }
+
+    public function asignacion_especialidad(){
+        return $this->hasMany(Especialidad::class, 'idUsuario', 'idUsuario');
+    }
 }
