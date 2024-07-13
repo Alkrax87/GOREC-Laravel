@@ -26,8 +26,7 @@ class Complementario extends Model
         'estadoEstudiosComplementarios',
         'idInversion',
     ];
-    
-      
+
     // Define la relación con el modelo Inversion
     public function inversion()
     {

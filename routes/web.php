@@ -8,8 +8,11 @@ use App\Http\Controllers\AsignacionesController;
 use App\Http\Controllers\ProfesionalController;
 use App\Http\Controllers\AsistenteController;
 use App\Http\Controllers\RolesController;
-use App\Http\Controllers\ProyectoController;
+use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\ComplementarioController;
+use App\Http\Controllers\SubFaseController;
+use App\Http\Controllers\FaseController;
+
 
 // Ruta por defecto
 Route::get('/', function () {
@@ -30,8 +33,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);
     Route::resource('roles', RolesController::class);
-    Route::resource('avanzeProyecto', ProyectoController::class);
+    Route::resource('especialidad', EspecialidadController::class);
     Route::resource('complementario', ComplementarioController::class);
+    Route::resource('subfase', SubFaseController::class);
+    Route::resource('fase', FaseController::class);
 
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {

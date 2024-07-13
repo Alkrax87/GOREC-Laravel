@@ -7,19 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 
 class Especialidad extends Model
 {
-    protected $table = 'especialidad';
-    protected $fillable = [
-        'porcentajeEspecialidad',
-        'idInversion'
-    ];
+    use HasFactory;
 
-    // Relación con Proyecto
+    protected $table = 'especialidad';
+
+    // Define la clave primaria
+    protected $primaryKey = 'idEspecialidad';
+
+    // Desactiva los timestamps si no se usan
+    public $timestamps = false;
+
+    // Define los atributos asignables en masa
+    protected $fillable = [
+        'nombreEspecialidad',
+        'porcentajeAvanceEspecialidad',
+        'avanceTotalEspecialidad',
+        'idInversion',
+    ];
+    // Define la relación con el modelo Inversion
     public function inversion()
     {
         return $this->belongsTo(Inversion::class, 'idInversion');
     }
-
-    // Relación con Fase
     public function fases()
     {
         return $this->hasMany(Fase::class, 'idEspecialidad');
