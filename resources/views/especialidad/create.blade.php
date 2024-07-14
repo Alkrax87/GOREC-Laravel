@@ -34,12 +34,23 @@
                                 </select>
                             </div>
                             <div class="form-outline mb-4">
+                              <label class="form-label" for="idUsuario">Jefe</label>
+                              <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
+                                <option value="" disabled selected>Selecciona un usuario</option>
+                                @foreach ($usuarios as $usuario)
+                                  <option value="{{ $usuario->idUsuario }}">
+                                    {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                                  </option>
+                                @endforeach
+                              </select>
+                            </div>
+                            <div class="form-outline mb-4">
                                 <label class="form-label">Nombre Especialidad</label>
                                 <input type="text" name="nombreEspecialidad" class="input-auth" placeholder="Nombre Estudio" required />
                             </div>
                             <div class="form-outline mb-4">
-                                <label class="form-label">Porcentaje de Especialidad</label>
-                                <input type="number" name="porcentajeAvanceEspecialidad" class="input-auth" placeholder="Ingrese Porcentaje" required />
+                                <label class="form-label">Porcentaje de Programado (%)</label>
+                                <input type="number" name="porcentajeAvanceEspecialidad" class="input-auth" placeholder="Ingrese Porcentaje"  required min="0" max="100" step="0.01" />
                             </div>
                         </div>
                         <div class="col-12 py-2 text-center">

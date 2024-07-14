@@ -1,59 +1,53 @@
 <form action="{{ route('fase.store') }}" method="POST">
-    {{ csrf_field() }}
-    <div class="modal fade" id="ModalCreateFase{{ $especialidad->idEspecialidad }}">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Crear Actividad</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <b>Error!</b> Por favor corrige los errores en el formulario.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="idEspecialidad">ESPECIALIDAD</label>
-                                <select name="idEspecialidad" id="idEspecialidad" class="form-select form-select-sm input-auth" required>
-                                    <option value="" disabled selected>Selecciona una Actividad</option>
-                                    @foreach ($especialidades as $especialidad)
-                                        <option value="{{ $especialidad->idEspecialidad }}">
-                                            {{ $especialidad->nombreEspecialidad}}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label">Nombre Actividad</label>
-                                <input type="text" name="nombreFase" class="input-auth" placeholder="Nombre Estudio" required />
-                            </div>
-                            
-                        </div>
-                        <div class="col-12 py-2 text-center">
-                            <hr>
-                            <button class="btn btn-primary mx-1" data-dismiss="modal">
-                                <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
-                            </button>
-                            <button type="submit" class="btn btn-success mx-1">
-                                <i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar
-                            </button>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  {{ csrf_field() }}
+  <div class="modal fade" id="ModalCreateFase{{ $especialidad->idEspecialidad }}">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h3 class="modal-title">Crear Actividad</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  @if ($errors->any())
+                      <div class="alert alert-danger">
+                          <b>Error!</b> Por favor corrige los errores en el formulario.<br><br>
+                          <ul>
+                              @foreach ($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
+                  <div class="row">
+                      <div class="col-12">
+                          <div class="form-outline mb-4">
+                              <!-- Campo input oculto para idEspecialidad -->
+                              <input type="hidden" name="idEspecialidad" value="{{ $especialidad->idEspecialidad }}">
+
+                              <!-- Mostrar el nombre de la especialidad correspondiente -->
+                              <p>Especialidad: {{ $especialidad->nombreEspecialidad }}</p>
+                          </div>
+                          <div class="form-outline mb-4">
+                              <label class="form-label">Nombre Actividad</label>
+                              <input type="text" name="nombreFase" class="input-auth" placeholder="Nombre Estudio" required />
+                          </div>
+                      </div>
+                      <div class="col-12 py-2 text-center">
+                          <hr>
+                          <button class="btn btn-primary mx-1" data-dismiss="modal">
+                              <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+                          </button>
+                          <button type="submit" class="btn btn-success mx-1">
+                              <i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar
+                          </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </form>
 
 

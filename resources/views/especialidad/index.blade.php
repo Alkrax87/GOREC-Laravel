@@ -31,6 +31,7 @@
               <tr>
                 <th class="text-left">#</th>
                 <th class="text-center">Inversión</th>
+                <th class="text-center">Jefe</th>
                 <th class="text-left">Nombre Especialidad</th>
                 <th class="text-left">Porcentaje de Especialidad</th>
                 <th class="text-left">Porcentaje Avance</th>
@@ -42,6 +43,7 @@
                 <tr>
                   <td class="text-left">{{ $loop->index + 1 }}</td>
                   <td>{{ $especialidad->inversion->nombreInversion }}</td>
+                  <td class="text-nowrap">{{ $especialidad->usuario->nombreUsuario . ' ' . $especialidad->usuario->apellidoUsuario }}</td>
                   <td class="text-left">{{ $especialidad->nombreEspecialidad}}</td>
                   <td class="text-left">{{ $especialidad->porcentajeAvanceEspecialidad}}</td>
                   <td class="text-left">{{ $especialidad->avanceTotalEspecialidad}}</td>

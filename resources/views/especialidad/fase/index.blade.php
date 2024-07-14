@@ -43,7 +43,7 @@
                          <!--    <td>{{ $fase->especialidad->nombreEspecialidad}}</td>-->
                             <td class="text-left">{{ $fase->nombreFase}}</td>
                             <td class="text-left">{{ $fase->porcentajeAvanceFase}}</td>
-                            <td class="text-left">{{ $fase->avanceTotalFase}}</td>
+                            <td class="text-left" type="number"  required min="0" max="100" step="0.01" >{{ $fase->avanceTotalFase}}</td>
                             
                             <td class="text-center" style="white-space: nowrap"">
                               <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditFase{{$fase->idFase}}"><i class="fas fa-edit"></i></a>

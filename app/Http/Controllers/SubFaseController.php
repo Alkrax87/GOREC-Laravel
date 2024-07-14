@@ -124,12 +124,12 @@ class SubFaseController extends Controller
         $fase = Fase::find($subfase->idFase);
         if ($fase) {
             $fase->avanceTotalFase = $totalAvanceRealTotalSubFase * ($fase->porcentajeAvanceFase / 100);
-            $fase->save();
+           $fase->save();
             // Registro de depuración
             \Log::info('Fase actualizada: ', ['fase' => $fase]);
         } else {
             // Registro de depuración
-            \Log::error('Fase no encontrada: ', ['idFase' => $subfase->idFase]);
+           \Log::error('Fase no encontrada: ', ['idFase' => $subfase->idFase]);
         }
 
         return redirect()->back()->with('success', 'Avance actualizado con éxito');

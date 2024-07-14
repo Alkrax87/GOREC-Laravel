@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Fase;
+use App\Models\SubFase;
 use App\Models\Especialidad;
 
 class FaseController extends Controller
@@ -26,27 +27,13 @@ class FaseController extends Controller
         $fase->porcentajeAvanceFase = 0; // Inicializar con 0 para evitar el error
         $fase->save();
         // Recalcular el avance total de todas las fases
+        $this->recalcularPorcentajeAvanceFase();
         $this->recalcularAvanceTotalFase();
-        //$this->recalcularAvanceTotalFase();
         //$especialidadController = new EspecialidadController();
         //$especialidadController->recalcularAvanceTotalEspecialidad($fase->idEspecialidad);
         //return redirect()->back()->with('success', 'Subfases creadas y actualizadas con éxito');
-        return redirect()->route('especialidad.index')->with('message', 'Elemento creado correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Actividad creada correctamente.');
     }
-
-    public function show($id)
-    {
-        $fases = Fase::with(['especialidad'])->findOrFail($id);
-        return view('especialidad.fase.show', compact('fases'));
-    }
-
-    public function edit($id)
-    {
-        $fases = Fase::findOrFail($id);
-        $especialidades = Especialidad::all(); // Para cargar todas las inversiones
-        return view('especialidad.fase.edit', compact('fases', 'especialidades'));
-    }
-
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -64,7 +51,7 @@ class FaseController extends Controller
         $fase->save();
 
         // Recalcular el avance total de todas las fases
-        $this->recalcularAvanceTotalFase();
+        $this->recalcularPorcentajeAvanceFase();
         
        // $especialidadController = new EspecialidadController();
         //$especialidadController->recalcularAvanceTotalEspecialidad($fase->idEspecialidad);
@@ -78,12 +65,13 @@ class FaseController extends Controller
         $fase->delete();
 
         // Recalcular el avance total de todas las fases
+        $this->recalcularPorcentajeAvanceFase();
         $this->recalcularAvanceTotalFase();
 
         return redirect()->route('especialidad.index')->with('message', 'Elemento eliminado correctamente.');
     }
 
-    private function recalcularAvanceTotalFase()
+    private function recalcularPorcentajeAvanceFase()
     {
         // Obtener todas las fases agrupadas por idEspecialidad
         $fasesPorEspecialidad = Fase::all()->groupBy('idEspecialidad');
@@ -100,5 +88,19 @@ class FaseController extends Controller
             }
         }
     }
+    private function recalcularAvanceTotalFase()
+    {
+        $fases = Fase::all();
+        foreach ($fases as $fase) {
+            $subfases = SubFase::where('idFase', $fase->idFase)->get();
+            $totalAvanceRealTotalSubFase = $subfases->sum('avanceRealTotalSubFase');
+            $fase->avanceTotalFase = $totalAvanceRealTotalSubFase * ($fase->porcentajeAvanceFase / 100);
+            $fase->save();
+            //$sumAvanceTotalFase = $fases->sum('avanceTotalFase');
+            //$especialidad->avanceTotalEspecialidad = ($especialidad->porcentajeAvanceEspecialidad * $sumAvanceTotalFase) / 100;
+           // $especialidad->save();
+        }
+    }
+
 }
    // Verificar que la fase se esté obteniendo y actualizando correctamente

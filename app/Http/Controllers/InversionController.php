@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Inversion;
+use App\Models\Especialidad;
 use App\Models\User;
 use App\Models\EstadoLog;
 
@@ -13,6 +14,7 @@ class InversionController extends Controller
     // Función de carga de datos
     public function index(Request $request){
         // Carga de datos de provincias y distritos mediante un JSON
+        $this->sumaTotalAvance();
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
@@ -71,10 +73,11 @@ class InversionController extends Controller
             'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
             'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
-
+       
+       
         // Creamos un registro
         Inversion::create($request->all());
-
+        
         return redirect()->route('inversion.index')->with('success','Inversión creada exitosamente.');
     }
 
@@ -135,7 +138,8 @@ class InversionController extends Controller
 
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
-
+        
+        
         // Guardamos el estado actual
         $CurrentEstadoInversion = $inversion->estadoInversion;
 
@@ -172,5 +176,15 @@ class InversionController extends Controller
         $inversion = Inversion::findOrFail($id);
 
         return view('inversion.show', compact('inversion'));
+    }
+    private function sumaTotalAvance()
+    {
+        $inversiones = Inversion::all();
+        foreach ($inversiones as $inversion) {
+            $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
+            $sumAvanceTotalEspecialidad = $especialidades->sum('avanceTotalEspecialidad');
+            $inversion->avanceInversion = $sumAvanceTotalEspecialidad;
+            $inversion->save();
+        }
     }
 }
