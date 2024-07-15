@@ -10,16 +10,6 @@
           </button>
         </div>
         <div class="modal-body">
-          @if ($errors->any())
-            <div class="alert alert-danger">
-              <strong>Error!</strong> Por favor corrige los errores en el formulario.<br><br>
-              <ul>
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
           <div class="row">
             <div class="col-12">
               <div class="form-outline mb-4">
@@ -97,6 +87,7 @@
                       <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
                       <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
                       <option value="TRASPORTES">TRASPORTES</option>
+                      <option value="HIDRÁULICA">HIDRÁULICA</option>
                       <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
                       <option value="MODELADOR BIN">MODELADOR BIN</option>
                       <option value="CORDINADOR BIN">CORDINADOR BIN</option>
@@ -184,6 +175,7 @@
         <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
         <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
         <option value="TRASPORTES">TRASPORTES</option>
+        <option value="HIDRÁULICA">HIDRÁULICA</option>
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
         <option value="MODELADOR BIN">MODELADOR BIN</option>
         <option value="CORDINADOR BIN">CORDINADOR BIN</option>

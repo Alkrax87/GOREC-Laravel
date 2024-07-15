@@ -16,7 +16,19 @@
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible pb-0">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h6><i class="icon fas fa-ban"></i> Error! Por favor corrige los errores en el formulario.</h6>
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
             </div>
           @endif
           <!-- Tabla -->
@@ -27,8 +39,8 @@
                   <th>#</th>
                   <th class="text-left">Nombres</th>
                   <th class="text-left">Apellidos</th>
-                  <th>Rol</th>
                   <th>Usuario</th>
+                  <th>Rol</th>
                   <th>Categoría</th>
                   <th>Profesión</th>
                   <th>Especialidad</th>
@@ -41,14 +53,20 @@
                     <td class="text-center">{{ $loop->index + 1 }}</td>
                     <td class="text-left">{{ $usuario->nombreUsuario }}</td>
                     <td class="text-left">{{ $usuario->apellidoUsuario }}</td>
-                    @if ($usuario->isAdmin)
-                      <td><b class="text-admin">Administrador</b></td>
-                    @elseif ((str_replace('@gorec.com', '', $usuario->email)) != '')
-                      <td><b class="text-profesional">Profesional</b></td>
-                    @else
-                      <td><b class="text-asistente">Asistente</b></td>
-                    @endif
                     <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
+                    @if ($usuario->isAdmin)
+                      <td class="project-state">
+                        <span class="badge badge-danger">Administrador</span>
+                      </td>
+                    @elseif ((str_replace('@gorec.com', '', $usuario->email)) != '')
+                      <td class="project-state">
+                        <span class="badge badge-success">Profesional</span>
+                      </td>
+                    @else
+                      <td class="project-state">
+                        <span class="badge badge-warning">Asistente</span>
+                      </td>
+                    @endif
                     <td>{{ $usuario->categoriaUsuario }}</td>
                     <td>
                       @foreach ($usuario->profesiones as $profesion)
@@ -89,14 +107,8 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
   <style>
-    .text-admin {
-      color: darkred;
-    }
-    .text-profesional {
-      color: rgb(3, 148, 3);
-    }
-    .text-asistente {
-      color: darkgoldenrod;
+    a {
+      text-decoration: none;
     }
   </style>
 @stop

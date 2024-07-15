@@ -116,7 +116,7 @@
                     <input type="date" name="fechaInicioInversion" class="input-auth" required/>
                   </div>
                   <div class="col-6 form-outline mb-4">
-                    <label class="form-label">Fecha Inicio</label>
+                    <label class="form-label">Fecha Final</label>
                     <input type="date" name="fechaFinalInversion" class="input-auth" required/>
                   </div>
                 </div>

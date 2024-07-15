@@ -28,6 +28,6 @@ class RolesController extends Controller
         $usuario->save();
 
         // Redirigir con un mensaje de éxito
-        return redirect()->route('roles.index')->with('message', 'El estado de administrador del usuario ha sido actualizado.');
+        return redirect()->route('roles.index')->with('message', 'El rol del usuario ' . $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario . ' ha sido actualizado.');
     }
 }

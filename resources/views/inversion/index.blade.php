@@ -16,7 +16,19 @@
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible pb-0">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h6><i class="icon fas fa-ban"></i> Error! Por favor corrige los errores en el formulario.</h6>
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
             </div>
           @endif
           <!-- Tabla -->
@@ -26,16 +38,16 @@
                 <tr>
                   <th>#</th>
                   <th class="text-nowrap">CUI</th>
-                  <th class="text-nowrap">Nombre</th>
+                  <th class="text-nowrap" style="min-width: 400px">Nombre</th>
                   <th class="text-nowrap">Nombre Corto</th>
                   <th class="text-center">Jefe</th>
+                  <th class="text-center">Avance</th>
                   <th class="text-center">Provincia</th>
                   <th class="text-center">Distrito</th>
                   <th class="text-center">Nivel</th>
                   <th class="text-center">Función</th>
                   <th class="text-center">Modalidad</th>
                   <th class="text-center">Estado</th>
-                  <th class="text-center">Avance</th>
                   <th class="text-nowrap">Fecha Inicio</th>
                   <th class="text-nowrap">Fecha Final</th>
                   <th class="text-nowrap">Presupuesto Formulación</th>
@@ -51,13 +63,34 @@
                     <td>{{ $inversion->nombreInversion }}</td>
                     <td>{{ $inversion->nombreCortoInversion }}</td>
                     <td class="text-nowrap">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+                    <td class="project_progress text-nowrap">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-striped
+                          @if($inversion->avanceInversion < 25)
+                              bg-danger
+                          @elseif($inversion->avanceInversion >= 25 && $inversion->avanceInversion < 75)
+                              bg-warning
+                          @elseif($inversion->avanceInversion >= 75 && $inversion->avanceInversion < 100)
+                              bg-success
+                          @else
+                              bg-info
+                          @endif"
+                          role="progressbar"
+                          aria-valuenow="{{ $inversion->avanceInversion }}"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          style="width: {{ $inversion->avanceInversion }}%">
+                      </div>
+                        </div>
+                      </div>
+                      <small>{{ $inversion->avanceInversion }}% Completado</small>
+                    </td>
                     <td class="text-center">{{ $inversion->provinciaInversion }}</td>
                     <td class="text-center">{{ $inversion->distritoInversion }}</td>
                     <td class="text-center">{{ $inversion->nivelInversion }}</td>
                     <td class="text-center">{{ $inversion->funcionInversion }}</td>
                     <td class="text-center">{{ $inversion->modalidadInversion }}</td>
                     <td class="text-center">{{ $inversion->estadoInversion }}</td>
-                    <td class="text-center">{{ $inversion->avanceInversion }}%</td>
                     <td class="text-center">{{ $inversion->fechaInicioInversion }}</td>
                     <td class="text-center">{{ $inversion->fechaFinalInversion }}</td>
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
@@ -93,6 +126,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+  <style>
+    a {
+      text-decoration: none;
+    }
+  </style>
 @stop
 
 @section('js')
@@ -120,6 +158,33 @@
         }
       });
     });
+  </script>
+  <script>
+    //-------------
+    //- DONUT CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+    var donutData        = {
+      labels: [
+          'Chrome',
+          'IE',
+          'FireFox',
+          'Safari',
+          'Opera',
+          'Navigator',
+      ],
+      datasets: [
+        {
+          data: [700,500,400,600,300,100],
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }
+      ]
+    }
+    var donutOptions     = {
+      maintainAspectRatio : false,
+      responsive : true,
+    }
   </script>
 @stop
 

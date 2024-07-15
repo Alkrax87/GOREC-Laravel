@@ -83,7 +83,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->route('usuario.index')->with('message','Elemento creado correctamente.');
+        return redirect()->route('usuario.index')->with('message','Usuario ' . $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario . ' creado correctamente.');
     }
 
     // Función cargar un elemento en editar
@@ -169,7 +169,7 @@ class UserController extends Controller
             }
         }
 
-        return redirect()->route('usuario.index')->with('message', 'Elemento actualizado correctamente.');
+        return redirect()->route('usuario.index')->with('message', 'Usuario ' . $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario . ' actualizado correctamente.');
     }
 
     // Función eliminar un registro
@@ -178,7 +178,7 @@ class UserController extends Controller
         $usuario = User::findOrFail($id);
         $usuario->delete();
 
-        return redirect()->route('usuario.index')->with('message','Elemento eliminado correctamente.');
+        return redirect()->route('usuario.index')->with('message','Usuario ' . $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario . ' eliminado correctamente.');
     }
 
     // Función mostrar un registro

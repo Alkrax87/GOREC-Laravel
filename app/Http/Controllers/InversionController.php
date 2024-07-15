@@ -8,6 +8,7 @@ use App\Models\Inversion;
 use App\Models\Especialidad;
 use App\Models\User;
 use App\Models\EstadoLog;
+use Auth;
 
 class InversionController extends Controller
 {
@@ -73,12 +74,11 @@ class InversionController extends Controller
             'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
             'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
-       
-       
+
         // Creamos un registro
         Inversion::create($request->all());
-        
-        return redirect()->route('inversion.index')->with('success','Inversión creada exitosamente.');
+
+        return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' creada exitosamente.');
     }
 
     // Función cargar un elemento en editar
@@ -109,7 +109,7 @@ class InversionController extends Controller
             'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
             'fechaInicioInversion' => 'required|date',
-            'fechaFinalInversion' => 'required|date',
+            'fechaFinalInversion' => 'required|date|after_or_equal:fechaInicioInversion',
             'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
             'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
@@ -128,6 +128,7 @@ class InversionController extends Controller
             'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
             'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
             'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
+            'fechaFinalInversion.after_or_equal' => 'La fecha final debe ser igual o posterior a la fecha inicio.',
             'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
             'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
             'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulacióndebe estar entre 0 y 999999999999999999999.99.',
@@ -138,8 +139,7 @@ class InversionController extends Controller
 
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
-        
-        
+
         // Guardamos el estado actual
         $CurrentEstadoInversion = $inversion->estadoInversion;
 
@@ -156,7 +156,7 @@ class InversionController extends Controller
             ]);
         }
 
-        return redirect()->route('inversion.index')->with('success','Inversión actualizada exitosamente.');
+        return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' actualizada exitosamente.');
     }
 
     // Función eliminar un registro
@@ -167,7 +167,7 @@ class InversionController extends Controller
         // Eliminamos la inversión
         $inversion->delete();
 
-        return redirect()->route('inversion.index')->with('success','Inversión eliminada exitosamente.');
+        return redirect()->route('inversion.index')->with('message','Inversión ' . $inversion->nombreCortoInversion . ' eliminada exitosamente.');
     }
 
     // Función mostrar un registro
@@ -177,9 +177,13 @@ class InversionController extends Controller
 
         return view('inversion.show', compact('inversion'));
     }
-    private function sumaTotalAvance()
-    {
+
+    // Función para calcular el % de avance de la inversión
+    private function sumaTotalAvance() {
+        // Carga de datos de inversiones
         $inversiones = Inversion::all();
+
+        // Sumamos los avances en base a sus especialidades de cada inversión
         foreach ($inversiones as $inversion) {
             $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
             $sumAvanceTotalEspecialidad = $especialidades->sum('avanceTotalEspecialidad');
