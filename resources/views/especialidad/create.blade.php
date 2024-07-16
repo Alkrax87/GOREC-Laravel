@@ -1,93 +1,77 @@
 <form action="{{ route('especialidad.store') }}" method="POST">
-    {{ csrf_field() }}
-    <div class="modal fade" id="ModalCreate">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Crear Especialidad</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <b>Error!</b> Por favor corrige los errores en el formulario.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="idInversion">Inversión</label>
-                                <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
-                                    <option value="" disabled selected>Selecciona una inversión</option>
-                                    @foreach ($inversiones as $inversion)
-                                        <option value="{{ $inversion->idInversion }}">
-                                            {{ $inversion->nombreInversion }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-outline mb-4">
-                              <label class="form-label" for="idUsuario">Jefe</label>
-                              <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
-                                <option value="" disabled selected>Selecciona un usuario</option>
-                                @foreach ($usuarios as $usuario)
-                                  <option value="{{ $usuario->idUsuario }}">
-                                    {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-                                  </option>
-                                @endforeach
-                              </select>
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label">Nombre Especialidad</label>
-                                <input type="text" name="nombreEspecialidad" class="input-auth" placeholder="Nombre Estudio" required />
-                            </div>
-                            <div class="form-outline mb-4">
-                                <label class="form-label">Porcentaje de Programado (%)</label>
-                                <input type="number" name="porcentajeAvanceEspecialidad" class="input-auth" placeholder="Ingrese Porcentaje"  required min="0" max="100" step="0.01" />
-                            </div>
-                        </div>
-                        <div class="col-12 py-2 text-center">
-                            <hr>
-                            <button class="btn btn-primary mx-1" data-dismiss="modal">
-                                <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
-                            </button>
-                            <button type="submit" class="btn btn-success mx-1">
-                                <i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  {{ csrf_field() }}
+  <div class="modal fade text-left" id="ModalCreate">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><i class="fas fa-users-cog"></i> Crear Especialidad</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
+        <div class="modal-body">
+          @if ($errors->any())
+            <div class="alert alert-danger">
+              <strong>Error!</strong> Por favor corrige los errores en el formulario.<br><br>
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+          <div class="row">
+            <div class="col-12">
+              <div class="form-outline mb-4">
+                <label class="form-label" for="idInversion">Inversión</label>
+                <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
+                  <option value="" disabled selected>Selecciona una inversión</option>
+                  @foreach ($inversiones as $inversion)
+                    <option value="{{ $inversion->idInversion }}">
+                      {{ $inversion->nombreCortoInversion }}
+                    </option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="row">
+                <div class="col-8 form-outline mb-4">
+                  <label class="form-label" for="idUsuario">Encargado</label>
+                  <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona un usuario</option>
+                    @foreach ($usuarios as $usuario)
+                      <option value="{{ $usuario->idUsuario }}">
+                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-4 form-outline mb-4">
+                  <label class="form-label">Porcentaje Programado</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control input-auth" name="porcentajeAvanceEspecialidad" required min="0" max="100" step="0.01">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-outline mb-4">
+                <label class="form-label">Nombre Especialidad</label>
+                <input type="text" name="nombreEspecialidad" class="input-auth" required />
+              </div>
+            </div>
+            <div class="col-12 py-2 text-center">
+              <button class="btn btn-primary mx-1" data-dismiss="modal">
+                <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+              </button>
+              <button type="submit" class="btn btn-success mx-1">
+                <i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</form>
-
-
+  </div>
   <style>
-    body {
-      background-color: #000;
-    }
-    section {
-      margin-top: 100px;
-    }
-    /* Others */
-    .center-items {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Card Style */
-    .cascading-left {
-      margin-left: -50px;
-    }
-    /* Input Style  */
     .input-auth {
       display: block;
       width: 100%;
@@ -111,49 +95,5 @@
     .input-autht:focus::placeholder {
       color: transparent;
     }
-    /* Btn Style  */
-    .btn-gorec {
-      width: 250px;
-      height: 50px;
-      background-color: #9C0C27;
-      color: #fff;
-      border-radius: 50px
-    }
-    .btn-gorec:hover {
-      background-color: #72081f;
-      color: #fff;;
-    }
-    /* Line */
-    .line {
-      border: 0;
-      border-top: 1px solid #72081f;
-      margin: 1rem 0;
-      width: 50%;
-    }
-    /* Redirection */
-    .login-direction {
-      color: #72081f;
-      text-decoration: none;
-    }
-    @media (max-width: 991.98px) {
-      .cascading-left {
-        margin-left: 0px;
-      }
-      section {
-        margin-top: 0px;
-      }
-    }
   </style>
-  @section('css')
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
-  <style>
-      /* Estilo personalizado para asegurarse de que la flecha aparezca en el select */
-      select.form-control {
-          -webkit-appearance: menulist;
-          -moz-appearance: menulist;
-          appearance: menulist;
-      }
-  </style>
-@stop
+</form>

@@ -1,8 +1,8 @@
 <div class="modal fade" id="ModalSubFase{{ $fase->idFase}}">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title"><i class="fas fa-user-tie"></i> Sub Actividades</h3>
+          <h3 class="modal-title"><i class="fa fa-tasks"></i> Sub Actividades de {{ $fase->nombreFase }}</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -10,8 +10,6 @@
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
-              <!-- Titulo -->
-         
               <!-- Contenido -->
               <div class="col-12">
                 <!-- Alert -->
@@ -21,21 +19,20 @@
                   </div>
                 @endif
                 <!-- Agregar -->
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalSubFaseCreate{{ $fase->idFase }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Sub Actividad</button>
+                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalSubFaseCreate{{ $fase->idFase }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Nueva Sub Actividad</button>
                 <!-- Tabla -->
                 <div class="table-responsive">
                   <table id="profesionalesTable" class="table table-striped w-100">
                     <thead class="table-header">
                       <tr>
-                        <th class="w-75">#</th>
-                        <th class="w-75">Fase</th>
-                        <th class="w-75">Sub Fase</th>
-                        <th class="w-75">fecha incio</th>
-                        <th class="w-75">fecha final</th>
-                        <th class="w-75">total dias</th>
-                        <th class="w-75">Porcentaje Programado</th>
-                        <th class="w-75">Avance Usuario Real</th>
-                        <th class="w-75">Avance Real</th>
+                        <th>#</th>
+                        <th class="text-nowrap">Sub Fase</th>
+                        <th class="text-nowrap text-center">Fecha Incio</th>
+                        <th class="text-nowrap text-center">Fecha Final</th>
+                        <th class="text-nowrap">Total Dias</th>
+                        <th class="text-nowrap">Porcentaje Programado</th>
+                        <th class="text-nowrap">Avance Real</th>
+                        <th class="text-nowrap">Avance Usuario</th>
                         <th class="text-center w-25">Opciones</th>
                       </tr>
                     </thead>
@@ -43,14 +40,73 @@
                       @foreach ($subfases as $subfase)
                       <tr>
                         <td class="text-left">{{ $loop->index + 1 }}</td>
-                        <td>{{ $subfase->fase->nombreFase}}</td>
-                        <td class="text-left">{{ $subfase->nombreSubfase}}</td>
-                        <td class="text-left">{{ $subfase->fechaInicioSubfase}}</td>
-                        <td class="text-left">{{ $subfase->fechaFinalSubfase}}</td>
-                        <td class="text-left">{{ $subfase->cantidadDiasSubFase}}</td>
-                        <td class="text-left">{{ $subfase->porcentajeAvanceProgramadoSubFase}}</td>
-                        <td class="text-left">{{ $subfase->avance_por_usuario_realSubFase}}</td>
-                        <td class="text-left">{{ $subfase->avanceRealTotalSubFase}}</td>
+                        <td class="text-left text-nowrap">{{ $subfase->nombreSubfase}}</td>
+                        <td class="text-nowrap">
+                          <span ><i class="far fa-calendar-alt"></i>&nbsp; {{ $subfase->fechaInicioSubfase}}</span>
+                        </td>
+                        <td class="text-nowrap">
+                          <span ><i class="far fa-calendar-alt"></i>&nbsp; {{ $subfase->fechaFinalSubfase}}</span>
+                        </td>
+                        <td class="text-center">{{ $subfase->cantidadDiasSubFase}}</td>
+                        <td class="project_progress text-nowrap">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                              aria-valuenow="{{ $subfase->porcentajeAvanceProgramadoSubFase }}"
+                              aria-valuemin="0"
+                              aria-valuemax="{{ $subfase->porcentajeAvanceProgramadoSubFase }}"
+                              style="width: {{ $subfase->porcentajeAvanceProgramadoSubFase }}%">
+                            </div>
+                          </div>
+                          <div class="w-100 text-center">
+                            <small>{{ $subfase->porcentajeAvanceProgramadoSubFase }}% Sub Actividad</small>
+                          </div>
+                        </td>
+                        <td class="project_progress text-nowrap">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-striped
+                              @if($subfase->avanceRealTotalSubFase < ($subfase->porcentajeAvanceProgramadoSubFase*0.25))
+                                  bg-danger
+                              @elseif($subfase->avanceRealTotalSubFase >= ($subfase->porcentajeAvanceProgramadoSubFase*0.25) && $subfase->avanceRealTotalSubFase < ($subfase->porcentajeAvanceProgramadoSubFase*0.75))
+                                  bg-warning
+                              @elseif($subfase->avanceRealTotalSubFase >= ($subfase->porcentajeAvanceProgramadoSubFase*0.75) && $subfase->avanceRealTotalSubFase < $subfase->porcentajeAvanceProgramadoSubFase)
+                                  bg-success
+                              @else
+                                  bg-info
+                              @endif"
+                              role="progressbar"
+                              aria-valuenow="{{ $subfase->avanceRealTotalSubFase }}"
+                              aria-valuemin="0"
+                              aria-valuemax="{{ $subfase->porcentajeAvanceProgramadoSubFase }}"
+                              style="width: {{$subfase->avanceRealTotalSubFase }}%">
+                            </div>
+                          </div>
+                          <div class="w-100 text-center">
+                            <small>{{ $subfase->avanceRealTotalSubFase }}% Completado</small>
+                          </div>
+                        </td>
+                        <td class="project_progress text-nowrap">
+                          <div class="progress">
+                            <div class="progress-bar progress-bar-striped
+                              @if($subfase->avance_por_usuario_realSubFase < 25)
+                                  bg-danger
+                              @elseif($subfase->avance_por_usuario_realSubFase >= 25 && $subfase->avance_por_usuario_realSubFase < 75)
+                                  bg-warning
+                              @elseif($subfase->avance_por_usuario_realSubFase >= 75 && $subfase->avance_por_usuario_realSubFase < 100)
+                                  bg-success
+                              @else
+                                  bg-info
+                              @endif"
+                              role="progressbar"
+                              aria-valuenow="{{ $subfase->avance_por_usuario_realSubFase }}"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style="width: {{ $subfase->avance_por_usuario_realSubFase }}%">
+                            </div>
+                          </div>
+                          <div class="w-100 text-center">
+                            <small>{{ $subfase->avance_por_usuario_realSubFase }}% Usuario</small>
+                          </div>
+                        </td>
                         <td class="text-center" style="white-space: nowrap">
                           <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditSubFase{{$subfase->idSubfase}}"><i class="fas fa-edit"></i></a>
                           <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$subfase->idSubfase}}"><i class="fas fa-trash-alt"></i></a>

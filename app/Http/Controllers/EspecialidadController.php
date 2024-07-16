@@ -18,8 +18,8 @@ class EspecialidadController extends Controller
         $fases = Fase::all();
         $subfases = SubFase::all();
         $inversiones = Inversion::all();
-        $usuarios = User::all(); // Carga todas las inversiones
-        
+        $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+
         return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }
 
@@ -63,23 +63,23 @@ class EspecialidadController extends Controller
     }**/
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nombreEspecialidad' => 'required|string|max:255',
-            'porcentajeAvanceEspecialidad' => 'required|numeric',
-        ], [
-            'nombreEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
-            'porcentajeAvanceEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
-        ]);
+        // $request->validate([
+        //     'nombreEspecialidad' => 'required|string|max:255',
+        //     'porcentajeAvanceEspecialidad' => 'required|numeric',
+        // ], [
+        //     'nombreEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
+        //     'porcentajeAvanceEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
+        // ]);
 
         $especialidades = Especialidad::findOrFail($id);
-        $especialidades->nombreEspecialidad = $request->nombreEspecialidad;
-        $especialidades->porcentajeAvanceEspecialidad = $request->porcentajeAvanceEspecialidad;
-        $especialidades->save();
+        $especialidades->update($request->all());
+
+    //    $especialidades->save();
 
         // Recalcular el avance total de todas las especialidades
         //$this->recalcularAvanceTotalEspecialidad();
 
-        return redirect()->route('especialidad.index')->with('message', 'Especialidad actualizada correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $request->nombreEspecialidad . ' actualizada correctamente.');
     }
 
     public function destroy($id)

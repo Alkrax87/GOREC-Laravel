@@ -1,9 +1,9 @@
 
 <div class="modal fade" id="ModalFase{{ $especialidad->idEspecialidad }}">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h3 class="modal-title"><i class="fas fa-user-tie"></i>Actividad</h3>
+          <h3 class="modal-title"><i class="fas fa-briefcase"></i> Actividades {{ $especialidad->nombreEspecialidad }}</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -11,7 +11,6 @@
         <div class="modal-body">
           <div class="container-fluid">
             <div class="row">
-              <!-- Titulo -->
               <!-- Contenido -->
               <div class="col-12">
                 <!-- Alert -->
@@ -21,34 +20,67 @@
                   </div>
                 @endif
                 <!-- Agregar -->
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateFase{{ $especialidad->idEspecialidad  }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Actividad</button>
+                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateFase{{ $especialidad->idEspecialidad  }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Nueva Actividad</button>
                 <!-- Tabla -->
                 <div class="table-responsive">
                   <table id="profesionalesTable" class="table table-striped w-100">
                     <thead class="table-header">
                       <tr>
                         <th class="text-center">#</th>
-                       <!--  <th class="text-center">Especialidad</th> -->
-                        <th class="text-left">Nombre Tarea</th>
-                        <th class="text-left">Porcentaje de Tarea</th>
-                        <th class="text-left">Porcentaje Avance</th>
-                        
-                        <th class="text-center w-25">Opciones</th>
+                        <th class="text-left">Actividad</th>
+                        <th class="text-center text-nowrap">Porcentaje de Actividad</th>
+                        <th class="text-center text-nowrap">Porcentaje de Avance</th>
+                        <th class="text-center">Sub Actividad</th>
+                        <th class="text-center">Opciones</th>
                       </tr>
                     </thead>
                     <tbody>
                       @foreach ($fases as $fase)
                         <tr>
                             <td class="text-left">{{ $loop->index + 1 }}</td>
-                         <!--    <td>{{ $fase->especialidad->nombreEspecialidad}}</td>-->
-                            <td class="text-left">{{ $fase->nombreFase}}</td>
-                            <td class="text-left">{{ $fase->porcentajeAvanceFase}}</td>
-                            <td class="text-left" type="number"  required min="0" max="100" step="0.01" >{{ $fase->avanceTotalFase}}</td>
-                            
-                            <td class="text-center" style="white-space: nowrap"">
-                              <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditFase{{$fase->idFase}}"><i class="fas fa-edit"></i></a>
-                              <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteFase{{$fase->idFase}}"><i class="fas fa-trash-alt"></i></a>
-                              <a class="btn btn-danger" data-toggle="modal" data-target="#ModalSubFase{{$fase->idFase}}"><i class="fa fa-tasks" aria-hidden="true"></i></a>
+                            <td class="text-left">{{ $fase->nombreFase }}</td>
+                            <td class="project_progress text-nowrap">
+                              <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
+                                  aria-valuenow="{{ $fase->porcentajeAvanceFase }}"
+                                  aria-valuemin="0"
+                                  aria-valuemax="{{ $fase->porcentajeAvanceFase }}"
+                                  style="width: {{ $fase->porcentajeAvanceFase }}%">
+                                </div>
+                              </div>
+                              <div class="w-100 text-center">
+                                <small>{{ $fase->porcentajeAvanceFase }}% Especialidad</small>
+                              </div>
+                            </td>
+                            <td class="project_progress text-nowrap">
+                              <div class="progress">
+                                <div class="progress-bar progress-bar-striped
+                                  @if($fase->avanceTotalFase < ($fase->porcentajeAvanceFase*0.25))
+                                      bg-danger
+                                  @elseif($fase->avanceTotalFase >= ($fase->porcentajeAvanceFase*0.25) && $fase->avanceTotalFase < ($fase->porcentajeAvanceFase*0.75))
+                                      bg-warning
+                                  @elseif($fase->avanceTotalFase >= ($fase->porcentajeAvanceFase*0.75) && $fase->avanceTotalFase < $fase->porcentajeAvanceFase)
+                                      bg-success
+                                  @else
+                                      bg-info
+                                  @endif"
+                                  role="progressbar"
+                                  aria-valuenow="{{ $fase->avanceTotalFase }}"
+                                  aria-valuemin="0"
+                                  aria-valuemax="{{ $fase->porcentajeAvanceFase }}"
+                                  style="width: {{$fase->avanceTotalFase }}%">
+                                </div>
+                              </div>
+                              <div class="w-100 text-center">
+                                <small>{{ $fase->avanceTotalFase }}% Completado</small>
+                              </div>
+                            </td>
+                            <td class="text-nowrap text-center">
+                              <a class="btn bg-navy color-palette" data-toggle="modal" data-target="#ModalSubFase{{ $fase->idFase }}"><i class="fa fa-tasks"></i> Sub Actividades</a>
+                            </td>
+                            <td class="text-center" style="white-space: nowrap">
+                              <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditFase{{ $fase->idFase }}"><i class="fas fa-edit"></i></a>
+                              <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteFase{{ $fase->idFase }}"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                       @endforeach
