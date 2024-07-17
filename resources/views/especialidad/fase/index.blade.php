@@ -49,7 +49,7 @@
                                 </div>
                               </div>
                               <div class="w-100 text-center">
-                                <small>{{ $fase->porcentajeAvanceFase }}% Especialidad</small>
+                                <small>{{ $fase->porcentajeAvanceFase }}% Actividad</small>
                               </div>
                             </td>
                             <td class="project_progress text-nowrap">
