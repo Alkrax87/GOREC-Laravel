@@ -11,16 +11,6 @@
           </button>
         </div>
         <div class="modal-body">
-          @if ($errors->any())
-            <div class="alert alert-danger">
-              <strong>Error!</strong> Por favor corrige los errores en el formulario.<br><br>
-              <ul>
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
           <div class="row">
             <div class="col-12">
               <div class="form-outline mb-4">
@@ -49,7 +39,7 @@
                 <div class="col-4 form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>
                   <div class="input-group">
-                    <input type="text" class="form-control input-auth" name="porcentajeAvanceEspecialidad" value="{{ $especialidad->porcentajeAvanceEspecialidad }}" required min="0" max="100" step="0.01">
+                    <input type="number" class="form-control input-auth" name="porcentajeAvanceEspecialidad" value="{{ $especialidad->porcentajeAvanceEspecialidad }}" required min="0" max="100" step="0.01">
                     <span class="input-group-text">%</span>
                   </div>
                 </div>

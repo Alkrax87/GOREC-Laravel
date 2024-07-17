@@ -30,8 +30,8 @@
                         <th class="text-nowrap text-center">Fecha Incio</th>
                         <th class="text-nowrap text-center">Fecha Final</th>
                         <th class="text-nowrap">Total Dias</th>
-                        <th class="text-nowrap">Porcentaje Programado</th>
-                        <th class="text-nowrap">Avance Real</th>
+                        <th class="text-nowrap">Avance Programado</th>
+                        <th class="text-nowrap">Avance %</th>
                         <th class="text-nowrap">Avance Usuario</th>
                         <th class="text-center w-25">Opciones</th>
                       </tr>
@@ -108,6 +108,7 @@
                           </div>
                         </td>
                         <td class="text-center" style="white-space: nowrap">
+                          <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalLog{{$subfase->idSubfase}}"><i class="fas fa-list"></i></a>
                           <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditSubFase{{$subfase->idSubfase}}"><i class="fas fa-edit"></i></a>
                           <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$subfase->idSubfase}}"><i class="fas fa-trash-alt"></i></a>
                         </td>
@@ -129,6 +130,10 @@
     </div>
   </div>
 @foreach ($subfases as $subfase)
+  @include('especialidad.subfase.avanceLog', [
+    'subfase' => $subfase,
+    'logs' => $logs->where('idSubfase', $subfase->idSubfase),
+  ])
   @include('especialidad.subfase.delete', ['subfase' => $subfase])
   @include('especialidad.subfase.edit', ['subfase' => $subfase])
 @endforeach

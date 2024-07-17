@@ -65,7 +65,7 @@
               @foreach ($especialidad->fases as $fase)
                 <div class="card border-danger">
                   <div class="card-header bg-danger">
-                    <b><i class="fas fa-briefcase"></i> {{ $fase->nombreFase }}
+                    <b><i class="fas fa-briefcase"></i> {{ $fase->nombreFase }}</b>
                   </div>
                   <div class="card-body pb-0">
                     <div class="row">

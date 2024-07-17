@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('nombreSubfase');
             $table->date('fechaInicioSubfase');
             $table->date('fechaFinalSubfase');
-            $table->integer('cantidadDiasSubFase');
-            $table->decimal('porcentajeAvanceProgramadoSubFase', 15, 2);
-            $table->integer('avance_por_usuario_realSubFase');
-            $table->decimal('avanceRealTotalSubFase', 15, 2);
+            $table->integer('cantidadDiasSubFase')->default(0);
+            $table->decimal('porcentajeAvanceProgramadoSubFase', 15, 2)->default(0);
+            $table->integer('avance_por_usuario_realSubFase')->default(0);
+            $table->decimal('avanceRealTotalSubFase', 15, 2)->default(0);
             $table->unsignedBigInteger('idFase');
             $table->foreign('idFase')->references('idFase')->on('fase')->onDelete('cascade');
             $table->timestamps(false);

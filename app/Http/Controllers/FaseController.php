@@ -8,99 +8,96 @@ use App\Models\Especialidad;
 
 class FaseController extends Controller
 {
-    public function store(Request $request)
-    {
+    // Funcion de agregar un registro
+    public function store(Request $request){
+        // Validaciones
         $request->validate([
             'nombreFase' => 'required|string|max:255',
             'idEspecialidad' => 'required|exists:especialidad,idEspecialidad',
         ], [
-            'nombreFase.required' => 'El campo Nombre Segmento es obligatorio.',
-            'idEspecialidad.required' => 'El campo Inversión es obligatorio.',
+            'nombreFase.required' => 'El nombre es obligatorio.',
+            'idEspecialidad.required' => 'El campo idInversión es obligatorio.',
             'idEspecialidad.exists' => 'La inversión seleccionada no existe.',
         ]);
 
-        // Crear la nueva fase
-        $fase = new Fase();
-        $fase->nombreFase = $request->nombreFase;
-        $fase->idEspecialidad = $request->idEspecialidad;
-        $fase->avanceTotalFase = 0;
-        $fase->porcentajeAvanceFase = 0; // Inicializar con 0 para evitar el error
-        $fase->save();
-        // Recalcular el avance total de todas las fases
+        // Creamos un registro
+        Fase::create($request->all());
+
+        // Calculamos el avance
         $this->recalcularPorcentajeAvanceFase();
+
+        // Calculamos el avance total
         $this->recalcularAvanceTotalFase();
-        //$especialidadController = new EspecialidadController();
-        //$especialidadController->recalcularAvanceTotalEspecialidad($fase->idEspecialidad);
-        //return redirect()->back()->with('success', 'Subfases creadas y actualizadas con éxito');
-        return redirect()->route('especialidad.index')->with('message', 'Actividad creada correctamente.');
+
+        return redirect()->route('especialidad.index')->with('message','La Fase ' . $request->nombreFase . ' ha sido creada correctamente.');
     }
-    public function update(Request $request, $id)
-    {
+
+    // Función editar un registro
+    public function update(Request $request, $id){
+        // Validaciones
         $request->validate([
             'nombreFase' => 'required|string|max:255',
-            //'idEspecialidad' => 'required|exists:especialidad,idEspecialidad',
         ], [
-            'nombreFase.required' => 'El campo Nombre Segmento es obligatorio.',
-            //'idEspecialidad.required' => 'El campo Inversión es obligatorio.',
-            //'idEspecialidad.exists' => 'La inversión seleccionada no existe.',
+            'nombreFase.required' => 'El nombre es obligatorio.',
         ]);
 
+        // Buscamos la fase
         $fase = Fase::findOrFail($id);
-        $fase->nombreFase = $request->nombreFase;
-        //$fase->idEspecialidad = $request->idEspecialidad;
-        $fase->save();
 
-        // Recalcular el avance total de todas las fases
+        // Editamos la inversión
+        $fase->update($request->all());
+
+        // Calculamos el avance
         $this->recalcularPorcentajeAvanceFase();
-        
-       // $especialidadController = new EspecialidadController();
-        //$especialidadController->recalcularAvanceTotalEspecialidad($fase->idEspecialidad);
 
-        return redirect()->route('especialidad.index')->with('message', 'Elemento actualizado correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $request->nombreFase . ' ha sido actualizada correctamente.');
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
+        // Buscamos la fase
         $fase = Fase::findOrFail($id);
+
+        // Eliminamos la fase
         $fase->delete();
 
-        // Recalcular el avance total de todas las fases
+        // Calculamos el avance
         $this->recalcularPorcentajeAvanceFase();
+
+        // Calculamos el avance total
         $this->recalcularAvanceTotalFase();
 
-        return redirect()->route('especialidad.index')->with('message', 'Elemento eliminado correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $fase->nombreFase . ' ha sido eliminado correctamente.');
     }
 
-    private function recalcularPorcentajeAvanceFase()
-    {
+    // Funcion recalcular el porcentaje de Avance
+    private function recalcularPorcentajeAvanceFase(){
         // Obtener todas las fases agrupadas por idEspecialidad
         $fasesPorEspecialidad = Fase::all()->groupBy('idEspecialidad');
 
+        // Iteramos para ralizar los calculos
         foreach ($fasesPorEspecialidad as $idEspecialidad => $fases) {
             $totalFases = $fases->count();
             if ($totalFases > 0) {
                 $porcentajeAvance = 100 / $totalFases;
                 foreach ($fases as $fase) {
                     $fase->porcentajeAvanceFase = $porcentajeAvance;
-                    // Aquí puedes asignar `avanceTotalFase` si tienes un cálculo específico
                     $fase->save();
                 }
             }
         }
     }
-    private function recalcularAvanceTotalFase()
-    {
+
+    // Funcion recalcular el porcentaje de avance total
+    private function recalcularAvanceTotalFase(){
+        // Buscamos las fases
         $fases = Fase::all();
+
+        // Iteramos para realizar los calculos
         foreach ($fases as $fase) {
             $subfases = SubFase::where('idFase', $fase->idFase)->get();
             $totalAvanceRealTotalSubFase = $subfases->sum('avanceRealTotalSubFase');
             $fase->avanceTotalFase = $totalAvanceRealTotalSubFase * ($fase->porcentajeAvanceFase / 100);
             $fase->save();
-            //$sumAvanceTotalFase = $fases->sum('avanceTotalFase');
-            //$especialidad->avanceTotalEspecialidad = ($especialidad->porcentajeAvanceEspecialidad * $sumAvanceTotalFase) / 100;
-           // $especialidad->save();
         }
     }
-
 }
-   // Verificar que la fase se esté obteniendo y actualizando correctamente

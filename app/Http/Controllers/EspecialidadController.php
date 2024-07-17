@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Especialidad;
 use App\Models\SubFase;
 use App\Models\Fase;
+use App\Models\AvanceLog;
 
 class EspecialidadController extends Controller
 {
@@ -17,10 +18,11 @@ class EspecialidadController extends Controller
         $especialidades = Especialidad::all();
         $fases = Fase::all();
         $subfases = SubFase::all();
+        $logs = AvanceLog::all();
         $inversiones = Inversion::all();
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
 
-        return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
+        return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases','logs'));
     }
 
     public function store(Request $request)

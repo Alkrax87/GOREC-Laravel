@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubFase extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'subfase';
 
     protected $primaryKey = 'idSubfase';
@@ -25,8 +25,14 @@ class SubFase extends Model
         'avanceRealTotalSubFase',
         'idFase',
     ];
+
     public function fase()
     {
         return $this->belongsTo(Fase::class, 'idFase');
+    }
+
+    // Define la relación inversa con el modelo AvanceLog
+    public function estado_log(){
+        return $this->hasMany(AvanceLog::class, 'idSubfase', 'idSubfase');
     }
 }
