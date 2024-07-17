@@ -30,6 +30,8 @@
                   <th class="text-center">Distrito</th>
                   <th class="text-center">Modalidad</th>
                   <th class="text-center">Estado</th>
+                  <th class="text-center">Profesional</th>
+                  <th class="text-center">Asistente</th>
                   <th class="text-center">Opciones</th>
                 </tr>
               </thead>
@@ -45,9 +47,13 @@
                     <td class="text-center">{{ $inversion->modalidadInversion }}</td>
                     <td class="text-center">{{ $inversion->estadoInversion }}</td>
                     <td class="text-center" style="white-space: nowrap">
+                      <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i> Profesionales</a>
+                    </td>
+                    <td class="text-center" style="white-space: nowrap">
+                      <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i> Asistentes</a>
+                    </td>
+                    <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i></a>
-                      <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i></a>
                     </td>
                   </tr>
                 @endforeach

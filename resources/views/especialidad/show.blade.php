@@ -141,7 +141,7 @@
                           <div class="row">
                             <p>Total de dias programados: {{ $subfase->cantidadDiasSubFase }}</p>
                             <div class="col-4">
-                              <h5 class="text-center">Porcentaje Programado</h5>
+                              <h5 class="text-center">Avance Programado</h5>
                               <div class="project_progress text-nowrap">
                                 <div class="progress">
                                   <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
@@ -157,7 +157,7 @@
                               </div>
                             </div>
                             <div class="col-4">
-                              <h5 class="text-center">Avance Real</h5>
+                              <h5 class="text-center">Avance %</h5>
                               <div class="project_progress text-nowrap">
                                 <div class="progress">
                                   <div class="progress-bar progress-bar-striped
