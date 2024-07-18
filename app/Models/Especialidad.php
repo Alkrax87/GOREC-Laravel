@@ -9,6 +9,7 @@ class Especialidad extends Model
 {
     use HasFactory;
 
+    // Define la tabla asociada con el modelo
     protected $table = 'especialidad';
 
     // Define la clave primaria
@@ -25,25 +26,22 @@ class Especialidad extends Model
         'idInversion',
         'idUsuario',
     ];
+
     // Define la relación con el modelo Inversion
     public function inversion()
     {
         return $this->belongsTo(Inversion::class, 'idInversion');
     }
 
+    // Define la relación con el modelo Fase
     public function fases()
     {
         return $this->hasMany(Fase::class, 'idEspecialidad');
     }
 
-    public function usuario()
-    {
-        return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
-    }
-    // app/Models/Especialidad.php
+    // Define la relación con el modelo EspecialidadUsers
     public function usuarios()
     {
-        return $this->belongsToMany(User::class, 'especialidad_user', 'especialidad_id', 'user_id');
+        return $this->belongsToMany(User::class, 'especialidad_users', 'idEspecialidad', 'idUsuario');
     }
-
 }

@@ -12,7 +12,7 @@ class AsignacionAsistente extends Model
     // Define la tabla asociada con el modelo
     protected $table = 'asignacion_asistente';
 
-    // Desactiva los timestamps si no se usan
+    // Desactiva los timestamps
     public $timestamps = false;
 
     // Define los atributos asignables en masa

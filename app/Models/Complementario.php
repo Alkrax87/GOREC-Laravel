@@ -9,6 +9,7 @@ class Complementario extends Model
 {
     use HasFactory;
 
+    // Define la tabla asociada con el modelo
     protected $table = 'estudios_complementarios';
 
     // Define la clave primaria

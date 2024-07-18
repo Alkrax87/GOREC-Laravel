@@ -5,26 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AsignacionProfesional extends Model
+class EspecialidadUsers extends Model
 {
     use HasFactory;
 
     // Define la tabla asociada con el modelo
-    protected $table = 'asignacion_profesional';
+    protected $table = 'especialidades_users';
+
+    // Define los atributos asignables en masa
+    protected $fillable = [
+        'idEspecialidad',
+        'idUsuario'
+    ];
 
     // Desactiva los timestamps si no se usan
     public $timestamps = false;
 
-    // Define los atributos asignables en masa
-    protected $fillable = [
-        'idInversion',
-        'idUsuario'
-    ];
-
-    // Define la relación con el modelo Inversion
-    public function inversion()
+    // Define la relación con el modelo Especialidad
+    public function especialidad()
     {
-        return $this->belongsTo(Inversion::class, 'idInversion', 'idInversion');
+        return $this->belongsTo(Especialidad::class, 'idEspecialidad', 'idEspecialidad');
     }
 
     // Define la relación con el modelo User

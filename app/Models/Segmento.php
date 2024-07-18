@@ -39,4 +39,3 @@ class Segmento extends Model
         return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
     }
 }
-

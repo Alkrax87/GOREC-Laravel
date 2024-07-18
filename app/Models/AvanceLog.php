@@ -23,7 +23,7 @@ class AvanceLog extends Model
         'idSubfase'
     ];
 
-    // Define la relación con el modelo Inversion
+    // Define la relación con el modelo Subfase
     public function subfase()
     {
         return $this->belongsTo(Subfase::class, 'idSubfase', 'idSubfase');

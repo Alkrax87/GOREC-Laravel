@@ -24,47 +24,55 @@ class User extends Authenticatable
         'categoriaUsuario',
     ];
 
+    // Ocultamos el campo password
     protected $hidden = [
         'password',
     ];
 
-    public function adminlte_image()
-    {
-        return asset('images/profile.png');
-    }
-
-    public function adminlte_desc()
-    {
-        // Obtener el usuario autenticado
-        $user = Auth::user();
-        return $this->nombreUsuario . " " . $this->apellidoUsuario;
-    }
-
-    // Define la relación inversa con el modelo Segmento
+    // Define la relación con el modelo Segmento
     public function segmentos()
     {
         return $this->hasMany(Segmento::class, 'idUsuario', 'idUsuario');
     }
 
-    public function profesiones() {
+    // Define la relación con el modelo Profesiones
+    public function profesiones()
+    {
         return $this->hasMany(Profesiones::class, 'idUsuario', 'idUsuario');
     }
 
-    public function especialidades() {
+    // Define la relación con el modelo Eespecialidades
+    public function especialidades()
+    {
         return $this->hasMany(Especialidades::class, 'idUsuario', 'idUsuario');
     }
 
-    public function inversion(){
+    // Define la relación con el modelo Inversión
+    public function inversion()
+    {
         return $this->hasMany(Inversion::class, 'idUsuario', 'idUsuario');
     }
 
-    public function asignacion_especialidad(){
-        return $this->hasMany(Especialidad::class, 'idUsuario', 'idUsuario');
-    }
-    // app/Models/User.php
-    public function especialidades_u()
+    // Define la relación con el modelo EspecialidadUsers
+    public function especialidad_users()
     {
-    return $this->belongsToMany(Especialidad::class, 'especialidad_user', 'user_id', 'especialidad_id');
+        return $this->belongsToMany(Especialidad::class, 'especialidad_users', 'idUsuario', 'idEspecialidad');
     }
 
+    // ---------------------------------
+    // -----------AdminLTE--------------
+    // ---------------------------------
+
+    // Cargamos la imagen del perfil
+    public function adminlte_image()
+    {
+        return asset('images/profile.png');
+    }
+
+    // Obtener el usuario autenticado
+    public function adminlte_desc()
+    {
+        $user = Auth::user();
+        return $this->nombreUsuario . " " . $this->apellidoUsuario;
+    }
 }
