@@ -8,9 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('asignacion_profesional', function (Blueprint $table) {
-            $table->unsignedBigInteger('idInversion');
-            $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');
+        Schema::create('especialidad_users', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('idEspecialidad');
+            $table->foreign('idEspecialidad')->references('idEspecialidad')->on('especialidad')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('idUsuario');
             $table->foreign('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps(false);
@@ -19,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('asignacion_profesional');
+        Schema::dropIfExists('especialidad_user');
     }
 };

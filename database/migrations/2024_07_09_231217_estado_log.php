@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('estado_log', function (Blueprint $table) {
             $table->string('estadoInversionOLD');
             $table->string('estadoInversionNEW');
-            $table->date('fechaCambioEstado');
+            $table->datetime('fechaCambioEstado');
             $table->unsignedBigInteger('idInversion');
             $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');;
             $table->timestamps(false);

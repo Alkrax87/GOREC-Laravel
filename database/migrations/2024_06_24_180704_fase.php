@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('fase', function (Blueprint $table) {
@@ -21,8 +18,9 @@ return new class extends Migration
             $table->timestamps(false);
         });
     }
+
     public function down(): void
     {
-    Schema::dropIfExists('fase');
+        Schema::dropIfExists('fase');
     }
 };

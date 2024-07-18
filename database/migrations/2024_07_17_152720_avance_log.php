@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('avance_log', function (Blueprint $table) {
             $table->string('avanceSubfaseOLD');
             $table->string('avanceSubfaseNEW');
-            $table->date('fechaCambioAvance');
+            $table->datetime('fechaCambioAvance');
             $table->unsignedBigInteger('idSubfase');
             $table->foreign('idSubfase')->references('idSubfase')->on('subfase')->onDelete('cascade')->onUpdate('cascade');;
             $table->timestamps(false);
