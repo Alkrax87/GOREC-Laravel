@@ -64,7 +64,7 @@ class SubFaseController extends Controller
         $totalAvanceRealTotalSubFase = 0;
         foreach ($subfases as &$subfase) {
             $subfase['porcentajeAvanceProgramadoSubFase'] = ($subfase['cantidadDiasSubFase'] / $totalDias) * 100;
-            $subfase['avanceRealTotalSubFase'] = $subfase['porcentajeAvanceProgramadoSubFase'] * ($subfase['avance_por_usuario_realSubFase'] / 100);
+            $subfase['avanceRealTotalSubFase'] = ($subfase['porcentajeAvanceProgramadoSubFase'] * $subfase['avance_por_usuario_realSubFase']) / 100;
             $totalAvanceRealTotalSubFase += $subfase['avanceRealTotalSubFase'];
         }
 

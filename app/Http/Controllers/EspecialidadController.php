@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\Inversion;
 use App\Models\User;
@@ -29,14 +29,15 @@ class EspecialidadController extends Controller
             'nombreEspecialidad' => 'required|string|max:255',
             'porcentajeAvanceEspecialidad' => 'required|numeric',
             'idInversion' => 'required|exists:inversion,idInversion',
-            'idUsuario' => 'required|exists:users,idUsuario',
+            'idUsuario' => 'array',
+            'idUsuario' => 'exists:users,idUsuario',
         ], [
             'nombreEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
             'porcentajeAvanceEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
             'idInversion.required' => 'El campo Inversión es obligatorio.',
             'idInversion.exists' => 'La inversión seleccionada no existe.',
-            'idUsuario.required' => 'El campo Usuario es obligatorio.',
-            'idUsuario.exists' => 'El usuario seleccionado no existe.',
+            'idUsuario.required' => 'El campo Usuarios es obligatorio.',
+            'idUsuario.*.exists' => 'Uno o más usuarios seleccionados no existen.',
         ]);
 
         // Crear la nueva especialidad
@@ -45,10 +46,13 @@ class EspecialidadController extends Controller
         $especialidad->porcentajeAvanceEspecialidad = $request->porcentajeAvanceEspecialidad;
         $especialidad->avanceTotalEspecialidad = 0; // Inicializar con 0
         $especialidad->idInversion = $request->idInversion;
-        $especialidad->idUsuario = $request->idUsuario;
+       
 
         $especialidad->save();
 
+        // Asignar usuarios a la especialidad
+        $especialidad->usuarios()->attach($request->idUsuario);
+        
         // Recalcular el avance total de todas las especialidades
 
         return redirect()->route('especialidad.index')->with('message', 'Especialidad creada correctamente.');
@@ -66,15 +70,21 @@ class EspecialidadController extends Controller
         $request->validate([
             'nombreEspecialidad' => 'required|string|max:255',
             'porcentajeAvanceEspecialidad' => 'required|numeric',
+            'idUsuario' => 'array',
+            'idUsuario' => 'exists:users,idUsuario',
         ], [
             'nombreEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
             'porcentajeAvanceEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
+            'idUsuario.required' => 'El campo Usuarios es obligatorio.',
+            'idUsuario.*.exists' => 'Uno o más usuarios seleccionados no existen.',
         ]);
 
         $especialidades = Especialidad::findOrFail($id);
         $especialidades->nombreEspecialidad = $request->nombreEspecialidad;
         $especialidades->porcentajeAvanceEspecialidad = $request->porcentajeAvanceEspecialidad;
         $especialidades->save();
+
+        $especialidades->usuarios()->sync($request->idUsuario);
 
         // Recalcular el avance total de todas las especialidades
         //$this->recalcularAvanceTotalEspecialidad();
@@ -100,6 +110,16 @@ class EspecialidadController extends Controller
             $especialidad->avanceTotalEspecialidad = ($especialidad->porcentajeAvanceEspecialidad * $sumAvanceTotalFase) / 100;
             $especialidad->save();
         }
+    }
+    public function pdf(){
+        $especialidades = Especialidad::all();
+        $fases = Fase::all();
+       $subfases = SubFase::all();
+        $inversiones = Inversion::all();
+        $usuarios = User::all(); // Carga todas las inversiones
+        $pdf = Pdf::loadView('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
+        return $pdf->stream();
+        //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }
 
 }

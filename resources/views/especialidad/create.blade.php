@@ -35,14 +35,20 @@
                             </div>
                             <div class="form-outline mb-4">
                               <label class="form-label" for="idUsuario">Jefe</label>
-                              <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
-                                <option value="" disabled selected>Selecciona un usuario</option>
-                                @foreach ($usuarios as $usuario)
-                                  <option value="{{ $usuario->idUsuario }}">
-                                    {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-                                  </option>
-                                @endforeach
-                              </select>
+                              <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuarios()"><i class="fas fa-plus"></i></button>
+                              <div id="profesiones-container">
+                                <div class="input-group mb-2">
+                                  <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+                                    <option value="" disabled selected>Selecciona un usuario</option>
+                                    @foreach ($usuarios as $usuario)
+                                      <option value="{{ $usuario->idUsuario }}">
+                                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                                      </option>
+                                    @endforeach
+                                  </select>
+                                  <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                              </div>
                             </div>
                             <div class="form-outline mb-4">
                                 <label class="form-label">Nombre Especialidad</label>
@@ -145,6 +151,28 @@
     }
   </style>
   @section('css')
+  <script>
+    function addUsuarios() {
+    const container = document.getElementById('profesiones-container');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+      <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+        <option value="" disabled selected>Selecciona un usuario</option>
+        @foreach ($usuarios as $usuario)
+          <option value="{{ $usuario->idUsuario }}">
+            {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+          </option>
+        @endforeach
+      </select>
+      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+    `;
+    container.appendChild(div);
+  }
+  function removeElement(element) {
+    element.parentNode.remove();
+  }
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">

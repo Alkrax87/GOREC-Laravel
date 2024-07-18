@@ -16,14 +16,17 @@
         </div>
         <!-- Tabla y alert -->
         <div class="col-12">
-
         <!-- Alert -->
         @if ($message = Session::get('message'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
           </div>
         @endif
-
+        <div class="row mt-3">
+          <div class="col-12 py-2 text-end">
+             <a href="{{route('especialidad.pdf')}}" class="btn btn-success" target="_blank"><img width="25" height="25" src="https://img.icons8.com/3d-fluency/94/print.png" alt="print"/>PDF</a>
+          </div>
+      </div>
         <!-- Tabla -->
         <div class="table-responsive">
           <table id="segmentosTable" class="table table-bordered table-striped">
@@ -43,7 +46,11 @@
                 <tr>
                   <td class="text-left">{{ $loop->index + 1 }}</td>
                   <td>{{ $especialidad->inversion->nombreInversion }}</td>
-                  <td class="text-nowrap">{{ $especialidad->usuario->nombreUsuario . ' ' . $especialidad->usuario->apellidoUsuario }}</td>
+                  <td>
+                  @foreach ($especialidad->usuarios as $usuario)
+                  <i class="fas fa-caret-right"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}<br>
+                @endforeach
+                  </td> 
                   <td class="text-left">{{ $especialidad->nombreEspecialidad}}</td>
                   <td class="text-left">{{ $especialidad->porcentajeAvanceEspecialidad}}</td>
                   <td class="text-left">{{ $especialidad->avanceTotalEspecialidad}}</td>

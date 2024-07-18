@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('avanceTotalEspecialidad', 15, 2);
             $table->unsignedBigInteger('idInversion');
             $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('idUsuario');
+            $table->unsignedBigInteger('idUsuario')->nullable();
             $table->foreign('idUsuario')->references('idUsuario')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps(false);
         });
