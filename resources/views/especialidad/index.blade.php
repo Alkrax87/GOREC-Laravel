@@ -31,6 +31,11 @@
               </ul>
             </div>
           @endif
+          <div class="row mt-3">
+            <div class="col-12 py-2 text-end">
+               <a href="{{route('especialidad.pdf')}}" class="btn btn-success" target="_blank"><img width="25" height="25" src="https://img.icons8.com/3d-fluency/94/print.png" alt="print"/>PDF</a>
+            </div>
+        </div>
           <!-- Tabla -->
           <div class="table-responsive">
             <table id="especialidadTable" class="table table-bordered table-striped">
@@ -52,7 +57,11 @@
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td>{{ $especialidad->inversion->nombreCortoInversion }}</td>
                     <td class="text-center">{{ $especialidad->nombreEspecialidad }}</td>
-                    <td class="text-nowrap text-center">{{ $especialidad->usuario->nombreUsuario . ' ' . $especialidad->usuario->apellidoUsuario }}</td>
+                    <td>
+                      @foreach ($especialidad->usuarios as $usuario)
+                      <i class="fas fa-caret-right"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}<br>
+                    @endforeach
+                      </td>
                     <td class="project_progress text-nowrap">
                       <div class="progress">
                         <div class="progress-bar progress-bar-striped bg-info" role="progressbar"

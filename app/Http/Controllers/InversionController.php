@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Inversion;
@@ -190,5 +190,19 @@ class InversionController extends Controller
             $inversion->avanceInversion = $sumAvanceTotalEspecialidad;
             $inversion->save();
         }
+    }
+    public function pdf($id){
+        $inversion = Inversion::findOrFail($id);
+        $usuarios = User::all(); // Carga todas las inversiones
+        $pdf = Pdf::loadView('inversion.pdf', compact('inversion', 'usuarios'));
+        return $pdf->stream();
+        //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
+    }
+    public function pdfs(){
+        $inversiones = Inversion::all();
+        $usuarios = User::all(); // Carga todas las inversiones
+        $pdfs = Pdf::loadView('inversion.pdfs', compact('inversiones', 'usuarios'));
+        return $pdfs->stream();
+        //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }
 }

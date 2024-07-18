@@ -31,6 +31,11 @@
               </ul>
             </div>
           @endif
+          <div class="row mt-3">
+            <div class="col-12 py-2 text-end">
+               <a href="{{route('inversion.pdfs')}}" class="btn btn-success" target="_blank"><img width="25" height="25" src="https://img.icons8.com/3d-fluency/94/print.png" alt="print"/>PDF</a>
+            </div>
+        </div>
           <!-- Tabla -->
           <div class="table-responsive">
             <table id="segmentosTable" class="table table-bordered table-striped">
@@ -96,6 +101,7 @@
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
                     <td class="text-center text-nowrap">
+                      <a href="{{route('inversion.pdf', $inversion->idInversion)}}" class="btn btn-success" target="_blank">PDF</a>
                       <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
                       <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
                       <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>

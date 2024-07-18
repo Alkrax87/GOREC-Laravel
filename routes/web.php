@@ -12,6 +12,7 @@ use App\Http\Controllers\EspecialidadController;
 use App\Http\Controllers\ComplementarioController;
 use App\Http\Controllers\SubFaseController;
 use App\Http\Controllers\FaseController;
+use App\Http\Controllers\Reportes;
 
 
 // Ruta por defecto
@@ -25,6 +26,9 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
 // Rutas protegidas (requieren autenticación)
 Route::middleware('auth')->group(function () {
+    Route::get('inversion/pdfs',[InversionController::class, 'pdfs'])->name('inversion.pdfs');
+    Route::get('inversion/pdf/{id}',[InversionController::class, 'pdf'])->name('inversion.pdf');
+    Route::get('especialidad/pdf',[EspecialidadController::class, 'pdf'])->name('especialidad.pdf');
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
     Route::resource('inversion', InversionController::class);
     Route::resource('usuario', UserController::class);
@@ -37,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('complementario', ComplementarioController::class);
     Route::resource('subfase', SubFaseController::class);
     Route::resource('fase', FaseController::class);
+    Route::resource('reportes', Reportes::class);
 
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {

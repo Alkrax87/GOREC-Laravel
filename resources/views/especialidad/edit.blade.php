@@ -27,14 +27,20 @@
               <div class="row">
                 <div class="col-8 form-outline mb-4">
                   <label class="form-label" for="idUsuario">Encargado</label>
-                  <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled>Selecciona un usuario</option>
-                    @foreach ($usuarios as $usuario)
-                      <option value="{{ $usuario->idUsuario }}" {{ $especialidad->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>
-                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-                      </option>
-                    @endforeach
-                  </select>
+                  <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuarioEdit({{ $especialidad->idEspecialidad }})"><i class="fas fa-plus"></i></button>
+                            <div id="usuarios-container-edit-{{ $especialidad->idEspecialidad }}">
+                                @foreach ($especialidad->usuarios as $usuario)
+                                <div class="input-group mb-2">
+                                    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+                                        <option value="" disabled>Selecciona un usuario</option>
+                                        @foreach ($usuarios as $user)
+                                            <option value="{{ $user->idUsuario }}" {{ $user->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>{{ $user->nombreUsuario . ' ' . $user->apellidoUsuario }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                                @endforeach
+                            </div>
                 </div>
                 <div class="col-4 form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>
@@ -134,3 +140,30 @@
     }
   }
 </style>
+
+<script>
+    // JavaScript para manejar la edición de profesiones y especialidades
+    function addUsuarioEdit(usuarioId) {
+      const container = document.getElementById('usuarios-container-edit-' + usuarioId);
+      const div = document.createElement('div');
+      div.className = 'input-group mb-2';
+      div.innerHTML = `
+        @foreach ($especialidad->usuarios as $usuario)
+        <div class="input-group mb-2">
+            <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+                <option value="" disabled selected>Selecciona un usuario</option>
+                @foreach ($usuarios as $user)
+                    <option value="{{ $user->idUsuario }}">{{ $user->nombreUsuario . ' ' . $user->apellidoUsuario }}</option>
+                @endforeach
+            </select>
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+        </div>
+        @endforeach
+      `;
+      container.appendChild(div);
+    }
+    function removeElement(element) {
+    element.parentNode.remove();
+  }
+  </script>
+

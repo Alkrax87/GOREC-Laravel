@@ -1,4 +1,5 @@
 <form action="{{ route('especialidad.store') }}" method="POST">
+
   {{ csrf_field() }}
   <div class="modal fade text-left" id="ModalCreate">
     <div class="modal-dialog modal-lg">
@@ -26,14 +27,20 @@
               <div class="row">
                 <div class="col-8 form-outline mb-4">
                   <label class="form-label" for="idUsuario">Encargado</label>
-                  <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona un usuario</option>
-                    @foreach ($usuarios as $usuario)
-                      <option value="{{ $usuario->idUsuario }}">
-                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-                      </option>
-                    @endforeach
-                  </select>
+                  <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuarios()"><i class="fas fa-plus"></i></button>
+                              <div id="profesiones-container">
+                                <div class="input-group mb-2">
+                                  <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+                                    <option value="" disabled selected>Selecciona un usuario</option>
+                                    @foreach ($usuarios as $usuario)
+                                      <option value="{{ $usuario->idUsuario }}">
+                                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                                      </option>
+                                    @endforeach
+                                  </select>
+                                  <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                              </div>
                 </div>
                 <div class="col-4 form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>
@@ -86,4 +93,31 @@
       color: transparent;
     }
   </style>
+
 </form>
+
+  @section('js')
+  <script>
+    function addUsuarios() {
+    const container = document.getElementById('profesiones-container');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+      <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+        <option value="" disabled selected>Selecciona un usuario</option>
+        @foreach ($usuarios as $usuario)
+          <option value="{{ $usuario->idUsuario }}">
+            {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+          </option>
+        @endforeach
+      </select>
+      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+    `;
+    container.appendChild(div);
+  }
+  function removeElement(element) {
+    element.parentNode.remove();
+  }
+  </script>
+@stop
+

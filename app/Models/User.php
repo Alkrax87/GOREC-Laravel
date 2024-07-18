@@ -61,4 +61,10 @@ class User extends Authenticatable
     public function asignacion_especialidad(){
         return $this->hasMany(Especialidad::class, 'idUsuario', 'idUsuario');
     }
+    // app/Models/User.php
+    public function especialidades_u()
+    {
+    return $this->belongsToMany(Especialidad::class, 'especialidad_user', 'user_id', 'especialidad_id');
+    }
+
 }

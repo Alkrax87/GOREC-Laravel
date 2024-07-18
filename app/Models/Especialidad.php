@@ -40,4 +40,10 @@ class Especialidad extends Model
     {
         return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
     }
+    // app/Models/Especialidad.php
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class, 'especialidad_user', 'especialidad_id', 'user_id');
+    }
+
 }
