@@ -79,10 +79,10 @@
                       @endforeach
                     </td>
                     <td class="text-center" style="white-space: nowrap">
-                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
                       @if (!$loop->first)
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
+                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
                       @endif
                     </td>
                   </tr>
@@ -109,6 +109,12 @@
   <style>
     a {
       text-decoration: none;
+    }
+    .btn-option{
+      height: 38px;
+    }
+    .btn-option i{
+      padding-top: 4px;
     }
   </style>
 @stop

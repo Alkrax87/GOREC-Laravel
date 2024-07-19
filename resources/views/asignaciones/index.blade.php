@@ -30,9 +30,9 @@
                   <th class="text-center">Distrito</th>
                   <th class="text-center">Modalidad</th>
                   <th class="text-center">Estado</th>
+                  <th class="text-center">Opciones</th>
                   <th class="text-center">Profesional</th>
                   <th class="text-center">Asistente</th>
-                  <th class="text-center">Opciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,13 +47,13 @@
                     <td class="text-center">{{ $inversion->modalidadInversion }}</td>
                     <td class="text-center">{{ $inversion->estadoInversion }}</td>
                     <td class="text-center" style="white-space: nowrap">
+                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
+                    </td>
+                    <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i> Profesionales</a>
                     </td>
                     <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i> Asistentes</a>
-                    </td>
-                    <td class="text-center" style="white-space: nowrap">
-                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -86,6 +86,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+  <style>
+    a {
+      text-decoration: none;
+    }
+    .btn-option{
+      height: 38px;
+    }
+    .btn-option i{
+      padding-top: 4px;
+    }
+  </style>
 @stop
 
 @section('js')

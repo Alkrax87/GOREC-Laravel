@@ -8,6 +8,7 @@ use App\Models\Inversion;
 use App\Models\Especialidad;
 use App\Models\User;
 use App\Models\EstadoLog;
+use Carbon\Carbon;
 use Auth;
 
 class InversionController extends Controller
@@ -151,7 +152,7 @@ class InversionController extends Controller
             EstadoLog::create([
                 'estadoInversionOLD' => $CurrentEstadoInversion,
                 'estadoInversionNEW' => $request->estadoInversion,
-                'fechaCambioEstado' => now(),
+                'fechaCambioEstado' => Carbon::now()->subHours(5),
                 'idInversion' => $id,
             ]);
         }

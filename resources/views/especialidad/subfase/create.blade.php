@@ -26,7 +26,7 @@
                     <div class="col-4 form-outline mb-4">
                       <label class="form-label">Avance (%)</label>
                       <div class="input-group">
-                        <input type="number" class="form-control input-auth" name="subfases[0][avance_por_usuario_realSubFase]" required min="0" max="100" step="0.01">
+                        <input type="number" value="0" class="form-control input-auth" name="subfases[0][avance_por_usuario_realSubFase]" required min="0" max="100" step="0.01">
                         <span class="input-group-text">%</span>
                       </div>
                     </div>

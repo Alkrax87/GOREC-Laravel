@@ -12,7 +12,14 @@
       <div class="row">
         <div class="col-12">
           <!-- Agregar -->
-          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Crear Especialidad</button>
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Crear Especialidad</button>
+            </div>
+            <div class="col-6 text-end">
+              <a href="{{route('especialidad.pdf')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+            </div>
+          </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -31,11 +38,6 @@
               </ul>
             </div>
           @endif
-          <div class="row mt-3">
-            <div class="col-12 py-2 text-end">
-               <a href="{{route('especialidad.pdf')}}" class="btn btn-success" target="_blank"><img width="25" height="25" src="https://img.icons8.com/3d-fluency/94/print.png" alt="print"/>PDF</a>
-            </div>
-        </div>
           <!-- Tabla -->
           <div class="table-responsive">
             <table id="especialidadTable" class="table table-bordered table-striped">
@@ -44,7 +46,7 @@
                   <th class="text-left">#</th>
                   <th class="text-left">Inversión</th>
                   <th class="text-center">Nombre</th>
-                  <th class="text-center">Encargado</th>
+                  <th class="text-center">Encargados</th>
                   <th class="text-center text-nowrap">Porcentaje Especialidad</th>
                   <th class="text-center text-nowrap">Porcentaje Avance</th>
                   <th class="text-center">Actividad</th>
@@ -56,12 +58,12 @@
                   <tr>
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td>{{ $especialidad->inversion->nombreCortoInversion }}</td>
-                    <td class="text-center">{{ $especialidad->nombreEspecialidad }}</td>
-                    <td>
+                    <td class="text-center text-nowrap">{{ $especialidad->nombreEspecialidad }}</td>
+                    <td class="text-nowrap text-center">
                       @foreach ($especialidad->usuarios as $usuario)
-                      <i class="fas fa-caret-right"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}<br>
-                    @endforeach
-                      </td>
+                        <i class="fas fa-caret-right"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}<br>
+                      @endforeach
+                    </td>
                     <td class="project_progress text-nowrap">
                       <div class="progress">
                         <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
@@ -102,9 +104,9 @@
                       <a class="btn bg-olive color-palette" data-toggle="modal" data-target="#ModalFase{{ $especialidad->idEspecialidad }}"><i class="fas fa-briefcase"></i> Actividades</a>
                     </td>
                     <td class="text-center" style="white-space: nowrap"">
-                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{ $especialidad->idEspecialidad }}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-trash-alt"></i></a>
+                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{ $especialidad->idEspecialidad }}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEditEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -114,21 +116,20 @@
           </div>
         </div>
       </div>
+      @foreach ($especialidades as $especialidad)
+        @include('especialidad.fase.index', [
+          'especialidad' => $especialidad,
+          'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
+        ])
+        @include('especialidad.show', [
+          'especialidad' => $especialidad,
+          'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
+        ])
+        @include('especialidad.delete', ['especialidad' => $especialidad])
+        @include('especialidad.edit', ['especialidad' => $especialidad])
+      @endforeach
     </div>
   </div>
-@foreach ($especialidades as $especialidad)
-  @include('especialidad.fase.index', [
-    'especialidad' => $especialidad,
-    'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
-  ])
-    @include('especialidad.show', [
-    'especialidad' => $especialidad,
-    'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
-  ])
-    @include('especialidad.delete', ['especialidad' => $especialidad])
-    @include('especialidad.edit', ['especialidad' => $especialidad])
-@endforeach
-
 @stop
 
 @section('css')
@@ -138,6 +139,12 @@
   <style>
     a {
       text-decoration: none;
+    }
+    .btn-option{
+      height: 38px;
+    }
+    .btn-option i{
+      padding-top: 4px;
     }
   </style>
 @stop

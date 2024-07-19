@@ -12,9 +12,12 @@ use App\Models\AvanceLog;
 
 class EspecialidadController extends Controller
 {
-    public function index(Request $request)
-    {
+    // Función de carga de datos
+    public function index(Request $request){
+        // LLamamos a la funcion para calcular el avance total
         $this->recalcularAvanceTotalEspecialidad();
+
+        // Cargamos los datos
         $especialidades = Especialidad::all();
         $fases = Fase::all();
         $subfases = SubFase::all();
@@ -25,8 +28,8 @@ class EspecialidadController extends Controller
         return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases','logs'));
     }
 
-    public function store(Request $request)
-    {
+    // Función de agreagar un registro
+    public function store(Request $request){
         $request->validate([
             'nombreEspecialidad' => 'required|string|max:255',
             'porcentajeAvanceEspecialidad' => 'required|numeric',
@@ -42,71 +45,71 @@ class EspecialidadController extends Controller
             'idUsuario.*.exists' => 'Uno o más usuarios seleccionados no existen.',
         ]);
 
-        // Crear la nueva especialidad
-        $especialidad = new Especialidad();
-        $especialidad->nombreEspecialidad = $request->nombreEspecialidad;
-        $especialidad->porcentajeAvanceEspecialidad = $request->porcentajeAvanceEspecialidad;
-        $especialidad->avanceTotalEspecialidad = 0; // Inicializar con 0
-        $especialidad->idInversion = $request->idInversion;
-       
-
-        $especialidad->save();
+        // Crear un registro
+        $especialidad = Especialidad::create([
+            'nombreEspecialidad' => $request->nombreEspecialidad,
+            'porcentajeAvanceEspecialidad' => $request->porcentajeAvanceEspecialidad,
+            'avanceTotalEspecialidad' => 0,
+            'idInversion' => $request->idInversion,
+        ]);
 
         // Asignar usuarios a la especialidad
         $especialidad->usuarios()->attach($request->idUsuario);
-        
-        // Recalcular el avance total de todas las especialidades
 
-        return redirect()->route('especialidad.index')->with('message', 'Especialidad creada correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $request->nombreEspecialidad . ' creada correctamente.');
     }
 
-    /**public function show($id)
-    {
-        $especialidades = Especialidad::with(['fases','subfases'])->findOrFail($id);
-        return view('especialidad.show', compact('especialidades'));
-        //$especialidades = Especialidad::with(['fase,subfases'])->findOrFail($id);
-        //return view('especialidad.show', compact('especialidades'));
-    }**/
-    public function update(Request $request, $id)
-    {
+    // Función editar un registro
+    public function update(Request $request, $id){
         $request->validate([
             'nombreEspecialidad' => 'required|string|max:255',
             'porcentajeAvanceEspecialidad' => 'required|numeric',
-            'idUsuario' => 'array',
-            'idUsuario' => 'exists:users,idUsuario',
+            'idInversion' => 'required|exists:inversion,idInversion',
+            'idUsuario' => 'array|required',
+            'idUsuario.*' => 'exists:users,idUsuario',
         ], [
             'nombreEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
             'porcentajeAvanceEspecialidad.required' => 'El campo Nombre Segmento es obligatorio.',
+            'idInversion.required' => 'El campo Inversión es obligatorio.',
+            'idInversion.exists' => 'La inversión seleccionada no existe.',
             'idUsuario.required' => 'El campo Usuarios es obligatorio.',
             'idUsuario.*.exists' => 'Uno o más usuarios seleccionados no existen.',
         ]);
 
+        // Encontrar la especialidad existente
+        $especialidad = Especialidad::findOrFail($id);
 
-        $especialidades = Especialidad::findOrFail($id);
-        $especialidades->update($request->all());
+        // Actualizar los atributos de la especialidad
+        $especialidad->update([
+            'nombreEspecialidad' => $request->nombreEspecialidad,
+            'porcentajeAvanceEspecialidad' => $request->porcentajeAvanceEspecialidad,
+            'avanceTotalEspecialidad' => 0,
+            'idInversion' => $request->idInversion,
+        ]);
 
-    //    $especialidades->save();
-
-        $especialidades->usuarios()->sync($request->idUsuario);
-
-        // Recalcular el avance total de todas las especialidades
-        //$this->recalcularAvanceTotalEspecialidad();
+        // Sincronizar los usuarios asociados
+        $especialidad->usuarios()->sync($request->idUsuario);
 
         return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $request->nombreEspecialidad . ' actualizada correctamente.');
     }
 
-    public function destroy($id)
-    {
-        $especialidades = Especialidad::findOrFail($id);
-        $especialidades->delete();
-        // Recalcular el avance total de todas las especialidades
-        //$this->recalcularAvanceTotalEspecialidad();
+    // Función eliminar un registro
+    public function destroy($id){
+        // Buscamos la especialidad
+        $especialidad = Especialidad::findOrFail($id);
 
-        return redirect()->route('especialidad.index')->with('message', 'Especialidad eliminado correctamente.');
+        // Eliminamos la especialidad
+        $especialidad->delete();
+
+        return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $especialidad->nombreEspecialidad . ' eliminada correctamente.');
     }
-    private function recalcularAvanceTotalEspecialidad()
-    {
+
+    // Funcion para calcular el avance total de especialidad
+    private function recalcularAvanceTotalEspecialidad(){
+        // Buscamos la especialidad
         $especialidades = Especialidad::all();
+
+        // Iteramos las especialidades para realizar los cálculos
         foreach ($especialidades as $especialidad) {
             $fases = Fase::where('idEspecialidad', $especialidad->idEspecialidad)->get();
             $sumAvanceTotalFase = $fases->sum('avanceTotalFase');
@@ -114,15 +117,15 @@ class EspecialidadController extends Controller
             $especialidad->save();
         }
     }
+
     public function pdf(){
         $especialidades = Especialidad::all();
         $fases = Fase::all();
-       $subfases = SubFase::all();
+        $subfases = SubFase::all();
         $inversiones = Inversion::all();
         $usuarios = User::all(); // Carga todas las inversiones
         $pdf = Pdf::loadView('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
         return $pdf->stream();
-        //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }
 
 }

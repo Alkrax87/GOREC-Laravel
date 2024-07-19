@@ -12,7 +12,14 @@
       <div class="row">
         <div class="col-12">
           <!-- Agregar -->
-          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
+          <div class="row">
+            <div class="col-6">
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
+            </div>
+            <div class="col-6 text-end">
+              <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+            </div>
+          </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -31,11 +38,6 @@
               </ul>
             </div>
           @endif
-          <div class="row mt-3">
-            <div class="col-12 py-2 text-end">
-               <a href="{{route('inversion.pdfs')}}" class="btn btn-success" target="_blank"><img width="25" height="25" src="https://img.icons8.com/3d-fluency/94/print.png" alt="print"/>PDF</a>
-            </div>
-        </div>
           <!-- Tabla -->
           <div class="table-responsive">
             <table id="segmentosTable" class="table table-bordered table-striped">
@@ -49,14 +51,15 @@
                   <th class="text-center">Avance</th>
                   <th class="text-center">Provincia</th>
                   <th class="text-center">Distrito</th>
-                  <th class="text-center">Nivel</th>
-                  <th class="text-center">Función</th>
-                  <th class="text-center">Modalidad</th>
                   <th class="text-center">Estado</th>
                   <th class="text-nowrap">Fecha Inicio</th>
                   <th class="text-nowrap">Fecha Final</th>
+                  <th class="text-center">Nivel</th>
+                  <th class="text-center">Función</th>
+                  <th class="text-center">Modalidad</th>
                   <th class="text-nowrap">Presupuesto Formulación</th>
                   <th class="text-nowrap">Presupuesto Ejecución</th>
+                  <th class="text-center">Extras</th>
                   <th class="text-center">Opciones</th>
                 </tr>
               </thead>
@@ -67,7 +70,7 @@
                     <td class="text-nowrap">{{ $inversion->cuiInversion }}</td>
                     <td>{{ $inversion->nombreInversion }}</td>
                     <td>{{ $inversion->nombreCortoInversion }}</td>
-                    <td class="text-nowrap">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+                    <td class="text-nowrap text-center">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
                     <td class="project_progress text-nowrap">
                       <div class="progress">
                         <div class="progress-bar progress-bar-striped
@@ -92,20 +95,22 @@
                     </td>
                     <td class="text-center">{{ $inversion->provinciaInversion }}</td>
                     <td class="text-center">{{ $inversion->distritoInversion }}</td>
+                    <td class="text-center">{{ $inversion->estadoInversion }}</td>
+                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaInicioInversion }}</td>
+                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaFinalInversion }}</td>
                     <td class="text-center">{{ $inversion->nivelInversion }}</td>
                     <td class="text-center">{{ $inversion->funcionInversion }}</td>
                     <td class="text-center">{{ $inversion->modalidadInversion }}</td>
-                    <td class="text-center">{{ $inversion->estadoInversion }}</td>
-                    <td class="text-center">{{ $inversion->fechaInicioInversion }}</td>
-                    <td class="text-center">{{ $inversion->fechaFinalInversion }}</td>
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
                     <td class="text-center text-nowrap">
-                      <a href="{{route('inversion.pdf', $inversion->idInversion)}}" class="btn btn-success" target="_blank">PDF</a>
-                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
-                      <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
+                      <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
+                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                    </td>
+                    <td class="text-center text-nowrap">
+                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -136,6 +141,12 @@
     a {
       text-decoration: none;
     }
+    .btn-option{
+      height: 38px;
+    }
+    .btn-option i{
+      padding-top: 4px;
+    }
   </style>
 @stop
 
@@ -164,33 +175,6 @@
         }
       });
     });
-  </script>
-  <script>
-    //-------------
-    //- DONUT CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-    var donutData        = {
-      labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-        }
-      ]
-    }
-    var donutOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
   </script>
 @stop
 

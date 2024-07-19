@@ -17,7 +17,7 @@
               @foreach ($profesionales as $profesional)
                 <div class="card border-danger">
                   <div class="card-header bg-danger">
-                    <b><i class="fas fa-user-tie"></i> {{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}
+                    <b><i class="fas fa-user-tie"></i> {{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</b>
                   </div>
                   <div class="card-body pb-0">
                     <div class="row">

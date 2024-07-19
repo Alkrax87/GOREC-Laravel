@@ -16,7 +16,19 @@
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+            </div>
+          @endif
+          @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible pb-0">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h6><i class="icon fas fa-ban"></i> Error! Por favor corrige los errores en el formulario.</h6>
+              <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
             </div>
           @endif
           <!-- Tabla -->
@@ -40,12 +52,12 @@
                     <td class="text-left">{{ $segmento->nombreSegmento }}</td>
                     <td class="text-nowrap text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
                     <td>{{ $segmento->inversion->nombreInversion }}</td>
-                    <td class="text-center">{{ $segmento->fechaInicioSegmento }}</td>
-                    <td class="text-center">{{ $segmento->fechaFinalSegmento }}</td>
+                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaInicioSegmento }}</td>
+                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaFinalSegmento }}</td>
                     <td class="text-nowrap">
-                      <a class="btn btn-info" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
+                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
                     </td>
                   </tr>
                 @endforeach
@@ -68,6 +80,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+  <style>
+    a {
+      text-decoration: none;
+    }
+    .btn-option{
+      height: 38px;
+    }
+    .btn-option i{
+      padding-top: 4px;
+    }
+  </style>
 @stop
 
 @section('js')

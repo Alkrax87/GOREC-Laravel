@@ -143,7 +143,7 @@ class SubFaseController extends Controller
             AvanceLog::create([
                 'avanceSubfaseOLD' => $currentAvanceSubfase,
                 'avanceSubfaseNEW' => $request->avance_por_usuario_realSubFase,
-                'fechaCambioAvance' => Carbon::now(),
+                'fechaCambioAvance' => Carbon::now()->subHours(5),
                 'idSubfase' => $id,
             ]);
         }

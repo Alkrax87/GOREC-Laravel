@@ -318,27 +318,27 @@ return [
             'icon_color' => 'white'
         ],
         [
-            'text' => 'Segmento',
-            'url' => 'segmento',
-            'icon' => 'fas fa-stream',
-            'icon_color' => 'white'
-        ],
-        [
             'text' => 'Asignaciones',
             'url' => 'asignaciones',
             'icon' => 'fas fa-user-tag',
             'icon_color' => 'white'
         ],
         [
-            'text' => 'Estudios Complementarios',
-            'url' => 'complementario',
-            'icon' => 'fas fa-briefcase',
-            'icon_color' => 'white'
-        ],
-        [
             'text' => 'Especialidad',
             'url' => 'especialidad',
             'icon' => 'fas fa-users-cog',
+            'icon_color' => 'white'
+        ],
+        [
+            'text' => 'Segmento',
+            'url' => 'segmento',
+            'icon' => 'fas fa-stream',
+            'icon_color' => 'white'
+        ],
+        [
+            'text' => 'Complementarios',
+            'url' => 'complementario',
+            'icon' => 'fas fa-window-restore',
             'icon_color' => 'white'
         ],
         ['header' => 'REPORTES'],

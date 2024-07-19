@@ -13,12 +13,6 @@
             <div class="row">
               <!-- Contenido -->
               <div class="col-12">
-                <!-- Alert -->
-                @if ($message = Session::get('profesional_message'))
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-                  </div>
-                @endif
                 <!-- Agregar -->
                 <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateFase{{ $especialidad->idEspecialidad  }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Nueva Actividad</button>
                 <!-- Tabla -->
@@ -91,7 +85,6 @@
               </div>
               <div class="col-12 py-2 text-center">
                 <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
-                <button class="btn btn-dark mx-1" data-dismiss="modal"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</button>
               </div>
             </div>
           </div>

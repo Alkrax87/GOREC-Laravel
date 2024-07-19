@@ -12,8 +12,11 @@
           <div class="row">
             <div class="col-12">
               <h2>{{ $especialidad->nombreEspecialidad }}</h2>
-              <p><i class="fas fa-portrait"></i> <b>Jefe: </b>{{ $especialidad->usuario->nombreUsuario . ' ' . $especialidad->usuario->apellidoUsuario }}</p>
-              <div class="row">
+              <b>Encargados: </b>
+              @foreach ($especialidad->usuarios as $usuario)
+                <p class="mb-0"><i class="fas fa-portrait"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}</p>
+              @endforeach
+              <div class="row mt-3">
                 <div class="col-6">
                   <div class="project_progress text-nowrap">
                     <div class="w-100 text-center">
