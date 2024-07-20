@@ -39,7 +39,7 @@
                 @foreach ($inversiones as $inversion)
                   <tr>
                     <td class="text-center">{{ $loop->index + 1 }}</td>
-                    <td class="text-center">{{ $inversion->cuiInversion}}</td>
+                    <td class="text-center text-nowrap">{{ $inversion->cuiInversion}}</td>
                     <td>{{ $inversion->nombreInversion}}</td>
                     <td>{{ $inversion->nombreCortoInversion}}</td>
                     <td class="text-center">{{ $inversion->provinciaInversion }}</td>

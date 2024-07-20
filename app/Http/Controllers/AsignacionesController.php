@@ -7,13 +7,19 @@ use App\Models\Inversion;
 use App\Models\AsignacionProfesional;
 use App\Models\AsignacionAsistente;
 use App\Models\User;
+use Auth;
 
 class AsignacionesController extends Controller
 {
     // Función de carga de datos
     public function index(Request $request){
-        // Carga de datos de inversion
-        $inversiones = Inversion::all();
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            $inversiones = Inversion::all();
+        } else {
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+        }
 
         // Carga de datos de profesionales
         $profesionales = AsignacionProfesional::all();

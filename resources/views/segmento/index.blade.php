@@ -51,7 +51,7 @@
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td class="text-left">{{ $segmento->nombreSegmento }}</td>
                     <td class="text-nowrap text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
-                    <td>{{ $segmento->inversion->nombreInversion }}</td>
+                    <td>{{ $segmento->inversion->nombreCortoInversion }}</td>
                     <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaInicioSegmento }}</td>
                     <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaFinalSegmento }}</td>
                     <td class="text-nowrap">

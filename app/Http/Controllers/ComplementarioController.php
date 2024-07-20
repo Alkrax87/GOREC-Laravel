@@ -5,13 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Inversion;
 use App\Models\Complementario;
+use Auth;
+
 class ComplementarioController extends Controller
 {
     // Función de carga de datos
     public function index(Request $request){
-        // Carga de datos de datos
-        $complementarios = Complementario::with(['inversion'])->get();
-        $inversiones = Inversion::all();
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            $inversiones = Inversion::all();
+            $complementarios = Complementario::all();
+        } else {
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionIds = $inversiones->pluck('idInversion');
+            $complementarios = Complementario::whereIn('idInversion', $inversionIds)->get();
+        }
 
         return view('complementario.index', compact('complementarios', 'inversiones'));
     }

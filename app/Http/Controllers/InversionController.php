@@ -21,9 +21,16 @@ class InversionController extends Controller
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
 
-        // Cargamos los datos de inversion y usuarios
-        $inversiones = Inversion::all();
-        $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            $inversiones = Inversion::all();
+            $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+        } else {
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $usuarios = User::where('idUsuario', $user->idUsuario)->get();
+        }
+        // Cargamos logs
         $logs = EstadoLog::all();
 
         return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs'));

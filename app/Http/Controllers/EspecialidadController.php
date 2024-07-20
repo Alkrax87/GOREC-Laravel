@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\Inversion;
 use App\Models\User;
 use App\Models\Especialidad;
+use App\Models\EspecialidadUsers;
 use App\Models\SubFase;
 use App\Models\Fase;
 use App\Models\AvanceLog;
+use Auth;
 
 class EspecialidadController extends Controller
 {
@@ -17,12 +19,28 @@ class EspecialidadController extends Controller
         // LLamamos a la funcion para calcular el avance total
         $this->recalcularAvanceTotalEspecialidad();
 
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            $inversiones = Inversion::all();
+            $especialidades = Especialidad::all();
+        } else {
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionIds = $inversiones->pluck('idInversion');
+            $especialidades = Especialidad::whereIn('idInversion', $inversionIds)->get();
+
+
+            $especialidadIds = $especialidades->pluck('idEspecialidad');
+            $especialidadesAdicionales = Especialidad::whereHas('usuarios', function ($query) use ($user) {
+                $query->where('especialidad_users.idUsuario', $user->idUsuario);
+            })->whereNotIn('idEspecialidad', $especialidadIds)->get();
+            $especialidades = $especialidades->merge($especialidadesAdicionales);
+        }
+
         // Cargamos los datos
-        $especialidades = Especialidad::all();
         $fases = Fase::all();
         $subfases = SubFase::all();
         $logs = AvanceLog::all();
-        $inversiones = Inversion::all();
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
 
         return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases','logs'));

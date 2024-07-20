@@ -6,16 +6,22 @@ use Illuminate\Http\Request;
 use App\Models\Segmento;
 use App\Models\Inversion;
 use App\Models\User;
+use Auth;
 
 class SegmentoController extends Controller
 {
     // Función de carga de datos
     public function index(Request $request){
-        // Carga de datos de segmentos
-        $segmentos = Segmento::all();
-
-        // Carga de datos de inversiones
-        $inversiones = Inversion::all();
+        // Cargamos los datos de filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            $inversiones = Inversion::all();
+            $segmentos = Segmento::all();
+        } else {
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionIds = $inversiones->pluck('idInversion');
+            $segmentos = Segmento::whereIn('idInversion', $inversionIds)->get();
+        }
 
         // Carga de datos de usuarios
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
