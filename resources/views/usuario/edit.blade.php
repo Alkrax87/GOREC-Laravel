@@ -93,8 +93,8 @@
                         <option value="TRASPORTES" {{ $especialidad->nombreEspecialidad == 'TRASPORTES' ? 'selected' : '' }}>TRASPORTES</option>
                         <option value="HIDRÁULICA" {{ $especialidad->nombreEspecialidad == 'HIDRÁULICA' ? 'selected' : '' }}>HIDRÁULICA</option>
                         <option value="SANEAMIENTO FÍSICO LEGAL" {{ $especialidad->nombreEspecialidad == 'SANEAMIENTO FÍSICO LEGAL' ? 'selected' : '' }}>SANEAMIENTO FÍSICO LEGAL</option>
-                        <option value="MODELADOR BIN" {{ $especialidad->nombreEspecialidad == 'MODELADOR BIN' ? 'selected' : '' }}>MODELADOR BIN</option>
-                        <option value="CORDINADOR BIN" {{ $especialidad->nombreEspecialidad == 'CORDINADOR BIN' ? 'selected' : '' }}>CORDINADOR BIN</option>
+                        <option value="MODELADOR BIM" {{ $especialidad->nombreEspecialidad == 'MODELADOR BIM' ? 'selected' : '' }}>MODELADOR BIM</option>
+                        <option value="CORDINADOR BIM" {{ $especialidad->nombreEspecialidad == 'CORDINADOR BIM' ? 'selected' : '' }}>CORDINADOR BIM</option>
                       </select>
                       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                     </div>
@@ -184,8 +184,8 @@
         <option value="TRASPORTES">TRASPORTES</option>
         <option value="HIDRÁULICA">HIDRÁULICA</option>
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
-        <option value="MODELADOR BIN">MODELADOR BIN</option>
-        <option value="CORDINADOR BIN">CORDINADOR BIN</option>
+        <option value="MODELADOR BIM">MODELADOR BIM</option>
+        <option value="CORDINADOR BIM">CORDINADOR BIM</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
