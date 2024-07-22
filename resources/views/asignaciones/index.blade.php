@@ -31,8 +31,10 @@
                   <th class="text-center">Modalidad</th>
                   <th class="text-center">Estado</th>
                   <th class="text-center">Opciones</th>
-                  <th class="text-center">Profesional</th>
-                  <th class="text-center">Asistente</th>
+                  @if (Auth::user()->isAdmin)
+                    <th class="text-center">Profesional</th>
+                    <th class="text-center">Asistente</th>
+                  @endif
                 </tr>
               </thead>
               <tbody>
@@ -49,12 +51,14 @@
                     <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{ $inversion->idInversion }}"><i class="fas fa-eye"></i></a>
                     </td>
-                    <td class="text-center" style="white-space: nowrap">
-                      <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i> Profesionales</a>
-                    </td>
-                    <td class="text-center" style="white-space: nowrap">
-                      <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i> Asistentes</a>
-                    </td>
+                    @if (Auth::user()->isAdmin)
+                      <td class="text-center" style="white-space: nowrap">
+                        <a class="btn btn-success" data-toggle="modal" data-target="#ModalProfesional{{ $inversion->idInversion }}"><i class="fas fa-user-tie"></i> Profesionales</a>
+                      </td>
+                      <td class="text-center" style="white-space: nowrap">
+                        <a class="btn btn-dark" data-toggle="modal" data-target="#ModalAsistentes{{ $inversion->idInversion }}"><i class="fas fa-users-cog"></i> Asistentes</a>
+                      </td>
+                    @endif
                   </tr>
                 @endforeach
               </tbody>

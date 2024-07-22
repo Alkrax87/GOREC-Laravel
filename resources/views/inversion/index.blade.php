@@ -13,12 +13,18 @@
         <div class="col-12">
           <!-- Agregar -->
           <div class="row">
-            <div class="col-6">
-              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
-            </div>
-            <div class="col-6 text-end">
-              <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
-            </div>
+            @if (Auth::user()->isAdmin)
+              <div class="col-6">
+                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
+              </div>
+              <div class="col-6 text-end">
+                <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+              </div>
+            @else
+              <div class="col-12 text-end">
+                <a href="{{route('inversion.pdfs')}}" class="btn btn-dark mb-4" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+              </div>
+            @endif
           </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))
@@ -47,7 +53,7 @@
                   <th class="text-nowrap">CUI</th>
                   <th class="text-nowrap" style="min-width: 400px">Nombre</th>
                   <th class="text-nowrap">Nombre Corto</th>
-                  <th class="text-center">Jefe</th>
+                  <th class="text-center">Responsable</th>
                   <th class="text-center">Avance</th>
                   <th class="text-center">Provincia</th>
                   <th class="text-center">Distrito</th>
@@ -105,12 +111,16 @@
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
                     <td class="text-center text-nowrap">
                       <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
-                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                      @if (Auth::user()->isAdmin)
+                        <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                      @endif
                     </td>
                     <td class="text-center text-nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
                       <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
+                      @if (Auth::user()->isAdmin)
+                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
+                      @endif
                     </td>
                   </tr>
                 @endforeach

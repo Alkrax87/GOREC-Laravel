@@ -1,5 +1,5 @@
 <div class="modal fade" id="ModalAsistentes{{ $inversion->idInversion }}">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title"><i class="fas fa-users-cog"></i> Asistentes</h3>
@@ -39,7 +39,31 @@
                     @foreach ($asistentes as $asistente)
                       <tr>
                         <td>{{ $asistente->jefe->nombreUsuario . ' ' . $asistente->jefe->apellidoUsuario }}</td>
-                        <td>{{ $asistente->usuario->nombreUsuario . ' ' . $asistente->usuario->apellidoUsuario }}</td>
+                        <td>
+                          {{ $asistente->usuario->nombreUsuario . ' ' . $asistente->usuario->apellidoUsuario }}
+                          <br>
+                          <b>P:</b> (
+                          @if ($asistente->usuario->profesiones->isNotEmpty())
+                            @foreach ($asistente->usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          <br>
+                          <b>E:</b> (
+                          @if ($asistente->usuario->especialidades->isNotEmpty())
+                            @foreach ($asistente->usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                        </td>
                         <td class="text-center" style="white-space: nowrap">
                           <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDeleteAsistente{{ $inversion->idInversion . '-' . $asistente->idAsistente . '-' . $asistente->idJefe }}"><i class="fas fa-trash-alt"></i></a>
                         </td>

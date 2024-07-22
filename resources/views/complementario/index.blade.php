@@ -12,7 +12,9 @@
       <div class="row">
         <!-- Agregar -->
         <div class="col-12">
-          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Estudios</button>
+          @if (Auth::user()->isAdmin)
+            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Estudios</button>
+          @endif
         </div>
         <!-- Tabla y alert -->
         <div class="col-12">
@@ -61,8 +63,10 @@
                     <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $complementario->fechaFinalEstudiosComplementarios}}</td>
                     <td class="text-center text-nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-trash-alt"></i></a>
+                      @if (Auth::user()->isAdmin)
+                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-trash-alt"></i></a>
+                      @endif
                     </td>
                   </tr>
                 @endforeach

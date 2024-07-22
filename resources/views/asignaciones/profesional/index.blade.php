@@ -1,5 +1,5 @@
 <div class="modal fade" id="ModalProfesional{{ $inversion->idInversion }}">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title"><i class="fas fa-user-tie"></i> Profesionales</h3>
@@ -37,7 +37,31 @@
                   <tbody>
                     @foreach ($profesionales as $profesional)
                       <tr>
-                        <td>{{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}</td>
+                        <td>
+                          {{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}
+                          <br>
+                          <b>P:</b> (
+                          @if ($profesional->usuario->profesiones->isNotEmpty())
+                            @foreach ($profesional->usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          <br>
+                          <b>E:</b> (
+                          @if ($profesional->usuario->especialidades->isNotEmpty())
+                            @foreach ($profesional->usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                        </td>
                         <td class="text-center" style="white-space: nowrap">
                           <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{ $inversion->idInversion . '-' . $profesional->idUsuario }}"><i class="fas fa-trash-alt"></i></a>
                         </td>

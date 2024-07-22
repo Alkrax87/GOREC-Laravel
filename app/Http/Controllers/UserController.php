@@ -12,8 +12,13 @@ class UserController extends Controller
 {
     // Función de carga de datos
     public function index(Request $request){
-        // Carga de datos de usuarios
-        $usuarios = User::all();
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            $usuarios = User::all();
+        } else {
+            $usuarios = User::where('idUsuario', '!=', 1)->get();
+        }
 
         return view('usuario.index', compact('usuarios'));
     }

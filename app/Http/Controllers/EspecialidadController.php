@@ -46,6 +46,16 @@ class EspecialidadController extends Controller
         return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases','logs'));
     }
 
+    public function getUsuariosByInversion($idInversion)
+    {
+        // Obtener los usuarios asignados a la inversión
+        $usuarios = User::whereHas('asignacionProfesional', function ($query) use ($idInversion) {
+            $query->where('idInversion', $idInversion);
+        })->get();
+
+        return response()->json($usuarios);
+    }
+
     // Función de agreagar un registro
     public function store(Request $request){
         $request->validate([

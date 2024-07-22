@@ -102,7 +102,9 @@
                           </div>
                         </td>
                         <td class="text-center" style="white-space: nowrap">
-                          <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalLog{{$subfase->idSubfase}}"><i class="fas fa-list"></i></a>
+                          @if (Auth::user()->isAdmin)
+                            <a class="btn btn-secondary" data-toggle="modal" data-target="#ModalLog{{$subfase->idSubfase}}"><i class="fas fa-list"></i></a>
+                          @endif
                           <a class="btn btn-warning" data-toggle="modal" data-target="#ModalEditSubFase{{$subfase->idSubfase}}"><i class="fas fa-edit"></i></a>
                           <a class="btn btn-danger" data-toggle="modal" data-target="#ModalDelete{{$subfase->idSubfase}}"><i class="fas fa-trash-alt"></i></a>
                         </td>

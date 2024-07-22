@@ -12,7 +12,9 @@
       <div class="row">
         <div class="col-12">
           <!-- Agregar -->
-          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Usuario</button>
+          @if (Auth::user()->isAdmin)
+            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Usuario</button>
+          @endif
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -39,7 +41,9 @@
                   <th>#</th>
                   <th class="text-left">Nombres</th>
                   <th class="text-left">Apellidos</th>
-                  <th>Usuario</th>
+                  @if (Auth::user()->isAdmin)
+                    <th>Usuario</th>
+                  @endif
                   <th>Rol</th>
                   <th>Categoría</th>
                   <th>Profesión</th>
@@ -53,7 +57,9 @@
                     <td class="text-center">{{ $loop->index + 1 }}</td>
                     <td class="text-left">{{ $usuario->nombreUsuario }}</td>
                     <td class="text-left">{{ $usuario->apellidoUsuario }}</td>
-                    <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
+                    @if (Auth::user()->isAdmin)
+                      <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
+                    @endif
                     @if ($usuario->isAdmin)
                       <td class="project-state">
                         <span class="badge badge-danger">Administrador</span>
@@ -80,9 +86,11 @@
                     </td>
                     <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
-                      @if (!$loop->first)
-                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
+                      @if (Auth::user()->isAdmin)
+                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
+                        @if (!$loop->first)
+                          <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
+                        @endif
                       @endif
                     </td>
                   </tr>

@@ -12,7 +12,9 @@
       <div class="row">
         <div class="col-12">
           <!-- Agregar -->
-          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Segmento</button>
+          @if (Auth::user()->isAdmin)
+            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Segmento</button>
+          @endif
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -56,8 +58,10 @@
                     <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaFinalSegmento }}</td>
                     <td class="text-nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$segmento->idSegmento}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
+                      @if (Auth::user()->isAdmin)
+                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$segmento->idSegmento}}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$segmento->idSegmento}}"><i class="fas fa-trash-alt"></i></a>
+                      @endif
                     </td>
                   </tr>
                 @endforeach
