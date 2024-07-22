@@ -13,7 +13,7 @@ use App\Http\Controllers\ComplementarioController;
 use App\Http\Controllers\SubFaseController;
 use App\Http\Controllers\FaseController;
 use App\Http\Controllers\Reportes;
-
+use App\Http\Middleware\AdminMiddleware;
 
 // Ruta por defecto
 Route::get('/', function () {
@@ -36,21 +36,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
     Route::resource('inversion', InversionController::class);
     Route::resource('usuario', UserController::class);
+    Route::resource('roles', RolesController::class)->middleware([AdminMiddleware::class]);
     Route::resource('segmento', SegmentoController::class);
     Route::resource('asignaciones', AsignacionesController::class);
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);
-    Route::resource('roles', RolesController::class);
     Route::resource('especialidad', EspecialidadController::class);
     Route::resource('complementario', ComplementarioController::class);
     Route::resource('subfase', SubFaseController::class);
     Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
-
-    // Middleware de administrador aplicado a la ruta del dashboard
-    /*Route::middleware(['admin'])->group(function () {
-        Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard');
-    });*/
 
     // Cerrar sesión
     Route::post('/logout', 'App\Http\Controllers\HomeController@logout')->name('logout');
