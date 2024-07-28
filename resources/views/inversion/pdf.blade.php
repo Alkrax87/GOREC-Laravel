@@ -33,25 +33,25 @@
         }
         .table-container th, .table-container td {
             padding: 10px;
+            font-size: 12px;
             border: 1px solid #ddd;
             text-align: left;
         }
         .table-container th {
             background-color: #991818;
+            color: #fff;
+            font-size: 12px;
             font-weight: bold;
         }
         .table-container tr:nth-child(even) {
             background-color: #f9f9f9;
-        }
-        .table-container tr:hover {
-            background-color: #f1f1f1;
         }
     </style>
 </head>
 <body>
     <div class="header">
         <img src="images/gorec-logo2.png" alt="Logo">
-        <h3>INVERSION</h3>
+        <h3>INVERSIÓN</h3>
     </div>
     <table class="table-container">
         <tr>
@@ -60,59 +60,57 @@
         </tr>
         <tr>
             <th>Nombre</th>
-            <td>{{ $inversion->nombreInversion }}</td>
+            <td colspan="3">{{ $inversion->nombreInversion }}</td>
         </tr>
         <tr>
             <th>Nombre Corto</th>
-            <td>{{ $inversion->nombreCortoInversion }}</td>
+            <td colspan="3">{{ $inversion->nombreCortoInversion }}</td>
         </tr>
         <tr>
             <th>Jefe</th>
-            <td>{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+            <td colspan="3">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
         </tr>
         <tr>
             <th>Provincia</th>
             <td>{{ $inversion->provinciaInversion }}</td>
-        </tr>
-        <tr>
             <th>Distrito</th>
             <td>{{ $inversion->distritoInversion }}</td>
         </tr>
         <tr>
             <th>Nivel</th>
-            <td>{{ $inversion->nivelInversion }}</td>
+            <td colspan="3">{{ $inversion->nivelInversion }}</td>
         </tr>
         <tr>
             <th>Función</th>
-            <td>{{ $inversion->funcionInversion }}</td>
+            <td colspan="3">{{ $inversion->funcionInversion }}</td>
         </tr>
         <tr>
             <th>Modalidad</th>
-            <td>{{ $inversion->modalidadInversion }}</td>
+            <td colspan="3">{{ $inversion->modalidadInversion }}</td>
         </tr>
         <tr>
             <th>Estado</th>
-            <td>{{ $inversion->estadoInversion }}</td>
+            <td colspan="3">{{ $inversion->estadoInversion }}</td>
         </tr>
         <tr>
             <th>Avance</th>
-            <td>{{ $inversion->avanceInversion }}%</td>
+            <td colspan="3">{{ $inversion->avanceInversion }}%</td>
         </tr>
         <tr>
             <th>Fecha Inicio</th>
-            <td>{{ $inversion->fechaInicioInversion }}</td>
+            <td colspan="3">{{ $inversion->fechaInicioInversion }}</td>
         </tr>
         <tr>
             <th>Fecha Final</th>
-            <td>{{ $inversion->fechaFinalInversion }}</td>
+            <td colspan="3">{{ $inversion->fechaFinalInversion }}</td>
         </tr>
         <tr>
             <th>Formulación</th>
-            <td>{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
+            <td colspan="3">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
         </tr>
         <tr>
             <th>Ejecución</th>
-            <td>{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
+            <td colspan="3">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
         </tr>
     </table>
 </body>

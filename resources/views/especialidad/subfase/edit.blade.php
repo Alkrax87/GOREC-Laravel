@@ -23,6 +23,18 @@
                 <span class="input-group-text">%</span>
               </div>
             </div>
+            @if (Auth::user()->isAdmin)
+            <div class="row">
+              <div class="col-6 form-outline mb-4">
+                <label class="form-label">Fecha Inicio</label>
+                <input type="date" name="fechaInicioSubfase" value="{{ $subfase->fechaInicioSubfase }}" class="input-auth" required/>
+              </div>
+              <div class="col-6 form-outline mb-4">
+                <label class="form-label">Fecha Final</label>
+                <input type="date" name="fechaFinalSubfase" value="{{ $subfase->fechaFinalSubfase }}" class="input-auth" required/>
+              </div>
+            </div>
+            @endif
             <div class="col-12 py-2 text-center">
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-plus"></i>&nbsp;&nbsp; Editar</button>

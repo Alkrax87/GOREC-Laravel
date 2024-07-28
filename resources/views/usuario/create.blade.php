@@ -60,6 +60,8 @@
                       <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
                       <option value="ABOGADO">ABOGADO</option>
                       <option value="ECONOMISTA">ECONOMISTA</option>
+                      <option value="CONTALIBIDAD">CONTALIBIDAD</option>
+                      <option value="AGRONOMÍA">AGRONOMÍA</option>
                     </select>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                   </div>
@@ -75,7 +77,7 @@
                       <option value="ARQUITECTURA">ARQUITECTURA</option>
                       <option value="CAPACITACIÓN">CAPACITACIÓN</option>
                       <option value="ARQUEOLOGÍA">ARQUEOLOGÍA</option>
-                      <option value="COMUNICACIONES">COMUNICACIONES</option>
+                      <option value="COMUNICACIONES TIC">COMUNICACIONES TIC</option>
                       <option value="ESTRUCTURAS">ESTRUCTURAS</option>
                       <option value="ESTUDIOS ECONÓMICOS">ESTUDIOS ECONÓMICOS</option>
                       <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
@@ -91,6 +93,8 @@
                       <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
                       <option value="MODELADOR BIM">MODELADOR BIM</option>
                       <option value="CORDINADOR BIM">CORDINADOR BIM</option>
+                      <option value="ECONOMISTA">ECONOMISTA</option>
+                      <option value="PROMOTOR SOCIAL">PROMOTOR SOCIAL</option>
                     </select>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                   </div>
@@ -147,6 +151,8 @@
         <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
         <option value="ABOGADO">ABOGADO</option>
         <option value="ECONOMISTA">ECONOMISTA</option>
+        <option value="CONTALIBIDAD">CONTALIBIDAD</option>
+        <option value="AGRONOMÍA">AGRONOMÍA</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
@@ -163,7 +169,7 @@
         <option value="ARQUITECTURA">ARQUITECTURA</option>
         <option value="CAPACITACIÓN">CAPACITACIÓN</option>
         <option value="ARQUEOLOGÍA">ARQUEOLOGÍA</option>
-        <option value="COMUNICACIONES">COMUNICACIONES</option>
+        <option value="COMUNICACIONES TIC">COMUNICACIONES TIC</option>
         <option value="ESTRUCTURAS">ESTRUCTURAS</option>
         <option value="ESTUDIOS ECONÓMICOS">ESTUDIOS ECONÓMICOS</option>
         <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
@@ -179,6 +185,8 @@
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
         <option value="MODELADOR BIM">MODELADOR BIM</option>
         <option value="CORDINADOR BIM">CORDINADOR BIM</option>
+        <option value="ECONOMISTA">ECONOMISTA</option>
+        <option value="PROMOTOR SOCIAL">PROMOTOR SOCIAL</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;

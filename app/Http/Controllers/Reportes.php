@@ -9,23 +9,91 @@ use App\Models\Inversion;
 use App\Models\Fase;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use Auth;
+
 class Reportes extends Controller
 {
-    //IMPRIMIR LOS CHARTS DE LAS INVERION Y SUBDASES Y ESPECIALIDADES
+    // Método para mostrar los gráficos de inversiones, subfases y especialidades
     public function index(){
+        // Obtener todas las especialidades, fases y subfases
         $especialidades = Especialidad::all();
         $fases = Fase::all();
         $subfases = Subfase::all();
-        $inversiones = Inversion::all();
-        //$subfases = Subfase::select('fechaInicioSubfase', 'avanceRealTotalSubFase')->get();
-        // Pasar los datos a la vista
-        return view('reportes.graficos', compact('subfases','especialidades','inversiones','fases'));
+
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+        // Cargar todas las inversiones si el usuario es administrador, de lo contrario, cargar solo las inversiones del usuario
+        if ($user->isAdmin) {
+            $inversiones = Inversion::all();
+        } else {
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+        }
+
+        // Retornar la vista con los datos obtenidos
+        return view('reportes.graficos', compact('subfases', 'especialidades', 'inversiones', 'fases'));
     }
-    //GENERAR PDF PARA LOS CHARTJS
+
+    // Funcion para obtener avance y nombre de una inversión
+    public function obtenerAvanceInversion($idInversion){
+        // Obtener una inversion
+        $inversion = Inversion::findOrFail($idInversion);
+
+        if ($inversion) {
+            return response()->json([
+                'avanceInversion' => $inversion->avanceInversion,
+                'nombreCortoInversion' => $inversion->nombreCortoInversion,
+            ]);
+        } else {
+            return response()->json(['error' => 'Inversión no encontrada'], 404);
+        }
+    }
+
+    // Funcion para obtener las especialidades de una inversión
+    public function getEspecialidades($idInversion){
+        // Obtener las especialidades de una inversion
+        $especialidad = Especialidad::where('idInversion', $idInversion)->get();
+
+        if ($especialidad) {
+            return response()->json($especialidad);
+        } else {
+            return response()->json([], 404);
+        }
+    }
+
+    // Método para obtener las fases de una especialidad
+    public function getFases($idEspecialidad){
+        // Obtener las fases de una inversion
+        $fase = Fase::where('idEspecialidad', $idEspecialidad)->get();
+
+        if ($fase) {
+            return response()->json($fase);
+        } else {
+            return response()->json([], 404);
+        }
+    }
+
+    // Método para obtener las subfases de una fase
+    public function getSubFases($idFase){
+        // Obtener las subfases de una fase específica
+        $subfases = Subfase::where('idFase', $idFase)->get();
+
+        // Retornar las subfases en formato JSON
+        if ($subfases) {
+            return response()->json($subfases);
+        } else {
+            return response()->json([], 404);
+        }
+    }
+
+
+    // Método para generar un PDF con los gráficos
     public function generatePDF(Request $request)
     {
+        // Obtener los datos de la solicitud
         $data = $request->all();
 
+        // Crear el contenido HTML del PDF
         $html = '
             <h1>Reportes</h1>
             <h2>Line Chart</h2>
@@ -34,41 +102,23 @@ class Reportes extends Controller
             <img src="' . $data['donutChartImage'] . '" style="width: 100%; height: auto;">
         ';
 
+        // Configurar las opciones de Dompdf
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
 
+        // Crear una instancia de Dompdf y cargar el contenido HTML
         $dompdf = new Dompdf($options);
         $dompdf->loadHtml($html);
+
+        // Configurar el tamaño y la orientación del papel
         $dompdf->setPaper('A4', 'landscape');
+
+        // Renderizar el PDF
         $dompdf->render();
 
+        // Retornar el PDF generado para su descarga
         return $dompdf->stream('reportes.graficos');
     }
-    //LOS SELECT DE INVERSION Y ESPECIALIDADES
-    public function getEspecialidades($idInversion)
-    {
-        
-        $inversion = Inversion::with('especialidades')->where('idInversion', $idInversion)->first();
-
-        if ($inversion) {
-            return response()->json($inversion->especialidades);
-        } else {
-            return response()->json([], 404);
-        }
-    }
-        // Método para obtener las fases de una especialidad
-    public function getFases($idEspecialidad)
-    {
-        $especialidades = Especialidad::with('fases')->where('idEspecialidad', $idEspecialidad)->first();
-        return response()->json($especialidades->fases);
-    }
-    // Método para obtener las subfases de una fase
-    public function getSubFases($idFase)
-    {
-    $subfases = SubFase::where('idFase', $idFase)->get();
-    return response()->json($subfases);
-    }
-
 
 }

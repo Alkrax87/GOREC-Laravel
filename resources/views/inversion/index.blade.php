@@ -20,10 +20,6 @@
               <div class="col-6 text-end">
                 <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
               </div>
-            @else
-              <div class="col-12 text-end">
-                <a href="{{route('inversion.pdfs')}}" class="btn btn-dark mb-4" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
-              </div>
             @endif
           </div>
           <!-- Alert -->

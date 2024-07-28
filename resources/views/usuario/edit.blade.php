@@ -62,6 +62,8 @@
                         <option value="ARQUEÓLOGO" {{ $profesion->nombreProfesion == 'ARQUEÓLOGO' ? 'selected' : '' }}>ARQUEÓLOGO</option>
                         <option value="ABOGADO" {{ $profesion->nombreProfesion == 'ABOGADO' ? 'selected' : '' }}>ABOGADO</option>
                         <option value="ECONOMISTA" {{ $profesion->nombreProfesion == 'ECONOMISTA' ? 'selected' : '' }}>ECONOMISTA</option>
+                        <option value="CONTALIBIDAD" {{ $profesion->nombreProfesion == 'CONTALIBIDAD' ? 'selected' : '' }}>CONTALIBIDAD</option>
+                        <option value="AGRONOMÍA" {{ $profesion->nombreProfesion == 'AGRONOMÍA' ? 'selected' : '' }}>AGRONOMÍA</option>
                       </select>
                       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                     </div>
@@ -79,7 +81,7 @@
                         <option value="ARQUITECTURA" {{ $especialidad->nombreEspecialidad == 'ARQUITECTURA' ? 'selected' : '' }}>ARQUITECTURA</option>
                         <option value="CAPACITACIÓN" {{ $especialidad->nombreEspecialidad == 'CAPACITACIÓN' ? 'selected' : '' }}>CAPACITACIÓN</option>
                         <option value="ARQUEOLOGÍA" {{ $especialidad->nombreEspecialidad == 'ARQUEOLOGÍA' ? 'selected' : '' }}>ARQUEOLOGÍA</option>
-                        <option value="COMUNICACIONES" {{ $especialidad->nombreEspecialidad == 'COMUNICACIONES' ? 'selected' : '' }}>COMUNICACIONES</option>
+                        <option value="COMUNICACIONES TIC" {{ $especialidad->nombreEspecialidad == 'COMUNICACIONES TIC' ? 'selected' : '' }}>COMUNICACIONES TIC</option>
                         <option value="ESTRUCTURAS" {{ $especialidad->nombreEspecialidad == 'ESTRUCTURAS' ? 'selected' : '' }}>ESTRUCTURAS</option>
                         <option value="ESTUDIOS ECONÓMICOS" {{ $especialidad->nombreEspecialidad == 'ESTUDIOS ECONÓMICOS' ? 'selected' : '' }}>ESTUDIOS ECONÓMICOS</option>
                         <option value="GESTIÓN DE RIESGOS" {{ $especialidad->nombreEspecialidad == 'GESTIÓN DE RIESGO' ? 'selected' : '' }}>GESTIÓN DE RIESGO</option>
@@ -95,6 +97,9 @@
                         <option value="SANEAMIENTO FÍSICO LEGAL" {{ $especialidad->nombreEspecialidad == 'SANEAMIENTO FÍSICO LEGAL' ? 'selected' : '' }}>SANEAMIENTO FÍSICO LEGAL</option>
                         <option value="MODELADOR BIM" {{ $especialidad->nombreEspecialidad == 'MODELADOR BIM' ? 'selected' : '' }}>MODELADOR BIM</option>
                         <option value="CORDINADOR BIM" {{ $especialidad->nombreEspecialidad == 'CORDINADOR BIM' ? 'selected' : '' }}>CORDINADOR BIM</option>
+                        <option value="CORDINADOR BIM" {{ $especialidad->nombreEspecialidad == 'CORDINADOR BIM' ? 'selected' : '' }}>CORDINADOR BIM</option>
+                        <option value="ECONOMISTA" {{ $especialidad->nombreEspecialidad == 'ECONOMISTA' ? 'selected' : '' }}>ECONOMISTA</option>
+                        <option value="PROMOTOR SOCIAL" {{ $especialidad->nombreEspecialidad == 'PROMOTOR SOCIAL' ? 'selected' : '' }}>PROMOTOR SOCIAL</option>
                       </select>
                       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                     </div>
@@ -154,6 +159,8 @@
         <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
         <option value="ABOGADO">ABOGADO</option>
         <option value="ECONOMISTA">ECONOMISTA</option>
+        <option value="CONTALIBIDAD">CONTALIBIDAD</option>
+        <option value="AGRONOMÍA">AGRONOMÍA</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
@@ -170,7 +177,7 @@
         <option value="ARQUITECTURA">ARQUITECTURA</option>
         <option value="CAPACITACIÓN">CAPACITACIÓN</option>
         <option value="ARQUEOLOGÍA">ARQUEOLOGÍA</option>
-        <option value="COMUNICACIONES">COMUNICACIONES</option>
+        <option value="COMUNICACIONES TIC">COMUNICACIONES TIC</option>
         <option value="ESTRUCTURAS">ESTRUCTURAS</option>
         <option value="ESTUDIOS ECONÓMICOS">ESTUDIOS ECONÓMICOS</option>
         <option value="GESTIÓN DE RIESGOS">GESTIÓN DE RIESGO</option>
@@ -186,6 +193,8 @@
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
         <option value="MODELADOR BIM">MODELADOR BIM</option>
         <option value="CORDINADOR BIM">CORDINADOR BIM</option>
+        <option value="ECONOMISTA">ECONOMISTA</option>
+        <option value="PROMOTOR SOCIAL">PROMOTOR SOCIAL</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;

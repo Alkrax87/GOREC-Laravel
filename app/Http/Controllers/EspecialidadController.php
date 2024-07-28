@@ -39,7 +39,8 @@ class EspecialidadController extends Controller
 
         // Cargamos los datos
         $fases = Fase::all();
-        $subfases = SubFase::all();
+        $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
+
         $logs = AvanceLog::all();
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
 

@@ -8,6 +8,7 @@ use App\Models\Fase;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Models\AvanceLog;
+use Auth;
 
 class SubFaseController extends Controller
 {
@@ -18,7 +19,7 @@ class SubFaseController extends Controller
             'idFase' => 'required|exists:fase,idFase',
             'subfases.*.nombreSubfase' => 'required|string',
             'subfases.*.fechaInicioSubfase' => 'required|date',
-            'subfases.*.fechaFinalSubfase' => 'required|date|after:subfases.*.fechaInicioSubfase',
+            'subfases.*.fechaFinalSubfase' => 'required|date|after_or_equal:subfases.*.fechaInicioSubfase',
             'subfases.*.avance_por_usuario_realSubFase' => 'required|integer',
         ], [
             'idFase.required' => 'El campo idFase es obligatorio.',
@@ -29,7 +30,7 @@ class SubFaseController extends Controller
             'subfases.*.fechaInicioSubfase.date' => 'La fecha de inicio debe ser una fecha válida.',
             'subfases.*.fechaFinalSubfase.required' => 'La fecha final es obligatoria.',
             'subfases.*.fechaFinalSubfase.date' => 'La fecha final debe ser una fecha válida.',
-            'subfases.*.fechaFinalSubfase.after' => 'La fecha final debe ser una fecha posterior a la fecha de inicio.',
+            'subfases.*.fechaFinalSubfase.after_or_equal' => 'La fecha final debe ser una fecha posterior a la fecha de inicio.',
             'subfases.*.avance_por_usuario_realSubFase.required' => 'El avance es obligatorio.',
             'subfases.*.avance_por_usuario_realSubFase.integer' => 'El avance debe ser un número entero.',
         ]);
@@ -113,27 +114,62 @@ class SubFaseController extends Controller
 
     // Funcion editar un registro
     public function update(Request $request, $id){
-        // Validaciones
-        $request->validate([
-            'nombreSubfase' => 'required|string',
-            'avance_por_usuario_realSubFase' => 'required|integer',
-        ], [
-            'nombreSubfase.required' => 'El nombre de la Sub Actividad es obligatorio.',
-            'nombreSubfase.string' => 'El nombre de la Sub Actividad debe ser una cadena de texto.',
-            'avance_por_usuario_realSubFase.required' => 'El avance es obligatorio.',
-            'avance_por_usuario_realSubFase.integer' => 'El avance debe ser un número entero.',
-        ]);
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            // Validaciones
+            $request->validate([
+                'nombreSubfase' => 'required|string',
+                'avance_por_usuario_realSubFase' => 'required|integer',
+                'fechaInicioSubfase' => 'required|date',
+                'fechaFinalSubfase' => 'required|date|after_or_equal:fechaInicioSubfase',
+            ], [
+                'nombreSubfase.required' => 'El nombre de la Sub Actividad es obligatorio.',
+                'nombreSubfase.string' => 'El nombre de la Sub Actividad debe ser una cadena de texto.',
+                'avance_por_usuario_realSubFase.required' => 'El avance es obligatorio.',
+                'avance_por_usuario_realSubFase.integer' => 'El avance debe ser un número entero.',
+                'fechaInicioSubfase.required' => 'La fecha de inicio es obligatoria.',
+                'fechaInicioSubfase.date' => 'La fecha de inicio debe ser una fecha válida.',
+                'fechaFinalSubfase.required' => 'La fecha final es obligatoria.',
+                'fechaFinalSubfase.date' => 'La fecha final debe ser una fecha válida.',
+                'fechaFinalSubfase.after_or_equal' => 'La fecha final debe ser una fecha posterior a la fecha de inicio.',
+            ]);
 
-        // Buscamos la inversión
-        $subfase = SubFase::findOrFail($id);
+            // Buscamos la inversión
+            $subfase = SubFase::findOrFail($id);
 
-        // Guardamos el % de avance actual
-        $currentAvanceSubfase = $subfase->avance_por_usuario_realSubFase;
+            // Guardamos el % de avance actual
+            $currentAvanceSubfase = $subfase->avance_por_usuario_realSubFase;
 
-        // Cambiamos los valores
-        $subfase->nombreSubfase = $request->nombreSubfase;
-        $subfase->avance_por_usuario_realSubFase = $request->avance_por_usuario_realSubFase;
-        $subfase->avanceRealTotalSubFase = $subfase->porcentajeAvanceProgramadoSubFase * ($subfase->avance_por_usuario_realSubFase / 100);
+            // Cambiamos los valores
+            $subfase->nombreSubfase = $request->nombreSubfase;
+            $subfase->avance_por_usuario_realSubFase = $request->avance_por_usuario_realSubFase;
+            $subfase->avanceRealTotalSubFase = $subfase->porcentajeAvanceProgramadoSubFase * ($subfase->avance_por_usuario_realSubFase / 100);
+            $subfase->fechaInicioSubfase = $request->fechaInicioSubfase;
+            $subfase->fechaFinalSubfase = $request->fechaFinalSubfase;
+
+        } else {
+            // Validaciones
+            $request->validate([
+                'nombreSubfase' => 'required|string',
+                'avance_por_usuario_realSubFase' => 'required|integer',
+            ], [
+                'nombreSubfase.required' => 'El nombre de la Sub Actividad es obligatorio.',
+                'nombreSubfase.string' => 'El nombre de la Sub Actividad debe ser una cadena de texto.',
+                'avance_por_usuario_realSubFase.required' => 'El avance es obligatorio.',
+                'avance_por_usuario_realSubFase.integer' => 'El avance debe ser un número entero.',
+            ]);
+
+            // Buscamos la inversión
+            $subfase = SubFase::findOrFail($id);
+
+            // Guardamos el % de avance actual
+            $currentAvanceSubfase = $subfase->avance_por_usuario_realSubFase;
+
+            // Cambiamos los valores
+            $subfase->nombreSubfase = $request->nombreSubfase;
+            $subfase->avance_por_usuario_realSubFase = $request->avance_por_usuario_realSubFase;
+            $subfase->avanceRealTotalSubFase = $subfase->porcentajeAvanceProgramadoSubFase * ($subfase->avance_por_usuario_realSubFase / 100);
+        }
 
         // Guardamos los cambios
         $subfase->save();
