@@ -1,7 +1,7 @@
 <form action="{{ route('especialidad.update', $especialidad->idEspecialidad) }}" method="POST">
   @csrf
   @method('PATCH')
-  <div class="modal fade" id="ModalEditEspecialidad{{ $especialidad->idEspecialidad}}">
+  <div class="modal fade" id="ModalEditEspecialidad{{ $especialidad->idEspecialidad }}">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -13,9 +13,10 @@
         <div class="modal-body">
           <div class="row">
             <div class="col-12">
-              <div class="form-outline mb-4">
-                <label class="form-label" for="idInversion">Inversión</label>
-                <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
+              <!-- Inversión select -->
+              <!--<div class="form-outline mb-4">
+                <label class="form-label">Inversión</label>-->
+                <select name="idInversion" id="idInversion-{{ $especialidad->idEspecialidad }}" class="form-select form-select-sm input-auth" required hidden>
                   <option value="" disabled>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}" {{ $especialidad->idInversion == $inversion->idInversion ? 'selected' : '' }}>
@@ -23,7 +24,9 @@
                     </option>
                   @endforeach
                 </select>
-              </div>
+              <!--</div>-->
+              
+              <!-- Otros campos -->
               <div class="row">
                 <div class="col-8 form-outline mb-4">
                   <label class="form-label">Nombre</label>
@@ -37,6 +40,8 @@
                   </div>
                 </div>
               </div>
+
+              <!-- Encargados -->
               <div class="form-outline mb-4">
                 <label class="form-label" for="idUsuario">Encargados</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuarioEdit({{ $especialidad->idEspecialidad }})"><i class="fas fa-plus"></i></button>
@@ -69,28 +74,91 @@
 </form>
 
 <script>
-  // JavaScript para manejar la edición de profesiones y especialidades
-  function addUsuarioEdit(especialidadId) {
-    const container = document.getElementById('usuarios-container-edit-' + especialidadId);
+  // Espera a que el DOM esté completamente cargado
+  document.addEventListener('DOMContentLoaded', function() {
+    // Obtiene el elemento select de inversiones basado en el ID de la especialidad
+    const inversionSelect = document.getElementById('idInversion-' + {{ $especialidad->idEspecialidad }});
+    // Obtiene el valor seleccionado en el select de inversiones
+    const inversionId = inversionSelect.value;
+    // Si hay una inversión seleccionada, carga los usuarios correspondientes
+    if (inversionId) {
+      loadUsuarios(inversionId);
+    }
+    // Función para cargar usuarios basados en el ID de la inversión
+    function loadUsuarios(inversionId) {
+      // Obtiene el contenedor de los selects de usuarios basado en el ID de la especialidad
+      const usuariosContainer = document.getElementById('usuarios-container-edit-' + {{ $especialidad->idEspecialidad }});
+      // Obtiene todos los selects de usuarios dentro del contenedor
+      const usuariosSelects = usuariosContainer.querySelectorAll('select[name="idUsuario[]"]');
+      // Guarda las opciones seleccionadas previamente en cada select
+      const selectedOptions = Array.from(usuariosSelects).map(select => select.value);
+      // Vacía todas las opciones de cada select
+      usuariosSelects.forEach(select => {
+        while (select.firstChild) {
+          select.removeChild(select.firstChild);
+        }
+      });
+      // Realiza una solicitud fetch para obtener los usuarios basados en el ID de la inversión
+      fetch(`/usuarios-por-inversion/${inversionId}`)
+        .then(response => response.json()) // Convierte la respuesta en formato JSON
+        .then(usuarios => {
+          console.log('Usuarios encontrados:', usuarios); // Muestra los usuarios en la consola
+          // Añade las opciones de usuarios a cada select
+          usuarios.forEach(usuario => {
+            usuariosSelects.forEach(select => {
+              const option = document.createElement('option');
+              option.value = usuario.idUsuario;
+               // Construye el texto del option con profesiones y especialidades específicas para cada usuario
+        const profesiones = usuario.profesiones.map(p => p.nombreProfesion).join(', ');
+        const especialidades = usuario.especialidades.map(e => e.nombreEspecialidad).join(', ');
 
-    const div = document.createElement('div');
-    div.className = 'input-group mb-2';
-    div.innerHTML = `
-      <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
-        <option value="" disabled selected>Selecciona un usuario</option>
-        @foreach ($usuarios as $user)
-          <option value="{{ $user->idUsuario }}">{{ $user->nombreUsuario . ' ' . $user->apellidoUsuario }}</option>
-        @endforeach
-      </select>
-      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-    `;
-    container.appendChild(div);
-  }
+        option.innerHTML = `${usuario.nombreUsuario} ${usuario.apellidoUsuario} =>
+          P: (${profesiones})  &nbsp; | &nbsp;
+          E: (${especialidades})`;
+              select.appendChild(option);
+            });
+          });
+          // Restaura las opciones seleccionadas previamente en cada select
+          usuariosSelects.forEach((select, index) => {
+            if (selectedOptions[index]) {
+              select.value = selectedOptions[index];
+            }
+          });
+        })
+        .catch(error => console.error('Error al cargar los usuarios:', error)); // Maneja errores
+    }
 
-  function removeElement(element) {
-    element.parentNode.remove();
-  }
+    // Función para añadir un nuevo select de usuario en el modo de edición
+    window.addUsuarioEdit = function(especialidadId) {
+      // Obtiene el contenedor de los selects de usuarios basado en el ID de la especialidad
+      const container = document.getElementById('usuarios-container-edit-' + especialidadId);
+      // Crea un nuevo div con la clase correspondiente
+      const div = document.createElement('div');
+      div.className = 'input-group mb-2';
+      // Clona un select de usuario existente pero sin sus opciones
+      const usuariosSelect = container.querySelector('select[name="idUsuario[]"]').cloneNode(false);
+      usuariosSelect.innerHTML = '<option value="" disabled selected>Selecciona un usuario</option>';
+      // Copia las opciones del select original al nuevo select
+      const originalSelect = container.querySelector('select[name="idUsuario[]"]');
+      Array.from(originalSelect.options).forEach(option => {
+        const newOption = option.cloneNode(true);
+        usuariosSelect.appendChild(newOption);
+      });
+      // Añade el nuevo select al div
+      div.appendChild(usuariosSelect);
+      // Añade un botón de eliminar al div
+      div.innerHTML += `<button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>`;
+      // Añade el div al contenedor
+      container.appendChild(div);
+    };
+
+    // Función para eliminar un elemento del DOM
+    function removeElement(element) {
+      element.parentNode.remove();
+    }
+  });
 </script>
+
 
 <style>
   body {

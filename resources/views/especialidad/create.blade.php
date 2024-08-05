@@ -13,8 +13,8 @@
           <div class="row">
             <div class="col-12">
               <div class="form-outline mb-4">
-                <label class="form-label" for="idInversion">Inversión</label>
-                <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
+                <label class="form-label">Inversión</label>
+                <select name="idInversion" id="idInversion-create" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}">
@@ -38,16 +38,12 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idUsuario">Encargados</label>
-                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuarios()"><i class="fas fa-plus"></i></button>
-                <div id="profesiones-container">
+                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuariosCreate()"><i class="fas fa-plus"></i></button>
+                <div id="usuarios-container-create">
                   <div class="input-group mb-2">
-                    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
+                    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required id="usuariosSelect-create">
                       <option value="" disabled selected>Selecciona un usuario</option>
-                      @foreach ($usuarios as $usuario)
-                        <option value="{{ $usuario->idUsuario }}">
-                          {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-                        </option>
-                      @endforeach
+                      <!-- Aquí se llenarán los usuarios dinámicamente -->
                     </select>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                   </div>
@@ -68,6 +64,61 @@
     </div>
   </div>
 </form>
+
+<script>
+  // Añade un event listener al elemento con id 'idInversion-create' que se ejecuta cuando cambia su valor
+  document.getElementById('idInversion-create').addEventListener('change', function() {
+  const inversionId = this.value;
+  const usuariosSelect = document.getElementById('usuariosSelect-create');
+  usuariosSelect.innerHTML = '<option value="" disabled selected>Selecciona un usuario</option>';
+
+  fetch(`/usuarios-por-inversion/${inversionId}`)
+    .then(response => response.json())
+    .then(usuarios => {
+      usuarios.forEach(usuario => {
+        const option = document.createElement('option');
+        option.value = usuario.idUsuario;
+
+        // Construye el texto del option con profesiones y especialidades específicas para cada usuario
+        const profesiones = usuario.profesiones.map(p => p.nombreProfesion).join(', ');
+        const especialidades = usuario.especialidades.map(e => e.nombreEspecialidad).join(', ');
+
+        option.innerHTML = `${usuario.nombreUsuario} ${usuario.apellidoUsuario} =>
+          P: (${profesiones})   &nbsp; | &nbsp;
+          E: (${especialidades})`;
+
+        usuariosSelect.appendChild(option);
+      });
+
+      // Actualiza otros selects si es necesario
+      const allUserSelects = document.querySelectorAll('#usuarios-container-create select[name="idUsuario[]"]');
+      allUserSelects.forEach(select => {
+        if (select !== usuariosSelect) {
+          select.innerHTML = usuariosSelect.innerHTML;
+        }
+      });
+    })
+    .catch(error => console.error('Error al cargar los usuarios:', error));
+});
+
+
+  // Función para añadir un nuevo select de usuarios
+  function addUsuariosCreate() {
+    const container = document.getElementById('usuarios-container-create'); // Obtiene el contenedor de usuarios
+    const div = document.createElement('div'); // Crea un nuevo div para contener el select y el botón de eliminar
+    div.className = 'input-group mb-2'; // Asigna clases al div
+    const usuariosSelect = document.getElementById('usuariosSelect-create'); // Obtiene el select de usuarios principal
+    const newSelect = usuariosSelect.cloneNode(true); // Clona el select principal
+    newSelect.id = ''; // Elimina el id del nuevo select clonado
+    div.appendChild(newSelect); // Añade el nuevo select al div
+    div.innerHTML += `<button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>`; // Añade un botón para eliminar el div
+    container.appendChild(div); // Añade el div al contenedor de usuarios
+  }
+  // Función para eliminar un elemento del DOM
+  function removeElement(element) {
+    element.parentNode.remove(); // Elimina el elemento padre del elemento pasado como parámetro (el div contenedor)
+  }
+</script>
 
 <style>
   .input-auth {
@@ -95,25 +146,3 @@
   }
 </style>
 
-<script>
-  function addUsuarios() {
-  const container = document.getElementById('profesiones-container');
-  const div = document.createElement('div');
-  div.className = 'input-group mb-2';
-  div.innerHTML = `
-    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required>
-      <option value="" disabled selected>Selecciona un usuario</option>
-      @foreach ($usuarios as $usuario)
-        <option value="{{ $usuario->idUsuario }}">
-          {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-        </option>
-      @endforeach
-    </select>
-    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-  `;
-  container.appendChild(div);
-  }
-  function removeElement(element) {
-    element.parentNode.remove();
-  }
-</script>

@@ -26,6 +26,8 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
 // Rutas protegidas (requieren autenticación)
 Route::middleware('auth')->group(function () {
+    
+    Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
     Route::get('/reportes/fase/{idFase}/subfase', [Reportes::class, 'getSubFases']);
     Route::get('/reportes/especialidad/{idEspecialidad}/fase', [Reportes::class, 'getFases']);
     Route::get('reportes/inversion/{idInversion}/especialidad', [Reportes::class, 'getEspecialidades']);
@@ -46,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('subfase', SubFaseController::class);
     Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
+    
 
     // Middleware de administrador aplicado a la ruta del dashboard
     /*Route::middleware(['admin'])->group(function () {
