@@ -27,7 +27,7 @@
               <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate{{ $inversion->idInversion }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Profesional</button>
               <!-- Tabla -->
               <div class="table-responsive">
-                <table id="profesionalesTable" class="table table-striped w-100">
+                <table  class="table table-striped w-100">
                   <thead class="table-header">
                     <tr>
                       <th class="w-75"><i class="fas fa-user-tie"></i> Profesional</th>
@@ -85,27 +85,7 @@
   </div>
 </div>
 
-<script>
-  $(document).ready(function() {
-    $('#profesionalesTable').DataTable({
-      responsive: true,
-      language: {
-        search: "Buscar:",
-        lengthMenu: "Mostrar _MENU_ registros por página",
-        zeroRecords: "No se encontraron resultados",
-        info: "Mostrando página _PAGE_ de _PAGES_",
-        infoEmpty: "No hay registros disponibles",
-        infoFiltered: "(filtrado de _MAX_ registros totales)",
-        paginate: {
-          first: "Primero",
-          last: "Último",
-          next: "Siguiente",
-          previous: "Anterior"
-        }
-      }
-    });
-  });
-</script>
+
 
 <style>
   body {

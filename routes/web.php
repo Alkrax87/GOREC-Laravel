@@ -42,6 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('subfase', SubFaseController::class);
     Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
+    Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
+
 
     // =========== Reportes =============
     // Ruta de Obtener avance de Inverion

@@ -25,7 +25,7 @@
               <div class="form-outline mb-4">
                 <input type="hidden" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
                 <label class="form-label" for="idUsuario">Usuario</label>
-                <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
+                <select name="idUsuario" id="idUsuario{{ $inversion->idInversion }}" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($usuariosProfesionales as $usuario)
                     <option value="{{ $usuario->idUsuario }}">
@@ -69,6 +69,40 @@
   </div>
 </form>
 
+<!-- Incluir el JS de jQuery y Select2 -->
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+  $(document).ready(function() {
+    $('#ModalCreate{{ $inversion->idInversion }}').on('shown.bs.modal', function () {
+      $('#idUsuario{{ $inversion->idInversion }}').select2({
+        placeholder: "Selecciona un usuario",
+        allowClear: true
+      });
+    });
+
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalCreate{{ $inversion->idInversion }}').on('hidden.bs.modal', function () {
+      $('#idUsuario{{ $inversion->idInversion }}').select2('destroy');
+    });
+  });
+</script>
+<style>
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+
+line-height: 20px;
+}
+.select2-container .select2-selection--single {
+height: 35px;
+}
+.select2-container .select2-selection--single .select2-selection__arrow {
+height: 34px;
+}
+.select2-container .select2-dropdown {
+z-index: 9999; /* Asegura que el dropdown se muestre sobre el modal */
+}
+</style>
 <style>
   body {
     background-color: #000;
@@ -142,4 +176,6 @@
       margin-top: 0px;
     }
   }
+  /* Ajustar el z-index de Select2 */
+  
 </style>
