@@ -18,7 +18,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Observación</label>
-                <input type="text" name="observacionEstudiosComplementarios" class="input-auth" placeholder="Ingrese Observacion" required/>
+                <textarea class="form-control input-auth" name="observacionEstudiosComplementarios" placeholder="Ingrese Observación" rows="4" required></textarea>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Estado</label>

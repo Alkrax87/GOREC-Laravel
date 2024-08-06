@@ -35,7 +35,7 @@
                   <input type="text" name="nombreCortoInversion" class="input-auth" placeholder="Nombre Corto" required/>
                 </div>
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="idUsuario">Jefe</label>
+                  <label class="form-label" for="idUsuario">Responsable</label>
                   <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled selected>Selecciona un usuario</option>
                     @foreach ($usuarios as $usuario)

@@ -35,6 +35,8 @@ class Inversion extends Model
         'fechaFinalInversion',
         'presupuestoFormulacionInversion',
         'presupuestoEjecucionInversion',
+        'fechaInicioConsistenciaInversion',
+        'fechaFinalConsistenciaInversion',
     ];
 
     // Define la relación con el modelo User

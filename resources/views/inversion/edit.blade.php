@@ -36,7 +36,7 @@
                 <input type="text" name="nombreCortoInversion" value="{{ $inversion->nombreCortoInversion }}" class="input-auth" placeholder="Nombre Corto" required/>
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label" for="idUsuario">Jefe</label>
+                <label class="form-label" for="idUsuario">Responsable</label>
                 <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled>Selecciona un usuario</option>
                   @foreach ($usuarios as $usuario)
@@ -149,6 +149,21 @@
                 </div>
               </div>
             </div>
+            <hr>
+            <div class="col-12">
+              <h6 class="text-center">Aprobación de Consistencia</h6>
+              <div class="row">
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Inicio</label>
+                  <input type="date" name="fechaInicioConsistenciaInversion" value="{{ $inversion->fechaInicioConsistenciaInversion }}" class="input-auth" required/>
+                </div>
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Final</label>
+                  <input type="date" name="fechaFinalConsistenciaInversion" value="{{ $inversion->fechaFinalConsistenciaInversion }}" class="input-auth" required/>
+                </div>
+              </div>
+            </div>
+            <hr>
             <div class="col-12 py-2 text-center">
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>

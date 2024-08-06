@@ -26,6 +26,8 @@ return new class extends Migration
             $table->date('fechaFinalInversion');
             $table->decimal('presupuestoFormulacionInversion', 23, 2);
             $table->decimal('presupuestoEjecucionInversion', 23, 2);
+            $table->date('fechaInicioConsistenciaInversion')->nullable();
+            $table->date('fechaFinalConsistenciaInversion')->nullable();
             $table->timestamps(false);
         });
     }

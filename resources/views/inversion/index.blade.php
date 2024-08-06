@@ -61,6 +61,8 @@
                   <th class="text-center">Modalidad</th>
                   <th class="text-nowrap">Presupuesto Formulación</th>
                   <th class="text-nowrap">Presupuesto Ejecución</th>
+                  <th class="text-nowrap">Fecha Inicio Consistencia</th>
+                  <th class="text-nowrap">Fecha Final Consistencia</th>
                   <th class="text-center">Extras</th>
                   <th class="text-center">Opciones</th>
                 </tr>
@@ -105,6 +107,22 @@
                     <td class="text-center">{{ $inversion->modalidadInversion }}</td>
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
                     <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
+                    <td class="text-center">
+                      <i class="fas fa-calendar-alt"></i>&nbsp;
+                      @if(is_null($inversion->fechaInicioConsistenciaInversion))
+                        Por Definir
+                      @else
+                        {{ $inversion->fechaInicioConsistenciaInversion }}
+                      @endif
+                    </td>
+                    <td class="text-center">
+                      <i class="fas fa-calendar-alt"></i>&nbsp;
+                      @if(is_null($inversion->fechaFinalConsistenciaInversion))
+                        Por Definir
+                      @else
+                        {{ $inversion->fechaFinalConsistenciaInversion }}
+                      @endif
+                    </td>
                     <td class="text-center text-nowrap">
                       <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
                       @if (Auth::user()->isAdmin)

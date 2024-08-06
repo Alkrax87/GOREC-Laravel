@@ -19,7 +19,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Observación</label>
-                <input type="text" name="observacionEstudiosComplementarios" value="{{ $complementario->observacionEstudiosComplementarios}}" class="input-auth" placeholder="Nombre Segmento" required/>
+                <textarea class="form-control input-auth" name="observacionEstudiosComplementarios" placeholder="Ingrese Observación" rows="4" required>{{ $complementario->observacionEstudiosComplementarios}}</textarea>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Estado</label>
