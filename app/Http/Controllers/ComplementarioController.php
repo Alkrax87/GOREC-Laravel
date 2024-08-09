@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Inversion;
 use App\Models\Complementario;
+use Carbon\Carbon;
 use Auth;
 
 class ComplementarioController extends Controller
@@ -22,7 +23,14 @@ class ComplementarioController extends Controller
             $complementarios = Complementario::whereIn('idInversion', $inversionIds)->get();
         }
 
-        return view('complementario.index', compact('complementarios', 'inversiones'));
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
+        return view('complementario.index', compact('complementarios', 'inversiones','notificaciones'));
     }
 
     // Función que devuelve el formulario de crear

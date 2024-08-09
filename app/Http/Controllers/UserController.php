@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Inversion;
+use Carbon\Carbon;
 use Auth;
 use Hash;
 
@@ -16,11 +18,20 @@ class UserController extends Controller
         $user = Auth::user();
         if ($user->isAdmin) {
             $usuarios = User::all();
+            $inversiones = Inversion::all();
         } else {
             $usuarios = User::where('idUsuario', '!=', 1)->get();
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
         }
 
-        return view('usuario.index', compact('usuarios'));
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
+        return view('usuario.index', compact('usuarios','notificaciones'),);
     }
 
     // Función que devuelve el formulario de crear

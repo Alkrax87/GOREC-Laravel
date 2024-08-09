@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Segmento;
 use App\Models\Inversion;
 use App\Models\User;
+use Carbon\Carbon;
 use Auth;
 
 class SegmentoController extends Controller
@@ -23,10 +24,17 @@ class SegmentoController extends Controller
             $segmentos = Segmento::whereIn('idInversion', $inversionIds)->get();
         }
 
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
         // Carga de datos de usuarios
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
 
-        return view('segmento.index', compact('segmentos', 'inversiones', 'usuarios'));
+        return view('segmento.index', compact('segmentos', 'inversiones', 'usuarios','notificaciones'));
     }
 
     // Función que devuelve el formulario de crear

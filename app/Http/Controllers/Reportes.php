@@ -8,6 +8,7 @@ use App\Models\Especialidad;
 use App\Models\Inversion;
 use App\Models\Fase;
 use Dompdf\Dompdf;
+use Carbon\Carbon;
 use Dompdf\Options;
 use Auth;
 
@@ -30,8 +31,15 @@ class Reportes extends Controller
             $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
         }
 
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
         // Retornar la vista con los datos obtenidos
-        return view('reportes.graficos', compact('subfases', 'especialidades', 'inversiones', 'fases'));
+        return view('reportes.graficos', compact('subfases', 'especialidades', 'inversiones', 'fases','notificaciones'));
     }
 
     // Funcion para obtener avance y nombre de una inversión

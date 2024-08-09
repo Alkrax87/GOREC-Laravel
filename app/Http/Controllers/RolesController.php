@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Inversion;
+use Carbon\Carbon;
 
 class RolesController extends Controller
 {
@@ -11,8 +13,16 @@ class RolesController extends Controller
     public function index(Request $request){
         // Carga de datos de usuarios que tengan una cuenta
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+        $inversiones = Inversion::all();
 
-        return view('roles.index', compact('usuarios'));
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
+        return view('roles.index', compact('usuarios','notificaciones'));
     }
 
     // Función editar el rol de un usuario

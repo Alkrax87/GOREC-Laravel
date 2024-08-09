@@ -33,7 +33,14 @@ class InversionController extends Controller
         // Cargamos logs
         $logs = EstadoLog::all();
 
-        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs'));
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
+        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs', 'notificaciones'));
     }
 
     // Función que devuelve el formulario de crear

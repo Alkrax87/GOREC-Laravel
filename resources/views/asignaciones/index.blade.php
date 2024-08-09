@@ -86,6 +86,26 @@
   </div>
 @stop
 
+@section('content_top_nav_right')
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
+      <i class="fas fa-bell"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-danger ml-3 navbar-badge"> {{ count($notificaciones) }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: 600px;">
+      <spa style="background-color: #9C0C27; color: azure;" class="dropdown-item dropdown-header text-center"><i class="fas fa-bell"></i> {{ count($notificaciones) }} Notificationes</spa>
+      <div class="dropdown-divider"></div>
+      @foreach ($notificaciones as $notificacion)
+        <div class="dropdown-item">
+          <span><i class="fas fa-clipboard-list"></i>&nbsp; <b>INVERSIÓN</b></span>
+          <p>{{ $notificacion->nombreCortoInversion }} esta por finalizar.</p>
+          <p class="pt-2 text-end"><i class="fas fa-calendar-alt"></i> Fecha de finalización: {{ $notificacion->fechaFinalInversion }}</p>
+        </div>
+      @endforeach
+      <div class="dropdown-divider"></div>
+    </div>
+  </li>
+@endsection
+
 @section('css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">

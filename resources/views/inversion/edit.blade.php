@@ -155,11 +155,11 @@
               <div class="row">
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label">Fecha Inicio</label>
-                  <input type="date" name="fechaInicioConsistenciaInversion" value="{{ $inversion->fechaInicioConsistenciaInversion }}" class="input-auth" required/>
+                  <input type="date" name="fechaInicioConsistenciaInversion" value="{{ $inversion->fechaInicioConsistenciaInversion }}" class="input-auth"/>
                 </div>
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label">Fecha Final</label>
-                  <input type="date" name="fechaFinalConsistenciaInversion" value="{{ $inversion->fechaFinalConsistenciaInversion }}" class="input-auth" required/>
+                  <input type="date" name="fechaFinalConsistenciaInversion" value="{{ $inversion->fechaFinalConsistenciaInversion }}" class="input-auth"/>
                 </div>
               </div>
             </div>

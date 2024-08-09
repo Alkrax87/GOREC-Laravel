@@ -7,6 +7,7 @@ use App\Models\Inversion;
 use App\Models\AsignacionProfesional;
 use App\Models\AsignacionAsistente;
 use App\Models\User;
+use Carbon\Carbon;
 use Auth;
 
 class AsignacionesController extends Controller
@@ -21,6 +22,13 @@ class AsignacionesController extends Controller
             $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
         }
 
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
         // Carga de datos de profesionales
         $profesionales = AsignacionProfesional::all();
 
@@ -33,6 +41,6 @@ class AsignacionesController extends Controller
         // Carga de datos de usuarios que pueden ser solo asistentes
         $usuariosAsistentes = User::whereNull('email')->where('idUsuario', '!=', 1)->get();
 
-        return view('asignaciones.index', compact('inversiones','profesionales','asistentes','usuariosProfesionales','usuariosAsistentes'));
+        return view('asignaciones.index', compact('inversiones','profesionales','asistentes','usuariosProfesionales','usuariosAsistentes','notificaciones'));
     }
 }

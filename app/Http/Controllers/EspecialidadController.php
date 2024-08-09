@@ -10,6 +10,7 @@ use App\Models\EspecialidadUsers;
 use App\Models\SubFase;
 use App\Models\AsignacionProfesional;
 use App\Models\Fase;
+use Carbon\Carbon;
 use App\Models\AvanceLog;
 use Auth;
 
@@ -38,6 +39,13 @@ class EspecialidadController extends Controller
             $especialidades = $especialidades->merge($especialidadesAdicionales);
         }
 
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
         // Cargamos los datos
         $fases = Fase::all();
         $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
@@ -45,7 +53,7 @@ class EspecialidadController extends Controller
         $logs = AvanceLog::all();
         $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
 
-        return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases','logs'));
+        return view('especialidad.index', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases','logs','notificaciones'));
     }
 
     // Función de agreagar un registro
