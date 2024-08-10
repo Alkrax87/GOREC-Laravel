@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->boolean('isAdmin')->default(false);
             $table->string('categoriaUsuario')->nullable();
+            $table->boolean('password_changed')->default(false);
             $table->timestamps(false);
         });
 
@@ -31,6 +32,9 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('password_changed');
+        });
     }
+    
 };

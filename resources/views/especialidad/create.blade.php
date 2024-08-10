@@ -65,60 +65,85 @@
   </div>
 </form>
 
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  // Añade un event listener al elemento con id 'idInversion-create' que se ejecuta cuando cambia su valor
-  document.getElementById('idInversion-create').addEventListener('change', function() {
-  const inversionId = this.value;
-  const usuariosSelect = document.getElementById('usuariosSelect-create');
-  usuariosSelect.innerHTML = '<option value="" disabled selected>Selecciona un usuario</option>';
-
-  fetch(`/usuarios-por-inversion/${inversionId}`)
-    .then(response => response.json())
-    .then(usuarios => {
-      usuarios.forEach(usuario => {
-        const option = document.createElement('option');
-        option.value = usuario.idUsuario;
-
-        // Construye el texto del option con profesiones y especialidades específicas para cada usuario
-        const profesiones = usuario.profesiones.map(p => p.nombreProfesion).join(', ');
-        const especialidades = usuario.especialidades.map(e => e.nombreEspecialidad).join(', ');
-
-        option.innerHTML = `${usuario.nombreUsuario} ${usuario.apellidoUsuario} =>
-          P: (${profesiones})   &nbsp; | &nbsp;
-          E: (${especialidades})`;
-
-        usuariosSelect.appendChild(option);
+  $(document).ready(function() {
+    // Ejecutar cuando el modal se muestra
+    $('#ModalCreate').on('shown.bs.modal', function () {
+      // Inicializar select2 en el select de inversión
+      $('#idInversion-create').select2({
+        placeholder: "Selecciona una inversión",
+        allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró la inversión";
+            }
+          }
       });
+      // Añadir el event listener al select de inversión solo una vez
+      if (!$('#idInversion-create').data('listener-added')) {
+        // Evento para manejar el cambio de selección en el select de inversión
+        $('#idInversion-create').on('change', function() {
+          const inversionId = this.value; // Obtener el ID de la inversión seleccionada
+          const usuariosSelect = document.getElementById('usuariosSelect-create'); // Obtener el select de usuarios
+          usuariosSelect.innerHTML = '<option value="" disabled selected>Selecciona un usuario</option>'; // Limpiar el select de usuarios
+          // Realizar una solicitud fetch para obtener los usuarios según la inversión seleccionada
+          fetch(`/usuarios-por-inversion/${inversionId}`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Error en la respuesta de la red');
+              }
+              return response.json();
+            })
+            .then(usuarios => {
+              usuarios.forEach(usuario => {
+                const option = document.createElement('option');
+                option.value = usuario.idUsuario;
+                // Construir el texto del option con profesiones y especialidades
+                const profesiones = usuario.profesiones.map(p => p.nombreProfesion).join(', ');
+                const especialidades = usuario.especialidades.map(e => e.nombreEspecialidad).join(', ');
+                option.innerHTML = `${usuario.nombreUsuario} ${usuario.apellidoUsuario} => P: (${profesiones}) &nbsp; | &nbsp; E: (${especialidades})`;
+                usuariosSelect.appendChild(option); // Añadir el option al select de usuarios
+              });
+              // Actualizar todos los selects de usuarios en el contenedor
+              const allUserSelects = document.querySelectorAll('#usuarios-container-create select[name="idUsuario[]"]');
+              allUserSelects.forEach(select => {
+                if (select !== usuariosSelect) {
+                  select.innerHTML = usuariosSelect.innerHTML;
+                }
+              });
+            })
+            .catch(error => console.error('Error al cargar los usuarios:', error));
+        });
+        $('#idInversion-create').data('listener-added', true); // Marcar el event listener como añadido
+      }
+    });
 
-      // Actualiza otros selects si es necesario
-      const allUserSelects = document.querySelectorAll('#usuarios-container-create select[name="idUsuario[]"]');
-      allUserSelects.forEach(select => {
-        if (select !== usuariosSelect) {
-          select.innerHTML = usuariosSelect.innerHTML;
-        }
-      });
-    })
-    .catch(error => console.error('Error al cargar los usuarios:', error));
-});
-
+    // Destruir el select2 en el select de inversión cuando se cierra el modal
+    $('#ModalCreate').on('hidden.bs.modal', function () {
+      $('#idInversion-create').select2('destroy');
+    });
+  });
 
   // Función para añadir un nuevo select de usuarios
   function addUsuariosCreate() {
-    const container = document.getElementById('usuarios-container-create'); // Obtiene el contenedor de usuarios
-    const div = document.createElement('div'); // Crea un nuevo div para contener el select y el botón de eliminar
-    div.className = 'input-group mb-2'; // Asigna clases al div
-    const usuariosSelect = document.getElementById('usuariosSelect-create'); // Obtiene el select de usuarios principal
-    const newSelect = usuariosSelect.cloneNode(true); // Clona el select principal
-    newSelect.id = ''; // Elimina el id del nuevo select clonado
-    div.appendChild(newSelect); // Añade el nuevo select al div
-    div.innerHTML += `<button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>`; // Añade un botón para eliminar el div
-    container.appendChild(div); // Añade el div al contenedor de usuarios
+    const container = document.getElementById('usuarios-container-create'); // Obtener el contenedor de usuarios
+    const div = document.createElement('div'); // Crear un nuevo div para contener el select y el botón de eliminar
+    div.className = 'input-group mb-2'; // Asignar clases al div
+    const usuariosSelect = document.getElementById('usuariosSelect-create'); // Obtener el select de usuarios principal
+    const newSelect = usuariosSelect.cloneNode(true); // Clonar el select principal
+    newSelect.id = ''; // Eliminar el id del nuevo select clonado
+    div.appendChild(newSelect); // Añadir el nuevo select al div
+    div.innerHTML += `<button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>`; // Añadir un botón para eliminar el div
+    container.appendChild(div); // Añadir el div al contenedor de usuarios
   }
+
   // Función para eliminar un elemento del DOM
   function removeElement(element) {
-    element.parentNode.remove(); // Elimina el elemento padre del elemento pasado como parámetro (el div contenedor)
+    element.parentNode.remove(); // Eliminar el elemento padre del elemento pasado como parámetro (el div contenedor)
   }
 </script>
+
 
 <style>
   .input-auth {
@@ -145,4 +170,22 @@
     color: transparent;
   }
 </style>
+<style>
 
+  .select2-container--default .select2-selection--single .select2-selection__rendered { 
+      line-height: 24px;
+      padding-left: 10px; /* Ajustar el padding izquierdo */
+       /* Asegurar que el texto esté alineado a la izquierda */
+    }
+    .select2-container .select2-selection--single {
+      height: 35px;
+      padding-left: 0px; /* Ajustar el padding izquierdo */
+    }
+      .select2-container .select2-dropdown {
+        z-index: 9999;
+      }
+      .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
+        background-color: #9C0C27 !important; /* Cambia este color al que desees */
+        color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
+    }
+  </style>

@@ -92,7 +92,7 @@
                         <option value="PRESUPUESTO" {{ $especialidad->nombreEspecialidad == 'PRESUPUESTO' ? 'selected' : '' }}>PRESUPUESTO</option>
                         <option value="EVALUACIÓN DE RIESGOS" {{ $especialidad->nombreEspecialidad == 'EVALUACIÓN DE RIESGOS' ? 'selected' : '' }}>EVALUACIÓN DE RIESGOS </option>
                         <option value="EQUIPAMIENTO" {{ $especialidad->nombreEspecialidad == 'EQUIPAMIENTO' ? 'selected' : '' }}>EQUIPAMIENTO</option>
-                        <option value="TRASPORTES" {{ $especialidad->nombreEspecialidad == 'TRASPORTES' ? 'selected' : '' }}>TRASPORTES</option>
+                        <option value="TRANSPORTES" {{ $especialidad->nombreEspecialidad == 'TRANSPORTES' ? 'selected' : '' }}>TRANSPORTES</option>
                         <option value="HIDRÁULICA" {{ $especialidad->nombreEspecialidad == 'HIDRÁULICA' ? 'selected' : '' }}>HIDRÁULICA</option>
                         <option value="SANEAMIENTO FÍSICO LEGAL" {{ $especialidad->nombreEspecialidad == 'SANEAMIENTO FÍSICO LEGAL' ? 'selected' : '' }}>SANEAMIENTO FÍSICO LEGAL</option>
                         <option value="MODELADOR BIM" {{ $especialidad->nombreEspecialidad == 'MODELADOR BIM' ? 'selected' : '' }}>MODELADOR BIM</option>
@@ -188,7 +188,7 @@
         <option value="PRESUPUESTO">PRESUPUESTO</option>
         <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
         <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
-        <option value="TRASPORTES">TRASPORTES</option>
+        <option value="TRANSPORTES">TRANSPORTES</option>
         <option value="HIDRÁULICA">HIDRÁULICA</option>
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
         <option value="MODELADOR BIM">MODELADOR BIM</option>

@@ -70,7 +70,7 @@ class EspecialidadController extends Controller
         $totalPorcentaje = Especialidad::where('idInversion', $request->idInversion)
                                        ->sum('porcentajeAvanceEspecialidad');
         if ($totalPorcentaje + $porcentaje > 100) {
-            return redirect()->back()->with('message', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
+            return redirect()->back()->with('errorPorcentaje', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
         }
 
         // Crear un registro
@@ -112,7 +112,7 @@ class EspecialidadController extends Controller
          $totalPorcentaje = Especialidad::where('idInversion', $request->idInversion)
                                        ->sum('porcentajeAvanceEspecialidad');
         if ($totalPorcentaje + $nuevoPorcentaje - $porcentajeAnterior > 100) {
-            return redirect()->back()->with('message', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
+            return redirect()->back()->with('errorPorcentaje', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
         }
 
         // Actualizar los atributos de la especialidad

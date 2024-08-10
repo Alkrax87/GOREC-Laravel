@@ -78,7 +78,12 @@
     $('#ModalCreate{{ $inversion->idInversion }}').on('shown.bs.modal', function () {
       $('#idUsuario{{ $inversion->idInversion }}').select2({
         placeholder: "Selecciona un usuario",
-        allowClear: true
+        allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró el usuario";
+            }
+          }
       });
     });
 
@@ -88,20 +93,25 @@
     });
   });
 </script>
+<!--estilos para los select2-->
 <style>
-.select2-container--default .select2-selection--single .select2-selection__rendered {
 
-line-height: 20px;
-}
-.select2-container .select2-selection--single {
-height: 35px;
-}
-.select2-container .select2-selection--single .select2-selection__arrow {
-height: 34px;
-}
-.select2-container .select2-dropdown {
-z-index: 9999; /* Asegura que el dropdown se muestre sobre el modal */
-}
+.select2-container--default .select2-selection--single .select2-selection__rendered { 
+    line-height: 24px;
+    padding-left: 10px; /* Ajustar el padding izquierdo */
+     /* Asegurar que el texto esté alineado a la izquierda */
+  }
+  .select2-container .select2-selection--single {
+    height: 35px;
+    padding-left: 0px; /* Ajustar el padding izquierdo */
+  }
+    .select2-container .select2-dropdown {
+      z-index: 9999;
+    }
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
+      background-color: #9C0C27 !important; /* Cambia este color al que desees */
+      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
+  }
 </style>
 <style>
   body {

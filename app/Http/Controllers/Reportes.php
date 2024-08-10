@@ -16,6 +16,7 @@ class Reportes extends Controller
     // Método para mostrar los gráficos de inversiones, subfases y especialidades
     public function index(){
         // Obtener todas las especialidades, fases y subfases
+        $this->sumaTotalAvance();
         $especialidades = Especialidad::all();
         $fases = Fase::all();
         $subfases = Subfase::all();
@@ -90,35 +91,133 @@ class Reportes extends Controller
     // Método para generar un PDF con los gráficos
     public function generatePDF(Request $request)
     {
-        // Obtener los datos de la solicitud
-        $data = $request->all();
+    // Obtener los datos de la solicitud
+    $data = $request->all();
 
-        // Crear el contenido HTML del PDF
-        $html = '
-            <h1>Reportes</h1>
-            <h2>Line Chart</h2>
-            <img src="' . $data['lineChartImage'] . '" style="width: 100%; height: auto;">
-            <h2>Donut Chart</h2>
-            <img src="' . $data['donutChartImage'] . '" style="width: 100%; height: auto;">
-        ';
+    // Verificar y asegurar que las imágenes están en formato base64
+    $lineChartImage = isset($data['lineChartImage']) ? $data['lineChartImage'] : '';
+    $donutChartImage = isset($data['donutChartImage']) ? $data['donutChartImage'] : '';
+    $avanceChartImage = isset($data['avanceChartImage']) ? $data['avanceChartImage'] : '';
+    
+    // Asegurarse de que especialidadesImages sea un array
+    $especialidadesImages = isset($data['especialidadesImages']) ? $data['especialidadesImages'] : [];
 
-        // Configurar las opciones de Dompdf
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isRemoteEnabled', true);
-
-        // Crear una instancia de Dompdf y cargar el contenido HTML
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml($html);
-
-        // Configurar el tamaño y la orientación del papel
-        $dompdf->setPaper('A4', 'landscape');
-
-        // Renderizar el PDF
-        $dompdf->render();
-
-        // Retornar el PDF generado para su descarga
-        return $dompdf->stream('reportes.graficos');
+    // Crear el contenido HTML del PDF
+    $html = '
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            h1 {
+                text-align: center;
+                color: #333;
+            }
+            h2 {
+                color: #555;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 5px;
+                margin-bottom: 20px;
+            }
+            .chart-container {
+                margin-bottom: 40px;
+                page-break-inside: avoid;
+            }
+            .chart-container img {
+                display: block;
+                margin: 0 auto;
+                width: 80%;
+                height: auto;
+            }
+             }
+            #chart-containers img {
+                display: block;
+                margin: 0 auto;
+                width: 40%;
+                height: auto;
+            }
+            .especialidades-container {
+                text-align: center;
+                page-break-inside: avoid;
+            }
+            .especialidades-title {
+                text-align: center;
+                color: #555;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 5px;
+                margin-bottom: 20px;
+            }
+            .especialidades-images {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .especialidades-images img {
+                width: 25%;
+                height: auto;
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Reportes</h1>
+        <div id="chart-containers">
+            <h2>Inversion Avance</h2>
+            <img src="' . $data['avanceChartImage'] . '">
+        </div>
+               
+        <div class="especialidades-container">
+            <h2 class="especialidades-title">Especialidades</h2>
+            <div class="especialidades-images">;';
+        // Agregar gráficos de especialidades
+    foreach ($data['especialidadesImages'] as $image) {
+    $html .= '<img src="' . $image . '">';
     }
 
+    $html .= '
+            </div>
+        </div>
+         <div class="chart-container">
+            <h2>Actividades</h2>
+            <img src="' . $data['lineChartImage'] . '">
+        </div>
+        <div class="chart-container">
+            <h2>Sub Actividades</h2>
+            <img src="' . $data['donutChartImage'] . '">
+        </div>
+
+    </body>
+    </html>';
+    // Configurar las opciones de Dompdf
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isRemoteEnabled', true);
+
+    // Crear una instancia de Dompdf y cargar el contenido HTML
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml($html);
+
+    // Configurar el tamaño y la orientación del papel
+    $dompdf->setPaper('A4', 'landscape');
+
+    // Renderizar el PDF
+    $dompdf->render();
+
+    // Retornar el PDF generado para su descarga
+    return $dompdf->stream('reportes.pdf');
+    }
+    private function sumaTotalAvance() {
+        // Carga de datos de inversiones
+        $inversiones = Inversion::all();
+
+        // Sumamos los avances en base a sus especialidades de cada inversión
+        foreach ($inversiones as $inversion) {
+            $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
+            $sumAvanceTotalEspecialidad = $especialidades->sum('avanceTotalEspecialidad');
+            $inversion->avanceInversion = $sumAvanceTotalEspecialidad;
+            $inversion->save();
+        }
+    }
 }

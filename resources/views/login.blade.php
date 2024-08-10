@@ -64,6 +64,15 @@
 			color: #fff;
 			border-radius: 50px
 		}
+		.btn-cambio {
+		
+			width: 180px;
+			height: 40px;
+			background-color: #9C0C27;
+			color: #fff;
+			border-radius: 30px
+			
+		}
 		.btn-gorec:hover {
 			background-color: #72081f;
 			color: #fff;;
@@ -131,11 +140,71 @@
 				</div>
 			</section>
 		</main>
+		<!-- Modal para cambiar la contraseña -->
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="passwordModalLabel">Cambiar Contraseña</h5>
+		  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<form id="passwordChangeForm" action="{{ route('password.update') }}" method="POST">
+		  @csrf
+		  <div class="modal-body">
+			<div class="mb-3">
+			  <label for="new_password" class="form-label">Nueva Contraseña</label>
+			  <input type="password" class="form-control" id="new_password" name="new_password" required>
+			</div>
+			<div class="mb-3">
+			  <label for="new_password_confirmation" class="form-label">Confirmar Contraseña</label>
+			  <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" style="border-radius: 30px; width: 100px;
+			height: 40px" data-bs-dismiss="modal">Cerrar</button>
+			<button type="submit" class="btn btn-cambio">Cambiar Contraseña</button>
+		  </div>
+		</form>
+	  </div>
+	</div>
+  </div>
+  
 		<footer>
 
 		</footer>
 		<!-- Bootstrap JavaScript Libraries -->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+		<script>
+			$(document).ready(function() {
+				@if (session('showPasswordChangeModal'))
+					// Abre el modal si la contraseña no ha sido cambiada
+					$('#passwordModal').modal('show');
+				@endif
+		
+				$('#passwordChangeForm').on('submit', function(e) {
+					e.preventDefault(); // Evita el envío del formulario
+		
+					$.ajax({
+						url: "{{ route('password.update') }}", // Ruta para actualizar la contraseña
+						type: 'POST',
+						data: $(this).serialize(), // Serializa los datos del formulario
+						success: function(response) {
+							// Maneja la respuesta de la solicitud AJAX
+							alert('Contraseña actualizada exitosamente');
+							$('#passwordModal').modal('hide'); // Cierra el modal
+							window.location.href = "{{ url('/home') }}"; // Redirige a la página de inicio
+						},
+						error: function(response) {
+							// Maneja errores de la solicitud AJAX
+							alert('Error al actualizar la contraseña');
+						}
+					});
+				});
+			});
+		</script>
+		
 	</body>
 </html>

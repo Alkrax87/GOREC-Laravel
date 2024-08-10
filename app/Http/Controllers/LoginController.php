@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     public function showLoginForm()
-    {
+    { // o la lógica necesaria para obtener el usuario
         return view('login');
     }
 
     public function login(Request $request)
     {
+        $request->validate([
+            'email' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
         $username = $request->input('email');
         $password = $request->input('password');
 
@@ -26,12 +31,23 @@ class LoginController extends Controller
             'password' => $password,
         ];
 
-        // Si las credenciales son válidas, redirige al usuario a la página de inicio
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            if (!$user->password_changed) {
+                return redirect()->route('login')->with('showPasswordChangeModal', true);
+            }
             return redirect()->intended('/home');
         }
 
-        // Si las credenciales son inválidas, redirige al usuario de vuelta al formulario de inicio de sesión
         return redirect()->back()->withInput()->withErrors(['email' => 'Email o contraseña incorrectos.']);
     }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
 }
+

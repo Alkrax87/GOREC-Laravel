@@ -88,7 +88,7 @@
                       <option value="PRESUPUESTO">PRESUPUESTO</option>
                       <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
                       <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
-                      <option value="TRASPORTES">TRASPORTES</option>
+                      <option value="TRANSPORTES">TRANSPORTES</option>
                       <option value="HIDRÁULICA">HIDRÁULICA</option>
                       <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
                       <option value="MODELADOR BIM">MODELADOR BIM</option>
@@ -180,7 +180,7 @@
         <option value="PRESUPUESTO">PRESUPUESTO</option>
         <option value="EVALUACIÓN DE RIESGOS">EVALUACIÓN DE RIESGOS </option>
         <option value="EQUIPAMIENTO">EQUIPAMIENTO</option>
-        <option value="TRASPORTES">TRASPORTES</option>
+        <option value="TRANSPORTES">TRANSPORTES</option>
         <option value="HIDRÁULICA">HIDRÁULICA</option>
         <option value="SANEAMIENTO FÍSICO LEGAL">SANEAMIENTO FÍSICO LEGAL</option>
         <option value="MODELADOR BIM">MODELADOR BIM</option>

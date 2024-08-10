@@ -33,7 +33,7 @@
                   <input type="text" name="nombreEspecialidad" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required />
                 </div>
                 <div class="col-4 form-outline mb-4">
-                  <label class="form-label">Porcentaje Programado</label>
+                  <label class="form-label">Avance Programado</label>
                   <div class="input-group">
                     <input type="number" class="form-control input-auth" name="porcentajeAvanceEspecialidad" value="{{ $especialidad->porcentajeAvanceEspecialidad }}" required min="0" max="100" step="0.01">
                     <span class="input-group-text">%</span>

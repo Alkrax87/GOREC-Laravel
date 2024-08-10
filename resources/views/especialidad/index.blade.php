@@ -38,6 +38,12 @@
               </ul>
             </div>
           @endif
+          @if ($errorPorcentaje = Session::get('errorPorcentaje'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentaje }}</p>
+            </div>
+          @endif
           <!-- Tabla -->
           <div class="table-responsive">
             <table id="especialidadTable" class="table table-bordered table-striped">
@@ -45,10 +51,10 @@
                 <tr>
                   <th class="text-left">#</th>
                   <th class="text-left">Inversión</th>
-                  <th class="text-center">Nombre</th>
-                  <th class="text-center">Encargados</th>
-                  <th class="text-center text-nowrap">Porcentaje Especialidad</th>
-                  <th class="text-center text-nowrap">Porcentaje Avance</th>
+                  <th class="text-center">Nombre Especialidad</th>
+                  <th class="text-center">Responsables</th>
+                  <th class="text-center text-nowrap">Avance Programado</th>
+                  <th class="text-center text-nowrap">Avance %</th>
                   <th class="text-center">Actividad</th>
                   <th class="text-center">Opciones</th>
                 </tr>

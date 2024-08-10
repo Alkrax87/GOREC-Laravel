@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AsignacionAsistente;
-
+use App\Models\User;
 class AsistenteController extends Controller
 {
     // Función de agreagar un registro
@@ -15,11 +15,28 @@ class AsistenteController extends Controller
             'idAsistente' => 'required|string|exists:users,idUsuario',
             'idJefe' => 'required|string|exists:users,idUsuario',
         ]);
-
-        // Creamos una nueva asignacion de profesional
+    
+        // Verifica si el asistente ya está asignado al mismo jefe en la misma inversión
+        $existeAsignacion = AsignacionAsistente::where('idInversion', $request->idInversion)
+                                               ->where('idAsistente', $request->idAsistente)
+                                               ->where('idJefe', $request->idJefe)
+                                               ->exists();
+    
+        if ($existeAsignacion) {
+            return redirect()->back()->with('error_asistente', 'El asistente ya está asignado a este jefe en esta inversión.')->withInput();
+        }
+    
+        // Obtener el nombre completo del asistente
+        $asistente = User::find($request->idAsistente);
+        $nombreAsistente = $asistente->nombreUsuario . ' ' . $asistente->apellidoUsuario;
+     // Obtener el nombre completo del usuario
+        $jefe = User::find($request->idJefe); // Suponiendo que tu modelo de usuario se llama `User`
+        $nombrejefe = $jefe->nombreUsuario . ' ' . $jefe->apellidoUsuario;
+        // Creamos una nueva asignación de asistente
         AsignacionAsistente::create($request->all());
-
-        return redirect()->route('asignaciones.index')->with('asistente_message','Profesional agregado correctamente.');
+    
+        // Redirigir con el mensaje de éxito
+        return redirect()->route('asignaciones.index')->with('asistente_message', 'Asistente ' . $nombreAsistente . ' asignado correctamente al jefe ' .  $nombrejefe);
     }
 
     // Función eliminar un registro
@@ -43,6 +60,6 @@ class AsistenteController extends Controller
         // Eliminamos el asistente
         AsignacionAsistente::where('idAsistente', $idAsistente)->where('idInversion', $idInversion)->where('idJefe', $idJefe)->delete();
 
-        return redirect()->route('asignaciones.index')->with('asistente_message', 'Elemento eliminados correctamente.');
+        return redirect()->route('asignaciones.index')->with('asistente_message', 'Asistente eliminado correctamente.');
     }
 }

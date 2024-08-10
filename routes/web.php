@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('reportes', Reportes::class);
     Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
 
+//obtener nueva contrase;a
+Route::get('password/change', [UserController::class, 'showChangePasswordForm'])->name('password.change');
+Route::post('password/update', [UserController::class, 'updatePassword'])->name('password.update');
 
     // =========== Reportes =============
     // Ruta de Obtener avance de Inverion
