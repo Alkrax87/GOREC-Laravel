@@ -17,8 +17,8 @@
             margin-bottom: 20px;
         }
         .header img {
-            width: 50px;
-            height: 50px;
+            width: 680px;
+            height: 150px;
         }
         .header h3 {
             text-align: center;
@@ -50,8 +50,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="images/gorec-logo2.png" alt="Logo">
-        <h3>INVERSIÓN</h3>
+        <img src="images/bannercusco.jpg" alt="Logo">
     </div>
     <table class="table-container">
         <tr>
@@ -67,9 +66,51 @@
             <td colspan="3">{{ $inversion->nombreCortoInversion }}</td>
         </tr>
         <tr>
-            <th>Jefe</th>
-            <td colspan="3">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+            <th>Responsable</th>
+            <td colspan="3">
+            {{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}
+        P: (
+        @if ($inversion->usuario->profesiones->isNotEmpty())
+            @foreach ($inversion->usuario->profesiones as $profesion)
+                {{ $profesion->nombreProfesion }}
+                @if (!$loop->last)
+                    ,
+                @endif
+            @endforeach
+        @endif
+        )
+        &nbsp; | &nbsp;
+        E: (
+        @if ($inversion->usuario->especialidades->isNotEmpty())
+            @foreach ($inversion->usuario->especialidades as $especialidad)
+                {{ $especialidad->nombreEspecialidad }}
+                @if (!$loop->last)
+                    ,
+                @endif
+            @endforeach
+        @endif
+        )
+    </td>
         </tr>
+       <!-- Mostrar profesionales y asistentes -->
+<tr>
+    <th>Profesionales y Asistentes</th>
+    <td colspan="3">
+        @foreach($inversion->Profesional as $asignacion)
+            <strong>{{ $asignacion->usuario->nombreUsuario }} {{ $asignacion->usuario->apellidoUsuario }}</strong> (P: {{ $asignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) 
+            (E: {{ $asignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) 
+            <ul>
+                @foreach($inversion->asistente->where('idJefe', $asignacion->usuario->idUsuario) as $asistenteAsignacion)
+                    <li>{{ $asistenteAsignacion->usuario->nombreUsuario }} {{ $asistenteAsignacion->usuario->apellidoUsuario }}</li>
+                    (P: {{ $asistenteAsignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) 
+            (E: {{ $asistenteAsignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) 
+                @endforeach
+            </ul>
+        @endforeach
+    </td>
+</tr>
+
+
         <tr>
             <th>Provincia</th>
             <td>{{ $inversion->provinciaInversion }}</td>
@@ -113,6 +154,14 @@
             <td colspan="3">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
         </tr>
     </table>
+    <footer>
+        <img src="images/footter.jpg" style="width: 680px; height: 80px" alt="Logo">
+        <div class="date-time">
+            <span>Fecha: {{ date('d/m/Y') }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>Hora: {{ date('H:i:s') }}</span>
+        </div>
+
+    </footer>
 </body>
 </html>
 

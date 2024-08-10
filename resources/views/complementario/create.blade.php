@@ -61,7 +61,50 @@
     </div>
   </div>
 </form>
+<!-- Incluir el JS de jQuery y Select2 -->
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+<script>
+  $(document).ready(function() {
+    $('#ModalCreate').on('shown.bs.modal', function () {
+      $('#idInversion').select2({
+        placeholder: "Selecciona una inversion",
+        allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró la inversión";
+            }
+          }
+      });
+    });
+
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalCreate').on('hidden.bs.modal', function () {
+      $('#idInversion').select2('destroy');
+    });
+  });
+</script>
+<!--estilos para los select2-->
+<style>
+
+.select2-container--default .select2-selection--single .select2-selection__rendered { 
+    line-height: 24px;
+    padding-left: 10px; /* Ajustar el padding izquierdo */
+     /* Asegurar que el texto esté alineado a la izquierda */
+  }
+  .select2-container .select2-selection--single {
+    height: 35px;
+    padding-left: 0px; /* Ajustar el padding izquierdo */
+  }
+    .select2-container .select2-dropdown {
+      z-index: 9999;
+    }
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
+      background-color: #9C0C27 !important; /* Cambia este color al que desees */
+      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
+  }
+</style>
 <style>
   body {
     background-color: #000;

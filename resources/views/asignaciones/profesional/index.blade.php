@@ -17,12 +17,19 @@
             </div>
             <!-- Contenido -->
             <div class="col-12">
-              <!-- Alert -->
+              <!-- Alert 
               @if ($message = Session::get('profesional_message'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
                 </div>
               @endif
+              @if ($error = Session::get('error'))
+                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $error }}</p>
+                </div>
+              @endif -->
               <!-- Agregar -->
               <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate{{ $inversion->idInversion }}"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Profesional</button>
               <!-- Tabla -->

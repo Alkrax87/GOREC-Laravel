@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\File;
 use App\Models\Inversion;
 use App\Models\Especialidad;
 use App\Models\User;
+use App\Models\Especialidades;
+use App\Models\AsignacionProfesional;
+use App\Models\AsignacionAsistente;
 use App\Models\EstadoLog;
 use Carbon\Carbon;
 use Auth;
@@ -206,13 +209,25 @@ class InversionController extends Controller
             $inversion->save();
         }
     }
-    public function pdf($id){
-        $inversion = Inversion::findOrFail($id);
-        $usuarios = User::all(); // Carga todas las inversiones
-        $pdf = Pdf::loadView('inversion.pdf', compact('inversion', 'usuarios'));
+    public function pdf($id) {
+        date_default_timezone_set('America/Lima');
+        $inversion = Inversion::with([
+            'usuario.profesiones', 
+            'usuario.especialidades',
+            'profesional.usuario.profesiones',
+            'asistente.usuario',
+            'asistente.jefe'])->findOrFail($id);
+            $data = [
+                'title' => 'Welcome to ItSolutionStuff.com',
+                'date' =>  date('d/m/Y') . str_repeat('&nbsp;', 20) . date('H:i:s') 
+            
+            ];
+    
+        $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
         return $pdf->stream();
-        //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }
+    
+    
     public function pdfs(){
         $inversiones = Inversion::all();
         $usuarios = User::all(); // Carga todas las inversiones

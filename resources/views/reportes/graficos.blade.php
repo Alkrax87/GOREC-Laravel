@@ -131,8 +131,39 @@
 
 @section('js')
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
       // Definimos el elemento de charts
+      $(document).ready(function() {
+        // Inicializar Select2
+        $('#inversionSelect').select2({
+          placeholder: "Selecciona una inversión",
+          allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró la inversión";
+            }
+          }
+        });
+
+        $('#especialidadSelect').select2({
+          placeholder: "Seleccione una especialidad",
+          allowClear: false,
+          language: {
+            noResults: function() {
+              return "No se encontró la especialidad";
+            }
+          }
+        });
+
+        $('#faseSelect').select2({
+          placeholder: "Seleccione una actividad",
+          allowClear: false,
+          language: {
+            noResults: function() {
+              return "No se encontró la actividad";
+            }
+          }
+        });
+
       let myDoughnutChart;
       let barChart;
       let barChart2;
@@ -146,7 +177,7 @@
       const faseSelect = document.getElementById('faseSelect');
 
       // Manejar el cambio en el selector de inversiones
-      inversionSelect.addEventListener('change', function() {
+      $('#inversionSelect').on('change', function(){
         const inversionId = this.value;
 
         // Limpiar los selectores de especialidad y fase
@@ -219,7 +250,6 @@
           // Limpiar el contenedor de gráficos de especialidades
           const especialidadesChartsContainer = document.getElementById('especialidadesChartsContainer');
           especialidadesChartsContainer.innerHTML = '';
-
           let index = 0;
 
           especialidades.forEach(especialidad => {
@@ -312,7 +342,7 @@
       });
 
       // Manejar el cambio en el selector de especialidades
-      especialidadSelect.addEventListener('change', function() {
+      $('#especialidadSelect').on('change', function(){
         const especialidadId = this.value;
         const especialidadNombre = this.options[this.selectedIndex].text;
 
@@ -404,7 +434,7 @@
       });
 
       // Manejar el cambio en el selector de fases
-      faseSelect.addEventListener('change', function() {
+      $('#faseSelect').on('change', function() {
         const faseId = this.value;
         const faseNombre = this.options[this.selectedIndex].text;
 
@@ -487,15 +517,25 @@
 
       // Generar PDF de los gráficos de Chart.js
       document.getElementById('generate-pdf').addEventListener('click', function() {
-        const lineChart = document.getElementById('lineChart');
-        const donutChart = document.getElementById('donutChart');
-
+        const lineChart = document.getElementById('barChart');
+        const donutChart = document.getElementById('barChart2');
+        const avanceChart = document.getElementById('avanceInversionChart');
+        //const especChart = document.getElementById('myDoughnutChart');
+        
         const lineChartImage = lineChart.toDataURL('image/png');
         const donutChartImage = donutChart.toDataURL('image/png');
+        const avanceChartImage = avanceChart.toDataURL('image/png');
+        //const especChartImage = especChart.toDataURL('image/png');
+        // Capturar imágenes de gráficos de especialidades
+    const especialidadesChartsContainer = document.getElementById('especialidadesChartsContainer');
+    const especialidadesImages = Array.from(especialidadesChartsContainer.getElementsByTagName('canvas'))
+        .map(canvas => canvas.toDataURL('image/png'));
 
         const data = {
           lineChartImage: lineChartImage,
           donutChartImage: donutChartImage,
+          avanceChartImage: avanceChartImage,
+          especialidadesImages: especialidadesImages,
           _token: '{{ csrf_token() }}'
         };
 
@@ -526,6 +566,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+  <style>
+    /* Ajustar el z-index de Select2 */
+    .select2-container--default .select2-selection--single .select2-selection__rendered { 
+    line-height: 24px;
+    padding-left: 10px; /* Ajustar el padding izquierdo */
+     /* Asegurar que el texto esté alineado a la izquierda */
+  }
+  .select2-container .select2-selection--single {
+    height: 35px;
+    padding-left: 0px; /* Ajustar el padding izquierdo */
+  }
+    .select2-container .select2-dropdown {
+      z-index: 9999;
+    }
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
+      background-color: #9C0C27 !important; /* Cambia este color al que desees */
+      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
+  }
+  </style>
   <style>
     a {
       text-decoration: none;

@@ -41,6 +41,27 @@
                     @foreach ($usuarios as $usuario)
                       <option value="{{ $usuario->idUsuario }}">
                         {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                        P: (
+                          @if ($usuario->profesiones->isNotEmpty())
+                            @foreach ($usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          &nbsp; | &nbsp;
+                          E: (
+                          @if ($usuario->especialidades->isNotEmpty())
+                            @foreach ($usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
                       </option>
                     @endforeach
                   </select>
@@ -146,6 +167,29 @@
       </div>
     </div>
   </div>
+  <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+
+<script> 
+//script para el select2
+  $(document).ready(function() {
+    $('#ModalCreate').on('shown.bs.modal', function () {
+      $('#idUsuario').select2({
+        placeholder: "Selecciona un usuario",
+        allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró el usuario";
+            }
+          }
+      });
+    });
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalCreate').on('hidden.bs.modal', function () {
+      $('#idUsuario').select2('destroy');
+    });
+  });
+</script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const provinciaSelect = document.getElementById('provinciaInversion');
@@ -188,4 +232,24 @@
       color: transparent;
     }
   </style>
+  <style>
+    /* Ajustar el z-index de Select2 */
+    .select2-container--default .select2-selection--single .select2-selection__rendered { 
+    line-height: 24px;
+    padding-left: 10px; /* Ajustar el padding izquierdo */
+     /* Asegurar que el texto esté alineado a la izquierda */
+  }
+  .select2-container .select2-selection--single {
+    height: 35px;
+    padding-left: 0px; /* Ajustar el padding izquierdo */
+  }
+    .select2-container .select2-dropdown {
+      z-index: 9999;
+    }
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
+      background-color: #9C0C27 !important; /* Cambia este color al que desees */
+      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
+  }
+  </style>
+  
 </form>

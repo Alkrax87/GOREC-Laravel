@@ -12,10 +12,30 @@
       <div class="row">
         <div class="col-12">
           <!-- Alert -->
-          @if ($message = Session::get('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+          @if ($message = Session::get('profesional_message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+          </div>
+          @endif
+          @if ($error = Session::get('error'))
+                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $error }}</p>
+                </div>
+          @endif
+          @if ($error = Session::get('error_asistente'))
+             <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $error }}</p>
             </div>
+          @endif
+
+          @if ($message = Session::get('asistente_message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+          </div>
           @endif
           <!-- Tabla -->
           <div class="table-responsive">

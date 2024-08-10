@@ -34,7 +34,7 @@
                   @endforeach
                 </select>
                 <label class="form-label mt-3" for="idAsistente">Asistente</label>
-                <select name="idAsistente" id="idAsistente" class="form-select form-select-sm input-auth" required>
+                <select name="idAsistente" id="idAsistente{{ $inversion->idInversion }}" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($usuariosAsistentes as $usuario)
                     <option value="{{ $usuario->idUsuario }}">
@@ -77,7 +77,29 @@
     </div>
   </div>
 </form>
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+<script>
+  $(document).ready(function() {
+    $('#ModalCreateAsistente{{ $inversion->idInversion }}').on('shown.bs.modal', function () {
+      $('#idAsistente{{ $inversion->idInversion }}').select2({
+        placeholder: "Selecciona un usuario",
+        allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró el usuario";
+            }
+          }
+      });
+    });
+
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalCreateAsistente{{ $inversion->idInversion }}').on('hidden.bs.modal', function () {
+      $('#idAsistente{{ $inversion->idInversion }}').select2('destroy');
+    });
+  });
+</script>
 <style>
   body {
     background-color: #000;
