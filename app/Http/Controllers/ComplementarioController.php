@@ -23,6 +23,7 @@ class ComplementarioController extends Controller
             $complementarios = Complementario::whereIn('idInversion', $inversionIds)->get();
         }
 
+        $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
             if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {

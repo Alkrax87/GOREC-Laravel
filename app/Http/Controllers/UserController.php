@@ -24,6 +24,8 @@ class UserController extends Controller
             $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
         }
 
+        $notificaciones = [];
+
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
             if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
