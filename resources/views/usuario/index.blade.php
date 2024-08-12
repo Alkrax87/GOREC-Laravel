@@ -41,9 +41,7 @@
                   <th>#</th>
                   <th class="text-left">Nombres</th>
                   <th class="text-left">Apellidos</th>
-                  @if (Auth::user()->isAdmin)
-                    <th>Usuario</th>
-                  @endif
+                  <th>Usuario</th>
                   <th>Rol</th>
                   <th>Categoría</th>
                   <th>Profesión</th>
@@ -57,9 +55,7 @@
                     <td class="text-center">{{ $loop->index + 1 }}</td>
                     <td class="text-left">{{ $usuario->nombreUsuario }}</td>
                     <td class="text-left">{{ $usuario->apellidoUsuario }}</td>
-                    @if (Auth::user()->isAdmin)
-                      <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
-                    @endif
+                    <td>{{ str_replace('@gorec.com', '', $usuario->email) }}</td>
                     @if ($usuario->isAdmin)
                       <td class="project-state">
                         <span class="badge badge-danger">Administrador</span>
@@ -86,11 +82,9 @@
                     </td>
                     <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
-                      @if (Auth::user()->isAdmin)
-                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
-                        @if (!$loop->first)
-                          <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
-                        @endif
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
+                      @if (!$loop->first)
+                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
                       @endif
                     </td>
                   </tr>

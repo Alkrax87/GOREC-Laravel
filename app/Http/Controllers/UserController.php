@@ -7,7 +7,6 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Inversion;
 use Carbon\Carbon;
-use Auth;
 use Hash;
 
 class UserController extends Controller
@@ -15,20 +14,14 @@ class UserController extends Controller
     // Función de carga de datos
     public function index(Request $request){
         // Cargamos los datos de inversion filtrador en base al usuario logeado
-        $user = Auth::user();
-        if ($user->isAdmin) {
-            $usuarios = User::all();
-            $inversiones = Inversion::all();
-        } else {
-            $usuarios = User::where('idUsuario', '!=', 1)->get();
-            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
-        }
+        $usuarios = User::all();
+        $inversiones = Inversion::all();
 
         $notificaciones = [];
 
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
-            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
                 $notificaciones[] = $inversion;
             }
         }

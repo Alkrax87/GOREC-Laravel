@@ -42,7 +42,7 @@ class EspecialidadController extends Controller
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
-            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
                 $notificaciones[] = $inversion;
             }
         }

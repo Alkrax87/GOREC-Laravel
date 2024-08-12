@@ -111,9 +111,11 @@
                     </td>
                     <td class="text-center" style="white-space: nowrap"">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{ $especialidad->idEspecialidad }}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEditEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-edit"></i></a>
-                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-trash-alt"></i></a>
-                    </td>
+                      @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $especialidad->inversion->idUsuario)
+                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEditEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-trash-alt"></i></a>
+                      @endif
+                      </td>
                   </tr>
                 @endforeach
               </tbody>

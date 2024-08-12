@@ -23,133 +23,23 @@
           @endif
           <div class="row">
             <div class="col-12">
-              <div class="form-outline mb-4">
-                <label class="form-label">CUI</label>
-                <input type="text" name="cuiInversion" value="{{ $inversion->cuiInversion }}" class="input-auth" placeholder="CUI" required/>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Nombre</label>
-                <textarea class="form-control input-auth" name="nombreInversion" placeholder="Nombre Inversión" rows="4" required>{{ $inversion->nombreInversion }}</textarea>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label">Nombre Corto</label>
-                <input type="text" name="nombreCortoInversion" value="{{ $inversion->nombreCortoInversion }}" class="input-auth" placeholder="Nombre Corto" required/>
-              </div>
-              <div class="form-outline mb-4">
-                <label class="form-label" for="idUsuario">Responsable</label>
-                <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
-                  <option value="" disabled>Selecciona un usuario</option>
-                  @foreach ($usuarios as $usuario)
-                    <option value="{{ $usuario->idUsuario }}" {{ $inversion->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>
-                      {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
-                    </option>
-                  @endforeach
-                </select>
-              </div>
-              <div class="row">
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label" for="provinciaInversion">Provincia</label>
-                  <select name="provinciaInversion" id="provinciaInversionEdit{{$inversion->idInversion}}" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled>Selecciona una provincia</option>
-                    @foreach ($provincias as $provincia)
-                      <option value="{{ $provincia['nombre'] }}" data-distritos="{{ json_encode($provincia['distritos']) }}" {{ $provincia['nombre'] == $inversion->provinciaInversion ? 'selected' : '' }}>
-                        {{ $provincia['nombre'] }}
-                      </option>
-                    @endforeach
-                  </select>
-                </div>
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label" for="distritoInversion">Distrito</label>
-                  <select name="distritoInversion" id="distritoInversionEdit{{$inversion->idInversion}}" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled>Selecciona un distrito</option>
-                    @if($inversion->provinciaInversion)
-                      @foreach ($provincias as $provincia)
-                        @if ($provincia['nombre'] == $inversion->provinciaInversion)
-                          @foreach ($provincia['distritos'] as $distrito)
-                            <option value="{{ $distrito }}" {{ $distrito == $inversion->distritoInversion ? 'selected' : '' }}>
-                              {{ $distrito }}
-                            </option>
-                          @endforeach
-                        @endif
-                      @endforeach
-                    @endif
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-4 form-outline mb-4">
-                  <label class="form-label">Nivel</label>
-                  <select name="nivelInversion" id="nivelInversion" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona un nivel</option>
-                    <option value="EXPEDIENTE TÉCNICO" {{ $inversion->nivelInversion == 'EXPEDIENTE TÉCNICO' ? 'selected' : '' }}>EXPEDIENTE TÉCNICO</option>
-                    <option value="IOARR" {{ $inversion->nivelInversion == 'IOARR' ? 'selected' : '' }}>IOARR</option>
-                  </select>
-                </div>
-                <div class="col-8 form-outline mb-4">
-                  <label class="form-label">Función</label>
-                  <select name="funcionInversion" id="funcionInversion" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona una función</option>
-                    <option value="PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA" {{ $inversion->funcionInversion == 'PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA' ? 'selected' : '' }}>PLANEAMIENTO, GESTIÓN Y RESERVA DE CONTINGENCIA</option>
-                    <option value="JUSTICIA" {{ $inversion->funcionInversion == 'JUSTICIA' ? 'selected' : '' }}>JUSTICIA</option>
-                    <option value="TRANSPORTE" {{ $inversion->funcionInversion == 'TRANSPORTE' ? 'selected' : '' }}>TRANSPORTE</option>
-                    <option value="SANEAMIENTO" {{ $inversion->funcionInversion == 'SANEAMIENTO' ? 'selected' : '' }}>SANEAMIENTO</option>
-                    <option value="SALUD" {{ $inversion->funcionInversion == 'IOARR' ? 'SALUD' : '' }}>SALUD</option>
-                    <option value="EDUCACIÓN" {{ $inversion->funcionInversion == 'IOARR' ? 'EDUCACIÓN' : '' }}>EDUCACIÓN</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label" for="modalidadInversion">Modalidad</label>
-                  <select name="modalidadInversion" id="modalidadInversion" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona una modalidad</option>
-                    <option value="DIRECTA" {{ $inversion->modalidadInversion == 'DIRECTA' ? 'selected' : '' }}>DIRECTA</option>
-                    <option value="CONTRATA" {{ $inversion->modalidadInversion == 'CONTRATA' ? 'selected' : '' }}>CONTRATA</option>
-                  </select>
-                </div>
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label" for="estadoInversion">Estado</label>
-                  <select name="estadoInversion" id="estadoInversion" class="form-select form-select-sm input-auth" required>
-                    <option value="" disabled selected>Selecciona una estado</option>
-                    <option value="POR ELABORAR" {{ $inversion->estadoInversion == 'POR ELABORAR' ? 'selected' : '' }}>POR ELABORAR</option>
-                    <option value="PARALIZADO" {{ $inversion->estadoInversion == 'PARALIZADO' ? 'selected' : '' }}>PARALIZADO</option>
-                    <option value="EN ELABORACIÓN" {{ $inversion->estadoInversion == 'EN ELABORACIÓN' ? 'selected' : '' }}>EN ELABORACIÓN</option>
-                    <option value="EN GRSLI" {{ $inversion->estadoInversion == 'EN GRSLI' ? 'selected' : '' }}>EN GRSLI</option>
-                    <option value="EN LEVANTAMIENTO DE OBSERVACIONES" {{ $inversion->estadoInversion == 'EN LEVANTAMIENTO DE OBSERVACIONES' ? 'selected' : '' }}>EN LEVANTAMIENTO DE OBSERVACIONES</option>
-                    <option value="CON CONFORMIDAD DE GRSLI" {{ $inversion->estadoInversion == 'CON CONFORMIDAD DE GRSLI' ? 'selected' : '' }}>CON CONFORMIDAD DE GRSLI</option>
-                    <option value="CON REGISTRO DE FASE DE EJECUCIÓN" {{ $inversion->estadoInversion == 'CON REGISTRO DE FASE DE EJECUCIÓN' ? 'selected' : '' }}>CON REGISTRO DE FASE DE EJECUCIÓN</option>
-                    <option value="CON RESOLUCIÓN EJECUTIVA" {{ $inversion->estadoInversion == 'CON RESOLUCIÓN EJECUTIVA' ? 'selected' : '' }}>CON RESOLUCIÓN EJECUTIVA</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label">Fecha Inicio</label>
-                  <input type="date" name="fechaInicioInversion" value="{{ $inversion->fechaInicioInversion }}" class="input-auth" required/>
-                </div>
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label">Fecha Final</label>
-                  <input type="date" name="fechaFinalInversion" value="{{ $inversion->fechaFinalInversion }}" class="input-auth" required/>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label">Presupuesto Formulación</label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text">S/</span>
-                    <input type="text" name="presupuestoFormulacionInversion" value="{{ $inversion->presupuestoFormulacionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
-                  </div>
-                </div>
-                <div class="col-6 form-outline mb-4">
-                  <label class="form-label">Presupuesto Ejecución</label>
-                  <div class="input-group mb-3">
-                    <span class="input-group-text">S/</span>
-                    <input type="text" name="presupuestoEjecucionInversion" value="{{ $inversion->presupuestoEjecucionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
-                  </div>
-                </div>
-              </div>
+              <p></p><b>Nombre: </b> {{ $inversion->nombreCortoInversion }}
             </div>
             <hr>
+            <div class="col-12 form-outline mb-4">
+              <label class="form-label" for="estadoInversion">Estado</label>
+              <select name="estadoInversion" id="estadoInversion" class="form-select form-select-sm input-auth" required>
+                <option value="" disabled selected>Selecciona una estado</option>
+                <option value="POR ELABORAR" {{ $inversion->estadoInversion == 'POR ELABORAR' ? 'selected' : '' }}>POR ELABORAR</option>
+                <option value="PARALIZADO" {{ $inversion->estadoInversion == 'PARALIZADO' ? 'selected' : '' }}>PARALIZADO</option>
+                <option value="EN ELABORACIÓN" {{ $inversion->estadoInversion == 'EN ELABORACIÓN' ? 'selected' : '' }}>EN ELABORACIÓN</option>
+                <option value="EN GRSLI" {{ $inversion->estadoInversion == 'EN GRSLI' ? 'selected' : '' }}>EN GRSLI</option>
+                <option value="EN LEVANTAMIENTO DE OBSERVACIONES" {{ $inversion->estadoInversion == 'EN LEVANTAMIENTO DE OBSERVACIONES' ? 'selected' : '' }}>EN LEVANTAMIENTO DE OBSERVACIONES</option>
+                <option value="CON CONFORMIDAD DE GRSLI" {{ $inversion->estadoInversion == 'CON CONFORMIDAD DE GRSLI' ? 'selected' : '' }}>CON CONFORMIDAD DE GRSLI</option>
+                <option value="CON REGISTRO DE FASE DE EJECUCIÓN" {{ $inversion->estadoInversion == 'CON REGISTRO DE FASE DE EJECUCIÓN' ? 'selected' : '' }}>CON REGISTRO DE FASE DE EJECUCIÓN</option>
+                <option value="CON RESOLUCIÓN EJECUTIVA" {{ $inversion->estadoInversion == 'CON RESOLUCIÓN EJECUTIVA' ? 'selected' : '' }}>CON RESOLUCIÓN EJECUTIVA</option>
+              </select>
+            </div>
             <div class="col-12">
               <h6 class="text-center">Aprobación de Consistencia</h6>
               <div class="row">

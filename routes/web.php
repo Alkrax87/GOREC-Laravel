@@ -31,9 +31,9 @@ Route::middleware('auth')->group(function () {
     Route::get('especialidad/pdf',[EspecialidadController::class, 'pdf'])->name('especialidad.pdf');
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
     Route::resource('inversion', InversionController::class);
-    Route::resource('usuario', UserController::class);
+    Route::resource('usuario', UserController::class)->middleware([AdminMiddleware::class]);
     Route::resource('roles', RolesController::class)->middleware([AdminMiddleware::class]);
-    Route::resource('segmento', SegmentoController::class);
+    Route::resource('segmento', SegmentoController::class)->middleware([AdminMiddleware::class]);
     Route::resource('asignaciones', AsignacionesController::class);
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);

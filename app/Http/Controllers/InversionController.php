@@ -23,14 +23,27 @@ class InversionController extends Controller
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
+        $profesionales = AsignacionProfesional::all();
 
         // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
         if ($user->isAdmin) {
+            // Si el usuario es administrador, carga todas las inversiones
             $inversiones = Inversion::all();
             $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
         } else {
-            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            // Si no es administrador, carga las inversiones propias y aquellas en las que ha sido asignado como profesional
+            $inversionesPropias = Inversion::where('idUsuario', $user->idUsuario)->get();
+
+            // Obtén las inversiones donde el usuario ha sido asignado como profesional
+            $inversionesAsignadas = Inversion::whereHas('profesional', function ($query) use ($user) {
+                $query->where('idUsuario', $user->idUsuario);
+            })->get();
+
+            // Combina las inversiones propias y las asignadas
+            $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
+
+            // Carga los usuarios relacionados (esto depende de tus necesidades exactas)
             $usuarios = User::where('idUsuario', $user->idUsuario)->get();
         }
         // Cargamos logs
@@ -39,7 +52,7 @@ class InversionController extends Controller
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
-            if ($diferenciaHoras > 0 && $diferenciaHoras <= 48) {
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
                 $notificaciones[] = $inversion;
             }
         }
@@ -117,43 +130,9 @@ class InversionController extends Controller
     public function update(Request $request, $id){
         // Validaciones
         $request->validate([
-            'cuiInversion' => 'required|string|max:255',
-            'nombreInversion' => 'required|string|max:1024',
-            'nombreCortoInversion' => 'required|string|max:255',
-            'idUsuario' => 'required|exists:users,idUsuario',
-            'provinciaInversion' => 'required|string|max:255',
-            'distritoInversion' => 'required|string|max:255',
-            'nivelInversion' => 'required|string|max:255',
-            'funcionInversion' => 'required|string|max:255',
-            'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
-            'fechaInicioInversion' => 'required|date',
-            'fechaFinalInversion' => 'required|date|after_or_equal:fechaInicioInversion',
-            'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
-            'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
-            'cuiInversion.required' => 'El campo CUI Inversión es obligatorio.',
-            'nombreInversion.required' => 'El campo Nombre de Inversión es obligatorio.',
-            'nombreCortoInversion.required' => 'El campo Nombre Corto es obligatorio.',
-            'idUsuario.required' => 'El Usuario es obligatorio.',
-            'idUsuario.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
-            'provinciaInversion.required' => 'El campo Provincia es obligatorio.',
-            'distritoInversion.required' => 'El campo Distrito es obligatorio.',
-            'nivelInversion.required' => 'El campo Nivel es obligatorio.',
-            'funcionInversion.required' => 'El campo Función es obligatorio.',
-            'modalidadInversion.required' => 'El campo Modalidad es obligatorio.',
             'estadoInversion.required' => 'El campo Estado es obligatorio.',
-            'fechaInicioInversion.required' => 'El campo Fecha Inicio es obligatorio.',
-            'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
-            'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
-            'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
-            'fechaFinalInversion.after_or_equal' => 'La fecha final debe ser igual o posterior a la fecha inicio.',
-            'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
-            'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
-            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulacióndebe estar entre 0 y 999999999999999999999.99.',
-            'presupuestoEjecucionInversion.required' => 'El campo Presupuesto de Ejecución es obligatorio.',
-            'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
-            'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
         // Buscamos la inversión
