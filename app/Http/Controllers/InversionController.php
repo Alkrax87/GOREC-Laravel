@@ -43,7 +43,7 @@ class InversionController extends Controller
             // Combina las inversiones propias y las asignadas
             $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
 
-            // Carga los usuarios relacionados (esto depende de tus necesidades exactas)
+            // Carga los usuarios relacionados
             $usuarios = User::where('idUsuario', $user->idUsuario)->get();
         }
         // Cargamos logs

@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use App\Models\User;
 use App\Models\Inversion;
 use Carbon\Carbon;
+use Auth;
 use Hash;
 
 class UserController extends Controller
