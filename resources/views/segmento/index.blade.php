@@ -37,9 +37,9 @@
               <thead class="table-header text-center">
                 <tr>
                   <th class="text-left">#</th>
+                  <th>Inversión</th>
                   <th class="text-left">Nombre</th>
                   <th class="text-center">Usuario</th>
-                  <th>Inversión</th>
                   <th class="text-nowrap">Fecha Inicio</th>
                   <th class="text-nowrap">Fecha Final</th>
                   <th>Opciones</th>
@@ -49,9 +49,32 @@
                 @foreach ($segmentos as $segmento)
                   <tr>
                     <td class="text-left">{{ $loop->index + 1 }}</td>
-                    <td class="text-left">{{ $segmento->nombreSegmento }}</td>
-                    <td class="text-nowrap text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}</td>
                     <td>{{ $segmento->inversion->nombreCortoInversion }}</td>
+                    <td class="text-left">{{ $segmento->nombreSegmento }}</td>
+                    <td class="text-nowrap text-center">{{ $segmento->usuario->nombreUsuario . ' ' . $segmento->usuario->apellidoUsuario }}
+                      <br>
+                          <b>P:</b> (
+                          @if ($segmento->usuario->profesiones->isNotEmpty())
+                            @foreach ($segmento->usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          <br>
+                          <b>E:</b> (
+                          @if ($segmento->usuario->especialidades->isNotEmpty())
+                            @foreach ($segmento->usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                    </td>
                     <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaInicioSegmento }}</td>
                     <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $segmento->fechaFinalSegmento }}</td>
                     <td class="text-nowrap">

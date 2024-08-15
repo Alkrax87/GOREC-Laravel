@@ -191,27 +191,17 @@ class InversionController extends Controller
     }
     public function pdf($id) {
         date_default_timezone_set('America/Lima');
-        $inversion = Inversion::with([
-            'usuario.profesiones', 
-            'usuario.especialidades',
-            'profesional.usuario.profesiones',
-            'asistente.usuario',
-            'asistente.jefe'])->findOrFail($id);
-            $data = [
-                'title' => 'Welcome to ItSolutionStuff.com',
-                'date' =>  date('d/m/Y') . str_repeat('&nbsp;', 20) . date('H:i:s') 
-            
-            ];
-    
+        $inversion = Inversion::findOrFail($id);
         $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
     
     
     public function pdfs(){
-        $inversiones = Inversion::all();
-        $usuarios = User::all(); // Carga todas las inversiones
-        $pdfs = Pdf::loadView('inversion.pdfs', compact('inversiones', 'usuarios'));
+        date_default_timezone_set('America/Lima');
+        $inversiones = Inversion::all(); // Carga todas las inversiones
+        $pdfs = Pdf::loadView('inversion.pdfs', compact('inversiones'));
         return $pdfs->stream();
         //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }

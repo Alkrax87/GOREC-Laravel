@@ -230,7 +230,15 @@
                 labels: {
                   usePointStyle: true,
                 }
-              }
+              },
+              title: {
+                  display: true,
+                  text: avanceInversion.nombreCortoInversion,
+                  font: {
+                    size: 16,
+                    family: 'tahoma'
+                  },
+                },
             }
           };
           // Destruir el gráfico anterior si existe
@@ -398,7 +406,7 @@
               },
               title: {
                   display: true,
-                  text: especialidadNombre,
+                  text: 'Actividades que pertenecen la Especialidad: ' + especialidadNombre,
                   color: 'gray',
                   font: {
                     size: 16,
@@ -439,6 +447,7 @@
         const faseNombre = this.options[this.selectedIndex].text;
 
         fetch(`/reportes/fase/${faseId}/subfase`).then(response => response.json()).then(subfases => {
+          subfases.reverse();
           // Procesar los datos recibidos
           const labels = subfases.map(subfase => subfase.nombreSubfase);
           const avanceProgramado = subfases.map(subfase => parseFloat(subfase.porcentajeAvanceProgramadoSubFase));
@@ -469,7 +478,8 @@
                 backgroundColor: 'rgb(25,135,84,0.7)',
                 borderColor: 'rgb(25,135,84,1)',
                 borderWidth: 1
-              }
+              },
+              
             ]
           };
           let delayed;
@@ -483,10 +493,18 @@
               }
             },
             plugins: {
-              legend: {
-                display: true,
-                position: 'top'
-              }
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: 'Sub Actividades que pertenecen la Actividad: ' + faseNombre,
+                    font: {
+                        size: 16,
+                        family: 'tahoma'
+                    }
+                }
             },
             animation: {
               onComplete: () => {
@@ -563,9 +581,6 @@
 @stop
 
 @section('css')
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
   <style>
     /* Ajustar el z-index de Select2 */
     .select2-container--default .select2-selection--single .select2-selection__rendered { 
@@ -621,8 +636,5 @@
 @stop
 
 @section('js')
-  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
+  
 @stop

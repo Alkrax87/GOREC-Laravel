@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Especiaidad')
+@section('title', 'Especialidad')
 
 @section('content_header')
   <h1><i class="fas fa-users-cog"></i> Especialidad</h1>
@@ -16,8 +16,23 @@
             <div class="col-6">
               <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Crear Especialidad</button>
             </div>
-            <div class="col-6 text-end">
-              <a href="{{route('especialidad.pdf')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+            <div class="col-3 offset-3 text-end">
+                <form action="{{ route('especialidad.pdf') }}" method="GET" target="_blank">
+                  
+                    <label  class="form-label" style="text-align: left; display: block;">Inversión:</label>
+                    <select name="idInversion" id="idInversion-especialidad" class="form-select form-select-sm input-auth" required>
+                        <option value="" disabled selected>Selecciona una inversión</option>
+                        @foreach ($inversiones as $inversion)
+                            <option value="{{ $inversion->idInversion }}">
+                                {{ $inversion->nombreCortoInversion }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <br>
+                    <br>
+                   
+                    <button type="submit" class="btn btn-dark"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</button>
+                </form>
             </div>
           </div>
           <!-- Alert -->
@@ -52,7 +67,7 @@
                   <th class="text-left">#</th>
                   <th class="text-left">Inversión</th>
                   <th class="text-center">Nombre Especialidad</th>
-                  <th class="text-center">Responsables</th>
+                  <th class="text-center">Proyectistas</th>
                   <th class="text-center text-nowrap">Avance Programado</th>
                   <th class="text-center text-nowrap">Avance %</th>
                   <th class="text-center">Actividad</th>
@@ -174,14 +189,34 @@
     .btn-option i{
       padding-top: 4px;
     }
+    .select2-container .select2-selection--single {
+    text-align: left;
+}
   </style>
+  <!--estilos para los select2-->
+  
 @stop
 
 @section('js')
+
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#idInversion-especialidad').select2({
+          placeholder: "Selecciona una inversion",
+          allowClear: true,
+          width: '100%', 
+            language: {
+              noResults: function() {
+                return "No se encontró la inversión";
+              }
+            }
+        });
+      });
+  </script>
   <script>
     $(document).ready(function() {
       $('#especialidadTable').DataTable({

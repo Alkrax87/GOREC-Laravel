@@ -8,17 +8,59 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
         }
-        .header {
+        @page {
+            margin: 140px 30px 100px 30px; /* Espacio para encabezado y pie de página */
+        }
+        header {
+            position: fixed;
+            top: -120px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            text-align: center;
+        }
+        footer {
+            position: fixed;
+            bottom: -90px; /* Ajustar la posición del footer */
+            left: 0;
+            right: 0;
+            height: 50px;
+            text-align: center;
+        }
+        .footer-content {
+            position: relative;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+        }
+        .footer-image {
+            width: 680px;
+            height: 80px;
+        }
+        .date-time {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(15, 15, 15, 0.863); /* Ajusta este color según el fondo de la imagen */
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: 1px 1px 2px #000; /* Sombra para mejorar la legibilidad */
+        }
+        .date-time .time {
+        margin-left: 50px; /* Ajusta el valor para controlar la distancia */
         }
 
         .logo {
             display: flex;
             align-items: center;
+        }
+        .header img {
+            width: 720px;
+            height: 70px;
         }
 
         .logo img {
@@ -29,14 +71,15 @@
             margin: 0 auto;
         }
         .especialidad {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border: 3px solid #756d6d;
             padding: 10px;
             border-radius: 5px;
         }
-        .especialidad h2 {
-            margin-bottom: 10px;
-            color: #333;
+        .especialidad p, ul, {
+            margin-bottom: 6px;
+            margin-top: 1px
+           
         }
         table {
             width: 100%;
@@ -70,23 +113,38 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="images/gorec-logo2.png" alt="Logo" width="50px" height="50px">
+    <header>
+        <div class="header">
+            <img src="images/banner-cuscofin.jpg" alt="Logo">
         </div>
-        <h3>INVERSION</h3>
-    </div>
-  
+    </header>
+    <footer>
+        <div class="footer-content">
+            <img src="images/footter.jpg" style="width: 680px; height: 80px" alt="Logo">
+            <div class="date-time">
+                <p>Fecha: {{ date('d/m/Y') }} <span class="time">Hora: {{ date('H:i:s') }}</span></p>
+            </div>
+        </div>
+    </footer>
+    
+    <h3 style="text-align: center; margin: -5%">PROYECTO DE INVERSION</h3>
     @foreach ($inversiones as $inversion)
-        <h1><strong>{{ $inversion->nombreInversion }}</strong></h1>
+        <h3><strong>{{ $inversion->nombreInversion }}</strong></h3>
+        <p class="text-nowrap"><span style="font-size: 20px;">Responsable:</span> <b>{{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</b></p>
     @endforeach
+    
     <div class="container">
         @foreach ($especialidades as $especialidad)
             <div class="especialidad">
-                <h2>Especialidad: {{ $especialidad->nombreEspecialidad }}</h2>
-                <p><strong>Porcentaje Programado:</strong> {{ $especialidad->porcentajeAvanceEspecialidad }}</p>
-                <p><strong>Avance Total:</strong> {{ $especialidad->avanceTotalEspecialidad }}</p>
-
+                <p style="font-size: 20px;">Especialidad:  <b>{{ $especialidad->nombreEspecialidad }}</b></p>
+                <p><b>Avance Programado:</b> {{ $especialidad->porcentajeAvanceEspecialidad }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><b>Avance Total:</b> {{ $especialidad->avanceTotalEspecialidad }}%</span></p>
+                <p>Proyectistas:</p>
+                @foreach ($especialidad->usuarios as $usuario)
+                <ul class="mb-0"><li>{{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }} (P: {{ $usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
+                    (E: {{ $usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) </li></ul>
+                
+                 @endforeach
+                
                 @if ($especialidad->fases && $especialidad->fases->count() > 0)
                     @foreach ($especialidad->fases as $fase)
                         <div class="table-container">
@@ -94,7 +152,7 @@
                                 <thead>
                                     <tr>
                                         <th>Actividad</th>
-                                        <th>Porcentaje Programado</th>
+                                        <th>Avance Programado</th>
                                         <th>Avance (%)</th>
                                     </tr>
                                 </thead>
@@ -119,7 +177,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @foreach ($fase->subfases as $subfase)
+                                                            @foreach ($fase->subfases->reverse() as $subfase)
                                                                 <tr>
                                                                     <td>{{ $subfase->nombreSubfase }}</td>
                                                                     <td>{{ $subfase->fechaInicioSubfase }}</td>

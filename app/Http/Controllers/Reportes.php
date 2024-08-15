@@ -100,123 +100,208 @@ class Reportes extends Controller
     // Método para generar un PDF con los gráficos
     public function generatePDF(Request $request)
     {
-    // Obtener los datos de la solicitud
-    $data = $request->all();
+        date_default_timezone_set('America/Lima');
+        // Obtener los datos de la solicitud
+        $data = $request->all();
 
-    // Verificar y asegurar que las imágenes están en formato base64
-    $lineChartImage = isset($data['lineChartImage']) ? $data['lineChartImage'] : '';
-    $donutChartImage = isset($data['donutChartImage']) ? $data['donutChartImage'] : '';
-    $avanceChartImage = isset($data['avanceChartImage']) ? $data['avanceChartImage'] : '';
-    
-    // Asegurarse de que especialidadesImages sea un array
-    $especialidadesImages = isset($data['especialidadesImages']) ? $data['especialidadesImages'] : [];
+        // Verificar y asegurar que las imágenes están en formato base64
+        $lineChartImage = isset($data['lineChartImage']) ? $data['lineChartImage'] : '';
+        $donutChartImage = isset($data['donutChartImage']) ? $data['donutChartImage'] : '';
+        $avanceChartImage = isset($data['avanceChartImage']) ? $data['avanceChartImage'] : '';
+        $especialidadesImages = isset($data['especialidadesImages']) ? $data['especialidadesImages'] : [];
 
-    // Crear el contenido HTML del PDF
-    $html = '
-    <html>
-    <head>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-            }
-            h1 {
-                text-align: center;
-                color: #333;
-            }
-            h2 {
-                color: #555;
-                border-bottom: 1px solid #ddd;
-                padding-bottom: 5px;
-                margin-bottom: 20px;
-            }
-            .chart-container {
-                margin-bottom: 40px;
-                page-break-inside: avoid;
-            }
-            .chart-container img {
-                display: block;
-                margin: 0 auto;
-                width: 80%;
-                height: auto;
-            }
-             }
-            #chart-containers img {
-                display: block;
-                margin: 0 auto;
-                width: 40%;
-                height: auto;
-            }
-            .especialidades-container {
-                text-align: center;
-                page-break-inside: avoid;
-            }
-            .especialidades-title {
-                text-align: center;
-                color: #555;
-                border-bottom: 1px solid #ddd;
-                padding-bottom: 5px;
-                margin-bottom: 20px;
-            }
-            .especialidades-images {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            .especialidades-images img {
-                width: 25%;
-                height: auto;
-                margin: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Reportes</h1>
-        <div id="chart-containers">
-            <h2>Inversion Avance</h2>
-            <img src="' . $data['avanceChartImage'] . '">
-        </div>
-               
-        <div class="especialidades-container">
-            <h2 class="especialidades-title">Especialidades</h2>
-            <div class="especialidades-images">;';
-        // Agregar gráficos de especialidades
-    foreach ($data['especialidadesImages'] as $image) {
-    $html .= '<img src="' . $image . '">';
-    }
+        // Rutas absolutas de las imágenes del header y footer
+        $headerImage = 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/banner-cuscofin.jpg')));
+        $footerImage = 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/footter.jpg')));
 
-    $html .= '
+        // Fecha y hora actuales
+        $fecha = date('d/m/Y');
+        $hora = date('H:i:s');
+
+        // Crear el contenido HTML del PDF
+        $html = '
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                }
+                @page {
+                    margin: 140px 30px 100px 30px; /* Espacio para encabezado y pie de página */
+                }
+                header {
+                    position: fixed;
+                    top: -120px;
+                    left: 0;
+                    right: 0;
+                    height: 100px;
+                    text-align: center;
+                }
+                footer {
+                    position: fixed;
+                    bottom: -90px; /* Ajustar la posición del footer */
+                    left: 0;
+                    right: 0;
+                    height: 50px;
+                    text-align: center;
+                }
+                .footer-content {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .footer-image {
+                    width: 680px;
+                    height: 80px;
+                }
+                .date-time {
+                    position: absolute;
+                    top: 0;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: rgba(15, 15, 15, 0.863); /* Ajusta este color según el fondo de la imagen */
+                    font-weight: bold;
+                    font-size: 12px;
+                    text-shadow: 1px 1px 2px #000; /* Sombra para mejorar la legibilidad */
+                }
+                .date-time .time {
+                margin-left: 50px; /* Ajusta el valor para controlar la distancia */
+                }
+
+                .logo {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .logo img {
+                    margin-right: 5px; /* Espacio entre la imagen y el texto */
+                }
+
+                h1 {
+                    text-align: center;
+                    color: #333;
+                }
+                h2 {
+                    color: #555;
+                    border-bottom: 1px solid #ddd;
+                    padding-bottom: 5px;
+                    margin-bottom: 20px;
+                }
+                .chart-container {
+                    margin-bottom: 40px;
+                    page-break-inside: avoid;
+                }
+                .chart-container img {
+                    display: block;
+                    margin: 0 auto;
+                    width: 80%;
+                    height: auto;
+                }
+                #chart-containers {
+                    text-align: center;
+                 }
+                 #chart-containers img {
+                    display: inline-block;
+                    margin: 0 auto;
+                    width: 380px;
+                    height: auto;
+                }
+                .especialidades-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center; /* Centrar verticalmente */
+                    align-items: center; /* Centrar horizontalmente */
+                    min-height: 100vh; /* Asegura que ocupe al menos la altura completa de la página */
+                    page-break-inside: avoid;
+                    text-align: center;
+                }
+                .especialidades-title {
+                    text-align: left;
+                    color: #555;
+                    border-bottom: 1px solid #ddd;
+                    padding-bottom: 5px;
+                    margin-bottom: 20px;
+                }
+                .especialidades-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px; /* Ajusta este valor según sea necesario */
+}
+                .especialidades-images img {
+                    width: 25%;
+                    height: auto;
+                    margin: 20px;
+                }
+            </style>
+        </head>
+        <body>
+
+            <header>
+                <img src="' . $headerImage . '" style="width: 980px; height: 90px" alt="Logo">
+            </header>
+            <footer>
+                <img src="' . $footerImage . '" style="width: 980px; height: 90px" alt="Logo">
+                <div class="date-time">
+                    <p>Fecha: ' . $fecha . ' <span class="time">Hora: ' . $hora . '</span></p>
+                </div>
+            </footer>
+            
+            <h1>Reportes Inversion</h1>
+            <div id="chart-containers">
+                <h2>Inversión Avance</h2>
+                <img src="' . $avanceChartImage . '">
             </div>
-        </div>
-         <div class="chart-container">
-            <h2>Actividades</h2>
-            <img src="' . $data['lineChartImage'] . '">
-        </div>
-        <div class="chart-container">
-            <h2>Sub Actividades</h2>
-            <img src="' . $data['donutChartImage'] . '">
-        </div>
-
-    </body>
-    </html>';
-    // Configurar las opciones de Dompdf
-    $options = new Options();
-    $options->set('isHtml5ParserEnabled', true);
-    $options->set('isRemoteEnabled', true);
-
-    // Crear una instancia de Dompdf y cargar el contenido HTML
-    $dompdf = new Dompdf($options);
-    $dompdf->loadHtml($html);
-
-    // Configurar el tamaño y la orientación del papel
-    $dompdf->setPaper('A4', 'landscape');
-
-    // Renderizar el PDF
-    $dompdf->render();
+                   
+            <div class="especialidades-container">
+                <h2 class="especialidades-title">Especialidades</h2>
+                <div class="especialidades-images">';
+    
+        foreach ($especialidadesImages as $image) {
+            $html .= '<img src="' . $image . '">';
+        }
+    
+        $html .= '
+                </div>
+            </div>
+            <div class="chart-container">
+                <h2>Actividades</h2>
+                <img src="' . $lineChartImage . '">
+            </div>
+            <div class="chart-container">
+                <h2>Sub Actividades</h2>
+                <img src="' . $donutChartImage . '">
+            </div>
+    
+        </body>
+        </html>';
+    
+        // Configurar las opciones de Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+    
+        // Crear una instancia de Dompdf y cargar el contenido HTML
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+    
+        // Configurar el tamaño y la orientación del papel
+        $dompdf->setPaper('A4', 'landscape');
+    
+        // Renderizar el PDF
+        $dompdf->render();
+    
+        // Retornar el PDF generado para su descarga
+        return $dompdf->stream('reportes.pdf');
+    }
+    
 
     // Retornar el PDF generado para su descarga
-    return $dompdf->stream('reportes.pdf');
-    }
+   
     private function sumaTotalAvance() {
         // Carga de datos de inversiones
         $inversiones = Inversion::all();

@@ -105,7 +105,7 @@ class SubFaseController extends Controller
         // Verificar que la fase se esté obteniendo y actualizando correctamente
         $fase = Fase::find($request->idFase);
         if ($fase) {
-            $fase->avanceTotalFase = $totalAvanceRealTotalSubFase * ($fase->porcentajeAvanceFase / 100);
+            $fase->avanceTotalFase = ($totalAvanceRealTotalSubFase * $fase->porcentajeAvanceFase) / 100;
             $fase->save();
         }
 
@@ -143,7 +143,7 @@ class SubFaseController extends Controller
             // Cambiamos los valores
             $subfase->nombreSubfase = $request->nombreSubfase;
             $subfase->avance_por_usuario_realSubFase = $request->avance_por_usuario_realSubFase;
-            $subfase->avanceRealTotalSubFase = $subfase->porcentajeAvanceProgramadoSubFase * ($subfase->avance_por_usuario_realSubFase / 100);
+            $subfase->avanceRealTotalSubFase = ($subfase->porcentajeAvanceProgramadoSubFase * $subfase->avance_por_usuario_realSubFase) / 100;
             $subfase->fechaInicioSubfase = $request->fechaInicioSubfase;
             $subfase->fechaFinalSubfase = $request->fechaFinalSubfase;
 
@@ -168,7 +168,7 @@ class SubFaseController extends Controller
             // Cambiamos los valores
             $subfase->nombreSubfase = $request->nombreSubfase;
             $subfase->avance_por_usuario_realSubFase = $request->avance_por_usuario_realSubFase;
-            $subfase->avanceRealTotalSubFase = $subfase->porcentajeAvanceProgramadoSubFase * ($subfase->avance_por_usuario_realSubFase / 100);
+            $subfase->avanceRealTotalSubFase = ($subfase->porcentajeAvanceProgramadoSubFase * $subfase->avance_por_usuario_realSubFase) / 100;
         }
 
         // Guardamos los cambios
@@ -193,7 +193,7 @@ class SubFaseController extends Controller
         // Verificar que la fase se esté obteniendo y actualizando correctamente
         $fase = Fase::find($subfase->idFase);
         if ($fase) {
-            $fase->avanceTotalFase = $totalAvanceRealTotalSubFase * ($fase->porcentajeAvanceFase / 100);
+            $fase->avanceTotalFase = ($totalAvanceRealTotalSubFase * $fase->porcentajeAvanceFase) / 100;
             $fase->save();
         }
 
@@ -223,7 +223,7 @@ class SubFaseController extends Controller
         $totalAvanceRealTotalSubFase = 0;
         foreach ($subfases as $sf) {
             $sf->porcentajeAvanceProgramadoSubFase = ($sf->cantidadDiasSubFase / $totalDias) * 100;
-            $sf->avanceRealTotalSubFase = $sf->porcentajeAvanceProgramadoSubFase * ($sf->avance_por_usuario_realSubFase / 100);
+            $sf->avanceRealTotalSubFase = ($sf->porcentajeAvanceProgramadoSubFase * $sf->avance_por_usuario_realSubFase) / 100;
             $totalAvanceRealTotalSubFase += $sf->avanceRealTotalSubFase;
             $sf->save();
         }
@@ -231,7 +231,7 @@ class SubFaseController extends Controller
         // Actualizamos el avance la fase
         $fase = Fase::find($idFase);
         if ($fase) {
-            $fase->avanceTotalFase = $totalAvanceRealTotalSubFase * ($fase->porcentajeAvanceFase / 100);
+            $fase->avanceTotalFase = ($totalAvanceRealTotalSubFase * $fase->porcentajeAvanceFase) / 100;
             $fase->save();
         }
 

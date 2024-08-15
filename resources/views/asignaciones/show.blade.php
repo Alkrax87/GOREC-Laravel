@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-12">
               <h2>{{ $inversion->nombreCortoInversion }}</h2>
-              <p><i class="fas fa-portrait"></i> <b>Jefe: </b>{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</p>
+              <p><i class="fas fa-portrait"></i> <b>Responsable: </b>{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</p>
               <h4><i class="fas fa-user-tie"></i> Profesionales</h4>
               @foreach ($profesionales as $profesional)
                 <div class="card border-danger">

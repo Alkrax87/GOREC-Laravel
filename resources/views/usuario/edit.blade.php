@@ -75,6 +75,18 @@
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidadEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
                 <div id="especialidades-container-edit-{{$usuario->idUsuario}}">
                   @foreach ($usuario->especialidades as $especialidad)
+                  <div class="d-flex align-items-center">
+                <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+              </div>
+              @endforeach
+              </div>
+            </div>
+              <!-- <div class="form-outline mb-4">
+                <label class="form-label">Especialidad</label>
+                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidadEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
+                <div id="especialidades-container-edit-{{$usuario->idUsuario}}">
+                  @foreach ($usuario->especialidades as $especialidad)
                     <div class="input-group mb-2">
                       <select name="especialidadUsuario[]" class="form-select form-select-sm input-auth" required>
                         <option value="" disabled>Selecciona una especialidad</option>
@@ -105,7 +117,7 @@
                     </div>
                   @endforeach
                 </div>
-              </div>
+              </div>-->
               <div class="form-check pb-3">
                 <input class="form-check-input" type="checkbox" id="activarEditarCuenta{{$usuario->idUsuario}}" @if ($usuario->email) checked @endif>
                 <label class="form-check-label" for="activarEditarCuenta{{$usuario->idUsuario}}">Crear cuenta en el sistema</label>
@@ -166,8 +178,20 @@
     `;
     container.appendChild(div);
   }
-
   function addEspecialidadEdit(usuarioId) {
+    const container = document.getElementById('especialidades-container-edit-' + usuarioId);
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+                <div class="d-flex align-items-center">
+                  <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+
+    `;
+    container.appendChild(div);
+  }
+  /*function addEspecialidadEdit(usuarioId) {
     const container = document.getElementById('especialidades-container-edit-' + usuarioId);
     const div = document.createElement('div');
     div.className = 'input-group mb-2';
@@ -199,7 +223,7 @@
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
     container.appendChild(div);
-  }
+  }*/
 
   function removeElement(element) {
     element.parentNode.remove();

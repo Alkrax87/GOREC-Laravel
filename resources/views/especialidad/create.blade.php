@@ -37,7 +37,7 @@
                 </div>
               </div>
               <div class="form-outline mb-4">
-                <label class="form-label" for="idUsuario">Encargados</label>
+                <label class="form-label" for="idUsuario">Proyectistas</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuariosCreate()"><i class="fas fa-plus"></i></button>
                 <div id="usuarios-container-create">
                   <div class="input-group mb-2">
