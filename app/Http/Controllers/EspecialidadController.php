@@ -160,16 +160,32 @@ class EspecialidadController extends Controller
             $especialidad->save();
         }
     }
+    public function pdf(Request $request)
+    {
+        date_default_timezone_set('America/Lima');
+        // Obtener el usuario autenticado
+        $usuario = auth()->user();
 
-    public function pdf(){
-        $especialidades = Especialidad::all();
-        $fases = Fase::all();
-        $subfases = SubFase::all();
-        $inversiones = Inversion::all();
-        $usuarios = User::all(); // Carga todas las inversiones
-        $pdf = Pdf::loadView('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
+        if ($usuario->isAdmin) {
+            // Obtener todas las inversiones si es admin y selecciona alguna en el formulario
+                $inversiones = Inversion::where('idInversion', $request->idInversion)->get();
+        } else {
+            // Obtener solo las inversiones del usuario autenticado
+            $inversiones = Inversion::where('idUsuario', $usuario->idUsuario)
+                            ->where('idInversion', $request->idInversion)
+                            ->get();
+           
+        }
+        // Obtener las especialidades relacionadas a esas inversiones
+        $especialidades = Especialidad::whereIn('idInversion', $inversiones->pluck('idInversion'))->get();
+            // Obtener las fases y subfases relacionadas
+                //$fases = Fase::whereIn('idEspecialidad', $especialidades->pluck('idEspecialidad'))->get();
+            // $subfases = SubFase::whereIn('idFase', $fases->pluck('idFase'))->get();
+        // Generar el PDF
+        $pdf = Pdf::loadView('especialidad.pdf', compact('inversiones', 'especialidades'));
         return $pdf->stream();
     }
+
     public function getUsuariosPorInversion($idInversion)
     {
     // Obtener los IDs de los usuarios asignados a la inversión
@@ -183,7 +199,5 @@ class EspecialidadController extends Controller
     // Devolver la información de los usuarios en formato JSON
     return response()->json($usuarios);
     }
-
-
 }
 

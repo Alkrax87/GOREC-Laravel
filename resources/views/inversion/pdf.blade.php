@@ -8,25 +8,60 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
         }
-        .header {
+        @page {
+            margin: 140px 30px 100px 30px; /* Espacio para encabezado y pie de página */
+        }
+        header {
+            position: fixed;
+            top: -120px;
+            left: 0;
+            right: 0;
+            height: 100px;
+            text-align: center;
+        }
+        footer {
+            position: fixed;
+            bottom: -90px; /* Ajustar la posición del footer */
+            left: 0;
+            right: 0;
+            height: 50px;
+            text-align: center;
+        }
+        .footer-content {
+            position: relative;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
+        }
+        .footer-image {
+            width: 680px;
+            height: 80px;
+        }
+        .date-time {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(15, 15, 15, 0.863); /* Ajusta este color según el fondo de la imagen */
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: 1px 1px 2px #000; /* Sombra para mejorar la legibilidad */
+        }
+        .date-time .time {
+        margin-left: 50px; /* Ajusta el valor para controlar la distancia */
+        }
+        .content {
+            margin-top: 40px;
         }
         .header img {
-            width: 680px;
-            height: 150px;
-        }
-        .header h3 {
-            text-align: center;
-            margin: 0;
-            padding-left: 10px;
+            width: 720px;
+            height: 70px;
         }
         .table-container {
-            width: 100%;
+            width: 98%;
             max-width: 800px;
             margin: 0 auto;
             border-collapse: collapse;
@@ -49,9 +84,21 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <img src="images/bannercusco.jpg" alt="Logo">
-    </div>
+    <header>
+        <div class="header">
+            <img src="images/banner-cuscofin.jpg" alt="Logo">
+        </div>
+    </header>
+    <footer>
+        <div class="footer-content">
+            <img src="images/footter.jpg" style="width: 680px; height: 80px" alt="Logo">
+            <div class="date-time">
+                <p>Fecha: {{ date('d/m/Y') }} <span class="time">Hora: {{ date('H:i:s') }}</span></p>
+            </div>
+        </div>
+    </footer>
+   <h3 style="text-align: center; margin: -5%">PROYECTO DE INVERSION</h3>
+    <div class="content">
     <table class="table-container">
         <tr>
             <th>CUI</th>
@@ -59,7 +106,8 @@
         </tr>
         <tr>
             <th>Nombre</th>
-            <td colspan="3">{{ $inversion->nombreInversion }}</td>
+            <td colspan="3"><strong>{{ $inversion->nombreInversion }}</strong></td>
+            
         </tr>
         <tr>
             <th>Nombre Corto</th>
@@ -68,8 +116,8 @@
         <tr>
             <th>Responsable</th>
             <td colspan="3">
-            {{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}
-        P: (
+            <b>{{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</b>
+            ( P: 
         @if ($inversion->usuario->profesiones->isNotEmpty())
             @foreach ($inversion->usuario->profesiones as $profesion)
                 {{ $profesion->nombreProfesion }}
@@ -80,7 +128,7 @@
         @endif
         )
         &nbsp; | &nbsp;
-        E: (
+        ( E: 
         @if ($inversion->usuario->especialidades->isNotEmpty())
             @foreach ($inversion->usuario->especialidades as $especialidad)
                 {{ $especialidad->nombreEspecialidad }}
@@ -93,22 +141,25 @@
     </td>
         </tr>
        <!-- Mostrar profesionales y asistentes -->
-<tr>
-    <th>Profesionales y Asistentes</th>
-    <td colspan="3">
-        @foreach($inversion->Profesional as $asignacion)
-            <strong>{{ $asignacion->usuario->nombreUsuario }} {{ $asignacion->usuario->apellidoUsuario }}</strong> (P: {{ $asignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) 
-            (E: {{ $asignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) 
-            <ul>
-                @foreach($inversion->asistente->where('idJefe', $asignacion->usuario->idUsuario) as $asistenteAsignacion)
-                    <li>{{ $asistenteAsignacion->usuario->nombreUsuario }} {{ $asistenteAsignacion->usuario->apellidoUsuario }}</li>
-                    (P: {{ $asistenteAsignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) 
-            (E: {{ $asistenteAsignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) 
-                @endforeach
-            </ul>
-        @endforeach
-    </td>
-</tr>
+       <tr>
+        <th>Profesionales y Asistentes</th>
+        <td colspan="3">
+            <strong>Profesionales:</strong><br><br><!-- Título para Profesionales -->
+            @foreach($inversion->profesional as $asignacion)
+                <strong>{{ $asignacion->usuario->nombreUsuario }} {{ $asignacion->usuario->apellidoUsuario }}</strong>&nbsp; 
+                (P: {{ $asignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
+                (E: {{ $asignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) 
+                <ul style="list-style: none">
+                    <strong>Asistentes:</strong> 
+                    @foreach($inversion->asistente->where('idJefe', $asignacion->usuario->idUsuario) as $asistenteAsignacion)
+                        <li>- &nbsp; {{ $asistenteAsignacion->usuario->nombreUsuario }} {{ $asistenteAsignacion->usuario->apellidoUsuario }} &nbsp; (P: {{ $asistenteAsignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
+                            (E: {{ $asistenteAsignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) </li>
+                    @endforeach
+                </ul>
+                <br>
+            @endforeach
+        </td>
+    </tr>
 
 
         <tr>
@@ -135,7 +186,7 @@
         </tr>
         <tr>
             <th>Avance</th>
-            <td colspan="3">{{ $inversion->avanceInversion }}%</td>
+            <td colspan="3" style="font-size: 15px"><b>{{ $inversion->avanceInversion }}%</b></td>
         </tr>
         <tr>
             <th>Fecha Inicio</th>
@@ -153,15 +204,19 @@
             <th>Ejecución</th>
             <td colspan="3">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
         </tr>
+        <tr>
+            <th>Fecha Inicio Consistencia</th>
+            <td colspan="3">{{ $inversion->fechaInicioConsistenciaInversion }}</td>
+        </tr>
+        <tr>
+            <th>Fecha Final Consistencia</th>
+            <td colspan="3">{{ $inversion->fechaFinalConsistenciaInversion }}</td>
+        </tr>
+       
     </table>
-    <footer>
-        <img src="images/footter.jpg" style="width: 680px; height: 80px" alt="Logo">
-        <div class="date-time">
-            <span>Fecha: {{ date('d/m/Y') }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span>Hora: {{ date('H:i:s') }}</span>
-        </div>
+   
+</div>
 
-    </footer>
 </body>
 </html>
 

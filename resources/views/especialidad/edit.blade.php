@@ -43,7 +43,7 @@
 
               <!-- Encargados -->
               <div class="form-outline mb-4">
-                <label class="form-label" for="idUsuario">Encargados</label>
+                <label class="form-label" for="idUsuario">Proyectistas</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuarioEdit({{ $especialidad->idEspecialidad }})"><i class="fas fa-plus"></i></button>
                 <div id="usuarios-container-edit-{{ $especialidad->idEspecialidad }}">
                   @foreach ($especialidad->usuarios as $usuario)

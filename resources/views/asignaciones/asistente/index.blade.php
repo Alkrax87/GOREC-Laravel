@@ -31,7 +31,7 @@
                 <table id="asistentesTable" class="table table-striped w-100">
                   <thead class="table-header">
                     <tr>
-                      <th><i class="fas fa-user-tie"></i> Jefe</th>
+                      <th><i class="fas fa-user-tie"></i> Proyectistas</th>
                       <th><i class="fas fa-users-cog"></i> Asistente</th>
                       <th class="text-center w-25">Opciones</th>
                     </tr>

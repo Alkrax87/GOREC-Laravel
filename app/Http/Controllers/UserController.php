@@ -205,17 +205,22 @@ class UserController extends Controller
     }
 
     public function updatePassword(Request $request)
-    {
-    $request->validate([
-        'new_password' => 'required|string|min:8|confirmed',
-    ]);
+{
+    try {
+        $request->validate([
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
 
-    $user = Auth::user();
-    $user->password = Hash::make($request->new_password);
-    $user->password_changed = true;
-    $user->save();
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->password_changed = true;
+        $user->save();
 
-    return redirect()->route('home')->with('message', 'Contraseña actualizada correctamente.');
+        return response()->json(['message' => 'Contraseña actualizada correctamente.']);
+    } catch (\Exception $e) {
+        \Log::error('Error al actualizar la contraseña: ' . $e->getMessage());
+        return response()->json(['message' => 'Error al actualizar la contraseña.'], 500);
     }
+}
 
 }

@@ -24,7 +24,7 @@
             <div class="col-12">
               <div class="form-outline mb-4">
                 <input type="hidden" value="{{ $inversion->idInversion }}" name="idInversion" class="input-auth" required/>
-                <label class="form-label" for="idJefe">Jefe</label>
+                <label class="form-label" for="idJefe">Proyectistas</label>
                 <select name="idJefe" id="idJefe" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($profesionales as $profesional)

@@ -21,7 +21,28 @@
               <b><i class="fas fa-file-signature"></i> Nombre Corto:</b>&nbsp; {{ $inversion->nombreCortoInversion }}
             </div>
             <div class="col-12 py-2">
-              <b><i class="fas fa-portrait"></i> Jefe:</b>&nbsp; {{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}
+              <b><i class="fas fa-portrait"></i> Responsable:</b>&nbsp; {{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}
+              ( P: 
+              @if ($inversion->usuario->profesiones->isNotEmpty())
+                  @foreach ($inversion->usuario->profesiones as $profesion)
+                    {{ $profesion->nombreProfesion }}
+                    @if (!$loop->last)
+                        ,
+                    @endif
+                  @endforeach
+              @endif
+              )
+              &nbsp; | &nbsp;
+              ( E: 
+              @if ($inversion->usuario->especialidades->isNotEmpty())
+                  @foreach ($inversion->usuario->especialidades as $especialidad)
+                    {{ $especialidad->nombreEspecialidad }}
+                    @if (!$loop->last)
+                        ,
+                    @endif
+                  @endforeach
+              @endif
+              )
             </div>
             <div class="col-6 py-2">
               <b><i class="fas fa-map-marker-alt"></i> Provincia:</b>&nbsp; {{ $inversion->provinciaInversion }}

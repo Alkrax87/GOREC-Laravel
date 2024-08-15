@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-12">
               <h2>{{ $especialidad->nombreEspecialidad }}</h2>
-              <b>Encargados: </b>
+              <b>Proyectistas: </b>
               @foreach ($especialidad->usuarios as $usuario)
                 <p class="mb-0"><i class="fas fa-portrait"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}</p>
               @endforeach
@@ -121,7 +121,7 @@
                     </div>
                     <hr class="mt-0">
                     <h5><i class="fa fa-tasks"></i> Sub Actividades</h5>
-                    @foreach ($fase->subfases as $subfase)
+                    @foreach ($fase->subfases->reverse() as $subfase)
                       <div class="card text-white bg-dark mb-3">
                         <div class="card-header">
                           <div class="row">

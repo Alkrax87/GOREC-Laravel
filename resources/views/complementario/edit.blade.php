@@ -32,7 +32,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idInversion">Inversión</label>
-                <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
+                <select name="idInversion" id="idInversions" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}" {{ $complementario->idInversion == $inversion->idInversion ? 'selected' : '' }}>
@@ -62,7 +62,26 @@
     </div>
   </div>
 </form>
+<script>
+  $(document).ready(function() {
+    $('#ModalEdit{{$complementario->idEstudiosComplementarios}}').on('shown.bs.modal', function () {
+      $('#idInversions').select2({
+        placeholder: "Selecciona una inversion",
+        allowClear: true,
+          language: {
+            noResults: function() {
+              return "No se encontró la inversión";
+            }
+          }
+      });
+    });
 
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalEdit{{$complementario->idEstudiosComplementarios}}').on('hidden.bs.modal', function () {
+      $('#idInversions').select2('destroy');
+    });
+  });
+</script>
 <style>
   body {
     background-color: #000;

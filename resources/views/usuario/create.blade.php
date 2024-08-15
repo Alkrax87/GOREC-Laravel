@@ -14,11 +14,11 @@
             <div class="col-12">
               <div class="form-outline mb-4">
                 <label class="form-label">Nombres</label>
-                <input type="text" name="nombreUsuario" class="input-auth" required/>
+                <input type="text" name="nombreUsuario" class="input-auth" required placeholder="Ingrese Nombre"/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Apellidos</label>
-                <input type="text" name="apellidoUsuario" class="input-auth" required/>
+                <input type="text" name="apellidoUsuario" class="input-auth" required placeholder="Ingrese Apellidos"/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="categoriaUsuario">Categoría</label>
@@ -67,7 +67,19 @@
                   </div>
                 </div>
               </div>
-              <div class="form-outline mb-4">
+             
+                <div class="form-outline mb-4">
+                  <label class="form-label">Especialidad</label>
+                  <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidad()"><i class="fas fa-plus"></i></button>
+                  <div id="especialidades-container">
+                    <div class="d-flex align-items-center">
+                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+                </div>
+              </div>
+              
+              <!-- <div class="form-outline mb-4">
                 <label class="form-label">Especialidad</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidad()"><i class="fas fa-plus"></i></button>
                 <div id="especialidades-container">
@@ -99,7 +111,7 @@
                     <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
-              </div>
+              </div> -->
               <div class="form-check pb-3">
                 <input class="form-check-input" type="checkbox" id="activarCrearCuenta">
                 <label class="form-check-label" for="flexCheckDefault">Crear cuenta en el sistema</label>
@@ -158,8 +170,19 @@
     `;
     container.appendChild(div);
   }
-
   function addEspecialidad() {
+    const container = document.getElementById('especialidades-container');
+    const div = document.createElement('div');
+    div.className = 'input-group mb-2';
+    div.innerHTML = `
+                <div class="d-flex align-items-center">
+                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+     `;
+    container.appendChild(div);
+  }
+  /*function addEspecialidad() {
     const container = document.getElementById('especialidades-container');
     const div = document.createElement('div');
     div.className = 'input-group mb-2';
@@ -191,7 +214,7 @@
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
     container.appendChild(div);
-  }
+  }*/
 
   function removeElement(element) {
     element.parentNode.remove();
