@@ -38,11 +38,32 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="idUsuario">Responsable</label>
-                  <select name="idUsuario" id="idUsuario" class="form-select form-select-sm input-auth" required>
+                  <select name="idUsuario" id="idUsuarios" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled>Selecciona un usuario</option>
                     @foreach ($usuarios as $usuario)
                       <option value="{{ $usuario->idUsuario }}" {{ $inversion->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>
                         {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                        P: (
+                          @if ($usuario->profesiones->isNotEmpty())
+                            @foreach ($usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          &nbsp; | &nbsp;
+                          E: (
+                          @if ($usuario->especialidades->isNotEmpty())
+                            @foreach ($usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
                       </option>
                     @endforeach
                   </select>
@@ -173,6 +194,26 @@
       </div>
     </div>
   </div>
+  <script> 
+    //script para el select2
+      $(document).ready(function() {
+        $('#ModalEdit{{$inversion->idInversion}}').on('shown.bs.modal', function () {
+          $('#idUsuarios').select2({
+            placeholder: "Selecciona un usuario",
+            allowClear: true,
+              language: {
+                noResults: function() {
+                  return "No se encontró el usuario";
+                }
+              }
+          });
+        });
+        // Destruye Select2 cuando el modal se cierra para evitar problemas
+        $('#ModalEdit{{$inversion->idInversion}}').on('hidden.bs.modal', function () {
+          $('#idUsuarios').select2('destroy');
+        });
+      });
+    </script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const inversionId = {{$inversion->idInversion}};

@@ -38,15 +38,22 @@
                   <option value="AA">AA</option>
                 </select>
               </div>
-              <div class="form-outline mb-4">
+              <div class="col-13 form-outline mb-4">
                 <label class="form-label">Profesión</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesion()"><i class="fas fa-plus"></i></button>
                 <div id="profesiones-container">
-                  <div class="input-group mb-2">
+                  <div class="d-flex align-items-center mb-2">
                     <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
                       <option value="" disabled selected>Selecciona una profesión</option>
+                      <option value="INGENIERÍA QUIMICA">INGENIERÍA QUIMICA</option>
+                      <option value="INGENIERÍA SONIDO">INGENIERÍA SONIDO</option>
                       <option value="INGENIERÍA CIVIL">INGENIERÍA CIVIL</option>
+                      <option value="INGENIERÍA MECATRÓNICA">INGENIERÍA MECATRÓNICA</option>
                       <option value="INGENIERÍA MECÁNICA">INGENIERÍA MECÁNICA</option>
+                      <option value="INGENIERÍA SOFTWARE">INGENIERÍA SOFTWARE</option>
+                      <option value="INGENIERÍA HADWARE">INGENIERÍA HADWARE</option>
+                      <option value="INGENIERÍA INDUSTRIAL">INGENIERÍA INDUSTRIAL</option>
+                      <option value="INGENIERÍA ELECTRÓNICA">INGENIERÍA ELECTRÓNICA</option>
                       <option value="INGENIERÍA SANITARIA">INGENIERÍA SANITARIA</option>
                       <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
                       <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
@@ -56,24 +63,32 @@
                       <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS">INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
                       <option value="ANTROPOLOGÍA">ANTROPOLOGÍA</option>
                       <option value="BIOLOGÍA">BIOLOGÍA</option>
-                      <option value="ARQUITECTO">ARQUITECTO</option>
+                      <option value="ARQUITECTURA">ARQUITECTURA</option>
                       <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
-                      <option value="ABOGADO">ABOGADO</option>
-                      <option value="ECONOMISTA">ECONOMISTA</option>
+                      <option value="ABOGADO-DERECHO">ABOGADO-DERECHO</option>
+                      <option value="ECONOMISTA-ECONOMÍA">ECONOMISTA-ECONOMÍA</option>
                       <option value="CONTALIBIDAD">CONTALIBIDAD</option>
                       <option value="AGRONOMÍA">AGRONOMÍA</option>
+                      <option value="TURISMO Y HOTELERIA">TURISMO Y HOTELERIA</option>
+                      <option value="ADMINISTRACIÓN">ADMINISTRACIÓN</option>
+                      <option value="EDUCACIÓN">EDUCACIÓN</option>
+                      <option value="ADMINISTRACIÓN DE EMPRESAS">ADMINISTRACIÓN DE EMPRESAS</option>
+                      <option value="MARKETING">MARKETING</option>
+                      <option value="CIENCIA DE LA COMUNICACIÓN">CIENCIA DE LA COMUNICACIÓN</option>
+                      <option value="PSICOLOGIA">PSICOLOGIA</option>
+                      <option value="QUIMICA Y BIOQUIMICA">QUIMICA Y BIOQUIMICA</option>
+                      <option value="SECRETARIA">SECRETARIA</option>
                     </select>
                     <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
               </div>
-             
                 <div class="form-outline mb-4">
                   <label class="form-label">Especialidad</label>
                   <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidad()"><i class="fas fa-plus"></i></button>
                   <div id="especialidades-container">
                     <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
                   <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                 </div>
                 </div>
@@ -139,17 +154,45 @@
     </div>
   </div>
 </form>
-
+<script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+  $(document).ready(function() {
+    $('#ModalCreate').on('shown.bs.modal', function () {
+      $('select[name="profesionUsuario[]"]').select2({
+        placeholder: "Selecciona una profesión",
+        allowClear: true,
+        width: '100%',
+        language: {
+          noResults: function() {
+            return "No se encontró el usuario";
+          }
+        }
+      });
+    });
+
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalCreate').on('hidden.bs.modal', function () {
+      $('select[name="profesionUsuario[]"]').select2('destroy');
+    });
+  });
+
   function addProfesion() {
     const container = document.getElementById('profesiones-container');
     const div = document.createElement('div');
     div.className = 'input-group mb-2';
     div.innerHTML = `
+    <div class="d-flex align-items-center mb-2">
       <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
         <option value="" disabled selected>Selecciona una profesión</option>
+        <option value="INGENIERÍA QUIMICA">INGENIERÍA QUIMICA</option>
+        <option value="INGENIERÍA SONIDO">INGENIERÍA SONIDO</option>
         <option value="INGENIERÍA CIVIL">INGENIERÍA CIVIL</option>
+        <option value="INGENIERÍA MECATRÓNICA">INGENIERÍA MECATRÓNICA</option>
         <option value="INGENIERÍA MECÁNICA">INGENIERÍA MECÁNICA</option>
+        <option value="INGENIERÍA SOFTWARE">INGENIERÍA SOFTWARE</option>
+        <option value="INGENIERÍA HADWARE">INGENIERÍA HADWARE</option>
+        <option value="INGENIERÍA INDUSTRIAL">INGENIERÍA INDUSTRIAL</option>
+        <option value="INGENIERÍA ELECTRÓNICA">INGENIERÍA ELECTRÓNICA</option>
         <option value="INGENIERÍA SANITARIA">INGENIERÍA SANITARIA</option>
         <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
         <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
@@ -159,16 +202,38 @@
         <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS">INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
         <option value="ANTROPOLOGÍA">ANTROPOLOGÍA</option>
         <option value="BIOLOGÍA">BIOLOGÍA</option>
-        <option value="ARQUITECTO">ARQUITECTO</option>
+        <option value="ARQUITECTURA">ARQUITECTURA</option>
         <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
-        <option value="ABOGADO">ABOGADO</option>
-        <option value="ECONOMISTA">ECONOMISTA</option>
+        <option value="ABOGADO-DERECHO">ABOGADO-DERECHO</option>
+        <option value="ECONOMISTA-ECONOMÍA">ECONOMISTA-ECONOMÍA</option>
         <option value="CONTALIBIDAD">CONTALIBIDAD</option>
         <option value="AGRONOMÍA">AGRONOMÍA</option>
+        <option value="TURISMO Y HOTELERIA">TURISMO Y HOTELERIA</option>
+        <option value="ADMINISTRACIÓN">ADMINISTRACIÓN</option>
+        <option value="EDUCACIÓN">EDUCACIÓN</option>
+        <option value="ADMINISTRACIÓN DE EMPRESAS">ADMINISTRACIÓN DE EMPRESAS</option>
+        <option value="MARKETING">MARKETING</option>
+        <option value="CIENCIA DE LA COMUNICACIÓN">CIENCIA DE LA COMUNICACIÓN</option>
+        <option value="PSICOLOGIA">PSICOLOGIA</option>
+        <option value="QUIMICA Y BIOQUIMICA">QUIMICA Y BIOQUIMICA</option>
+        <option value="SECRETARIA">SECRETARIA</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+      </div>
     `;
     container.appendChild(div);
+
+    // Inicializa Select2 en el nuevo select
+    $(div).find('select').select2({
+      placeholder: "Selecciona una profesión",
+      allowClear: true,
+      width: '100%',
+      language: {
+        noResults: function() {
+          return "No se encontró el usuario";
+        }
+      }
+    });
   }
   function addEspecialidad() {
     const container = document.getElementById('especialidades-container');
@@ -176,7 +241,7 @@
     div.className = 'input-group mb-2';
     div.innerHTML = `
                 <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
                   <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                 </div>
      `;
@@ -234,7 +299,25 @@
     }
   });
 </script>
-
+<style>
+  /* Ajustar el z-index de Select2 */
+  .select2-container--default .select2-selection--single .select2-selection__rendered { 
+  line-height: 24px;
+  padding-left: 10px; /* Ajustar el padding izquierdo */
+   /* Asegurar que el texto esté alineado a la izquierda */
+}
+.select2-container .select2-selection--single {
+  height: 35px;
+  padding-left: 0px; /* Ajustar el padding izquierdo */
+}
+  .select2-container .select2-dropdown {
+    z-index: 9999;
+  }
+  .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
+    background-color: #9C0C27 !important; /* Cambia este color al que desees */
+    color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
+}
+</style>
 <style>
   body {
     background-color: #000;

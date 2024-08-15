@@ -39,16 +39,23 @@
                   <option value="AA" {{ $usuario->categoriaUsuario == 'AA' ? 'selected' : '' }}>AA</option>
                 </select>
               </div>
-              <div class="form-outline mb-4">
+              <div class="col-13 form-outline mb-4">
                 <label class="form-label">Profesión</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesionEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
                 <div id="profesiones-container-edit-{{$usuario->idUsuario}}">
                   @foreach ($usuario->profesiones as $profesion)
-                    <div class="input-group mb-2">
+                    <div class="d-flex align-items-center mb-2">
                       <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
                         <option value="" disabled>Selecciona una profesión</option>
+                        <option value="INGENIERÍA QUIMICA" {{ $profesion->nombreProfesion == 'INGENIERÍA QUIMICA' ? 'selected' : '' }}>INGENIERÍA QUIMICA</option>
+                        <option value="INGENIERÍA SONIDO"  {{ $profesion->nombreProfesion == 'INGENIERÍA SONIDO' ? 'selected' : '' }}>INGENIERÍA SONIDO</option>
                         <option value="INGENIERÍA CIVIL" {{ $profesion->nombreProfesion == 'INGENIERÍA CIVIL' ? 'selected' : '' }}>INGENIERÍA CIVIL</option>
+                        <option value="INGENIERÍA MECATRÓNICA" {{ $profesion->nombreProfesion == 'INGENIERÍA MECATRÓNICA' ? 'selected' : '' }}>INGENIERÍA MECATRÓNICA</option>
                         <option value="INGENIERÍA MECÁNICA" {{ $profesion->nombreProfesion == 'INGENIERÍA MECÁNICA' ? 'selected' : '' }}>INGENIERÍA MECÁNICA</option>
+                        <option value="INGENIERÍA SOFTWARE" {{ $profesion->nombreProfesion == 'INGENIERÍA SOFTWARE' ? 'selected' : '' }}>INGENIERÍA SOFTWARE</option>
+                        <option value="INGENIERÍA HADWARE" {{ $profesion->nombreProfesion == 'INGENIERÍA HADWARE' ? 'selected' : '' }}>INGENIERÍA HADWARE</option>
+                        <option value="INGENIERÍA INDUSTRIAL {{ $profesion->nombreProfesion == 'INGENIERÍA INDUSTRIAL' ? 'selected' : '' }}">INGENIERÍA INDUSTRIAL</option>
+                        <option value="INGENIERÍA ELECTRÓNICA" {{ $profesion->nombreProfesion == 'INGENIERÍA ELECTRÓNICA' ? 'selected' : '' }}>INGENIERÍA ELECTRÓNICA</option>
                         <option value="INGENIERÍA SANITARIA" {{ $profesion->nombreProfesion == 'INGENIERÍA SANITARIA' ? 'selected' : '' }}>INGENIERÍA SANITARIA</option>
                         <option value="INGENIERÍA ELÉCTRICA" {{ $profesion->nombreProfesion == 'INGENIERÍA ELÉCTRICA' ? 'selected' : '' }}>INGENIERÍA ELÉCTRICA</option>
                         <option value="INGENIERÍA AMBIENTAL" {{ $profesion->nombreProfesion == 'INGENIERÍA AMBIENTAL' ? 'selected' : '' }}>INGENIERÍA AMBIENTAL</option>
@@ -58,12 +65,21 @@
                         <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS" {{ $profesion->nombreProfesion == 'INGENIERÍA DE MECÁNICA DE FLUIDOS' ? 'selected' : '' }}>INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
                         <option value="ANTROPOLOGÍA" {{ $profesion->nombreProfesion == 'ANTROPOLOGÍA' ? 'selected' : '' }}>ANTROPOLOGÍA</option>
                         <option value="BIOLOGÍA" {{ $profesion->nombreProfesion == 'BIOLOGÍA' ? 'selected' : '' }}>BIOLOGÍA</option>
-                        <option value="ARQUITECTO" {{ $profesion->nombreProfesion == 'ARQUITECTO' ? 'selected' : '' }}>ARQUITECTO</option>
+                        <option value="ARQUITECTURA" {{ $profesion->nombreProfesion == 'ARQUITECTURA' ? 'selected' : '' }}>ARQUITECTURA</option>
                         <option value="ARQUEÓLOGO" {{ $profesion->nombreProfesion == 'ARQUEÓLOGO' ? 'selected' : '' }}>ARQUEÓLOGO</option>
-                        <option value="ABOGADO" {{ $profesion->nombreProfesion == 'ABOGADO' ? 'selected' : '' }}>ABOGADO</option>
-                        <option value="ECONOMISTA" {{ $profesion->nombreProfesion == 'ECONOMISTA' ? 'selected' : '' }}>ECONOMISTA</option>
+                        <option value="ABOGADO-DERECHO" {{ $profesion->nombreProfesion == 'ABOGADO-DERECHO' ? 'selected' : '' }}>ABOGADO-DERECHO</option>
+                        <option value="ECONOMISTA-ECONOMÍA" {{ $profesion->nombreProfesion == 'ECONOMISTA-ECONOMÍA' ? 'selected' : '' }}>ECONOMISTA-ECONOMÍA</option>
                         <option value="CONTALIBIDAD" {{ $profesion->nombreProfesion == 'CONTALIBIDAD' ? 'selected' : '' }}>CONTALIBIDAD</option>
                         <option value="AGRONOMÍA" {{ $profesion->nombreProfesion == 'AGRONOMÍA' ? 'selected' : '' }}>AGRONOMÍA</option>
+                        <option value="TURISMO Y HOTELERIA" {{ $profesion->nombreProfesion == 'TURISMO Y HOTELERIA' ? 'selected' : '' }}>TURISMO Y HOTELERIA</option>
+                        <option value="ADMINISTRACIÓN" {{ $profesion->nombreProfesion == 'ADMINISTRACIÓN' ? 'selected' : '' }}>ADMINISTRACIÓN</option>
+                        <option value="EDUCACIÓN" {{ $profesion->nombreProfesion == 'EDUCACIÓN' ? 'selected' : '' }}>EDUCACIÓN</option>
+                        <option value="ADMINISTRACIÓN DE EMPRESAS" {{ $profesion->nombreProfesion == 'ADMINISTRACIÓN DE EMPRESAS' ? 'selected' : '' }}>ADMINISTRACIÓN DE EMPRESAS</option>
+                        <option value="MARKETING" {{ $profesion->nombreProfesion == 'MARKETING' ? 'selected' : '' }}>MARKETING</option>
+                        <option value="CIENCIA DE LA COMUNICACIÓN" {{ $profesion->nombreProfesion == 'CIENCIA DE LA COMUNICACIÓN' ? 'selected' : '' }}>CIENCIA DE LA COMUNICACIÓN</option>
+                        <option value="PSICOLOGIA" {{ $profesion->nombreProfesion == 'PSICOLOGIA' ? 'selected' : '' }}>PSICOLOGIA</option>
+                        <option value="QUIMICA Y BIOQUIMICA" {{ $profesion->nombreProfesion == 'QUIMICA Y BIOQUIMICA' ? 'selected' : '' }}>QUIMICA Y BIOQUIMICA</option>
+                        <option value="SECRETARIA" {{ $profesion->nombreProfesion == 'SECRETARIA' ? 'selected' : '' }}>SECRETARIA</option>
                       </select>
                       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                     </div>
@@ -76,7 +92,7 @@
                 <div id="especialidades-container-edit-{{$usuario->idUsuario}}">
                   @foreach ($usuario->especialidades as $especialidad)
                   <div class="d-flex align-items-center">
-                <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required oninput="this.value = this.value.toUpperCase();"/>
                 <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
               </div>
               @endforeach
@@ -148,16 +164,42 @@
 
 <script>
   // JavaScript para manejar la edición de profesiones y especialidades
+  $(document).ready(function() {
+    $('#ModalEdit{{$usuario->idUsuario}}').on('shown.bs.modal', function () {
+      $('select[name="profesionUsuario[]"]').select2({
+        placeholder: "Selecciona una profesión",
+        allowClear: true,
+        width: '100%',
+        language: {
+          noResults: function() {
+            return "No se encontró el usuario";
+          }
+        }
+      });
+    });
 
+    // Destruye Select2 cuando el modal se cierra para evitar problemas
+    $('#ModalEdit{{$usuario->idUsuario}}').on('hidden.bs.modal', function () {
+      $('select[name="profesionUsuario[]"]').select2('destroy');
+    });
+  });
   function addProfesionEdit(usuarioId) {
     const container = document.getElementById('profesiones-container-edit-' + usuarioId);
     const div = document.createElement('div');
     div.className = 'input-group mb-2';
     div.innerHTML = `
+    <div class="d-flex align-items-center mb-2">
       <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
         <option value="" disabled selected>Selecciona una profesión</option>
+         <option value="INGENIERÍA QUIMICA">INGENIERÍA QUIMICA</option>
+        <option value="INGENIERÍA SONIDO">INGENIERÍA SONIDO</option>
         <option value="INGENIERÍA CIVIL">INGENIERÍA CIVIL</option>
+        <option value="INGENIERÍA MECATRÓNICA">INGENIERÍA MECATRÓNICA</option>
         <option value="INGENIERÍA MECÁNICA">INGENIERÍA MECÁNICA</option>
+        <option value="INGENIERÍA SOFTWARE">INGENIERÍA SOFTWARE</option>
+        <option value="INGENIERÍA HADWARE">INGENIERÍA HADWARE</option>
+        <option value="INGENIERÍA INDUSTRIAL">INGENIERÍA INDUSTRIAL</option>
+        <option value="INGENIERÍA ELECTRÓNICA">INGENIERÍA ELECTRÓNICA</option>
         <option value="INGENIERÍA SANITARIA">INGENIERÍA SANITARIA</option>
         <option value="INGENIERÍA ELÉCTRICA">INGENIERÍA ELÉCTRICA</option>
         <option value="INGENIERÍA AMBIENTAL">INGENIERÍA AMBIENTAL</option>
@@ -167,16 +209,38 @@
         <option value="INGENIERÍA DE MECÁNICA DE FLUIDOS">INGENIERÍA DE MECÁNICA DE FLUIDOS</option>
         <option value="ANTROPOLOGÍA">ANTROPOLOGÍA</option>
         <option value="BIOLOGÍA">BIOLOGÍA</option>
-        <option value="ARQUITECTO">ARQUITECTO</option>
+        <option value="ARQUITECTURA">ARQUITECTURA</option>
         <option value="ARQUEÓLOGO">ARQUEÓLOGO</option>
-        <option value="ABOGADO">ABOGADO</option>
-        <option value="ECONOMISTA">ECONOMISTA</option>
+        <option value="ABOGADO-DERECHO">ABOGADO-DERECHO</option>
+        <option value="ECONOMISTA-ECONOMÍA">ECONOMISTA-ECONOMÍA</option>
         <option value="CONTALIBIDAD">CONTALIBIDAD</option>
         <option value="AGRONOMÍA">AGRONOMÍA</option>
+        <option value="TURISMO Y HOTELERIA">TURISMO Y HOTELERIA</option>
+        <option value="ADMINISTRACIÓN">ADMINISTRACIÓN</option>
+        <option value="EDUCACIÓN">EDUCACIÓN</option>
+        <option value="ADMINISTRACIÓN DE EMPRESAS">ADMINISTRACIÓN DE EMPRESAS</option>
+        <option value="MARKETING">MARKETING</option>
+        <option value="CIENCIA DE LA COMUNICACIÓN">CIENCIA DE LA COMUNICACIÓN</option>
+        <option value="PSICOLOGIA">PSICOLOGIA</option>
+        <option value="QUIMICA Y BIOQUIMICA">QUIMICA Y BIOQUIMICA</option>
+        <option value="SECRETARIA">SECRETARIA</option>
       </select>
       <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+      </div>
     `;
     container.appendChild(div);
+
+    // Inicializa Select2 en el nuevo select
+    $(div).find('select').select2({
+      placeholder: "Selecciona una profesión",
+      allowClear: true,
+      width: '100%',
+      language: {
+        noResults: function() {
+          return "No se encontró el usuario";
+        }
+      }
+    });
   }
   function addEspecialidadEdit(usuarioId) {
     const container = document.getElementById('especialidades-container-edit-' + usuarioId);
@@ -184,7 +248,7 @@
     div.className = 'input-group mb-2';
     div.innerHTML = `
                 <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
                   <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                 </div>
 
