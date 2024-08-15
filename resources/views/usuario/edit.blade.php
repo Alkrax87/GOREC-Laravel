@@ -184,7 +184,7 @@
     div.className = 'input-group mb-2';
     div.innerHTML = `
                 <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required placeholder="Ingrese Especialidad"/>
+                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad"/>
                   <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                 </div>
 
