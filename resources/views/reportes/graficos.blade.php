@@ -10,7 +10,7 @@
 <div class="card">
   <div class="card-body">
     <div class="row my-2">
-      <div class="col-9">
+      <div class="col-12">
         <!-- Inversión -->
         <label class="pt-3"><i class="fas fa-clipboard-list"></i>&nbsp;Inversión</label>
         <select id="inversionSelect" class="form-control input-auth">
@@ -30,7 +30,7 @@
           <option selected disabled>Seleccione una actividad</option>
         </select>
       </div>
-      <div class="col-3">
+      <div class="col-4">
         <!-- Inversion CHART -->
         <div class="card text-white mb-3">
           <div id="chartTitleAvanceInversión" class="card-header text-center bg-dark"></div>
