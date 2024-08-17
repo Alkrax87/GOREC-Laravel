@@ -64,13 +64,16 @@
       <div class="card carf-new border-dark mb-0">
         <div class="card-body">
           <div class="row">
-            <div class="col-9 form-outline mb-4">
+            <div class="col-8 form-outline mb-4">
               <label class="form-label">Nombre Sub Actividad</label>
               <input type="text" name="subfases[${index}][nombreSubfase]" class="input-auth" required">
             </div>
-            <div class="col-3 form-outline mb-4">
+            <div class="col-4 form-outline mb-4">
               <label class="form-label">Avance (%)</label>
-              <input type="text" name="subfases[${index}][avance_por_usuario_realSubFase]" class="input-auth" required min="0" max="100" step="0.01">
+              <div class="input-group">
+                <input type="number" value="0" name="subfases[${index}][avance_por_usuario_realSubFase]" class="form-control input-auth" required min="0" max="100" step="0.01">
+                <span class="input-group-text">%</span>
+              </div>
             </div>
           </div>
           <div class="row">
