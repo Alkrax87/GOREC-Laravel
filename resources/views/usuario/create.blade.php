@@ -38,12 +38,12 @@
                   <option value="AA">AA</option>
                 </select>
               </div>
-              <div class="col-13 form-outline mb-4">
+              <div class="form-outline mb-4">
                 <label class="form-label">Profesión</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesion()"><i class="fas fa-plus"></i></button>
                 <div id="profesiones-container">
-                  <div class="d-flex align-items-center mb-2">
-                    <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
+                  <div class="d-flex mb-2">
+                    <select name="profesionUsuario[]" class="form-select mb-1" required>
                       <option value="" disabled selected>Selecciona una profesión</option>
                       <option value="INGENIERÍA QUIMICA">INGENIERÍA QUIMICA</option>
                       <option value="INGENIERÍA SONIDO">INGENIERÍA SONIDO</option>
@@ -79,18 +79,18 @@
                       <option value="QUIMICA Y BIOQUIMICA">QUIMICA Y BIOQUIMICA</option>
                       <option value="SECRETARIA">SECRETARIA</option>
                     </select>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                    <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
               </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label">Especialidad</label>
-                  <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidad()"><i class="fas fa-plus"></i></button>
-                  <div id="especialidades-container">
-                    <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
-                  <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-                </div>
+              <div class="form-outline mb-4">
+                <label class="form-label">Especialidad</label>
+                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidad()"><i class="fas fa-plus"></i></button>
+                <div id="especialidades-container">
+                  <div class="d-flex mb-2">
+                    <input type="text" name="especialidadUsuario[]" class="input-auth input-especialidad" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
+                    <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                  </div>
                 </div>
               </div>
               
@@ -179,10 +179,9 @@
   function addProfesion() {
     const container = document.getElementById('profesiones-container');
     const div = document.createElement('div');
-    div.className = 'input-group mb-2';
+    div.className = 'd-flex mb-2';
     div.innerHTML = `
-    <div class="d-flex align-items-center mb-2">
-      <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
+      <select name="profesionUsuario[]" class="form-select" required>
         <option value="" disabled selected>Selecciona una profesión</option>
         <option value="INGENIERÍA QUIMICA">INGENIERÍA QUIMICA</option>
         <option value="INGENIERÍA SONIDO">INGENIERÍA SONIDO</option>
@@ -218,8 +217,7 @@
         <option value="QUIMICA Y BIOQUIMICA">QUIMICA Y BIOQUIMICA</option>
         <option value="SECRETARIA">SECRETARIA</option>
       </select>
-      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-      </div>
+      <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
     container.appendChild(div);
 
@@ -238,12 +236,10 @@
   function addEspecialidad() {
     const container = document.getElementById('especialidades-container');
     const div = document.createElement('div');
-    div.className = 'input-group mb-2';
+    div.className = 'd-flex mb-2';
     div.innerHTML = `
-                <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
-                  <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-                </div>
+      <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
+      <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
      `;
     container.appendChild(div);
   }
@@ -284,8 +280,6 @@
   function removeElement(element) {
     element.parentNode.remove();
   }
-</script>
-<script>
   // Seleccionar el checkbox y el div
   const activarCrearCuenta = document.getElementById('activarCrearCuenta');
   const crearCuenta = document.getElementById('crearCuenta');
@@ -301,24 +295,27 @@
 </script>
 <style>
   /* Ajustar el z-index de Select2 */
-  .select2-container--default .select2-selection--single .select2-selection__rendered { 
-  line-height: 24px;
-  padding-left: 10px; /* Ajustar el padding izquierdo */
-   /* Asegurar que el texto esté alineado a la izquierda */
-}
-.select2-container .select2-selection--single {
-  height: 35px;
-  padding-left: 0px; /* Ajustar el padding izquierdo */
-}
+  .select2-container .select2-selection--single {
+    height: 38px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+  .select2-container .select2-selection--single:focus {
+    border-color: #72081f;
+    outline: none;
+    box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
+  }
+  .style-button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
   .select2-container .select2-dropdown {
     z-index: 9999;
   }
   .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
     background-color: #9C0C27 !important; /* Cambia este color al que desees */
     color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
-}
-</style>
-<style>
+  }
   body {
     background-color: #000;
   }

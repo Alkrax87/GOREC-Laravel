@@ -44,7 +44,7 @@
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addProfesionEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
                 <div id="profesiones-container-edit-{{$usuario->idUsuario}}">
                   @foreach ($usuario->profesiones as $profesion)
-                    <div class="d-flex align-items-center mb-2">
+                    <div class="d-flex mb-2">
                       <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
                         <option value="" disabled>Selecciona una profesión</option>
                         <option value="INGENIERÍA QUIMICA" {{ $profesion->nombreProfesion == 'INGENIERÍA QUIMICA' ? 'selected' : '' }}>INGENIERÍA QUIMICA</option>
@@ -81,7 +81,7 @@
                         <option value="QUIMICA Y BIOQUIMICA" {{ $profesion->nombreProfesion == 'QUIMICA Y BIOQUIMICA' ? 'selected' : '' }}>QUIMICA Y BIOQUIMICA</option>
                         <option value="SECRETARIA" {{ $profesion->nombreProfesion == 'SECRETARIA' ? 'selected' : '' }}>SECRETARIA</option>
                       </select>
-                      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                      <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
                     </div>
                   @endforeach
                 </div>
@@ -91,13 +91,13 @@
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidadEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
                 <div id="especialidades-container-edit-{{$usuario->idUsuario}}">
                   @foreach ($usuario->especialidades as $especialidad)
-                  <div class="d-flex align-items-center">
-                <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required oninput="this.value = this.value.toUpperCase();"/>
-                <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                    <div class="d-flex mb-2">
+                      <input type="text" name="especialidadUsuario[]" value="{{ $especialidad->nombreEspecialidad }}" class="input-auth" required oninput="this.value = this.value.toUpperCase();"/>
+                      <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                  @endforeach
+                </div>
               </div>
-              @endforeach
-              </div>
-            </div>
               <!-- <div class="form-outline mb-4">
                 <label class="form-label">Especialidad</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidadEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>
@@ -186,9 +186,8 @@
   function addProfesionEdit(usuarioId) {
     const container = document.getElementById('profesiones-container-edit-' + usuarioId);
     const div = document.createElement('div');
-    div.className = 'input-group mb-2';
+    div.className = 'd-flex mb-2';
     div.innerHTML = `
-    <div class="d-flex align-items-center mb-2">
       <select name="profesionUsuario[]" class="form-select form-select-sm input-auth" required>
         <option value="" disabled selected>Selecciona una profesión</option>
          <option value="INGENIERÍA QUIMICA">INGENIERÍA QUIMICA</option>
@@ -225,8 +224,7 @@
         <option value="QUIMICA Y BIOQUIMICA">QUIMICA Y BIOQUIMICA</option>
         <option value="SECRETARIA">SECRETARIA</option>
       </select>
-      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-      </div>
+      <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
     container.appendChild(div);
 
@@ -245,13 +243,10 @@
   function addEspecialidadEdit(usuarioId) {
     const container = document.getElementById('especialidades-container-edit-' + usuarioId);
     const div = document.createElement('div');
-    div.className = 'input-group mb-2';
+    div.className = 'd-flex mb-2';
     div.innerHTML = `
-                <div class="d-flex align-items-center">
-                  <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
-                  <button type="button" class="btn btn-danger btn-sm btn-adjust" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
-                </div>
-
+      <input type="text" name="especialidadUsuario[]" class="input-auth" required placeholder="Ingrese Especialidad" oninput="this.value = this.value.toUpperCase();"/>
+      <button type="button" class="btn btn-danger style-button" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
     `;
     container.appendChild(div);
   }
@@ -323,6 +318,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .style-button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
   }
   /* Card Style */
   .cascading-left {
