@@ -137,6 +137,7 @@
         $('#inversionSelect').select2({
           placeholder: "Selecciona una inversión",
           allowClear: true,
+          width: '100%', 
           language: {
             noResults: function() {
               return "No se encontró la inversión";
@@ -147,6 +148,7 @@
         $('#especialidadSelect').select2({
           placeholder: "Seleccione una especialidad",
           allowClear: false,
+          width: '100%', 
           language: {
             noResults: function() {
               return "No se encontró la especialidad";
@@ -157,6 +159,7 @@
         $('#faseSelect').select2({
           placeholder: "Seleccione una actividad",
           allowClear: false,
+          width: '100%', 
           language: {
             noResults: function() {
               return "No se encontró la actividad";

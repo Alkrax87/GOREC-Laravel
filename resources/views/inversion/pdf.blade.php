@@ -117,28 +117,28 @@
             <th>Responsable</th>
             <td colspan="3">
             <b>{{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</b>
-            ( P: 
-        @if ($inversion->usuario->profesiones->isNotEmpty())
-            @foreach ($inversion->usuario->profesiones as $profesion)
-                {{ $profesion->nombreProfesion }}
-                @if (!$loop->last)
-                    ,
+            <span style="font-size: 10px">( P: 
+                @if ($inversion->usuario->profesiones->isNotEmpty())
+                    @foreach ($inversion->usuario->profesiones as $profesion)
+                        {{ $profesion->nombreProfesion }}
+                        @if (!$loop->last)
+                            ,
+                        @endif
+                    @endforeach
                 @endif
-            @endforeach
-        @endif
-        )
-        &nbsp; | &nbsp;
-        ( E: 
-        @if ($inversion->usuario->especialidades->isNotEmpty())
-            @foreach ($inversion->usuario->especialidades as $especialidad)
-                {{ $especialidad->nombreEspecialidad }}
-                @if (!$loop->last)
-                    ,
+                )
+                &nbsp; | &nbsp;
+                ( E: 
+                @if ($inversion->usuario->especialidades->isNotEmpty())
+                    @foreach ($inversion->usuario->especialidades as $especialidad)
+                        {{ $especialidad->nombreEspecialidad }}
+                        @if (!$loop->last)
+                            ,
+                        @endif
+                    @endforeach
                 @endif
-            @endforeach
-        @endif
-        )
-    </td>
+                )</span>
+            </td>
         </tr>
        <!-- Mostrar profesionales y asistentes -->
        <tr>
@@ -147,13 +147,14 @@
             <strong>Profesionales:</strong><br><br><!-- Título para Profesionales -->
             @foreach($inversion->profesional as $asignacion)
                 <strong>{{ $asignacion->usuario->nombreUsuario }} {{ $asignacion->usuario->apellidoUsuario }}</strong>&nbsp; 
-                (P: {{ $asignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
-                (E: {{ $asignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) 
+                <span style="font-size: 10px">(P: {{ $asignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
+                    (E: {{ $asignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) </span>
                 <ul style="list-style: none">
                     <strong>Asistentes:</strong> 
                     @foreach($inversion->asistente->where('idJefe', $asignacion->usuario->idUsuario) as $asistenteAsignacion)
-                        <li>- &nbsp; {{ $asistenteAsignacion->usuario->nombreUsuario }} {{ $asistenteAsignacion->usuario->apellidoUsuario }} &nbsp; (P: {{ $asistenteAsignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
-                            (E: {{ $asistenteAsignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) </li>
+                        <li>- &nbsp; {{ $asistenteAsignacion->usuario->nombreUsuario }} {{ $asistenteAsignacion->usuario->apellidoUsuario }} &nbsp; 
+                            <span style="font-size: 10px"> (P: {{ $asistenteAsignacion->usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
+                                (E: {{ $asistenteAsignacion->usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) </span>  </li>
                     @endforeach
                 </ul>
                 <br>
