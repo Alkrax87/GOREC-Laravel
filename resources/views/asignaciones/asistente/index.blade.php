@@ -39,7 +39,31 @@
                   <tbody>
                     @foreach ($asistentes as $asistente)
                       <tr>
-                        <td>{{ $asistente->jefe->nombreUsuario . ' ' . $asistente->jefe->apellidoUsuario }}</td>
+                        <td>{{ $asistente->jefe->nombreUsuario . ' ' . $asistente->jefe->apellidoUsuario }}
+                          <br>
+                          <b>P:</b> (
+                          @if ($asistente->jefe->profesiones->isNotEmpty())
+                            @foreach ($asistente->jefe->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          <br>
+                          <b>E:</b> (
+                          @if ($asistente->jefe->especialidades->isNotEmpty())
+                            @foreach ($asistente->jefe->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                        </td>
+                        
                         <td>
                           {{ $asistente->usuario->nombreUsuario . ' ' . $asistente->usuario->apellidoUsuario }}
                           <br>
