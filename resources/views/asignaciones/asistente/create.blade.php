@@ -30,6 +30,28 @@
                   @foreach ($profesionales as $profesional)
                     <option value="{{ $profesional->idUsuario }}">
                       {{ $profesional->usuario->nombreUsuario . ' ' . $profesional->usuario->apellidoUsuario }}
+                      <br>
+                          <b>P:</b> (
+                          @if ($profesional->usuario->profesiones->isNotEmpty())
+                            @foreach ($profesional->usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          <br>
+                          <b>E:</b> (
+                          @if ($profesional->usuario->especialidades->isNotEmpty())
+                            @foreach ($profesional->usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
                     </option>
                   @endforeach
                 </select>

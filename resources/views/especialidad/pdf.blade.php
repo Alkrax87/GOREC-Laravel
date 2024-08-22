@@ -140,8 +140,8 @@
                 <p><b>Avance Programado:</b> {{ $especialidad->porcentajeAvanceEspecialidad }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><b>Avance Total:</b> {{ $especialidad->avanceTotalEspecialidad }}%</span></p>
                 <p>Proyectistas:</p>
                 @foreach ($especialidad->usuarios as $usuario)
-                <ul class="mb-0"><li>{{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }} (P: {{ $usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
-                    (E: {{ $usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }}) </li></ul>
+                <ul class="mb-0"><li>{{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }} <span style="font-size: 11px"> (P: {{ $usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
+                    (E: {{ $usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }})</span>  </li></ul>
                 
                  @endforeach
                 
