@@ -341,6 +341,25 @@ return [
             'icon' => 'fas fa-window-restore',
             'icon_color' => 'white'
         ],
+        [
+            'text' => 'Requerimiento',
+            'icon' => 'fas fa-folder-open',
+            'icon_color' => 'white',
+            'submenu' => [
+                [
+                    'text' => 'Servicios',
+                    'url' => 'servicios',
+                    'icon' => 'fas fa-chevron-right',
+                    'icon_color' => 'white'
+                ],
+                [
+                    'text' => 'Bienes',
+                    'url' => 'bienes',
+                    'icon' => 'fas fa-chevron-right',
+                    'icon_color' => 'white'
+                ],
+            ],
+        ],
         ['header' => 'REPORTES'],
         [
             'text' => 'Reportes',

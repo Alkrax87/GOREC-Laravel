@@ -1,4 +1,4 @@
-<form action="{{ route('inversion.store') }}" method="POST">
+<form action="{{ route('inversion.store') }}" method="POST" enctype="multipart/form-data">
   {{ csrf_field() }}
   <div class="modal fade text-left" id="ModalCreate">
     <div class="modal-dialog modal-lg">
@@ -142,20 +142,24 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 form-outline mb-4">
+                  <div class="col-6 form-outline">
                     <label class="form-label">Presupuesto Formulación</label>
                     <div class="input-group mb-3">
                       <span class="input-group-text">S/</span>
                       <input type="text" name="presupuestoFormulacionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
                     </div>
                   </div>
-                  <div class="col-6 form-outline mb-4">
+                  <div class="col-6 form-outline">
                     <label class="form-label">Presupuesto Ejecución</label>
                     <div class="input-group mb-3">
                       <span class="input-group-text">S/</span>
                       <input type="text" name="presupuestoEjecucionInversion" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
                     </div>
                   </div>
+                </div>
+                <div class="form-group mb-4">
+                  <label for="archivoInversion">Archivo</label>
+                  <input type="file" name="archivoInversion" accept="application/pdf" class="form-control">
                 </div>
               </div>
               <div class="col-12 py-2 text-center">

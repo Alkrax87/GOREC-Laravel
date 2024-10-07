@@ -46,6 +46,9 @@
                   <th>Categoría</th>
                   <th>Profesión</th>
                   <th>Especialidad</th>
+                  <th>Responsable en</th>
+                  <th>Profesional en</th>
+                  <th>Asistente en</th>
                   <th>Opciones</th>
                 </tr>
               </thead>
@@ -80,6 +83,21 @@
                         <i class="fas fa-caret-right"></i> {{ $especialidad->nombreEspecialidad }}<br>
                       @endforeach
                     </td>
+                    <td>
+                      @foreach ($usuario->inversion as $inversion)
+                        <i class="fas fa-caret-right"></i> {{ $inversion->nombreCortoInversion }}<br>
+                      @endforeach
+                    </td>
+                    <td>
+                      @foreach ($usuario->asignacionesProfesional as $asignacion)
+                        <i class="fas fa-caret-right"></i> {{ $asignacion->inversion->nombreCortoInversion }}<br>
+                      @endforeach
+                    </td> <!-- Columna de profesional -->
+                    <td>
+                      @foreach ($usuario->asignacionesAsistente as $asignacion)
+                        <i class="fas fa-caret-right"></i> {{ $asignacion->inversion->nombreCortoInversion }}<br>
+                      @endforeach
+                    </td> <!-- Columna de asistente -->
                     <td class="text-center" style="white-space: nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
                       <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>

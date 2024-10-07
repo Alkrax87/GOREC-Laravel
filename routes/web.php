@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
     Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
-
+    Route::get('/inversion/{id}/download', [InversionController::class, 'download'])->name('inversion.download');
 //obtener nueva contrase;a
 Route::get('password/change', [UserController::class, 'showChangePasswordForm'])->name('password.change');
 Route::post('password/update', [UserController::class, 'updatePassword'])->name('password.update');

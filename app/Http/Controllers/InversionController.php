@@ -107,8 +107,16 @@ class InversionController extends Controller
             'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
+        $data = $request->all();
+
+        // Manejar la subida del archivo
+        if ($request->hasFile('archivoInversion')) {
+            $file = $request->file('archivoInversion');
+            $data['archivoInversion'] = file_get_contents($file->getRealPath());
+        }
+
         // Creamos un registro
-        Inversion::create($request->all());
+        Inversion::create($data);
 
         return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' creada exitosamente.');
     }
@@ -141,8 +149,22 @@ class InversionController extends Controller
         // Guardamos el estado actual
         $CurrentEstadoInversion = $inversion->estadoInversion;
 
+        $data = $request->except(['archivoInversion', 'deleteFile']);
+
+        // Manejar la subida del archivo
+        if ($request->hasFile('archivoInversion')) {
+            $file = $request->file('archivoInversion');
+            $data['archivoInversion'] = file_get_contents($file->getRealPath());
+        }
+
+        // Verificar si se ha solicitado eliminar el archivo
+        if ($request->has('deleteFile') && $request->input('deleteFile') == '1') {
+            // Borramos el archivo
+            $data['archivoInversion'] = null;
+        }
+
         // Editamos la inversión
-        $inversion->update($request->all());
+        $inversion->update($data);
 
          // Comprobamos si el estado ha cambiado
         if ($request->estadoInversion != $CurrentEstadoInversion) {
@@ -174,6 +196,20 @@ class InversionController extends Controller
         $inversion = Inversion::findOrFail($id);
 
         return view('inversion.show', compact('inversion'));
+    }
+
+    // Función para descargar el PDF (Opcional)
+    public function download($id)
+    {
+        $inversion = Inversion::findOrFail($id);
+
+        if (!$inversion->archivoInversion) {
+            return redirect()->back()->with('error', 'No hay archivo PDF asociado a esta inversión.');
+        }
+
+        return response($inversion->archivoInversion)
+                    ->header('Content-Type', 'application/pdf')
+                    ->header('Content-Disposition', 'attachment; filename="' . $inversion->nombreCortoInversion . '.pdf"');
     }
 
     // Función para calcular el % de avance de la inversión

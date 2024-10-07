@@ -125,6 +125,9 @@
                     </td>
                     <td class="text-center text-nowrap">
                       <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
+                      @if ($inversion->archivoInversion)
+                        <a  class="btn btn-dark" href="{{ route('inversion.download', $inversion->idInversion) }}"><i class="fas fa-file-download"></i></a>
+                      @endif
                       @if (Auth::user()->isAdmin)
                         <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
                       @endif
