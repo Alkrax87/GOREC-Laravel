@@ -54,6 +54,54 @@
                 </div>
               </div>
             @endif
+            @if ($usuario->inversion->isNotEmpty())
+              <div class="col-12 mt-2">
+                <div class="card text-white bg-dark">
+                  <div class="card-body pb-0">
+                    <div class="col-12">
+                      <b><i class="fas fa-clipboard-list"></i> Responsable en:</b>
+                      <ul>
+                        @foreach ($usuario->inversion as $inversion)
+                          <li>{{ $inversion->nombreCortoInversion }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+            @if ($usuario->asignacionesProfesional->isNotEmpty())
+              <div class="col-12 mt-2">
+                <div class="card text-white bg-dark">
+                  <div class="card-body pb-0">
+                    <div class="col-12">
+                      <b><i class="fas fa-user-tie"></i> Profesional en:</b>
+                      <ul>
+                        @foreach ($usuario->asignacionesProfesional as $asignacion)
+                          <li>{{ $asignacion->inversion->nombreCortoInversion  }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+            @if ($usuario->asignacionesAsistente->isNotEmpty())
+              <div class="col-12 mt-2">
+                <div class="card text-white bg-dark">
+                  <div class="card-body pb-0">
+                    <div class="col-12">
+                      <b><i class="fas fa-users-cog"></i> Asistente en:</b>
+                      <ul>
+                        @foreach ($usuario->asignacionesAsistente as $asignacion)
+                          <li>{{ $asignacion->inversion->nombreCortoInversion }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
             <div class="col-12 py-2 text-center">
               <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>
