@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password')->nullable();
             $table->boolean('isAdmin')->default(false);
+            $table->boolean('isAdministrativo')->default(false);
             $table->string('categoriaUsuario')->nullable();
             $table->boolean('password_changed')->default(false);
             $table->timestamps(false);

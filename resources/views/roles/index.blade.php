@@ -28,6 +28,7 @@
                   <th>Apellidos</th>
                   <th class="text-center">Usuario</th>
                   <th class="text-center">Administrador</th>
+                  <th class="text-center">Administrativo</th>
                 </tr>
               </thead>
               <tbody>
@@ -43,6 +44,12 @@
                         <span class="slider round"></span>
                       </label>
                     </td>
+                    <td class="text-center" style="white-space: nowrap">
+                      <label class="switch">
+                        <input type="checkbox" data-toggle="modal" data-target="#ModalAdministrativo{{ $usuario->idUsuario }}" @checked($usuario->isAdministrativo)>
+                        <span class="slider round"></span>
+                      </label>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
@@ -54,6 +61,7 @@
   </div>
   @foreach ($usuarios as $usuario)
     @include('roles.change', ['usuario' => $usuario])
+    @include('roles.change2', ['usuario' => $usuario])
   @endforeach
 @stop
 
@@ -97,6 +105,15 @@
     document.addEventListener('DOMContentLoaded', (event) => {
       @foreach ($usuarios as $usuario)
         $('#ModalAdmin{{$usuario->idUsuario}}').on('hidden.bs.modal', function (e) {
+          window.location.href = '{{ route('roles.index') }}';
+        });
+      @endforeach
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      @foreach ($usuarios as $usuario)
+        $('#ModalAdministrativo{{$usuario->idUsuario}}').on('hidden.bs.modal', function (e) {
           window.location.href = '{{ route('roles.index') }}';
         });
       @endforeach
