@@ -14,6 +14,7 @@ use App\Http\Controllers\SubFaseController;
 use App\Http\Controllers\FaseController;
 use App\Http\Controllers\Reportes;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\AdministradorMiddleware;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\BienesController;
 // Ruta por defecto
@@ -43,8 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('subfase', SubFaseController::class);
     Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
-    Route::resource('servicios', ServiciosController::class);
-    Route::resource('bienes', BienesController::class);
+    Route::resource('servicios', ServiciosController::class)->middleware([AdministradorMiddleware::class]);
+    Route::resource('bienes', BienesController::class)->middleware([AdministradorMiddleware::class]);
     Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
     Route::get('/inversion/{id}/download', [InversionController::class, 'download'])->name('inversion.download');
     Route::get('/usuarios-por-servicios/{idInversion}', [ServiciosController::class, 'getUsuariosPorInversiones']);
