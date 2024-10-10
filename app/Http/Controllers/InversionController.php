@@ -60,11 +60,6 @@ class InversionController extends Controller
         return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs', 'notificaciones'));
     }
 
-    // Función que devuelve el formulario de crear
-    public function create(){
-        return view('inversion.create');
-    }
-
     // Función de agreagar un registro
     public function store(Request $request){
         // Validaciones

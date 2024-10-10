@@ -14,7 +14,8 @@ use App\Http\Controllers\SubFaseController;
 use App\Http\Controllers\FaseController;
 use App\Http\Controllers\Reportes;
 use App\Http\Middleware\AdminMiddleware;
-
+use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\BienesController;
 // Ruta por defecto
 Route::get('/', function () {
     return view('login');
@@ -42,9 +43,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('subfase', SubFaseController::class);
     Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
+    Route::resource('servicios', ServiciosController::class);
+    Route::resource('bienes', BienesController::class);
     Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
-
-//obtener nueva contrase;a
+    Route::get('/usuarios-por-servicios/{idInversion}', [ServiciosController::class, 'getUsuariosPorInversiones']);
+    Route::get('/usuarios-por-bienes/{idInversion}', [BienesController::class, 'getUsuariosPorInversiones_bs']);
+// Ruta para mostrar el formulario
 Route::get('password/change', [UserController::class, 'showChangePasswordForm'])->name('password.change');
 Route::post('password/update', [UserController::class, 'updatePassword'])->name('password.update');
 
