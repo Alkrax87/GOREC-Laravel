@@ -60,11 +60,6 @@ class InversionController extends Controller
         return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs', 'notificaciones'));
     }
 
-    // Función que devuelve el formulario de crear
-    public function create(){
-        return view('inversion.create');
-    }
-
     // Función de agreagar un registro
     public function store(Request $request){
         // Validaciones
@@ -232,8 +227,8 @@ class InversionController extends Controller
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
-    
-    
+
+
     public function pdfs(){
         date_default_timezone_set('America/Lima');
         $inversiones = Inversion::all(); // Carga todas las inversiones
