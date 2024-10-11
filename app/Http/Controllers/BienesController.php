@@ -23,39 +23,39 @@ class BienesController extends Controller
         
           // Validaciones
     $request->validate([
-        'nombre_bien' => 'required|string|max:255',
-        'meta_bien' => 'required|string|max:255',
-        'f_presentacion_req_inicio_bs' => 'required|date',
-        'f_presentacion_req_fin_bs' => 'required|date|after_or_equal:f_presentacion_req_inicio_bs',
-        'f_designacion_cotizador_inicio_bs' => 'required|date',
-        'f_designacion_cotizador_fin_bs' => 'required|date|after_or_equal:f_designacion_cotizador_inicio_bs',
-        'f_estudio_mercado_inicio_bs' => 'required|date',
-        'f_estudio_mercado_fin_bs' => 'required|date|after_or_equal:f_estudio_mercado_inicio_bs',
-        'f_cuadro_comparativo_inicio_bs' => 'required|date',
-        'f_cuadro_comparativo_fin_bs' => 'required|date|after_or_equal:f_cuadro_comparativo_inicio_bs',
-        'f_elaboracion_certificado_inicio_bs' => 'required|date',
-        'f_elaboracion_certificado_fin_bs' => 'required|date|after_or_equal:f_elaboracion_certificado_inicio_bs',
-        'f_numero_Siaf_inicio_bs' => 'required|date',
-        'f_numero_Siaf_fin_bs' => 'required|date|after_or_equal:f_numero_Siaf_inicio_bs',
-        'f_orden_compra_inicio_bs' => 'required|date',
-        'f_orden_compra_fin_bs' => 'required|date|after_or_equal:f_orden_compra_inicio_bs',
-        'f_notificacion_inicio_bs' => 'required|date',
-        'f_notificacion_fin_bs' => 'required|date|after_or_equal:f_notificacion_inicio_bs',
-        'plazo_ejecucion_dias_bs'  => 'required',
-         'fecha_plazo_ejecucion_bs' => 'required|date',
-         'observaciones_bs' => 'nullable|string',
-         'f_entrega_bien_inicio_bs' => 'required|date',
-         'f_recepcion_bien_inicio_bs' => 'required|date',
-         'fecha_patrimonizacion_bs' => 'required|date',
+        'nombre_bienes' => 'required|string|max:255',
+        'meta_bienes' => 'required|string|max:255',
+        'f_presentacion_req_inicio_bs' => 'nullable|date',
+        'f_presentacion_req_fin_bs' => 'nullable|date|after_or_equal:f_presentacion_req_inicio_bs',
+        'f_designacion_cotizador_inicio_bs' => 'nullable|date',
+        'f_designacion_cotizador_fin_bs' => 'nullable|date|after_or_equal:f_designacion_cotizador_inicio_bs',
+        'f_estudio_mercado_inicio_bs' => 'nullable|date',
+        'f_estudio_mercado_fin_bs' => 'nullable|date|after_or_equal:f_estudio_mercado_inicio_bs',
+        'f_cuadro_comparativo_inicio_bs' => 'nullable|date',
+        'f_cuadro_comparativo_fin_bs' => 'nullable|date|after_or_equal:f_cuadro_comparativo_inicio_bs',
+        'f_elaboracion_certificado_inicio_bs' => 'nullable|date',
+        'f_elaboracion_certificado_fin_bs' => 'nullable|date|after_or_equal:f_elaboracion_certificado_inicio_bs',
+        'f_numero_Siaf_inicio_bs' => 'nullable|date',
+        'f_numero_Siaf_fin_bs' => 'nullable|date|after_or_equal:f_numero_Siaf_inicio_bs',
+        'f_orden_compra_inicio_bs' => 'nullable|date',
+        'f_orden_compra_fin_bs' => 'nullable|date|after_or_equal:f_orden_compra_inicio_bs',
+        'f_notificacion_inicio_bs' => 'nullable|date',
+        'f_notificacion_fin_bs' => 'nullable|date|after_or_equal:f_notificacion_inicio_bs',
+        'plazo_ejecucion_dias_bs'  => 'nullable',
+         'fecha_plazo_ejecucion_bs' => 'nullable|date',
+         'observaciones_bs' => 'nullable|string|max:1024',
+         'f_entrega_bien_inicio_bs' => 'nullable|date',
+         'f_recepcion_bien_inicio_bs' => 'nullable|date',
+         'fecha_patrimonizacion_bs' => 'nullable|date',
          'conformidad_patrimonizacion_bs' => 'nullable|string|max:255',
          'conformidad_proyectista_bs' => 'nullable|string|max:255',
          'fecha_SGASA_penalidad_bs' => 'nullable|date',
          'envio_bs' => 'nullable|string|max:255',
-        'idInversion' => 'required|exists:inversion,idInversion',
-        'idUsuario' => 'required|exists:users,idUsuario',
+        'idInversion' => 'nullable|exists:inversion,idInversion',
+        'idUsuario' => 'nullable|exists:users,idUsuario',
         
     ],[
-        'nombre_bien.required' => 'El campo del nombre es Obligatorio',
+        'nombre_bien.nullable' => 'El campo del nombre es Obligatorio',
         'f_presentacion_req_fin_bs.after_or_equal' => 'La fecha final de presentación debe ser posterior o igual a la fecha de inicio.',
         'f_designacion_cotizador_fin_bs.after_or_equal' => 'La fecha final de designación debe ser posterior o igual a la fecha de inicio.',
         'f_estudio_mercado_fin_bs.after_or_equal' => 'La fecha final del estudio de mercado debe ser posterior o igual a la fecha de inicio.',
@@ -68,8 +68,8 @@ class BienesController extends Controller
 
     // Crear un nuevo bien en la base de datos
     $bien = new Bien();
-    $bien->nombre_bien = $request->nombre_bien;
-    $bien->meta_bien = $request->meta_bien;
+    $bien->nombre_bienes = $request->nombre_bienes;
+    $bien->meta_bienes = $request->meta_bienes;
     ///
     $bien->f_presentacion_req_inicio_bs = $request->f_presentacion_req_inicio_bs;
     $bien->f_presentacion_req_fin_bs  = $request->f_presentacion_req_fin_bs;
@@ -138,39 +138,39 @@ class BienesController extends Controller
     {
     // Validaciones
     $request->validate([
-        'nombre_bien' => 'required|string|max:255',
-        'meta_bien' => 'required|string|max:255',
-        'f_presentacion_req_inicio_bs' => 'required|date',
-        'f_presentacion_req_fin_bs' => 'required|date|after_or_equal:f_presentacion_req_inicio_bs',
-        'f_designacion_cotizador_inicio_bs' => 'required|date',
-        'f_designacion_cotizador_fin_bs' => 'required|date|after_or_equal:f_designacion_cotizador_inicio_bs',
-        'f_estudio_mercado_inicio_bs' => 'required|date',
-        'f_estudio_mercado_fin_bs' => 'required|date|after_or_equal:f_estudio_mercado_inicio_bs',
-        'f_cuadro_comparativo_inicio_bs' => 'required|date',
-        'f_cuadro_comparativo_fin_bs' => 'required|date|after_or_equal:f_cuadro_comparativo_inicio_bs',
-        'f_elaboracion_certificado_inicio_bs' => 'required|date',
-        'f_elaboracion_certificado_fin_bs' => 'required|date|after_or_equal:f_elaboracion_certificado_inicio_bs',
-        'f_numero_Siaf_inicio_bs' => 'required|date',
-        'f_numero_Siaf_fin_bs' => 'required|date|after_or_equal:f_numero_Siaf_inicio_bs',
-        'f_orden_compra_inicio_bs' => 'required|date',
-        'f_orden_compra_fin_bs' => 'required|date|after_or_equal:f_orden_compra_inicio_bs',
-        'f_notificacion_inicio_bs' => 'required|date',
-        'f_notificacion_fin_bs' => 'required|date|after_or_equal:f_notificacion_inicio_bs',
-        'plazo_ejecucion_dias_bs'  => 'required',
-         'fecha_plazo_ejecucion_bs' => 'required|date',
-         'observaciones_bs' => 'nullable|string',
-         'f_entrega_bien_inicio_bs' => 'required|date',
-         'f_recepcion_bien_inicio_bs' => 'required|date',
-         'fecha_patrimonizacion_bs' => 'required|date',
+        'nombre_bienes' => 'required|string|max:255',
+        'meta_bienes' => 'required|string|max:255',
+        'f_presentacion_req_inicio_bs' => 'nullable|date',
+        'f_presentacion_req_fin_bs' => 'nullable|date|after_or_equal:f_presentacion_req_inicio_bs',
+        'f_designacion_cotizador_inicio_bs' => 'nullable|date',
+        'f_designacion_cotizador_fin_bs' => 'nullable|date|after_or_equal:f_designacion_cotizador_inicio_bs',
+        'f_estudio_mercado_inicio_bs' => 'nullable|date',
+        'f_estudio_mercado_fin_bs' => 'nullable|date|after_or_equal:f_estudio_mercado_inicio_bs',
+        'f_cuadro_comparativo_inicio_bs' => 'nullable|date',
+        'f_cuadro_comparativo_fin_bs' => 'nullable|date|after_or_equal:f_cuadro_comparativo_inicio_bs',
+        'f_elaboracion_certificado_inicio_bs' => 'nullable|date',
+        'f_elaboracion_certificado_fin_bs' => 'nullable|date|after_or_equal:f_elaboracion_certificado_inicio_bs',
+        'f_numero_Siaf_inicio_bs' => 'nullable|date',
+        'f_numero_Siaf_fin_bs' => 'nullable|date|after_or_equal:f_numero_Siaf_inicio_bs',
+        'f_orden_compra_inicio_bs' => 'nullable|date',
+        'f_orden_compra_fin_bs' => 'nullable|date|after_or_equal:f_orden_compra_inicio_bs',
+        'f_notificacion_inicio_bs' => 'nullable|date',
+        'f_notificacion_fin_bs' => 'nullable|date|after_or_equal:f_notificacion_inicio_bs',
+        'plazo_ejecucion_dias_bs'  => 'nullable',
+         'fecha_plazo_ejecucion_bs' => 'nullable|date',
+         'observaciones_bs' => 'nullable|string|max:1024',
+         'f_entrega_bien_inicio_bs' => 'nullable|date',
+         'f_recepcion_bien_inicio_bs' => 'nullable|date',
+         'fecha_patrimonizacion_bs' => 'nullable|date',
          'conformidad_patrimonizacion_bs' => 'nullable|string|max:255',
          'conformidad_proyectista_bs' => 'nullable|string|max:255',
          'fecha_SGASA_penalidad_bs' => 'nullable|date',
          'envio_bs' => 'nullable|string|max:255',
-        'idInversion' => 'required|exists:inversion,idInversion',
-        'idUsuario' => 'required|exists:users,idUsuario',
+        'idInversion' => 'nullable|exists:inversion,idInversion',
+        'idUsuario' => 'nullable|exists:users,idUsuario',
         
     ],[
-        'nombre_bien.required' => 'El campo del nombre es Obligatorio',
+        'nombre_bien.nullable' => 'El campo del nombre es Obligatorio',
         'f_presentacion_req_fin_bs.after_or_equal' => 'La fecha final de presentación debe ser posterior o igual a la fecha de inicio.',
         'f_designacion_cotizador_fin_bs.after_or_equal' => 'La fecha final de designación debe ser posterior o igual a la fecha de inicio.',
         'f_estudio_mercado_fin_bs.after_or_equal' => 'La fecha final del estudio de mercado debe ser posterior o igual a la fecha de inicio.',
@@ -185,8 +185,8 @@ class BienesController extends Controller
     $bien = Bien::findOrFail($id);
 
     // Actualizar los campos
-    $bien->nombre_bien = $request->nombre_bien;
-    $bien->meta_bien = $request->meta_bien;
+    $bien->nombre_bienes = $request->nombre_bienes;
+    $bien->meta_bienes = $request->meta_bienes;
     ///
     $bien->f_presentacion_req_inicio_bs = $request->f_presentacion_req_inicio_bs;
     $bien->f_presentacion_req_fin_bs  = $request->f_presentacion_req_fin_bs;
@@ -249,7 +249,7 @@ class BienesController extends Controller
     $bien->save();
 
     // Redirigir con mensaje de éxito
-    return redirect()->route('biens.index')->with('message', 'bien actualizado correctamente.');
+    return redirect()->route('bienes.index')->with('message', 'bien actualizado correctamente.');
     }
     public function destroy($id){
     // Buscamos la especialidad
@@ -258,7 +258,7 @@ class BienesController extends Controller
     // Eliminamos la especialidad
     $bien->delete();
 
-    return redirect()->route('biens.index')->with('message', 'bien ' . $bien->nombre_bien . ' eliminado correctamente.');
+    return redirect()->route('bienes.index')->with('message', 'bien ' . $bien->nombre_bien . ' eliminado correctamente.');
     }
 
     public function getUsuariosPorInversiones_bs($idInversion)

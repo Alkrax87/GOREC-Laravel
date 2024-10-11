@@ -46,12 +46,12 @@
               <thead class="table-header">
                 <tr>
                   <th>#</th>
-                  <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Inversión</th>
+                  <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Nombre Bien</th>
                   <th class="text-nowrap">Meta</th>
-                  <th class="text-center">Siaf</th>
-                  <th class="text-nowrap">Conformidad</th>
+                  <th class="text-nowrap">Conformidad Patrimonizacion</th>
+                  <th class="text-nowrap">Informe de Conformidad<br>(Proyectista)</th>
                   <th class="text-nowrap">SGASA Penalidad</th>
                   <th class="text-center">Opciones</th>
                 </tr>
@@ -62,21 +62,29 @@
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td>{{ $bien->inversion->nombreCortoInversion }}</td>
                     <td class="text-nowrap text-center">{{ $bien->usuarios->nombreUsuario . ' ' . $bien->usuarios->apellidoUsuario }}</td>
-                    <td>{{ $bien->nombre_bien }}</td>
-                    <td>{{ $bien->meta }}</td>
-                    <td>{{ $bien->siaf }}</td>
-                    <td class="text-nowrap">@if ($bien->conformidad === 'COMPLETADO')
+                    <td>{{ $bien->nombre_bienes }}</td>
+                    <td>{{ $bien->meta_bienes }}</td>
+                    <td class="text-nowrap">@if ($bien->conformidad_patrimonizacion_bs === 'SI')
+                      <span class="badge badge-success" >SI</span>
+                      @elseif ($bien->conformidad_patrimonizacion_bs === 'NO')
+                      <span class="badge badge-danger">NO</span>
+                      @else
+                         <span class="badge badge-warning">EN ESPERA</span> 
+                      @endif
+                    </td>
+
+                    <td class="text-nowrap">@if ($bien->conformidad_proyectista_bs === 'COMPLETADO')
                       <span class="badge badge-success" >COMPLETADO</span>
-                      @elseif ($bien->conformidad === 'CANCELADO')
+                      @elseif ($bien->conformidad_proyectista_bs === 'CANCELADO')
                       <span class="badge badge-danger">CANCELADO</span>
                       @else
                          <span class="badge badge-warning">EN PROCESO</span> 
                       @endif
                     </td>
                     
-                    <td class="text-nowrap"> @if ($bien->envio === 'SI')
+                    <td class="text-nowrap"> @if ($bien->envio_bs === 'SI')
                       <span class="badge badge-danger" >SI</span>
-                      @elseif ($bien->envio === 'NO')
+                      @elseif ($bien->envio_bs === 'NO')
                       <span class="badge badge-success">NO</span>
                       @else
                          <span class="badge badge-warning">EN ESPERA</span> 
@@ -84,7 +92,7 @@
                     </td>
 
                     <td class="text-center text-nowrap">
-                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$bien->idBienes}}"><i class="fas fa-eye"></i></a>
+                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShowBienes{{$bien->idBienes}}"><i class="fas fa-eye"></i></a>
                       @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $bien->idUsuario)
                         <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#Modaleditbienes{{$bien->idBienes}}"><i class="fas fa-edit"></i></a>
                       @endif
