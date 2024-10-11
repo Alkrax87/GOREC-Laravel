@@ -13,11 +13,38 @@ class BienesController extends Controller
 {
     public function index(Request $request)
     {
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            // Si el usuario es administrador, carga todas las inversiones
+            $inversiones = Inversion::all();
+        } else {
+            // Si no es administrador, carga las inversiones propias y aquellas en las que ha sido asignado como profesional
+            $inversionesPropias = Inversion::where('idUsuario', $user->idUsuario)->get();
+
+            // Obtén las inversiones donde el usuario ha sido asignado como profesional
+            $inversionesAsignadas = Inversion::whereHas('profesional', function ($query) use ($user) {
+                $query->where('idUsuario', $user->idUsuario);
+            })->get();
+
+            // Combina las inversiones propias y las asignadas
+            $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
+        }
+
+        $notificaciones = [];
+
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
         $bienes = Bien::all();
         $inversiones = Inversion::all();
         $usuarios = User::all();
         
-        return view('bienes.index', compact('bienes','inversiones','usuarios')); // Asegúrate de que la ruta del archivo Blade sea correcta
+        return view('bienes.index', compact('bienes','inversiones','usuarios','notificaciones')); // Asegúrate de que la ruta del archivo Blade sea correcta
     }
     public function store(Request $request){
         

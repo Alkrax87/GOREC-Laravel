@@ -60,6 +60,10 @@
                       <td class="project-state">
                         <span class="badge badge-danger">Administrador</span>
                       </td>
+                    @elseif ($usuario->isAdministrativo)
+                      <td class="project-state">
+                        <span class="badge badge-primary">Administrativo</span>
+                      </td>
                     @elseif ((str_replace('@gorec.com', '', $usuario->email)) != '')
                       <td class="project-state">
                         <span class="badge badge-success">Profesional</span>

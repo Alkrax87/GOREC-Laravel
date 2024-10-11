@@ -3,7 +3,7 @@
 @section('title', 'Servicios')
 
 @section('content_header')
-  <h1><i class="fas fa-clipboard-list"></i> Servicios</h1>
+  <h1><i class="fas fa-wrench"></i> Servicios</h1>
 @stop
 
 @section('content')
@@ -11,16 +11,10 @@
     <div class="card-body">
       <div class="row">
         <div class="col-12">
-          <!-- Agregar -->
           <div class="row">
-            
-              <div class="col-6">
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Servicios</button>
-              </div>
-             <!-- <div class="col-6 text-end">
-                <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
-              </div> -->
-            
+            <div class="col-6">
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Servicios</button>
+            </div>
           </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))
@@ -73,7 +67,6 @@
                          <span class="badge badge-warning">EN PROCESO</span> 
                       @endif
                     </td>
-                    
                     <td class="text-nowrap"> @if ($servicio->envio === 'SI')
                       <span class="badge badge-danger" >SI</span>
                       @elseif ($servicio->envio === 'NO')
@@ -82,12 +75,9 @@
                          <span class="badge badge-warning">EN ESPERA</span> 
                       @endif
                     </td>
-
                     <td class="text-center text-nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$servicio->idServicio}}"><i class="fas fa-eye"></i></a>
-                      
-                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#Modaleditservicios{{$servicio->idServicio}}"><i class="fas fa-edit"></i></a>
-                      
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#Modaleditservicios{{$servicio->idServicio}}"><i class="fas fa-edit"></i></a>
                       @if (Auth::user()->isAdmin)
                         <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDeleteServicio{{$servicio->idServicio}}"><i class="fas fa-trash-alt"></i></a>
                       @endif
@@ -108,6 +98,26 @@
     </div>
   </div>
 @stop
+
+@section('content_top_nav_right')
+  <li class="nav-item dropdown">
+    <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
+      <i class="fas fa-bell"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-danger ml-3 navbar-badge"> {{ count($notificaciones) }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: 600px;">
+      <spa style="background-color: #9C0C27; color: azure;" class="dropdown-item dropdown-header text-center"><i class="fas fa-bell"></i> {{ count($notificaciones) }} Notificationes</spa>
+      <div class="dropdown-divider"></div>
+      @foreach ($notificaciones as $notificacion)
+        <div class="dropdown-item">
+          <span><i class="fas fa-clipboard-list"></i>&nbsp; <b>INVERSIÓN</b></span>
+          <p>{{ $notificacion->nombreCortoInversion }} esta por finalizar.</p>
+          <p class="pt-2 text-end"><i class="fas fa-calendar-alt"></i> Fecha de finalización: {{ $notificacion->fechaFinalInversion }}</p>
+        </div>
+      @endforeach
+      <div class="dropdown-divider"></div>
+    </div>
+  </li>
+@endsection
 
 @section('css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -227,4 +237,3 @@
     });
   </script>
 @stop
-

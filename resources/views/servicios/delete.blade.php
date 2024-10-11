@@ -5,7 +5,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"><i class="fas fa-users-cog"></i> Eliminar Servicio</h4>
+            <h4 class="modal-title"><i class="fas fa-wrench"></i> Eliminar Servicio</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

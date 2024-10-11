@@ -349,13 +349,13 @@ return [
                 [
                     'text' => 'Servicios',
                     'url' => 'servicios',
-                    'icon' => 'fas fa-chevron-right',
+                    'icon' => 'fas fa-wrench',
                     'icon_color' => 'white'
                 ],
                 [
                     'text' => 'Bienes',
                     'url' => 'bienes',
-                    'icon' => 'fas fa-chevron-right',
+                    'icon' => 'fas fa-truck-moving',
                     'icon_color' => 'white'
                 ],
             ],
