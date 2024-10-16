@@ -15,7 +15,7 @@
           <div class="row">
             @if (Auth::user()->isAdmin)
               <div class="col-6">
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateBien"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar biens</button>
+                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateBien"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar bienes</button>
               </div>
              <!-- <div class="col-6 text-end">
                 <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
@@ -26,7 +26,7 @@
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {!! session('message') !!}</p>
             </div>
           @endif
           @if ($errors->any())
@@ -47,8 +47,8 @@
                 <tr>
                   <th>#</th>
                   <th class="text-nowrap">Inversión</th>
-                  <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Nombre Bien</th>
+                  <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Meta</th>
                   <th class="text-nowrap">Conformidad Patrimonizacion</th>
                   <th class="text-nowrap">Informe de Conformidad<br>(Proyectista)</th>
@@ -61,8 +61,30 @@
                   <tr>
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td>{{ $bien->inversion->nombreCortoInversion }}</td>
-                    <td class="text-nowrap text-center">{{ $bien->usuarios->nombreUsuario . ' ' . $bien->usuarios->apellidoUsuario }}</td>
                     <td>{{ $bien->nombre_bienes }}</td>
+                    <td class="text-nowrap text-center">{{ $bien->usuarios->nombreUsuario . ' ' . $bien->usuarios->apellidoUsuario }} <br>
+                      P: (
+                        @if ($bien->usuarios->profesiones->isNotEmpty())
+                          @foreach ($bien->usuarios->profesiones as $profesion)
+                            {{ $profesion->nombreProfesion }}
+                            @if (!$loop->last)
+                              ,
+                            @endif
+                          @endforeach
+                        @endif
+                        )
+                        &nbsp; | &nbsp;
+                        E: (
+                        @if ($bien->usuarios->especialidades->isNotEmpty())
+                          @foreach ($bien->usuarios->especialidades as $especialidad)
+                            {{ $especialidad->nombreEspecialidad }}
+                            @if (!$loop->last)
+                              ,
+                            @endif
+                          @endforeach
+                        @endif
+                        )
+                    </td>
                     <td>{{ $bien->meta_bienes }}</td>
                     <td class="text-nowrap">@if ($bien->conformidad_patrimonizacion_bs === 'SI')
                       <span class="badge badge-success" >SI</span>
@@ -90,7 +112,6 @@
                          <span class="badge badge-warning">EN ESPERA</span> 
                       @endif
                     </td>
-
                     <td class="text-center text-nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShowBienes{{$bien->idBienes}}"><i class="fas fa-eye"></i></a>
                       @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $bien->idUsuario)

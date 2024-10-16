@@ -82,7 +82,7 @@ class BienesController extends Controller
         'idUsuario' => 'nullable|exists:users,idUsuario',
         
     ],[
-        'nombre_bien.nullable' => 'El campo del nombre es Obligatorio',
+        'nombre_bienes.nullable' => 'El campo del nombre es Obligatorio',
         'f_presentacion_req_fin_bs.after_or_equal' => 'La fecha final de presentación debe ser posterior o igual a la fecha de inicio.',
         'f_designacion_cotizador_fin_bs.after_or_equal' => 'La fecha final de designación debe ser posterior o igual a la fecha de inicio.',
         'f_estudio_mercado_fin_bs.after_or_equal' => 'La fecha final del estudio de mercado debe ser posterior o igual a la fecha de inicio.',
@@ -152,12 +152,14 @@ class BienesController extends Controller
 
     $bien->envio_bs = $request->envio_bs;
     
+    $bien->penalidad_dias_bs = $request->penalidad_dias_bs;
+    
     $bien->idInversion = $request->idInversion;
     $bien->idUsuario = $request->idUsuario;
     $bien->save();
    
     // Redireccionar con un mensaje de éxito
-    return redirect()->route('bienes.index')->with('message', 'bien agregado correctamente.');
+    return redirect()->route('bienes.index')->with('message', 'bien  <strong>' . $request->nombre_bienes . '</strong> agregado correctamente.');
     }
 
    
@@ -197,7 +199,7 @@ class BienesController extends Controller
         'idUsuario' => 'nullable|exists:users,idUsuario',
         
     ],[
-        'nombre_bien.nullable' => 'El campo del nombre es Obligatorio',
+        'nombre_bienes.nullable' => 'El campo del nombre es Obligatorio',
         'f_presentacion_req_fin_bs.after_or_equal' => 'La fecha final de presentación debe ser posterior o igual a la fecha de inicio.',
         'f_designacion_cotizador_fin_bs.after_or_equal' => 'La fecha final de designación debe ser posterior o igual a la fecha de inicio.',
         'f_estudio_mercado_fin_bs.after_or_equal' => 'La fecha final del estudio de mercado debe ser posterior o igual a la fecha de inicio.',
@@ -269,6 +271,8 @@ class BienesController extends Controller
 
     $bien->envio_bs = $request->envio_bs;
     
+    $bien->penalidad_dias_bs = $request->penalidad_dias_bs;
+
     $bien->idInversion = $request->idInversion;
     $bien->idUsuario = $request->idUsuario;
 
@@ -276,7 +280,7 @@ class BienesController extends Controller
     $bien->save();
 
     // Redirigir con mensaje de éxito
-    return redirect()->route('bienes.index')->with('message', 'bien actualizado correctamente.');
+    return redirect()->route('bienes.index')->with('message', 'bien  <strong>' . $request->nombre_bienes . '</strong> actualizado correctamente.');
     }
     public function destroy($id){
     // Buscamos la especialidad
@@ -285,7 +289,7 @@ class BienesController extends Controller
     // Eliminamos la especialidad
     $bien->delete();
 
-    return redirect()->route('bienes.index')->with('message', 'bien ' . $bien->nombre_bien . ' eliminado correctamente.');
+    return redirect()->route('bienes.index')->with('message', 'bien <strong>' . $bien->nombre_bienes . '</strong>  eliminado correctamente.');
     }
 
     public function getUsuariosPorInversiones_bs($idInversion)

@@ -72,6 +72,7 @@ class EspecialidadController extends Controller
             'idInversion.exists' => 'La inversión seleccionada no existe.',
             'idUsuario.required' => 'El campo Usuarios es obligatorio.',
             'idUsuario.*.exists' => 'Uno o más usuarios seleccionados no existen.',
+            'idUsuario.*.distinct' => 'Un usuario no puede ser agregado más de una vez a la misma especialidad.',
         ]);
 
         // Verificar la suma de los porcentajes en la inversión
@@ -81,7 +82,12 @@ class EspecialidadController extends Controller
         if ($totalPorcentaje + $porcentaje > 100) {
             return redirect()->back()->with('errorPorcentaje', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
         }
+        $usuariosUnicos = array_unique($request->idUsuario);
 
+        // Verificar si hay usuarios duplicados
+        if (count($usuariosUnicos) != count($request->idUsuario)) {
+            return redirect()->back()->with('errorusuario', 'No se puede agregar el mismo usuario más de una vez.')->withInput();
+        }
         // Crear un registro
         $especialidad = Especialidad::create([
             'nombreEspecialidad' => $request->nombreEspecialidad,
@@ -90,10 +96,11 @@ class EspecialidadController extends Controller
             'idInversion' => $request->idInversion,
         ]);
 
-        // Asignar usuarios a la especialidad
-        $especialidad->usuarios()->attach($request->idUsuario);
 
-        return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $request->nombreEspecialidad . ' creada correctamente.');
+        // Asignar usuarios a la especialidad
+        $especialidad->usuarios()->attach($usuariosUnicos);
+
+        return redirect()->route('especialidad.index')->with('message', 'Especialidad <strong>' . $request->nombreEspecialidad . '</strong> creada correctamente.');
     }
 
     // Función editar un registro
@@ -108,6 +115,7 @@ class EspecialidadController extends Controller
             'porcentajeAvanceEspecialidad.required' => 'El campo Porcentaje Avance Especialidad es obligatorio.',
             'idUsuario.required' => 'El campo Usuarios es obligatorio.',
             'idUsuario.*.exists' => 'Uno o más usuarios seleccionados no existen.',
+            'idUsuario.*.distinct' => 'Un usuario no puede ser agregado más de una vez a la misma especialidad.',
         ]);
 
         // Encontrar la especialidad existente
@@ -123,7 +131,13 @@ class EspecialidadController extends Controller
         if ($totalPorcentaje + $nuevoPorcentaje - $porcentajeAnterior > 100) {
             return redirect()->back()->with('errorPorcentaje', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
         }
+        // Eliminar duplicados en el array de usuarios
+        $usuariosUnicos = array_unique($request->idUsuario);
 
+        // Verificar si hay usuarios duplicados
+        if (count($usuariosUnicos) != count($request->idUsuario)) {
+            return redirect()->back()->with('errorusuario', 'No se puede agregar el mismo usuario más de una vez.')->withInput();
+        }
         // Actualizar los atributos de la especialidad
         $especialidad->update([
             'nombreEspecialidad' => $request->nombreEspecialidad,
@@ -132,9 +146,9 @@ class EspecialidadController extends Controller
         ]);
 
         // Sincronizar los usuarios asociados
-        $especialidad->usuarios()->sync($request->idUsuario);
+        $especialidad->usuarios()->sync($usuariosUnicos);
 
-        return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $request->nombreEspecialidad . ' actualizada correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Especialidad <strong>' . $request->nombreEspecialidad . '</strong> actualizada correctamente.');
     }
     // Función eliminar un registro
     public function destroy($id){
@@ -144,7 +158,7 @@ class EspecialidadController extends Controller
         // Eliminamos la especialidad
         $especialidad->delete();
 
-        return redirect()->route('especialidad.index')->with('message', 'Especialidad ' . $especialidad->nombreEspecialidad . ' eliminada correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'Especialidad <strong>' . $especialidad->nombreEspecialidad . '</strong> eliminada correctamente.');
     }
 
     // Funcion para calcular el avance total de especialidad

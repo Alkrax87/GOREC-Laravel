@@ -73,9 +73,17 @@ class ComplementarioController extends Controller
             'idInversion.exists' => 'La inversión seleccionada no existe.',
         ]);
 
-        // Creamos un registro
-        Complementario::create($request->all());
+       // Verificar si el usuario está autenticado
+    if (!Auth::check()) {
+        return redirect()->route('complementario.index')->withErrors('Debe estar autenticado para realizar esta acción.');
+    }
 
+    // Agregar el ID del usuario autenticado al arreglo de datos
+    $data = $request->all();
+    $data['idUsuario'] = Auth::user()->idUsuario;  // Asigna el ID del usuario autenticado
+
+    // Crear el registro
+    Complementario::create($data);
         return redirect()->route('complementario.index')->with('message','Elemento creado correctamente.');
     }
 

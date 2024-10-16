@@ -61,7 +61,7 @@
         }
         .header img {
             width: 1515px;
-            height: 110px;
+            height: 75px;
         }
         .table-responsive {
             width: 100%;
@@ -97,7 +97,7 @@
 <body>
     <header>
         <div class="header">
-            <img src="images/banner-cuscofin.jpg" alt="Logo">
+            <img src="images/banner-cuscof.jpg" alt="Logo">
         </div>
     </header>
     <footer>

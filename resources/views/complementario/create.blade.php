@@ -13,8 +13,8 @@
           <div class="row">
             <div class="col-12">
               <div class="form-outline mb-4">
-                <label class="form-label">Nombre</label>
-                <input type="text" name="nombreEstudiosComplementarios" class="input-auth" placeholder="Nombre Estudio" required/>
+                <label class="form-label">Nombre Estudio</label>
+                <input type="text" name="nombreEstudiosComplementarios" class="input-auth" placeholder="Ingrese Estudio" required/>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label">Observación</label>

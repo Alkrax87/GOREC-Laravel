@@ -22,34 +22,34 @@ return new class extends Migration
             //Presentacion de requerimientos
             $table->date('f_presentacion_req_inicio')->nullable();
             $table->date('f_presentacion_req_fin')->nullable();
-            $table->integer('presentacion_dias')->default(0);
+            $table->integer('presentacion_dias')->nullable()->default(0);
             //Designacion de Cotizador
             $table->date('f_designacion_cotizador_inicio')->nullable();
             $table->date('f_designacion_cotizador_fin')->nullable();
-            $table->integer('designacion_dias')->default(0);
+            $table->integer('designacion_dias')->nullable()->default(0);
             //Estudio de Mercado
             $table->date('f_estudio_mercado_inicio')->nullable();
             $table->date('f_estudio_mercado_fin')->nullable();
-            $table->integer('estudiomercado_dias')->default(0);
+            $table->integer('estudiomercado_dias')->nullable()->default(0);
             //Cuadro Comparativo
             $table->date('f_cuadro_comparativo_inicio')->nullable();
             $table->date('f_cuadro_comparativo_fin')->nullable();
-            $table->integer('cuadro_comparativo_dias')->default(0);
+            $table->integer('cuadro_comparativo_dias')->nullable()->default(0);
             //Elaboracion de Certificado
             $table->date('f_elaboracion_certificado_inicio')->nullable();
             $table->date('f_elaboracion_certificado_fin')->nullable();
-            $table->integer('elaboracion_certificado_dias')->default(0);
+            $table->integer('elaboracion_certificado_dias')->nullable()->default(0);
             //Orden de Servicio
             $table->date('f_orden_servicio_inicio')->nullable();
             $table->date('f_orden_servicio_fin')->nullable();
-            $table->integer('orden_servicio_dias')->default(0);
+            $table->integer('orden_servicio_dias')->nullable()->default(0);
             //Notificacion
             $table->date('f_notificacion_inicio')->nullable();
             $table->date('f_notificacion_fin')->nullable();
-            $table->integer('notificacion_dias')->default(0);
+            $table->integer('notificacion_dias')->nullable()->default(0);
 
             // Plazo de ejecución
-            $table->integer('plazo_ejecucion_dias')->default(0);
+            $table->integer('plazo_ejecucion_dias')->nullable()->default(0);
             $table->date('fecha_plazo_ejecucion')->nullable();
 
             // Ampliacion de plazo
@@ -68,7 +68,7 @@ return new class extends Migration
             //Retorno a SGEP
             $table->date('f_retorno_SGEP_inicio')->nullable();
             $table->date('f_retorno_SGEP_fin')->nullable();
-            $table->integer('retorno_SGEP_dias')->default(0);
+            $table->integer('retorno_SGEP_dias')->nullable()->default(0);
 
             //Deriva a proyectista
             $table->date('fecha_derivar_proyectista')->nullable();
@@ -85,6 +85,7 @@ return new class extends Migration
             //Envio a SGASA Penalidad
             $table->date('fecha_SGASA_penalidad')->nullable();
             $table->string('envio')->nullable();
+            $table->integer('penalidad_dias')->nullable()->default(0);
 
             $table->unsignedBigInteger('idInversion');
             $table->foreign('idInversion')->references('idInversion')->on('inversion')->onDelete('cascade')->onUpdate('cascade');

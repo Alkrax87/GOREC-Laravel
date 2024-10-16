@@ -1,7 +1,7 @@
 <form action="{{ route('bienes.destroy', $bien->idBienes) }}" method="POST">
     {{ method_field('delete') }}
     {{ csrf_field() }}
-    <div class="modal fade" id="ModalDeletebien{{$bien->idBienes}}">
+    <div class="modal fade" id="ModalDeletebienes{{$bien->idBienes}}">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">

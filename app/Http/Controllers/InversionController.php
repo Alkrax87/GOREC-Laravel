@@ -225,6 +225,8 @@ class InversionController extends Controller
         $inversion = Inversion::findOrFail($id);
         $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
         $pdf->setPaper('A4', 'portrait');
+         // Establecer opciones adicionales
+        
         return $pdf->stream();
     }
 

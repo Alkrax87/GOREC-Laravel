@@ -58,7 +58,7 @@
         }
         .header img {
             width: 720px;
-            height: 70px;
+            height: 55px;
         }
         .table-container {
             width: 98%;
@@ -86,12 +86,12 @@
 <body>
     <header>
         <div class="header">
-            <img src="images/banner-cuscofin.jpg" alt="Logo">
+            <img src="images/banner-cuscof.jpg" alt="Logo">
         </div>
     </header>
     <footer>
         <div class="footer-content">
-            <img src="images/footter.jpg" style="width: 680px; height: 80px" alt="Logo">
+            <img src="images/footter.jpg" style="width: 725px; height: 80px" alt="Logo">
             <div class="date-time">
                 <p>Fecha: {{ date('d/m/Y') }} <span class="time">Hora: {{ date('H:i:s') }}</span></p>
             </div>

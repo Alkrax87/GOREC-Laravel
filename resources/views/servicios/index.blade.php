@@ -20,7 +20,7 @@
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {!! session('message') !!}</p>
             </div>
           @endif
           @if ($errors->any())
@@ -41,8 +41,8 @@
                 <tr>
                   <th>#</th>
                   <th class="text-nowrap">Inversión</th>
-                  <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Nombre Servicio</th>
+                  <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Meta</th>
                   <th class="text-center">Siaf</th>
                   <th class="text-nowrap">Conformidad</th>
@@ -55,8 +55,30 @@
                   <tr>
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td>{{ $servicio->inversion->nombreCortoInversion }}</td>
-                    <td class="text-nowrap text-center">{{ $servicio->usuarios->nombreUsuario . ' ' . $servicio->usuarios->apellidoUsuario }}</td>
                     <td>{{ $servicio->nombre_servicio }}</td>
+                    <td class="text-nowrap text-center">{{ $servicio->usuarios->nombreUsuario . ' ' . $servicio->usuarios->apellidoUsuario }} <br>
+                      P: (
+                        @if ($servicio->usuarios->profesiones->isNotEmpty())
+                          @foreach ($servicio->usuarios->profesiones as $profesion)
+                            {{ $profesion->nombreProfesion }}
+                            @if (!$loop->last)
+                              ,
+                            @endif
+                          @endforeach
+                        @endif
+                        )
+                        &nbsp; | &nbsp;
+                        E: (
+                        @if ($servicio->usuarios->especialidades->isNotEmpty())
+                          @foreach ($servicio->usuarios->especialidades as $especialidad)
+                            {{ $especialidad->nombreEspecialidad }}
+                            @if (!$loop->last)
+                              ,
+                            @endif
+                          @endforeach
+                        @endif
+                        )
+                    </td>
                     <td>{{ $servicio->meta }}</td>
                     <td>{{ $servicio->siaf }}</td>
                     <td class="text-nowrap">@if ($servicio->conformidad === 'COMPLETADO')

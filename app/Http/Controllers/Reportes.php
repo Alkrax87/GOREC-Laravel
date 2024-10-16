@@ -119,7 +119,7 @@ class Reportes extends Controller
         $especialidadesImages = isset($data['especialidadesImages']) ? $data['especialidadesImages'] : [];
 
         // Rutas absolutas de las imágenes del header y footer
-        $headerImage = 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/banner-cuscofin.jpg')));
+        $headerImage = 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/banner-cuscof.jpg')));
         $footerImage = 'data:image/jpeg;base64,' . base64_encode(file_get_contents(public_path('images/footter.jpg')));
 
         // Fecha y hora actuales
@@ -250,7 +250,7 @@ class Reportes extends Controller
         <body>
 
             <header>
-                <img src="' . $headerImage . '" style="width: 980px; height: 90px" alt="Logo">
+                <img src="' . $headerImage . '" style="width: 1050px; height: 70px" alt="Logo">
             </header>
             <footer>
                 <img src="' . $footerImage . '" style="width: 980px; height: 90px" alt="Logo">

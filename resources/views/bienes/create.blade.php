@@ -40,7 +40,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="meta" class="form-label">Meta:</label>
-                            <input type="text"  class="form-control input-auth" name="meta_bienes" id="meta" required>
+                            <input type="text"  class="form-control input-auth" name="meta_bienes" id="meta"  required>
                         </div>
                         <div class="w-100 text-center">
                             <h4 class="my-3">Formulario de Procesos</h4>
@@ -54,106 +54,106 @@
                         <div class="row mb-2">
                             <div class="col-4"><b>Presentación de Requerimiento</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_presentacion_req_inicio_bs" id="f_presentacion_req_inicio_bs" onchange="calcularDias('f_presentacion_req_inicio_bs', 'f_presentacion_req_fin_bs', 'presentacion_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_presentacion_req_inicio_bs" id="f_presentacion_req_inicio_bs" onchange="calcularDias('f_presentacion_req_inicio_bs', 'f_presentacion_req_fin_bs', 'presentacion_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_presentacion_req_fin_bs" id="f_presentacion_req_fin_bs" onchange="calcularDias('f_presentacion_req_inicio_bs', 'f_presentacion_req_fin_bs', 'presentacion_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_presentacion_req_fin_bs" id="f_presentacion_req_fin_bs" onchange="calcularDias('f_presentacion_req_inicio_bs', 'f_presentacion_req_fin_bs', 'presentacion_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="presentacion_dias_bs"  id="presentacion_dias_bs" readonly placeholder="Días" required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="presentacion_dias_bs"  id="presentacion_dias_bs" readonly placeholder="Días"  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Designación de Cotizador</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_designacion_cotizador_inicio_bs" id="f_designacion_cotizador_inicio_bs" onchange="calcularDias('f_designacion_cotizador_inicio_bs', 'f_designacion_cotizador_fin_bs', 'designacion_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_designacion_cotizador_inicio_bs" id="f_designacion_cotizador_inicio_bs" onchange="calcularDias('f_designacion_cotizador_inicio_bs', 'f_designacion_cotizador_fin_bs', 'designacion_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_designacion_cotizador_fin_bs" id="f_designacion_cotizador_fin_bs" onchange="calcularDias('f_designacion_cotizador_inicio_bs', 'f_designacion_cotizador_fin_bs', 'designacion_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_designacion_cotizador_fin_bs" id="f_designacion_cotizador_fin_bs" onchange="calcularDias('f_designacion_cotizador_inicio_bs', 'f_designacion_cotizador_fin_bs', 'designacion_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="designacion_dias_bs" id="designacion_dias_bs" readonly placeholder="Días" required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="designacion_dias_bs" id="designacion_dias_bs" readonly placeholder="Días"  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Estudio de Mercado</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_estudio_mercado_inicio_bs" id="f_estudio_mercado_inicio_bs" onchange="calcularDias('f_estudio_mercado_inicio_bs', 'f_estudio_mercado_fin_bs', 'estudiomercado_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_estudio_mercado_inicio_bs" id="f_estudio_mercado_inicio_bs" onchange="calcularDias('f_estudio_mercado_inicio_bs', 'f_estudio_mercado_fin_bs', 'estudiomercado_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_estudio_mercado_fin_bs" id="f_estudio_mercado_fin_bs" onchange="calcularDias('f_estudio_mercado_inicio_bs', 'f_estudio_mercado_fin_bs', 'estudiomercado_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_estudio_mercado_fin_bs" id="f_estudio_mercado_fin_bs" onchange="calcularDias('f_estudio_mercado_inicio_bs', 'f_estudio_mercado_fin_bs', 'estudiomercado_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="estudiomercado_dias_bs" id="estudiomercado_dias_bs" readonly placeholder="Días" required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="estudiomercado_dias_bs" id="estudiomercado_dias_bs" readonly placeholder="Días"  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Cuadro Comparativo</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_cuadro_comparativo_inicio_bs" id="f_cuadro_comparativo_inicio_bs" onchange="calcularDias('f_cuadro_comparativo_inicio_bs', 'f_cuadro_comparativo_fin_bs', 'cuadro_comparativo_diasv')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_cuadro_comparativo_inicio_bs" id="f_cuadro_comparativo_inicio_bs" onchange="calcularDias('f_cuadro_comparativo_inicio_bs', 'f_cuadro_comparativo_fin_bs', 'cuadro_comparativo_diasv')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_cuadro_comparativo_fin_bs" id="f_cuadro_comparativo_fin_bs" onchange="calcularDias('f_cuadro_comparativo_inicio_bs', 'f_cuadro_comparativo_fin_bs', 'cuadro_comparativo_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_cuadro_comparativo_fin_bs" id="f_cuadro_comparativo_fin_bs" onchange="calcularDias('f_cuadro_comparativo_inicio_bs', 'f_cuadro_comparativo_fin_bs', 'cuadro_comparativo_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="cuadro_comparativo_dias_bs" id="cuadro_comparativo_dias_bs" readonly placeholder="Días" required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="cuadro_comparativo_dias_bs" id="cuadro_comparativo_dias_bs" readonly placeholder="Días"  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Elaboración de Certificación</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_elaboracion_certificado_inicio_bs" id="f_elaboracion_certificado_inicio_bs" onchange="calcularDias('f_elaboracion_certificado_inicio_bs', 'f_elaboracion_certificado_fin_bs', 'elaboracion_certificado_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_elaboracion_certificado_inicio_bs" id="f_elaboracion_certificado_inicio_bs" onchange="calcularDias('f_elaboracion_certificado_inicio_bs', 'f_elaboracion_certificado_fin_bs', 'elaboracion_certificado_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_elaboracion_certificado_fin_bs" id="f_elaboracion_certificado_fin_bs" onchange="calcularDias('f_elaboracion_certificado_inicio_bs', 'f_elaboracion_certificado_fin_bs', 'elaboracion_certificado_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_elaboracion_certificado_fin_bs" id="f_elaboracion_certificado_fin_bs" onchange="calcularDias('f_elaboracion_certificado_inicio_bs', 'f_elaboracion_certificado_fin_bs', 'elaboracion_certificado_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="elaboracion_certificado_dias_bs" id="elaboracion_certificado_dias_bs" placeholder="Días" readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="elaboracion_certificado_dias_bs" id="elaboracion_certificado_dias_bs" placeholder="Días" readonly  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Numero Siaf</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_Siaf_inicio_bs" id="f_numero_Siaf_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_numero_Siaf_inicio_bs', 'f_numero_Siaf_fin_bs', 'numero_Siaf_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_Siaf_inicio_bs" id="f_numero_Siaf_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_numero_Siaf_inicio_bs', 'f_numero_Siaf_fin_bs', 'numero_Siaf_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_Siaf_fin_bs" id="f_numero_Siaf_fin_bs" placeholder="F. Fin" onchange="calcularDias('f_numero_Siaf_inicio_bs', 'f_numero_Siaf_fin_bs', 'numero_Siaf_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_Siaf_fin_bs" id="f_numero_Siaf_fin_bs" placeholder="F. Fin" onchange="calcularDias('f_numero_Siaf_inicio_bs', 'f_numero_Siaf_fin_bs', 'numero_Siaf_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="numero_Siaf_dias_bs" id="numero_Siaf_dias_bs" placeholder="Días" readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="numero_Siaf_dias_bs" id="numero_Siaf_dias_bs" placeholder="Días" readonly  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Orden de Compra</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_compra_inicio_bs" id="f_orden_compra_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_orden_compra_inicio_bs', 'f_orden_compra_fin_bs', 'orden_compra_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_compra_inicio_bs" id="f_orden_compra_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_orden_compra_inicio_bs', 'f_orden_compra_fin_bs', 'orden_compra_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_compra_fin_bs" id="f_orden_compra_fin_bs" placeholder="F. Fin" onchange="calcularDias('f_orden_compra_inicio_bs', 'f_orden_compra_fin_bs', 'orden_compra_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_compra_fin_bs" id="f_orden_compra_fin_bs" placeholder="F. Fin" onchange="calcularDias('f_orden_compra_inicio_bs', 'f_orden_compra_fin_bs', 'orden_compra_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="orden_compra_dias_bs" id="orden_compra_dias_bs" placeholder="Días" readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="orden_compra_dias_bs" id="orden_compra_dias_bs" placeholder="Días" readonly  >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Notificación</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_notificacion_inicio_bs" id="f_notificacion_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_notificacion_inicio_bs', 'f_notificacion_fin_bs', 'notificacion_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_notificacion_inicio_bs" id="f_notificacion_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_notificacion_inicio_bs', 'f_notificacion_fin_bs', 'notificacion_dias_bs')"  >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_notificacion_fin_bs" id="f_notificacion_fin_bs" placeholder="F. Fin" onchange="calcularDias('f_notificacion_inicio_bs', 'f_notificacion_fin_bs', 'notificacion_dias_bs')" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_notificacion_fin_bs" id="f_notificacion_fin_bs" placeholder="F. Fin" onchange="calcularDias('f_notificacion_inicio_bs', 'f_notificacion_fin_bs', 'notificacion_dias_bs')"  >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" name="notificacion_dias_bs" id="notificacion_dias_bs" placeholder="Días" readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" name="notificacion_dias_bs" id="notificacion_dias_bs" placeholder="Días" readonly  >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Plazo de Ejecución (Días):</b></div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias_bs" id="plazo_bs" onchange="calcularFechaPlazoEjecucion()" required>
+                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias_bs" id="plazo_bs" onchange="calcularFechaPlazoEjecucion()" min="0" oninput="this.value = Math.abs(this.value)" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="fecha_plazo_ejecucion_bs" id="fecha_plazo_ejecucion_bs" readonly required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="fecha_plazo_ejecucion_bs" id="fecha_plazo_ejecucion_bs" readonly  >
                             </div>
                             <div class="col-3">
                                 <div class="form-check mt-2">
@@ -173,7 +173,7 @@
                                                 <label class="form-label">Ampliación de Plazo (Días):</label>
                                             </div>
                                             <div class="col-2">
-                                                <input type="number" name="ampliacion_plazo_dias_bs" class="form-control input-auth" id="ampliacionPlazo_bs" onchange="calcularFechaAmpliacionPlazo()">
+                                                <input type="number" name="ampliacion_plazo_dias_bs" class="form-control input-auth" id="ampliacionPlazo_bs" onchange="calcularFechaAmpliacionPlazo()" min="0" oninput="this.value = Math.abs(this.value)">
                                             </div>
                                             <div class="col-3">
                                                 <input type="date" name="fecha_ampliacion_plazo_bs" class="form-control input-auth" id="fecha_ampliacion_plazo_bs" readonly>
@@ -207,13 +207,13 @@
                                 <label for="entregable" class="form-label mt-2">Entrega Bien:</label>
                             </div>
                             <div class="col-3">
-                                <input type="date" name="f_entrega_bien_inicio_bs" class="form-control input-auth date-input" required>
+                                <input type="date" name="f_entrega_bien_inicio_bs" class="form-control input-auth date-input"  >
                             </div>
                             <div class="col-2">
                                 <label for="recepcion" class="form-label mt-2">Recepcion Bien:</label>
                             </div>
                             <div class="col-3">
-                                <input type="date" name="f_recepcion_bien_inicio_bs" class="form-control input-auth date-input" required>
+                                <input type="date" name="f_recepcion_bien_inicio_bs" class="form-control input-auth date-input"  >
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -221,7 +221,7 @@
                                 <label class="proceso-label">Patrimonizacion</label>
                             </div>
                             <div class="col-4">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="fecha_patrimonizacion_bs"  required>
+                                <input type="date" class="form-control input-auth proceso-fecha" name="fecha_patrimonizacion_bs"   >
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -259,6 +259,9 @@
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="fecha_SGASA_penalidad_bs">
                             </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control input-auth" name="penalidad_dias_bs" id="penalidad_dias_bs" placeholder="Días" min="0" oninput="this.value = Math.abs(this.value)">
+                            </div>
                             <div class="col-3">
                                 <div class="checkbox-container mt-2">
                                     <div class="form-check me-2">
@@ -293,6 +296,7 @@
         $('#idInversion-create_bs').select2({
             placeholder: "Selecciona una inversión",
             allowClear: true,
+            width: '100%', 
             language: {
                 noResults: function() {
                     return "No se encontró la inversión";

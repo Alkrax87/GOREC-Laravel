@@ -73,94 +73,94 @@
                         <div class="row mb-2">
                             <div class="col-4"><b>Presentación de Requerimiento</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_presentacion_req_inicio}}" name="f_presentacion_req_inicio" id="f_presentacion_req_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_presentacion_req_inicio_edit', 'f_presentacion_req_fin_edit', 'presentacion_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_presentacion_req_inicio}}" name="f_presentacion_req_inicio" id="f_presentacion_req_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_presentacion_req_inicio_edit', 'f_presentacion_req_fin_edit', 'presentacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_presentacion_req_fin}}" name="f_presentacion_req_fin" id="f_presentacion_req_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_presentacion_req_inicio_edit', 'f_presentacion_req_fin_edit', 'presentacion_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_presentacion_req_fin}}" name="f_presentacion_req_fin" id="f_presentacion_req_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_presentacion_req_inicio_edit', 'f_presentacion_req_fin_edit', 'presentacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->presentacion_dias}}" name="presentacion_dias"  id="presentacion_dias_edit_{{ $servicio->idServicio }}" readonly  required>
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->presentacion_dias}}" name="presentacion_dias"  id="presentacion_dias_edit_{{ $servicio->idServicio }}" readonly>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Designación de Cotizador</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_designacion_cotizador_inicio}}" name="f_designacion_cotizador_inicio" id="f_designacion_cotizador_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_designacion_cotizador_inicio_edit', 'f_designacion_cotizador_fin_edit', 'designacion_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_designacion_cotizador_inicio}}" name="f_designacion_cotizador_inicio" id="f_designacion_cotizador_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_designacion_cotizador_inicio_edit', 'f_designacion_cotizador_fin_edit', 'designacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_designacion_cotizador_fin}}" name="f_designacion_cotizador_fin" id="f_designacion_cotizador_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_designacion_cotizador_inicio_edit', 'f_designacion_cotizador_fin_edit', 'designacion_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_designacion_cotizador_fin}}" name="f_designacion_cotizador_fin" id="f_designacion_cotizador_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_designacion_cotizador_inicio_edit', 'f_designacion_cotizador_fin_edit', 'designacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->designacion_dias}}" name="designacion_dias" id="designacion_dias_edit_{{ $servicio->idServicio }}"  readonly required >
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->designacion_dias}}" name="designacion_dias" id="designacion_dias_edit_{{ $servicio->idServicio }}"  readonly>
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Estudio de Mercado</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_estudio_mercado_inicio}}" name="f_estudio_mercado_inicio" id="f_estudio_mercado_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_estudio_mercado_inicio}}" name="f_estudio_mercado_inicio" id="f_estudio_mercado_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_estudio_mercado_fin}}" name="f_estudio_mercado_fin" id="f_estudio_mercado_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_estudio_mercado_fin}}" name="f_estudio_mercado_fin" id="f_estudio_mercado_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->estudiomercado_dias}}" name="estudiomercado_dias" id="estudiomercado_dias_edit_{{ $servicio->idServicio }}" readonly required >
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->estudiomercado_dias}}" name="estudiomercado_dias" id="estudiomercado_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Cuadro Comparativo</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_cuadro_comparativo_inicio}}" name="f_cuadro_comparativo_inicio" id="f_cuadro_comparativo_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_cuadro_comparativo_inicio_edit', 'f_cuadro_comparativo_fin_edit', 'cuadro_comparativo_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_cuadro_comparativo_inicio}}" name="f_cuadro_comparativo_inicio" id="f_cuadro_comparativo_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_cuadro_comparativo_inicio_edit', 'f_cuadro_comparativo_fin_edit', 'cuadro_comparativo_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_cuadro_comparativo_fin}}" name="f_cuadro_comparativo_fin" id="f_cuadro_comparativo_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_cuadro_comparativo_inicio_edit', 'f_cuadro_comparativo_fin_edit', 'cuadro_comparativo_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_cuadro_comparativo_fin}}" name="f_cuadro_comparativo_fin" id="f_cuadro_comparativo_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_cuadro_comparativo_inicio_edit', 'f_cuadro_comparativo_fin_edit', 'cuadro_comparativo_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->cuadro_comparativo_dias}}" name="cuadro_comparativo_dias" id="cuadro_comparativo_dias_edit_{{ $servicio->idServicio }}" readonly required >
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->cuadro_comparativo_dias}}" name="cuadro_comparativo_dias" id="cuadro_comparativo_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Elaboración de Certificación</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_elaboracion_certificado_inicio}}" name="f_elaboracion_certificado_inicio" id="f_elaboracion_certificado_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_elaboracion_certificado_inicio}}" name="f_elaboracion_certificado_inicio" id="f_elaboracion_certificado_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_elaboracion_certificado_fin}}" name="f_elaboracion_certificado_fin" id="f_elaboracion_certificado_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_elaboracion_certificado_fin}}" name="f_elaboracion_certificado_fin" id="f_elaboracion_certificado_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->elaboracion_certificado_dias}}" name="elaboracion_certificado_dias" id="elaboracion_certificado_dias_edit_{{ $servicio->idServicio }}" readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->elaboracion_certificado_dias}}" name="elaboracion_certificado_dias" id="elaboracion_certificado_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
                         <div class="row mb-2">
                             <div class="col-4"><b>Orden de Servicio / Contrato</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_orden_servicio_inicio}}" name="f_orden_servicio_inicio" id="f_orden_servicio_inicio_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_orden_servicio_inicio_edit', 'f_orden_servicio_fin_edit', 'orden_servicio_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_orden_servicio_inicio}}" name="f_orden_servicio_inicio" id="f_orden_servicio_inicio_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_orden_servicio_inicio_edit', 'f_orden_servicio_fin_edit', 'orden_servicio_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_orden_servicio_fin}}" name="f_orden_servicio_fin" id="f_orden_servicio_fin_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_orden_servicio_inicio_edit', 'f_orden_servicio_fin_edit', 'orden_servicio_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_orden_servicio_fin}}" name="f_orden_servicio_fin" id="f_orden_servicio_fin_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_orden_servicio_inicio_edit', 'f_orden_servicio_fin_edit', 'orden_servicio_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->orden_servicio_dias}}" name="orden_servicio_dias" id="orden_servicio_dias_edit_{{ $servicio->idServicio }}"  readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->orden_servicio_dias}}" name="orden_servicio_dias" id="orden_servicio_dias_edit_{{ $servicio->idServicio }}"  readonly >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Notificación</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_inicio}}" name="f_notificacion_inicio" id="f_notificacion_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_inicio}}" name="f_notificacion_inicio" id="f_notificacion_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_fin}}" name="f_notificacion_fin" id="f_notificacion_fin_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }})" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_fin}}" name="f_notificacion_fin" id="f_notificacion_fin_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->notificacion_dias}}" name="notificacion_dias" id="notificacion_dias_edit_{{ $servicio->idServicio }}"  readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->notificacion_dias}}" name="notificacion_dias" id="notificacion_dias_edit_{{ $servicio->idServicio }}"  readonly >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Plazo de Ejecución (Días)</b></div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias" id="plazo_edit_{{ $servicio->idServicio }}" value="{{ $servicio->plazo_ejecucion_dias}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit({{ $servicio->idServicio }})" required>
+                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias" id="plazo_edit_{{ $servicio->idServicio }}" value="{{ $servicio->plazo_ejecucion_dias}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_plazo_ejecucion}}" name="fecha_plazo_ejecucion" id="fecha_plazo_ejecucion_edit_{{ $servicio->idServicio }}" readonly required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_plazo_ejecucion}}" name="fecha_plazo_ejecucion" id="fecha_plazo_ejecucion_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                             <div class="col-3">
                                 <div class="form-check mt-2">
@@ -180,7 +180,7 @@
                                                 <label for="ampliacionPlazo" class="form-label">Ampliación de Plazo (Días)</label>
                                             </div>
                                             <div class="col-2">
-                                                <input type="number" name="ampliacion_plazo_dias" class="form-control input-auth" value="{{ $servicio->ampliacion_plazo_dias}}" id="ampliacionPlazo_edit_{{ $servicio->idServicio }}" style="width: 100px;"  onchange="calcularFechaAmpliacionPlazoedit({{ $servicio->idServicio }})">
+                                                <input type="number" name="ampliacion_plazo_dias" class="form-control input-auth" value="{{ $servicio->ampliacion_plazo_dias}}" id="ampliacionPlazo_edit_{{ $servicio->idServicio }}" style="width: 100px;"  onchange="calcularFechaAmpliacionPlazoedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
                                             </div>
                                             <div class="col-3">
                                                 <input type="date" name="fecha_ampliacion_plazo" class="form-control input-auth" value="{{ $servicio->fecha_ampliacion_plazo}}" id="fecha_ampliacion_plazo_edit_{{ $servicio->idServicio }}" readonly>
@@ -207,37 +207,37 @@
                         <div class="row mb-3">
                             <div class="col-4"><b>Entregable Mesa de Partes:</b></div>
                             <div class="col-3">
-                                <input type="date" name="f_mesa_partes_inicio" value="{{ $servicio->f_mesa_partes_inicio}}" class="form-control input-auth date-input" required>
+                                <input type="date" name="f_mesa_partes_inicio" value="{{ $servicio->f_mesa_partes_inicio}}" class="form-control input-auth date-input" >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Retorno a SGEP(Sub Gerencia)</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_retorno_SGEP_inicio}}" name="f_retorno_SGEP_inicio" id="f_retorno_SGEP_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_retorno_SGEP_inicio_edit', 'f_retorno_SGEP_fin_edit', 'retorno_SGEP_dias_edit', {{ $servicio->idServicio }})" required >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_retorno_SGEP_inicio}}" name="f_retorno_SGEP_inicio" id="f_retorno_SGEP_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_retorno_SGEP_inicio_edit', 'f_retorno_SGEP_fin_edit', 'retorno_SGEP_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_retorno_SGEP_fin}}" name="f_retorno_SGEP_fin" id="f_retorno_SGEP_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_retorno_SGEP_inicio_edit', 'f_retorno_SGEP_fin_edit', 'retorno_SGEP_dias_edit', {{ $servicio->idServicio }})" required >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_retorno_SGEP_fin}}" name="f_retorno_SGEP_fin" id="f_retorno_SGEP_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_retorno_SGEP_inicio_edit', 'f_retorno_SGEP_fin_edit', 'retorno_SGEP_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->retorno_SGEP_dias}}" name="retorno_SGEP_dias" id="retorno_SGEP_dias_edit_{{ $servicio->idServicio }}" readonly required>
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->retorno_SGEP_dias}}" name="retorno_SGEP_dias" id="retorno_SGEP_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Deriva a Proyectista</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_derivar_proyectista}}" name="fecha_derivar_proyectista" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_derivar_proyectista}}" name="fecha_derivar_proyectista" >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Informe de Conformidad</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_informe_conformidad}}" name="fecha_informe_conformidad" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_informe_conformidad}}" name="fecha_informe_conformidad" >
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-4"><b>Deriva a la SGEP (Administracion)</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_SGEP_administracion}}" name="fecha_SGEP_administracion" required>
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_SGEP_administracion}}" name="fecha_SGEP_administracion" >
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -263,6 +263,9 @@
                             <div class="col-4"><b>Envío a SGASA Penalidad</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{$servicio->fecha_SGASA_penalidad}}" name="fecha_SGASA_penalidad">
+                            </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control input-auth"  value="{{$servicio->penalidad_dias}}" name="penalidad_dias" id="penalidad_dias" placeholder="Días" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <div class="checkbox-container pt-2">
@@ -299,6 +302,7 @@
         const inversionSelect = $('#idInversion-{{ $servicio->idServicio }}').select2({
           placeholder: "Selecciona una inversión",
           allowClear: true,
+          width: '100%', 
           language: {
             noResults: function () {
               return "No se encontró la inversión";

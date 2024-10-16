@@ -158,16 +158,17 @@ class ServiciosController extends Controller
     $servicio->fecha_SGASA_penalidad = $request->fecha_SGASA_penalidad;
 
     $servicio->envio = $request->envio;
+
+    $servicio->penalidad_dias = $request->penalidad_dias;
     
     $servicio->idInversion = $request->idInversion;
     $servicio->idUsuario = $request->idUsuario;
     $servicio->save();
-   
+
     // Redireccionar con un mensaje de éxito
-    return redirect()->route('servicios.index')->with('message', 'Servicio agregado correctamente.');
+    return redirect()->route('servicios.index')->with('message', 'Servicio  <strong>' . $request->nombre_servicio . '</strong> agregado correctamente.');
     }
 
-   
     public function update(Request $request, $id)
     {
     // Validaciones
@@ -263,6 +264,7 @@ class ServiciosController extends Controller
     $servicio->conformidad = $request->conformidad; // Manejar la conformidad
     $servicio->fecha_SGASA_penalidad = $request->fecha_SGASA_penalidad;
     $servicio->envio = $request->envio;
+    $servicio->penalidad_dias = $request->penalidad_dias;
     $servicio->idInversion = $request->idInversion;
     $servicio->idUsuario = $request->idUsuario;
 
@@ -270,7 +272,7 @@ class ServiciosController extends Controller
     $servicio->save();
 
     // Redirigir con mensaje de éxito
-    return redirect()->route('servicios.index')->with('message', 'Servicio actualizado correctamente.');
+    return redirect()->route('servicios.index')->with('message', 'Servicio  <strong>' . $request->nombre_servicio . '</strong> actualizado correctamente.');
     }
     public function destroy($id){
     // Buscamos la especialidad
@@ -279,7 +281,7 @@ class ServiciosController extends Controller
     // Eliminamos la especialidad
     $servicio->delete();
 
-    return redirect()->route('servicios.index')->with('message', 'Servicio ' . $servicio->nombre_servicio . ' eliminado correctamente.');
+    return redirect()->route('servicios.index')->with('message', 'Servicio <strong>' . $servicio->nombre_servicio . '</strong> eliminado correctamente.');
     }
 
     public function getUsuariosPorInversiones($idInversion)
