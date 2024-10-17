@@ -341,6 +341,7 @@ return [
             'icon' => 'fas fa-window-restore',
             'icon_color' => 'white'
         ],
+        ['header' => 'ADMINISTRATIVO'],
         [
             'text' => 'Requerimiento',
             'icon' => 'fas fa-folder-open',
@@ -359,6 +360,12 @@ return [
                     'icon_color' => 'white'
                 ],
             ],
+        ],
+        [
+            'text' => 'Lista Asignaciones',
+            'url' => 'lista',
+            'icon' => 'fas fa-address-card',
+            'icon_color' => 'white'
         ],
         ['header' => 'REPORTES'],
         [
