@@ -11,6 +11,7 @@ use App\Models\Especialidades;
 use App\Models\AsignacionProfesional;
 use App\Models\AsignacionAsistente;
 use App\Models\EstadoLog;
+use App\Models\AvanceInversionLog;
 use Carbon\Carbon;
 use Auth;
 
@@ -19,7 +20,6 @@ class InversionController extends Controller
     // Función de carga de datos
     public function index(Request $request){
         // Carga de datos de provincias y distritos mediante un JSON
-        $this->sumaTotalAvance();
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
@@ -49,6 +49,8 @@ class InversionController extends Controller
         // Cargamos logs
         $logs = EstadoLog::all();
 
+        $avanceInversionLog = AvanceInversionLog::all();
+
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
@@ -57,7 +59,7 @@ class InversionController extends Controller
             }
         }
 
-        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs', 'notificaciones'));
+        return view('inversion.index', compact('inversiones', 'provincias', 'avanceInversionLog', 'usuarios', 'logs', 'notificaciones'));
     }
 
     // Función de agreagar un registro
@@ -207,19 +209,7 @@ class InversionController extends Controller
                     ->header('Content-Disposition', 'attachment; filename="' . $inversion->nombreCortoInversion . '.pdf"');
     }
 
-    // Función para calcular el % de avance de la inversión
-    private function sumaTotalAvance() {
-        // Carga de datos de inversiones
-        $inversiones = Inversion::all();
-
-        // Sumamos los avances en base a sus especialidades de cada inversión
-        foreach ($inversiones as $inversion) {
-            $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
-            $sumAvanceTotalEspecialidad = $especialidades->sum('avanceTotalEspecialidad');
-            $inversion->avanceInversion = $sumAvanceTotalEspecialidad;
-            $inversion->save();
-        }
-    }
+    
     public function pdf($id) {
         date_default_timezone_set('America/Lima');
         $inversion = Inversion::findOrFail($id);

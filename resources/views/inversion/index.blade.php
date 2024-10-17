@@ -130,6 +130,7 @@
                       @endif
                       @if (Auth::user()->isAdmin)
                         <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                        <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceInversionLog{{$inversion->idInversion}}"><i class="fas fa-chart-line"></i></a>
                       @endif
                     </td>
                     <td class="text-center text-nowrap">
@@ -156,6 +157,10 @@
         @include('inversion.estadoLog', [
           'inversion' => $inversion,
           'logs' => $logs->where('idInversion', $inversion->idInversion),
+        ])
+        @include('inversion.avanceInversionLog', [
+          'inversion' => $inversion,
+          'logs' => $avanceInversionLog->where('idInversion', $inversion->idInversion),
         ])
       @endforeach
     </div>

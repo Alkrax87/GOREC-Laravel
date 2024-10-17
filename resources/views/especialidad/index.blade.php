@@ -133,6 +133,7 @@
                     <td class="text-center" style="white-space: nowrap"">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{ $especialidad->idEspecialidad }}"><i class="fas fa-eye"></i></a>
                       @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $especialidad->inversion->idUsuario)
+                        <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceEspecialidadLog{{$especialidad->idEspecialidad}}"><i class="fas fa-chart-line"></i></a>
                         <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEditEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-edit"></i></a>
                         <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-trash-alt"></i></a>
                       @endif
@@ -156,6 +157,10 @@
         ])
         @include('especialidad.delete', ['especialidad' => $especialidad])
         @include('especialidad.edit', ['especialidad' => $especialidad])
+        @include('especialidad.avanceEspecialidadLog', [
+          'especialidad' => $especialidad,
+          'logs' => $avanceEstadoLogs->where('idEspecialidad', $especialidad->idEspecialidad),
+        ])
       @endforeach
     </div>
   </div>
