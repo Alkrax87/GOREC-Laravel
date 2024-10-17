@@ -37,6 +37,7 @@ class Inversion extends Model
         'presupuestoEjecucionInversion',
         'fechaInicioConsistenciaInversion',
         'fechaFinalConsistenciaInversion',
+        'archivoInversion',
     ];
 
     // Define la relación con el modelo User
@@ -52,6 +53,11 @@ class Inversion extends Model
     // Define la relación con el modelo EstadoLog
     public function estado_log(){
         return $this->hasMany(EstadoLog::class, 'idInversion', 'idInversion');
+    }
+
+    // Define la relación con el modelo AvanceInversionLog
+    public function avance_inversion_log(){
+        return $this->hasMany(AvanceInversionLog::class, 'idInversion', 'idInversion');
     }
 
     // Define la relación con el modelo AsignacionProfesional

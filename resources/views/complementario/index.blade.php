@@ -20,7 +20,7 @@
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
             </div>
           @endif
           @if ($errors->any())
@@ -40,9 +40,10 @@
               <thead class="table-header">
                 <tr>
                   <th class="text-left">#</th>
-                  <th class="text-left">Inversión</th>
-                  <th class="text-left">Nombre</th>
-                  <th class="text-left">Observacion</th>
+                  <th class="text-center">Inversión</th>
+                  <th class="text-center">Proyectista</th>
+                  <th class="text-center">Nombre Complementario</th>
+                  <th class="text-center">Observacion</th>
                   <th class="text-center">Estado</th>
                   <th class="text-center text-nowrap">Fecha Inicio</th>
                   <th class="text-center text-nowrap">Fecha Final</th>
@@ -54,11 +55,35 @@
                   <tr>
                     <td class="text-left">{{ $loop->index + 1 }}</td>
                     <td>{{ $complementario->inversion->nombreCortoInversion }}</td>
+                    <td>{{ $complementario->usuario->nombreUsuario . ' ' . $complementario->usuario->apellidoUsuario }}
+                      <br>
+                      P: (
+                        @if ($complementario->usuario->profesiones->isNotEmpty())
+                          @foreach ($complementario->usuario->profesiones as $profesion)
+                            {{ $profesion->nombreProfesion }}
+                            @if (!$loop->last)
+                              ,
+                            @endif
+                          @endforeach
+                        @endif
+                        )
+                        &nbsp; | &nbsp;
+                        E: (
+                        @if ($complementario->usuario->especialidades->isNotEmpty())
+                          @foreach ($complementario->usuario->especialidades as $especialidad)
+                            {{ $especialidad->nombreEspecialidad }}
+                            @if (!$loop->last)
+                              ,
+                            @endif
+                          @endforeach
+                        @endif
+                        )  
+                    </td> 
                     <td class="text-left">{{ $complementario->nombreEstudiosComplementarios}}</td>
                     <td class="text-left">{{ $complementario->observacionEstudiosComplementarios}}</td>
                     <td class="text-center">{{ $complementario->estadoEstudiosComplementarios}}</td>
-                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $complementario->fechaInicioEstudiosComplementarios }}</td>
-                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $complementario->fechaFinalEstudiosComplementarios}}</td>
+                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{  $complementario->fechaInicioEstudiosComplementarios ? \Carbon\Carbon::parse( $complementario->fechaInicioEstudiosComplementarios)->format('d/m/Y') : 'Por Definir' }}</td>
+                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{  $complementario->fechaFinalEstudiosComplementarios ? \Carbon\Carbon::parse( $complementario->fechaFinalEstudiosComplementarios)->format('d/m/Y') : 'Por Definir' }} </td>
                     <td class="text-center text-nowrap">
                       <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-eye"></i></a>
                       <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$complementario->idEstudiosComplementarios}}"><i class="fas fa-edit"></i></a>
@@ -134,6 +159,7 @@
           info: "Mostrando página _PAGE_ de _PAGES_",
           infoEmpty: "No hay registros disponibles",
           infoFiltered: "(filtrado de _MAX_ registros totales)",
+          emptyTable: "No hay datos disponibles en la tabla",
           paginate: {
             first: "Primero",
             last: "Último",

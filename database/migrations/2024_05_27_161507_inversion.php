@@ -28,8 +28,11 @@ return new class extends Migration
             $table->decimal('presupuestoEjecucionInversion', 23, 2);
             $table->date('fechaInicioConsistenciaInversion')->nullable();
             $table->date('fechaFinalConsistenciaInversion')->nullable();
+            $table->binary('archivoInversion')->nullable();
             $table->timestamps(false);
         });
+
+        DB::statement('ALTER TABLE inversion MODIFY archivoInversion MEDIUMBLOB NULL');
     }
 
     public function down(): void

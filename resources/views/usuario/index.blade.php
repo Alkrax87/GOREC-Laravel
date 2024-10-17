@@ -19,7 +19,7 @@
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-check"></i>&nbsp;&nbsp; {{ $message }}</p>
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
             </div>
           @endif
           @if ($errors->any())
@@ -59,6 +59,10 @@
                     @if ($usuario->isAdmin)
                       <td class="project-state">
                         <span class="badge badge-danger">Administrador</span>
+                      </td>
+                    @elseif ($usuario->isAdministrativo)
+                      <td class="project-state">
+                        <span class="badge badge-primary">Administrativo</span>
                       </td>
                     @elseif ((str_replace('@gorec.com', '', $usuario->email)) != '')
                       <td class="project-state">

@@ -39,6 +39,11 @@ class Especialidad extends Model
         return $this->hasMany(Fase::class, 'idEspecialidad');
     }
 
+    // Define la relación con el modelo AvanceInversionLog
+    public function avance_especialidad_log(){
+        return $this->hasMany(AvanceEspecialidadLog::class, 'idInversion', 'idInversion');
+    }
+
     // Define la relación con el modelo EspecialidadUsers
     public function usuarios()
     {

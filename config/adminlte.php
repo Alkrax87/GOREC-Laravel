@@ -341,6 +341,32 @@ return [
             'icon' => 'fas fa-window-restore',
             'icon_color' => 'white'
         ],
+        ['header' => 'ADMINISTRATIVO'],
+        [
+            'text' => 'Requerimiento',
+            'icon' => 'fas fa-folder-open',
+            'icon_color' => 'white',
+            'submenu' => [
+                [
+                    'text' => 'Servicios',
+                    'url' => 'servicios',
+                    'icon' => 'fas fa-wrench',
+                    'icon_color' => 'white'
+                ],
+                [
+                    'text' => 'Bienes',
+                    'url' => 'bienes',
+                    'icon' => 'fas fa-truck-moving',
+                    'icon_color' => 'white'
+                ],
+            ],
+        ],
+        [
+            'text' => 'Lista Asignaciones',
+            'url' => 'lista',
+            'icon' => 'fas fa-address-card',
+            'icon_color' => 'white'
+        ],
         ['header' => 'REPORTES'],
         [
             'text' => 'Reportes',

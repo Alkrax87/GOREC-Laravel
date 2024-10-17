@@ -23,7 +23,7 @@ class AsistenteController extends Controller
                                                ->exists();
     
         if ($existeAsignacion) {
-            return redirect()->back()->with('error_asistente', 'El asistente ya está asignado a este jefe en esta inversión.')->withInput();
+            return redirect()->back()->with('error_asistente', 'El asistente ya está asignado a este Proyectista en esta inversión.')->withInput();
         }
     
         // Obtener el nombre completo del asistente
@@ -36,7 +36,7 @@ class AsistenteController extends Controller
         AsignacionAsistente::create($request->all());
     
         // Redirigir con el mensaje de éxito
-        return redirect()->route('asignaciones.index')->with('asistente_message', 'Asistente ' . $nombreAsistente . ' asignado correctamente al jefe ' .  $nombrejefe);
+        return redirect()->route('asignaciones.index')->with('asistente_message', 'Asistente <strong>' . $nombreAsistente . '</strong> asignado correctamente al Proyectista <strong>' .  $nombrejefe . '</strong>');
     }
 
     // Función eliminar un registro

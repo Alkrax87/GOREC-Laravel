@@ -15,7 +15,7 @@
           @if ($message = Session::get('profesional_message'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;  {!! session('profesional_message') !!}</p>
           </div>
           @endif
           @if ($error = Session::get('error'))
@@ -34,7 +34,7 @@
           @if ($message = Session::get('asistente_message'))
           <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;  {!! session('asistente_message') !!}</p>
           </div>
           @endif
           <!-- Tabla -->
@@ -45,7 +45,6 @@
                   <th>#</th>
                   <th class="text-nowrap">CUI</th>
                   <th class="text-nowrap">Inversión</th>
-                  <th class="text-nowrap">Nombre Corto</th>
                   <th class="text-center">Provincia</th>
                   <th class="text-center">Distrito</th>
                   <th class="text-center">Modalidad</th>
@@ -63,7 +62,6 @@
                     <td class="text-center">{{ $loop->index + 1 }}</td>
                     <td class="text-center text-nowrap">{{ $inversion->cuiInversion}}</td>
                     <td>{{ $inversion->nombreInversion}}</td>
-                    <td>{{ $inversion->nombreCortoInversion}}</td>
                     <td class="text-center">{{ $inversion->provinciaInversion }}</td>
                     <td class="text-center">{{ $inversion->distritoInversion }}</td>
                     <td class="text-center">{{ $inversion->modalidadInversion }}</td>

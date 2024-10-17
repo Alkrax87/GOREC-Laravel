@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'isAdmin',
+        'isAdministrativo',
         'categoriaUsuario',
     ];
 
@@ -57,6 +58,16 @@ class User extends Authenticatable
     public function especialidad_users()
     {
         return $this->belongsToMany(Especialidad::class, 'especialidad_users', 'idUsuario', 'idEspecialidad');
+    }
+
+    public function asignacionesProfesional()
+    {
+        return $this->hasMany(AsignacionProfesional::class, 'idUsuario', 'idUsuario');
+    }
+
+    public function asignacionesAsistente()
+    {
+        return $this->hasMany(AsignacionAsistente::class, 'idAsistente', 'idUsuario');
     }
 
     // ---------------------------------

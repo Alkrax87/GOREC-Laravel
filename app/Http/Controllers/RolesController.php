@@ -32,11 +32,21 @@ class RolesController extends Controller
         // Buscar el usuario por ID
         $usuario = User::findOrFail($id);
 
-        // Alternar el estado de administrador
-        $usuario->isAdmin = !$usuario->isAdmin;
+        if ($request->value === '0') {
+            // Alternar el estado de administrador
+            $usuario->isAdmin = !$usuario->isAdmin;
 
-        // Guardar los cambios
-        $usuario->save();
+            // Guardar los cambios
+            $usuario->save();
+        } else if ($request->value === '1') {
+
+            // Alternar el estado de administrador
+            $usuario->isAdministrativo = !$usuario->isAdministrativo;
+
+            // Guardar los cambios
+            $usuario->save();
+        }
+
 
         // Redirigir con un mensaje de éxito
         return redirect()->route('roles.index')->with('message', 'El rol del usuario ' . $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario . ' ha sido actualizado.');

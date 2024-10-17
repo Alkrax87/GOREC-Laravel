@@ -25,8 +25,8 @@
               </div>
               <div class="row">
                 <div class="col-8 form-outline mb-4">
-                  <label class="form-label">Nombre</label>
-                  <input type="text" name="nombreEspecialidad" class="input-auth" required />
+                  <label class="form-label">Nombre Especialidad</label>
+                  <input type="text" name="nombreEspecialidad" class="input-auth" placeholder="Ingrese Especialidad" required />
                 </div>
                 <div class="col-4 form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>

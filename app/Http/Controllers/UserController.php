@@ -15,7 +15,7 @@ class UserController extends Controller
     // Función de carga de datos
     public function index(Request $request){
         // Cargamos los datos de inversion filtrador en base al usuario logeado
-        $usuarios = User::all();
+        $usuarios = User::with(['inversion', 'asignacionesProfesional.inversion', 'asignacionesAsistente.inversion'])->get();
         $inversiones = Inversion::all();
 
         $notificaciones = [];

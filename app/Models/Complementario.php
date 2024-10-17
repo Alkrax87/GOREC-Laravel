@@ -26,11 +26,16 @@ class Complementario extends Model
         'fechaFinalEstudiosComplementarios',
         'estadoEstudiosComplementarios',
         'idInversion',
+        'idUsuario',
     ];
 
     // Define la relación con el modelo Inversion
     public function inversion()
     {
         return $this->belongsTo(Inversion::class, 'idInversion');
+    }
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
     }
 }

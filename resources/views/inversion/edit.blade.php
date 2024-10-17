@@ -1,4 +1,4 @@
-<form action="{{ route('inversion.update', $inversion->idInversion) }}" method="POST">
+<form action="{{ route('inversion.update', $inversion->idInversion) }}" method="POST" enctype="multipart/form-data">
   {{ method_field('patch') }}
   {{ csrf_field() }}
   <div class="modal fade" id="ModalEdit{{$inversion->idInversion}}">
@@ -139,20 +139,34 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-6 form-outline mb-4">
+                  <div class="col-6 form-outline">
                     <label class="form-label">Presupuesto Formulación</label>
                     <div class="input-group mb-3">
                       <span class="input-group-text">S/</span>
                       <input type="text" name="presupuestoFormulacionInversion" value="{{ $inversion->presupuestoFormulacionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Formulación" required>
                     </div>
                   </div>
-                  <div class="col-6 form-outline mb-4">
+                  <div class="col-6 form-outline">
                     <label class="form-label">Presupuesto Ejecución</label>
                     <div class="input-group mb-3">
                       <span class="input-group-text">S/</span>
                       <input type="text" name="presupuestoEjecucionInversion" value="{{ $inversion->presupuestoEjecucionInversion }}" class="input-auth form-control" aria-label="Amount (to the nearest dollar)" placeholder="Presupuesto Ejecución" required>
                     </div>
                   </div>
+                </div>
+                <div class="form-group mb-4">
+                  <label for="archivoInversion">Archivo</label>
+                  <input type="file" name="archivoInversion" accept="application/pdf" class="form-control">
+                  @if ($inversion->archivoInversion)
+                    <p class="text-danger mb-0">Ya existe un archivo vinculado a esta Inversión.</p>
+                    <a href="{{ route('inversion.download', $inversion->idInversion) }}" class="btn btn-dark">
+                      <i class="fas fa-file-download"></i>&nbsp;&nbsp; Descargar archivo actual
+                    </a>
+                    <div class="form-check mt-2">
+                      <input type="checkbox" class="form-check-input" id="deleteFile" value="1" name="deleteFile">
+                      <label class="form-check-label" for="deleteFile">Eliminar archivo actual</label>
+                    </div>
+                  @endif
                 </div>
               </div>
               <hr>

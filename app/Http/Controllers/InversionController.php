@@ -11,6 +11,7 @@ use App\Models\Especialidades;
 use App\Models\AsignacionProfesional;
 use App\Models\AsignacionAsistente;
 use App\Models\EstadoLog;
+use App\Models\AvanceInversionLog;
 use Carbon\Carbon;
 use Auth;
 
@@ -19,7 +20,6 @@ class InversionController extends Controller
     // Función de carga de datos
     public function index(Request $request){
         // Carga de datos de provincias y distritos mediante un JSON
-        $this->sumaTotalAvance();
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
@@ -49,6 +49,8 @@ class InversionController extends Controller
         // Cargamos logs
         $logs = EstadoLog::all();
 
+        $avanceInversionLog = AvanceInversionLog::all();
+
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
@@ -57,12 +59,7 @@ class InversionController extends Controller
             }
         }
 
-        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios', 'logs', 'notificaciones'));
-    }
-
-    // Función que devuelve el formulario de crear
-    public function create(){
-        return view('inversion.create');
+        return view('inversion.index', compact('inversiones', 'provincias', 'avanceInversionLog', 'usuarios', 'logs', 'notificaciones'));
     }
 
     // Función de agreagar un registro
@@ -107,8 +104,16 @@ class InversionController extends Controller
             'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
+        $data = $request->all();
+
+        // Manejar la subida del archivo
+        if ($request->hasFile('archivoInversion')) {
+            $file = $request->file('archivoInversion');
+            $data['archivoInversion'] = file_get_contents($file->getRealPath());
+        }
+
         // Creamos un registro
-        Inversion::create($request->all());
+        Inversion::create($data);
 
         return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' creada exitosamente.');
     }
@@ -141,8 +146,22 @@ class InversionController extends Controller
         // Guardamos el estado actual
         $CurrentEstadoInversion = $inversion->estadoInversion;
 
+        $data = $request->except(['archivoInversion', 'deleteFile']);
+
+        // Manejar la subida del archivo
+        if ($request->hasFile('archivoInversion')) {
+            $file = $request->file('archivoInversion');
+            $data['archivoInversion'] = file_get_contents($file->getRealPath());
+        }
+
+        // Verificar si se ha solicitado eliminar el archivo
+        if ($request->has('deleteFile') && $request->input('deleteFile') == '1') {
+            // Borramos el archivo
+            $data['archivoInversion'] = null;
+        }
+
         // Editamos la inversión
-        $inversion->update($request->all());
+        $inversion->update($data);
 
          // Comprobamos si el estado ha cambiado
         if ($request->estadoInversion != $CurrentEstadoInversion) {
@@ -176,28 +195,32 @@ class InversionController extends Controller
         return view('inversion.show', compact('inversion'));
     }
 
-    // Función para calcular el % de avance de la inversión
-    private function sumaTotalAvance() {
-        // Carga de datos de inversiones
-        $inversiones = Inversion::all();
+    // Función para descargar el PDF (Opcional)
+    public function download($id)
+    {
+        $inversion = Inversion::findOrFail($id);
 
-        // Sumamos los avances en base a sus especialidades de cada inversión
-        foreach ($inversiones as $inversion) {
-            $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
-            $sumAvanceTotalEspecialidad = $especialidades->sum('avanceTotalEspecialidad');
-            $inversion->avanceInversion = $sumAvanceTotalEspecialidad;
-            $inversion->save();
+        if (!$inversion->archivoInversion) {
+            return redirect()->back()->with('error', 'No hay archivo PDF asociado a esta inversión.');
         }
+
+        return response($inversion->archivoInversion)
+                    ->header('Content-Type', 'application/pdf')
+                    ->header('Content-Disposition', 'attachment; filename="' . $inversion->nombreCortoInversion . '.pdf"');
     }
+
+    
     public function pdf($id) {
         date_default_timezone_set('America/Lima');
         $inversion = Inversion::findOrFail($id);
         $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
         $pdf->setPaper('A4', 'portrait');
+         // Establecer opciones adicionales
+        
         return $pdf->stream();
     }
-    
-    
+
+
     public function pdfs(){
         date_default_timezone_set('America/Lima');
         $inversiones = Inversion::all(); // Carga todas las inversiones

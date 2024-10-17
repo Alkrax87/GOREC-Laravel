@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\AsignacionProfesional;
 use App\Models\AsignacionAsistente;
 use App\Models\User;
+use App\Models\Inversion;
 
 class ProfesionalController extends Controller
 {
@@ -28,10 +29,14 @@ class ProfesionalController extends Controller
          // Obtener el nombre completo del usuario
         $usuario = User::find($request->idUsuario); // Suponiendo que tu modelo de usuario se llama `User`
         $nombreCompleto = $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario;
+
+        // Obtener el nombre de la inversión
+    $inversion = Inversion::find($request->idInversion); // Suponiendo que tienes un modelo `Inversion`
+    $nombreInversion = $inversion->nombreCortoInversion;
         // Creamos una nueva asignacion de profesional
         AsignacionProfesional::create($request->all());
     
-        return redirect()->route('asignaciones.index')->with('profesional_message','Profesional ' .  $nombreCompleto . ' agregado correctamente.');
+        return redirect()->route('asignaciones.index')->with('profesional_message','Proyectista <strong>' .  $nombreCompleto . '</strong> agregado correctamente en la inversión <strong>' . $nombreInversion . '</strong>.');
     }
 
     // Función eliminar un registro
