@@ -52,9 +52,15 @@
                             <label for="nombrebien" class="form-label">Nombre bien:</label>
                             <input type="text" class="form-control input-auth" value="{{ $bien->nombre_bienes }}" name="nombre_bienes" id="nombrebien" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="meta" class="form-label">Meta:</label>
-                            <input type="text"  name="meta_bienes" value="{{ $bien->meta_bienes}}" class="form-control input-auth" id="meta_bienes" required>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label for="meta" class="form-label">Meta:</label>
+                                <input type="text"  name="meta_bienes" value="{{ $bien->meta_bienes}}" class="form-control input-auth" id="meta_bienes" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="siaf" class="form-label">SIAF (llenar posterior, no obligatorio)</label>
+                                <input type="text" name="siaf_bienes" value="{{ $bien->siaf_bienes}}" class="form-control input-auth" placeholder="Ingrese SIAF" id="siaf">
+                            </div>
                         </div>
                         <div class="w-100 text-center">
                             <h4 class="my-3">Formulario de Procesos</h4>
@@ -65,8 +71,11 @@
                             <div class="col-3"><b>Fecha Fin</b></div>
                             <div class="col-2"><b>Cant. Dias</b></div>
                         </div>
+                        <div class="row mb-2"><b>Presentación de Requerimiento</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Presentación de Requerimiento</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_requerimientos_bs" value="{{ $bien->nombre_requerimientos_bs}}" class="form-control input-auth" id="nombre_requerimientos_bs" placeholder="Ingrese Requerimiento">
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_presentacion_req_inicio_bs}}" name="f_presentacion_req_inicio_bs" id="f_presentacion_req_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_presentacion_req_inicio_edit', 'f_presentacion_req_fin_edit', 'presentacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
@@ -77,8 +86,11 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->presentacion_dias_bs}}" name="presentacion_dias_bs"  id="presentacion_dias_edit_{{ $bien->idBienes }}" readonly  >
                             </div>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-4"><b>Designación de Cotizador</b></div>
+                        <div class="row mb-2"><b>Designación de Cotizador</b></div>
+                        <div class="row mb-4">
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cotizador_bs" value="{{ $bien->nombre_cotizador_bs}}" class="form-control input-auth" id="nombre_cotizador_bs" placeholder="Ingrese Cotizador">
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_designacion_cotizador_inicio_bs}}" name="f_designacion_cotizador_inicio_bs" id="f_designacion_cotizador_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_designacion_cotizador_inicio_edit', 'f_designacion_cotizador_fin_edit', 'designacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
@@ -90,15 +102,15 @@
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Estudio de Mercado</b></div>
+                            <div class="col-4"><b>Cotización</b></div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_estudio_mercado_inicio_bs}}" name="f_estudio_mercado_inicio_bs" id="f_estudio_mercado_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $bien->idBienes }})" >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_cotizacion_inicio_bs}}" name="f_cotizacion_inicio_bs" id="f_cotizacion_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_cotizacion_inicio_edit', 'f_cotizacion_fin_edit', 'cotizacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_estudio_mercado_fin_bs}}" name="f_estudio_mercado_fin_bs" id="f_estudio_mercado_fin_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $bien->idBienes }})" >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_cotizacion_fin_bs}}" name="f_cotizacion_fin_bs" id="f_cotizacion_fin_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_cotizacion_inicio_edit', 'f_cotizacion_fin_edit', 'cotizacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->estudiomercado_dias_bs}}" name="estudiomercado_dias_bs" id="estudiomercado_dias_edit_{{ $bien->idBienes }}" readonly  >
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->cotizacion_dias_bs}}" name="cotizacion_dias_bs" id="cotizacion_dias_edit_{{ $bien->idBienes }}" readonly  >
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -113,19 +125,22 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->cuadro_comparativo_dias_bs}}" name="cuadro_comparativo_dias_bs" id="cuadro_comparativo_dias_edit_{{ $bien->idBienes }}" readonly  >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Elaboración de Certificación</b></div>
-                            <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_elaboracion_certificado_inicio_bs}}" name="f_elaboracion_certificado_inicio_bs" id="f_elaboracion_certificado_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $bien->idBienes }})" >
+                            <div class="col-4">
+                                <input type="number"  name="numero_certificacion_bs" value="{{ $bien->numero_certificacion_bs}}" class="form-control input-auth" id="numero_certificacion_bs" placeholder="Ingrese Cotizador">
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_elaboracion_certificado_fin_bs}}" name="f_elaboracion_certificado_fin_bs" id="f_elaboracion_certificado_fin_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $bien->idBienes }})" >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_numero_certificacion_inicio_bs}}" name="f_numero_certificacion_inicio_bs" id="f_numero_certificacion_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_numero_certificacion_inicio_edit', 'f_numero_certificacion_fin_edit', 'numero_certificacion_dias_edit', {{ $bien->idBienes }})" >
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_numero_certificacion_fin_bs}}" name="f_numero_certificacion_fin_bs" id="f_numero_certificacion_fin_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_numero_certificacion_inicio_edit', 'f_numero_certificacion_fin_edit', 'numero_certificacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->elaboracion_certificado_dias_bs}}" name="elaboracion_certificado_dias_bs" id="elaboracion_certificado_dias_edit_{{ $bien->idBienes }}" readonly >
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->numero_certificacion_dias_bs}}" name="numero_certificacion_dias_bs" id="numero_certificacion_dias_edit_{{ $bien->idBienes }}" readonly >
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <!--<div class="row mb-2">
                             <div class="col-4"><b>Numero SIAF</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_numero_Siaf_inicio_bs}}" name="f_numero_Siaf_inicio_bs" id="f_numero_Siaf_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_numero_Siaf_inicio_edit', 'f_numero_Siaf_fin_edit', 'numero_Siaf_dias_edit', {{ $bien->idBienes }})" >
@@ -136,9 +151,12 @@
                             <div class="col-2">
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->numero_Siaf_dias_bs}}" name="numero_Siaf_dias_bs" id="numero_Siaf_dias_edit_{{ $bien->idBienes }}"  readonly >
                             </div>
-                        </div>
+                        </div> -->
+                        <div class="row mb-2"><b>Orden de Compra</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Orden de Compra</b></div>
+                            <div class="col-4">
+                                <input type="number"  name="numero_orden_compra_bs" value="{{ $bien->numero_orden_compra_bs}}" class="form-control input-auth" id="numero_orden_compra_bs" placeholder="Ingrese Cotizador">
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_orden_compra_inicio_bs}}" name="f_orden_compra_inicio_bs" id="f_orden_compra_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_orden_compra_inicio_edit', 'f_orden_compra_fin_edit', 'orden_compra_dias_edit', {{ $bien->idBienes }})" >
                             </div>
@@ -155,7 +173,7 @@
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_notificacion_inicio_bs}}" name="f_notificacion_inicio_bs" id="f_notificacion_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_notificacion_fin_bs}}" name="f_notificacion_fin_bs" id="f_notificacion_fin_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $bien->idBienes }})" >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_notificacion_fin_bs}}" name="f_notificacion_fin_bs" id="f_notificacion_fin_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $bien->idBienes }}); calcularFechaPlazoEjecucionedit_bs({{ $bien->idBienes }})" >
                             </div>
                             <div class="col-2">
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->notificacion_dias_bs}}" name="notificacion_dias_bs" id="notificacion_dias_edit_{{ $bien->idBienes }}"  readonly >
@@ -167,7 +185,7 @@
                                 <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias_bs" id="plazo_bs_edit_{{ $bien->idBienes }}" value="{{ $bien->plazo_ejecucion_dias_bs}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit_bs({{ $bien->idBienes }})" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth" value="{{ $bien->fecha_plazo_ejecucion_bs}}" name="fecha_plazo_ejecucion_bs" id="fecha_plazo_ejecucion_bs_edit_{{ $bien->idBienes }}" readonly >
+                                <input type="date" class="form-control input-auth" value="{{ $bien->fecha_plazo_ejecucion_bs}}" name="fecha_plazo_ejecucion_bs" id="fecha_plazo_ejecucion_bs_edit_{{ $bien->idBienes }}" readonly  onchange="calcularFechaAmpliacionPlazoedit_bs({{ $bien->idBienes }})">
                             </div>
                             <div class="col-3">
                                 <div class="form-check mt-2">
@@ -212,27 +230,33 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-2"><b>Entrega Bien</b></div>
+                            <div class="col-2">
+                                <label for="entregable" class="form-label mt-2">Entrega Bien:</label>
+                            </div>
                             <div class="col-3">
                                 <input type="date" name="f_entrega_bien_inicio_bs" value="{{ $bien->f_entrega_bien_inicio_bs}}"  class="form-control input-auth date-input" >
                             </div>
-                            <div class="col-2"><b>Recepcion Bien</b></div>
+                            <div class="col-2">
+                                <label for="recepcion" class="form-label mt-2">Recepcion Bien:</label>
+                            </div>
                             <div class="col-3">
                                 <input type="date" name="f_recepcion_bien_inicio_bs" value="{{ $bien->f_recepcion_bien_inicio_bs}}"  class="form-control input-auth date-input" >
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4">
-                                <label class="proceso-label">Patrimonizacion</label>
+                            <div class="col-4"><b>Patrimonizacion</b></div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_inicio_bs}}" name="fecha_patrimonizacion_inicio_bs" id="fecha_patrimonizacion_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('fecha_patrimonizacion_inicio_edit', 'fecha_patrimonizacion_fin_edit', 'patrimonizacion_dias_edit', {{ $bien->idBienes }})" >
                             </div>
-                            <div class="col-4">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_bs}}"  name="fecha_patrimonizacion_bs"  >
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_fin_bs}}" name="fecha_patrimonizacion_fin_bs" id="fecha_patrimonizacion_fin_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('fecha_patrimonizacion_inicio_edit', 'fecha_patrimonizacion_fin_edit', 'patrimonizacion_dias_edit', {{ $bien->idBienes }})" >
+                            </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->patrimonizacion_dias_bs}}" name="patrimonizacion_dias_bs" id="patrimonizacion_dias_edit_{{ $bien->idBienes }}"  readonly >
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4">
-                                <label class="proceso-label">Conformidad Patrimonización</label>
-                            </div>
+                            <div class="col-4"><b>Conformidad Patrimonización</b></div>
                             <div class="col-3">
                                 <div class="checkbox-container">
                                     <div class="form-check me-2">
@@ -250,9 +274,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row mb-3"><b>Informe de Conformidad <br>(Proyectista)</b></div>
                         <div class="row mb-3">
-                            <div class="col-4"><b>Informe de Conformidad(Proyectista)</b></div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="checkbox-container">
                                     <div class="form-check me-2">
                                         <input class="form-check-input" type="radio" name="conformidad_proyectista_bs" id="conformidadSi" value="COMPLETADO" {{ $bien->conformidad_proyectista_bs === 'COMPLETADO' ? 'checked' : '' }}>
@@ -267,6 +291,15 @@
                                         <label class="form-check-label" for="conformidadEsperaC">En Proceso</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_conformidad_proyectista_inicio_bs}}" name="f_conformidad_proyectista_inicio_bs" id="f_conformidad_proyectista_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_conformidad_proyectista_inicio_edit', 'f_conformidad_proyectista_fin_edit', 'conformidad_proyectista_dias_edit', {{ $bien->idBienes }})" >
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_conformidad_proyectista_fin_bs}}" name="f_conformidad_proyectista_fin_bs" id="f_conformidad_proyectista_fin_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_conformidad_proyectista_inicio_edit', 'f_conformidad_proyectista_fin_edit', 'conformidad_proyectista_dias_edit', {{ $bien->idBienes }})" >
+                            </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->conformidad_proyectista_dias_bs}}" name="conformidad_proyectista_dias_bs" id="conformidad_proyectista_dias_edit_{{ $bien->idBienes }}"  readonly >
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -491,29 +524,46 @@
 // Función para recalcular la fecha de plazo de ejecución
 function calcularFechaPlazoEjecucionedit_bs(serviceId) {
     const fechaNotificacionFin = document.getElementById(`f_notificacion_fin_edit_${serviceId}`).value;
-    const plazoEjecucionDias = parseInt(document.getElementById(`plazo_bs_edit_${serviceId}`).value, 10);
+    const plazoEjecucionDiasInput = document.getElementById(`plazo_bs_edit_${serviceId}`);
     const notificacionDias = parseInt(document.getElementById(`notificacion_dias_edit_${serviceId}`).value, 10);
     const fechaPlazoEjecucionInput = document.getElementById(`fecha_plazo_ejecucion_bs_edit_${serviceId}`);
 
+    if (!fechaNotificacionFin) {
+        console.log(`La fecha de notificación fin está vacía. Estableciendo plazoEjecucionDias a 0.`);
+        plazoEjecucionDiasInput.value = 0;
+        fechaPlazoEjecucionInput.value = '';
+        calcularFechaAmpliacionPlazoedit_bs(serviceId); // Actualiza la ampliación de plazo
+        return;
+    }
 
-    if (fechaNotificacionFin && plazoEjecucionDias && !isNaN(notificacionDias)) {
+    const plazoEjecucionDias = parseInt(plazoEjecucionDiasInput.value, 10);
+
+    if (plazoEjecucionDias && !isNaN(notificacionDias)) {
         const fechaFin = new Date(fechaNotificacionFin);
         fechaFin.setDate(fechaFin.getDate() + notificacionDias + plazoEjecucionDias);
         const nuevaFecha = fechaFin.toISOString().split('T')[0];
         fechaPlazoEjecucionInput.value = nuevaFecha;
-        calcularFechaAmpliacionPlazoedit_bs(serviceId);
+        calcularFechaAmpliacionPlazoedit_bs(serviceId); // Actualiza la ampliación de plazo
     } else {
         fechaPlazoEjecucionInput.value = '';
+        calcularFechaAmpliacionPlazoedit_bs(serviceId); // Asegúrate de actualizar la ampliación de plazo si no se puede calcular la fecha
     }
 }
 
 // Función para recalcular la fecha de ampliación de plazo
 function calcularFechaAmpliacionPlazoedit_bs(serviceId) {
     const fechaPlazoEjecucion = document.getElementById(`fecha_plazo_ejecucion_bs_edit_${serviceId}`).value;
-    const ampliacionPlazoDias = parseInt(document.getElementById(`ampliacionPlazo_bs_edit_${serviceId}`).value, 10);
+    const ampliacionPlazoInput = document.getElementById(`ampliacionPlazo_bs_edit_${serviceId}`);
     const fechaAmpliacionPlazoInput = document.getElementById(`fecha_ampliacion_plazo_bs_edit_${serviceId}`);
 
-    console.log(`Service ID: ${serviceId}, Fecha Plazo Ejecución: ${fechaPlazoEjecucion}, Ampliación Plazo Días: ${ampliacionPlazoDias}`);
+    if (!fechaPlazoEjecucion || fechaPlazoEjecucion.trim() === "") {
+        console.log('La fecha de plazo de ejecución está vacía. Estableciendo ampliaciónPlazoDias a 0.');
+        ampliacionPlazoInput.value = 0; // Establece el valor de ampliación a 0 automáticamente
+        fechaAmpliacionPlazoInput.value = ''; // Limpia la fecha de ampliación
+        return; // Salir de la función
+    }
+
+    const ampliacionPlazoDias = parseInt(ampliacionPlazoInput.value, 10);
 
     if (fechaPlazoEjecucion && ampliacionPlazoDias) {
         const fechaPlazo = new Date(fechaPlazoEjecucion);

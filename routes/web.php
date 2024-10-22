@@ -17,6 +17,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AdministradorMiddleware;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\BienesController;
+use App\Http\Controllers\ListaInversionesAsigController;
 // Ruta por defecto
 Route::get('/', function () {
     return view('login');
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('reportes', Reportes::class);
     Route::resource('servicios', ServiciosController::class)->middleware([AdministradorMiddleware::class]);
     Route::resource('bienes', BienesController::class)->middleware([AdministradorMiddleware::class]);
+    Route::resource('listaInversion', ListaInversionesAsigController::class);
     Route::get('/usuarios-por-inversion/{idInversion}', [EspecialidadController::class, 'getUsuariosPorInversion']);
     Route::get('/inversion/{id}/download', [InversionController::class, 'download'])->name('inversion.download');
     Route::get('/usuarios-por-servicios/{idInversion}', [ServiciosController::class, 'getUsuariosPorInversiones']);

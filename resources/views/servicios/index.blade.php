@@ -82,11 +82,11 @@
                     <td>{{ $servicio->meta }}</td>
                     <td>{{ $servicio->siaf }}</td>
                     <td class="text-nowrap">@if ($servicio->conformidad === 'COMPLETADO')
-                      <span class="badge badge-success" >COMPLETADO</span>
+                      <span class="badge badge-success" ><i class="fas fa-check-circle"></i>&nbsp;COMPLETADO</span>
                       @elseif ($servicio->conformidad === 'CANCELADO')
-                      <span class="badge badge-danger">CANCELADO</span>
+                      <span class="badge badge-danger"><i class="fas fa-times-circle"></i>&nbsp;CANCELADO</span>
                       @else
-                         <span class="badge badge-warning">EN PROCESO</span> 
+                         <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i>&nbsp;EN PROCESO</span> 
                       @endif
                     </td>
                     <td class="text-nowrap"> @if ($servicio->envio === 'SI')

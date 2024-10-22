@@ -70,8 +70,11 @@
                             <div class="col-3"><b>Fecha Fin</b></div>
                             <div class="col-2"><b>Cant. Dias</b></div>
                         </div>
+                        <div class="row mb-2"><b>Presentación de Requerimiento</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Presentación de Requerimiento</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_requerimientos" value="{{ $servicio->nombre_requerimientos}}" class="form-control input-auth" id="nombre_requerimientos" placeholder="Ingrese Requerimiento" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_presentacion_req_inicio}}" name="f_presentacion_req_inicio" id="f_presentacion_req_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_presentacion_req_inicio_edit', 'f_presentacion_req_fin_edit', 'presentacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
@@ -82,8 +85,11 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->presentacion_dias}}" name="presentacion_dias"  id="presentacion_dias_edit_{{ $servicio->idServicio }}" readonly>
                             </div>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-4"><b>Designación de Cotizador</b></div>
+                        <div class="row mb-2"><b>Designación de Cotizador</b></div>
+                        <div class="row mb-4">
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cotizador" value="{{ $servicio->nombre_cotizador}}" class="form-control input-auth" id="nombre_cotizador" placeholder="Ingrese Cotizador" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_designacion_cotizador_inicio}}" name="f_designacion_cotizador_inicio" id="f_designacion_cotizador_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_designacion_cotizador_inicio_edit', 'f_designacion_cotizador_fin_edit', 'designacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
@@ -118,20 +124,26 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->cuadro_comparativo_dias}}" name="cuadro_comparativo_dias" id="cuadro_comparativo_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Elaboración de Certificación</b></div>
-                            <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_elaboracion_certificado_inicio}}" name="f_elaboracion_certificado_inicio" id="f_elaboracion_certificado_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $servicio->idServicio }})" >
+                            <div class="col-4">
+                                <input type="number"  name="numero_certificacion" value="{{ $servicio->numero_certificacion}}" class="form-control input-auth" id="numero_certificacion" placeholder="Ingrese Nº">
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_elaboracion_certificado_fin}}" name="f_elaboracion_certificado_fin" id="f_elaboracion_certificado_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_elaboracion_certificado_inicio_edit', 'f_elaboracion_certificado_fin_edit', 'elaboracion_certificado_dias_edit', {{ $servicio->idServicio }})" >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_numero_certificacion_inicio}}" name="f_numero_certificacion_inicio" id="f_numero_certificacion_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_numero_certificacion_inicio_edit_', 'f_numero_certificacion_fin_edit_', 'numero_certificacion_dias_edit_', {{ $servicio->idServicio }})" >
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_numero_certificacion_fin}}" name="f_numero_certificacion_fin" id="f_numero_certificacion_fin_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_numero_certificacion_inicio_edit_', 'f_numero_certificacion_fin_edit_', 'numero_certificacion_dias_edit_', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->elaboracion_certificado_dias}}" name="elaboracion_certificado_dias" id="elaboracion_certificado_dias_edit_{{ $servicio->idServicio }}" readonly >
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->numero_certificacion_dias}}" name="numero_certificacion_dias" id="numero_certificacion_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Orden de Servicio / Contrato</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Orden de Servicio / Contrato</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="numero_orden" value="{{ $servicio->numero_orden}}" class="form-control input-auth" id="numero_orden" placeholder="Ingrese Nº" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_orden_servicio_inicio}}" name="f_orden_servicio_inicio" id="f_orden_servicio_inicio_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_orden_servicio_inicio_edit', 'f_orden_servicio_fin_edit', 'orden_servicio_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
@@ -142,13 +154,25 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->orden_servicio_dias}}" name="orden_servicio_dias" id="orden_servicio_dias_edit_{{ $servicio->idServicio }}"  readonly >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Notificación</b></div>
                         <div class="row mb-3">
-                            <div class="col-4"><b>Notificación</b></div>
+                            <div class="col-4">
+                                <div class="checkbox-container pt-2">
+                                    <div class="form-check me-2">
+                                        <input class="form-check-input" type="radio" name="email_presencial" id="email" value="Email" value="SI" {{ $servicio->email_presencial === 'Email' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="email">Email</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="email_presencial" id="presencial" value="Presencial" value="SI" {{ $servicio->email_presencial === 'Presencial' ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="presencial">Presencial</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_inicio}}" name="f_notificacion_inicio" id="f_notificacion_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_fin}}" name="f_notificacion_fin" id="f_notificacion_fin_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }})" >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_notificacion_fin}}" name="f_notificacion_fin" id="f_notificacion_fin_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $servicio->idServicio }}); calcularFechaPlazoEjecucionedit({{ $servicio->idServicio }})">
                             </div>
                             <div class="col-2">
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->notificacion_dias}}" name="notificacion_dias" id="notificacion_dias_edit_{{ $servicio->idServicio }}"  readonly >
@@ -160,7 +184,7 @@
                                 <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias" id="plazo_edit_{{ $servicio->idServicio }}" value="{{ $servicio->plazo_ejecucion_dias}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_plazo_ejecucion}}" name="fecha_plazo_ejecucion" id="fecha_plazo_ejecucion_edit_{{ $servicio->idServicio }}" readonly >
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_plazo_ejecucion}}" name="fecha_plazo_ejecucion" id="fecha_plazo_ejecucion_edit_{{ $servicio->idServicio }}" readonly onchange="calcularFechaAmpliacionPlazoedit({{ $servicio->idServicio }})">
                             </div>
                             <div class="col-3">
                                 <div class="form-check mt-2">
@@ -205,12 +229,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4"><b>Entregable Mesa de Partes:</b></div>
+                            <div class="col-4"><b>Entrega del Producto</b></div>
                             <div class="col-3">
-                                <input type="date" name="f_mesa_partes_inicio" value="{{ $servicio->f_mesa_partes_inicio}}" class="form-control input-auth date-input" >
+                                <input type="date" name="f_entrega_producto" value="{{ $servicio->f_entrega_producto}}" class="form-control input-auth" >
                             </div>
                         </div>
-                        <div class="row mb-3">
+                         <!-- <div class="row mb-3">
                             <div class="col-4"><b>Retorno a SGEP(Sub Gerencia)</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_retorno_SGEP_inicio}}" name="f_retorno_SGEP_inicio" id="f_retorno_SGEP_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_retorno_SGEP_inicio_edit', 'f_retorno_SGEP_fin_edit', 'retorno_SGEP_dias_edit', {{ $servicio->idServicio }})" >
@@ -221,7 +245,7 @@
                             <div class="col-2">
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->retorno_SGEP_dias}}" name="retorno_SGEP_dias" id="retorno_SGEP_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mb-3">
                             <div class="col-4"><b>Deriva a Proyectista</b></div>
                             <div class="col-3">
@@ -249,7 +273,7 @@
                                         <label class="form-check-label" for="conformidadSi">Sí</label>
                                     </div>
                                     <div class="form-check me-2">
-                                        <input class="form-check-input" type="radio" name="conformidad" id="conformidadNo" value="CANCELADO" {{ $servicio->conformidad === 'CANCELADO"' ? 'checked' : '' }}>
+                                        <input class="form-check-input" type="radio" name="conformidad" id="conformidadNo" value="CANCELADO" {{ $servicio->conformidad === 'CANCELADO' ? 'checked' : '' }}>
                                         <label class="form-check-label" for="conformidadNo">No</label>
                                     </div>
                                     <div class="form-check me-2">
@@ -482,33 +506,48 @@
     }
 }
 
-// Función para recalcular la fecha de plazo de ejecución
 function calcularFechaPlazoEjecucionedit(serviceId) {
     const fechaNotificacionFin = document.getElementById(`f_notificacion_fin_edit_${serviceId}`).value;
-    const plazoEjecucionDias = parseInt(document.getElementById(`plazo_edit_${serviceId}`).value, 10);
+    const plazoEjecucionDiasInput = document.getElementById(`plazo_edit_${serviceId}`);
     const notificacionDias = parseInt(document.getElementById(`notificacion_dias_edit_${serviceId}`).value, 10);
     const fechaPlazoEjecucionInput = document.getElementById(`fecha_plazo_ejecucion_edit_${serviceId}`);
 
-    console.log(`Service ID: ${serviceId}, Fecha Notificación Fin: ${fechaNotificacionFin}, Plazo Ejecución Días: ${plazoEjecucionDias}, Notificación Días: ${notificacionDias}`);
+    if (!fechaNotificacionFin) {
+        console.log(`La fecha de notificación fin está vacía. Estableciendo plazoEjecucionDias a 0.`);
+        plazoEjecucionDiasInput.value = 0;
+        fechaPlazoEjecucionInput.value = '';
+        calcularFechaAmpliacionPlazoedit(serviceId); // Actualiza la ampliación de plazo
+        return;
+    }
 
-    if (fechaNotificacionFin && plazoEjecucionDias && !isNaN(notificacionDias)) {
+    const plazoEjecucionDias = parseInt(plazoEjecucionDiasInput.value, 10);
+
+    if (plazoEjecucionDias && !isNaN(notificacionDias)) {
         const fechaFin = new Date(fechaNotificacionFin);
         fechaFin.setDate(fechaFin.getDate() + notificacionDias + plazoEjecucionDias);
         const nuevaFecha = fechaFin.toISOString().split('T')[0];
         fechaPlazoEjecucionInput.value = nuevaFecha;
-        calcularFechaAmpliacionPlazoedit(serviceId);
+        calcularFechaAmpliacionPlazoedit(serviceId); // Actualiza la ampliación de plazo
     } else {
         fechaPlazoEjecucionInput.value = '';
+        calcularFechaAmpliacionPlazoedit(serviceId); // Asegúrate de actualizar la ampliación de plazo si no se puede calcular la fecha
     }
 }
 
-// Función para recalcular la fecha de ampliación de plazo
+
 function calcularFechaAmpliacionPlazoedit(serviceId) {
     const fechaPlazoEjecucion = document.getElementById(`fecha_plazo_ejecucion_edit_${serviceId}`).value;
-    const ampliacionPlazoDias = parseInt(document.getElementById(`ampliacionPlazo_edit_${serviceId}`).value, 10);
+    const ampliacionPlazoInput = document.getElementById(`ampliacionPlazo_edit_${serviceId}`);
     const fechaAmpliacionPlazoInput = document.getElementById(`fecha_ampliacion_plazo_edit_${serviceId}`);
 
-    console.log(`Service ID: ${serviceId}, Fecha Plazo Ejecución: ${fechaPlazoEjecucion}, Ampliación Plazo Días: ${ampliacionPlazoDias}`);
+    if (!fechaPlazoEjecucion || fechaPlazoEjecucion.trim() === "") {
+        console.log('La fecha de plazo de ejecución está vacía. Estableciendo ampliaciónPlazoDias a 0.');
+        ampliacionPlazoInput.value = 0; // Establece el valor de ampliación a 0 automáticamente
+        fechaAmpliacionPlazoInput.value = ''; // Limpia la fecha de ampliación
+        return; // Salir de la función
+    }
+
+    const ampliacionPlazoDias = parseInt(ampliacionPlazoInput.value, 10);
 
     if (fechaPlazoEjecucion && ampliacionPlazoDias) {
         const fechaPlazo = new Date(fechaPlazoEjecucion);
@@ -519,6 +558,8 @@ function calcularFechaAmpliacionPlazoedit(serviceId) {
         fechaAmpliacionPlazoInput.value = '';
     }
 }
+
+
 </script>
 
 

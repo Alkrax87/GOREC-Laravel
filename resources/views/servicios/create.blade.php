@@ -36,7 +36,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="nombreServicio" class="form-label">Nombre Servicio</label>
-                            <input type="text" class="form-control input-auth" name="nombre_servicio" id="nombreServicio" placeholder="Ingrese Nombre" required>
+                            <input type="text" class="form-control input-auth" name="nombre_servicio" id="nombreServicio" placeholder="Ingrese Servicio" required>
                         </div>
                         <div class="row mb-3">
                             <div class="col-6">
@@ -63,8 +63,11 @@
                             <div class="col-3"><b>Fecha Fin</b></div>
                             <div class="col-2"><b>Cant. Dias</b></div>
                         </div>
+                        <div class="row mb-2"><b>Presentación de Requerimiento</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Presentación de Requerimiento</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_requerimientos" class="form-control input-auth" id="nombre_requerimientos" placeholder="Ingrese Requerimiento" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_presentacion_req_inicio" id="f_presentacion_req_inicio" onchange="calcularDias('f_presentacion_req_inicio', 'f_presentacion_req_fin', 'presentacion_dias')" >
                             </div>
@@ -75,8 +78,11 @@
                                 <input type="number" class="form-control input-auth proceso-dias" name="presentacion_dias"  id="presentacion_dias" readonly placeholder="Días" >
                             </div>
                         </div>
-                        <div class="row mb-2">
-                            <div class="col-4"><b>Designación de Cotizador</b></div>
+                        <div class="row mb-2"><b>Designación de Cotizador</b></div>
+                        <div class="row mb-4">
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cotizador" class="form-control input-auth" id="nombre_cotizador" placeholder="Ingrese Cotizador" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_designacion_cotizador_inicio" id="f_designacion_cotizador_inicio" onchange="calcularDias('f_designacion_cotizador_inicio', 'f_designacion_cotizador_fin', 'designacion_dias')" >
                             </div>
@@ -111,20 +117,26 @@
                                 <input type="number" class="form-control input-auth proceso-fecha" name="cuadro_comparativo_dias" id="cuadro_comparativo_dias" readonly placeholder="Días">
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Elaboración de Certificación</b></div>
-                            <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_elaboracion_certificado_inicio" id="f_elaboracion_certificado_inicio" onchange="calcularDias('f_elaboracion_certificado_inicio', 'f_elaboracion_certificado_fin', 'elaboracion_certificado_dias')" >
+                            <div class="col-4">
+                                <input type="number"  name="numero_certificacion" class="form-control input-auth" id="numero_certificacion" placeholder="Ingrese Nº" >
                             </div>
                             <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" name="f_elaboracion_certificado_fin" id="f_elaboracion_certificado_fin" onchange="calcularDias('f_elaboracion_certificado_inicio', 'f_elaboracion_certificado_fin', 'elaboracion_certificado_dias')" >
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_certificacion_inicio" id="f_numero_certificacion_inicio" onchange="calcularDias('f_numero_certificacion_inicio', 'f_numero_certificacion_fin', 'numero_certificacion_dias')" >
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_certificacion_fin" id="f_numero_certificacion_fin" onchange="calcularDias('f_numero_certificacion_inicio', 'f_numero_certificacion_fin', 'numero_certificacion_dias')" >
                             </div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-fecha" name="elaboracion_certificado_dias" id="elaboracion_certificado_dias" placeholder="Días" readonly >
+                                <input type="number" class="form-control input-auth proceso-fecha" name="numero_certificacion_dias" id="numero_certificacion_dias" placeholder="Días" readonly >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Orden de Servicio / Contrato</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Orden de Servicio / Contrato</b></div>
+                            <div class="col-4">
+                                <input type="number"  name="numero_orden" class="form-control input-auth" id="numero_orden" placeholder="Ingrese Nº" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_servicio_inicio" id="f_orden_servicio_inicio" placeholder="F. Inicio" onchange="calcularDias('f_orden_servicio_inicio', 'f_orden_servicio_fin', 'orden_servicio_dias')" >
                             </div>
@@ -135,8 +147,20 @@
                                 <input type="number" class="form-control input-auth proceso-fecha" name="orden_servicio_dias" id="orden_servicio_dias" placeholder="Días" readonly >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Notificación</b></div>
                         <div class="row mb-3">
-                            <div class="col-4"><b>Notificación</b></div>
+                            <div class="col-4">
+                                <div class="checkbox-container pt-2">
+                                    <div class="form-check me-2">
+                                        <input class="form-check-input" type="radio" name="email_presencial" id="email" value="Email">
+                                        <label class="form-check-label" for="email">Email</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="email_presencial" id="presencial" value="Presencial">
+                                        <label class="form-check-label" for="presencial">Presencial</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_notificacion_inicio" id="f_notificacion_inicio" placeholder="F. Inicio" onchange="calcularDias('f_notificacion_inicio', 'f_notificacion_fin', 'notificacion_dias')" >
                             </div>
@@ -203,12 +227,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-4"><b>Entregable Mesa de Partes</b></div>
+                            <div class="col-4"><b>Entrega del Producto</b></div>
                             <div class="col-3">
-                                <input type="date" name="f_mesa_partes_inicio" class="form-control input-auth" >
+                                <input type="date" name="f_entrega_producto" class="form-control input-auth" >
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <div class="col-4"><b>Retorno a SGEP(Sub Gerencia)</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_retorno_SGEP_inicio" id="f_retorno_SGEP_inicio" onchange="calcularDias('f_retorno_SGEP_inicio', 'f_retorno_SGEP_fin', 'retorno_SGEP_dias')" >
@@ -219,7 +243,7 @@
                             <div class="col-2">
                                 <input type="number" class="form-control input-auth proceso-fecha" name="retorno_SGEP_dias" id="retorno_SGEP_dias" readonly placeholder="Días" >
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mb-3">
                             <div class="col-4"><b>Deriva a Proyectista</b></div>
                             <div class="col-3">

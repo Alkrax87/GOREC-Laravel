@@ -17,34 +17,38 @@ return new class extends Migration
             $table->id('idBienes')->primary();
             $table->string('nombre_bienes');
             $table->string('meta_bienes');
-            //$table->string('siaf_bienes')->nullable();
+            $table->string('siaf_bienes')->nullable();
 
             // Campos de las fechas
             //Presentacion de requerimientos
+            $table->string('nombre_requerimientos_bs')->nullable();
             $table->date('f_presentacion_req_inicio_bs')->nullable();
             $table->date('f_presentacion_req_fin_bs')->nullable();
             $table->integer('presentacion_dias_bs')->nullable()->default(0);
             //Designacion de Cotizador
+            $table->string('nombre_cotizador_bs')->nullable();
             $table->date('f_designacion_cotizador_inicio_bs')->nullable();
             $table->date('f_designacion_cotizador_fin_bs')->nullable();
             $table->integer('designacion_dias_bs')->nullable()->default(0);
-            //Estudio de Mercado
-            $table->date('f_estudio_mercado_inicio_bs')->nullable();
-            $table->date('f_estudio_mercado_fin_bs')->nullable();
-            $table->integer('estudiomercado_dias_bs')->nullable()->default(0);
+            //Cotizacion
+            $table->date('f_cotizacion_inicio_bs')->nullable();
+            $table->date('f_cotizacion_fin_bs')->nullable();
+            $table->integer('cotizacion_dias_bs')->nullable()->default(0);
             //Cuadro Comparativo
             $table->date('f_cuadro_comparativo_inicio_bs')->nullable();
             $table->date('f_cuadro_comparativo_fin_bs')->nullable();
             $table->integer('cuadro_comparativo_dias_bs')->nullable()->default(0);
-            //Elaboracion de Certificado
-            $table->date('f_elaboracion_certificado_inicio_bs')->nullable();
-            $table->date('f_elaboracion_certificado_fin_bs')->nullable();
-            $table->integer('elaboracion_certificado_dias_bs')->nullable()->default(0);
+            //Numero de Certificacion
+            $table->integer('numero_certificacion_bs')->nullable()->default(0);
+            $table->date('f_numero_certificacion_inicio_bs')->nullable();
+            $table->date('f_numero_certificacion_fin_bs')->nullable();
+            $table->integer('numero_certificacion_dias_bs')->nullable()->default(0);
             //Numero Siaf
-            $table->date('f_numero_Siaf_inicio_bs')->nullable();
-            $table->date('f_numero_Siaf_fin_bs')->nullable();
-            $table->integer('numero_Siaf_dias_bs')->nullable()->default(0);
-            //Orden de Servicio
+            //$table->date('f_numero_Siaf_inicio_bs')->nullable();
+            //$table->date('f_numero_Siaf_fin_bs')->nullable();
+            //$table->integer('numero_Siaf_dias_bs')->nullable()->default(0);
+            //Orden de Compra
+            $table->integer('numero_orden_compra_bs')->nullable()->default(0);
             $table->date('f_orden_compra_inicio_bs')->nullable();
             $table->date('f_orden_compra_fin_bs')->nullable();
             $table->integer('orden_compra_dias_bs')->nullable()->default(0);
@@ -74,14 +78,18 @@ return new class extends Migration
             $table->date('f_recepcion_bien_inicio_bs')->nullable();
 
             //Patrimonizacion
-            $table->date('fecha_patrimonizacion_bs')->nullable();
+            $table->date('fecha_patrimonizacion_inicio_bs')->nullable();
+            $table->date('fecha_patrimonizacion_fin_bs')->nullable();
+            $table->integer('patrimonizacion_dias_bs')->nullable()->default(0);
 
             //Conformidad de Patrimonizacion
             $table->string('conformidad_patrimonizacion_bs')->nullable();
 
             //Informe de Conformidad(proyectista)
             $table->string('conformidad_proyectista_bs')->nullable();
-
+            $table->date('f_conformidad_proyectista_inicio_bs')->nullable();
+            $table->date('f_conformidad_proyectista_fin_bs')->nullable();
+            $table->integer('conformidad_proyectista_dias_bs')->nullable()->default(0);
 
 
             //Envio a SGASA Penalidad

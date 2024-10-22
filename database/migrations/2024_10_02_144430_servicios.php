@@ -20,10 +20,12 @@ return new class extends Migration
 
             // Campos de las fechas
             //Presentacion de requerimientos
+            $table->string('nombre_requerimientos')->nullable();
             $table->date('f_presentacion_req_inicio')->nullable();
             $table->date('f_presentacion_req_fin')->nullable();
             $table->integer('presentacion_dias')->nullable()->default(0);
             //Designacion de Cotizador
+            $table->string('nombre_cotizador')->nullable();
             $table->date('f_designacion_cotizador_inicio')->nullable();
             $table->date('f_designacion_cotizador_fin')->nullable();
             $table->integer('designacion_dias')->nullable()->default(0);
@@ -35,15 +37,18 @@ return new class extends Migration
             $table->date('f_cuadro_comparativo_inicio')->nullable();
             $table->date('f_cuadro_comparativo_fin')->nullable();
             $table->integer('cuadro_comparativo_dias')->nullable()->default(0);
-            //Elaboracion de Certificado
-            $table->date('f_elaboracion_certificado_inicio')->nullable();
-            $table->date('f_elaboracion_certificado_fin')->nullable();
-            $table->integer('elaboracion_certificado_dias')->nullable()->default(0);
+            //numero de certificacion//
+            $table->integer('numero_certificacion')->nullable()->default(0);
+            $table->date('f_numero_certificacion_inicio')->nullable();
+            $table->date('f_numero_certificacion_fin')->nullable();
+            $table->integer('numero_certificacion_dias')->nullable()->default(0);
             //Orden de Servicio
+            $table->integer('numero_orden')->nullable()->default(0);
             $table->date('f_orden_servicio_inicio')->nullable();
             $table->date('f_orden_servicio_fin')->nullable();
             $table->integer('orden_servicio_dias')->nullable()->default(0);
             //Notificacion
+            $table->string('email_presencial')->nullable();
             $table->date('f_notificacion_inicio')->nullable();
             $table->date('f_notificacion_fin')->nullable();
             $table->integer('notificacion_dias')->nullable()->default(0);
@@ -62,13 +67,13 @@ return new class extends Migration
             //Carta de Desestimiento
             $table->date('fecha_carta_desestimiento')->nullable();
 
-            //Entregable Mesa de Partes
-            $table->date('f_mesa_partes_inicio')->nullable();
+            //Entregable Producto
+            $table->date('f_entrega_producto')->nullable();
 
             //Retorno a SGEP
-            $table->date('f_retorno_SGEP_inicio')->nullable();
-            $table->date('f_retorno_SGEP_fin')->nullable();
-            $table->integer('retorno_SGEP_dias')->nullable()->default(0);
+            //$table->date('f_retorno_SGEP_inicio')->nullable();
+            //$table->date('f_retorno_SGEP_fin')->nullable();
+            //$table->integer('retorno_SGEP_dias')->nullable()->default(0);
 
             //Deriva a proyectista
             $table->date('fecha_derivar_proyectista')->nullable();

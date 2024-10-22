@@ -363,7 +363,7 @@ return [
         ],
         [
             'text' => 'Lista Asignaciones',
-            'url' => 'lista',
+            'url' => 'listaInversion',
             'icon' => 'fas fa-address-card',
             'icon_color' => 'white'
         ],

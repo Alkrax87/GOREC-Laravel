@@ -63,8 +63,8 @@ class ServiciosController extends Controller
         'f_cuadro_comparativo_inicio' => 'nullable|date',
         'f_cuadro_comparativo_fin' => 'nullable|date|after_or_equal:f_cuadro_comparativo_inicio',
 
-        'f_elaboracion_certificado_inicio' => 'nullable|date',
-        'f_elaboracion_certificado_fin' => 'nullable|date|after_or_equal:f_elaboracion_certificado_inicio',
+        'f_numero_certificacion_inicio' => 'nullable|date',
+        'f_numero_certificacion_fin' => 'nullable|date|after_or_equal:f_numero_certificacion_inicio',
 
         'f_orden_servicio_inicio' => 'nullable|date',
         'f_orden_servicio_fin' => 'nullable|date|after_or_equal:f_orden_servicio_inicio',
@@ -72,8 +72,6 @@ class ServiciosController extends Controller
         'f_notificacion_inicio' => 'nullable|date',
         'f_notificacion_fin' => 'nullable|date|after_or_equal:f_notificacion_inicio',
 
-        'f_retorno_SGEP_inicio' => 'nullable|date',
-        'f_retorno_SGEP_fin' => 'nullable|date|after_or_equal:f_retorno_SGEP_inicio',
         
         'f_mesa_partes_inicio'  => 'nullable|date',
         'fecha_derivar_proyectista'  => 'nullable|date',
@@ -91,10 +89,9 @@ class ServiciosController extends Controller
         'f_designacion_cotizador_fin.after_or_equal' => 'La fecha final de designación debe ser posterior o igual a la fecha de inicio.',
         'f_estudio_mercado_fin.after_or_equal' => 'La fecha final del estudio de mercado debe ser posterior o igual a la fecha de inicio.',
         'f_cuadro_comparativo_fin.after_or_equal' => 'La fecha final del cuadro comparativo debe ser posterior o igual a la fecha de inicio.',
-        'f_elaboracion_certificado_fin.after_or_equal' => 'La fecha final de elaboración del certificado debe ser posterior o igual a la fecha de inicio.',
+        'f_numero_certificacion_fin.after_or_equal' => 'La fecha final de numero de certificacion debe ser posterior o igual a la fecha de inicio.',
         'f_orden_servicio_fin.after_or_equal' => 'La fecha final de orden de servicio debe ser posterior o igual a la fecha de inicio.',
         'f_notificacion_fin.after_or_equal' => 'La fecha final de notificación debe ser posterior o igual a la fecha de inicio.',
-        'f_retorno_SGEP_fin.after_or_equal' => 'La fecha final de retorno SGEP debe ser posterior o igual a la fecha de inicio.',
     ]);
 
     // Crear un nuevo servicio en la base de datos
@@ -103,10 +100,12 @@ class ServiciosController extends Controller
     $servicio->meta = $request->meta;
     $servicio->siaf = $request->siaf;
     ///
+    $servicio->nombre_requerimientos = $request->nombre_requerimientos;
     $servicio->f_presentacion_req_inicio = $request->f_presentacion_req_inicio;
     $servicio->f_presentacion_req_fin = $request->f_presentacion_req_fin;
     $servicio->presentacion_dias = $request->presentacion_dias;
     ///
+    $servicio->nombre_cotizador= $request->nombre_cotizador;
     $servicio->f_designacion_cotizador_inicio = $request->f_designacion_cotizador_inicio;
     $servicio->f_designacion_cotizador_fin = $request->f_designacion_cotizador_fin;
     $servicio->designacion_dias = $request->designacion_dias;
@@ -120,21 +119,20 @@ class ServiciosController extends Controller
     $servicio->cuadro_comparativo_dias = $request->cuadro_comparativo_dias;
     
     ///
-    $servicio->f_elaboracion_certificado_inicio = $request->f_elaboracion_certificado_inicio;
-    $servicio->f_elaboracion_certificado_fin = $request->f_elaboracion_certificado_fin;
-    $servicio->elaboracion_certificado_dias = $request->elaboracion_certificado_dias;
+    $servicio->numero_certificacion = $request->numero_certificacion;
+    $servicio->f_numero_certificacion_inicio = $request->f_numero_certificacion_inicio;
+    $servicio->f_numero_certificacion_fin = $request->f_numero_certificacion_fin;
+    $servicio->numero_certificacion_dias = $request->numero_certificacion_dias;
     ///
+    $servicio->numero_orden = $request->numero_orden;
     $servicio->f_orden_servicio_inicio = $request->f_orden_servicio_inicio;
     $servicio->f_orden_servicio_fin = $request->f_orden_servicio_fin;
     $servicio->orden_servicio_dias = $request->orden_servicio_dias;
     //
+    $servicio->email_presencial = $request->email_presencial;
     $servicio->f_notificacion_inicio = $request->f_notificacion_inicio;
     $servicio->f_notificacion_fin = $request->f_notificacion_fin;
     $servicio->notificacion_dias = $request->notificacion_dias;
-    ///
-    $servicio->f_retorno_SGEP_inicio = $request->f_retorno_SGEP_inicio;
-    $servicio->f_retorno_SGEP_fin = $request->f_retorno_SGEP_fin;
-    $servicio->retorno_SGEP_dias = $request->retorno_SGEP_dias;
     //
     $servicio->fecha_plazo_ejecucion = $request->fecha_plazo_ejecucion;
     $servicio->plazo_ejecucion_dias = $request->plazo_ejecucion_dias;
@@ -146,7 +144,7 @@ class ServiciosController extends Controller
     //
     $servicio->fecha_carta_desestimiento = $request->fecha_carta_desestimiento;
     //
-    $servicio->f_mesa_partes_inicio= $request->f_mesa_partes_inicio;
+    $servicio->f_entrega_producto= $request->f_entrega_producto;
     $servicio->fecha_derivar_proyectista = $request->fecha_derivar_proyectista;
     $servicio->fecha_informe_conformidad = $request->fecha_informe_conformidad;
     $servicio->fecha_SGEP_administracion = $request->fecha_SGEP_administracion;
@@ -188,8 +186,8 @@ class ServiciosController extends Controller
         'f_cuadro_comparativo_inicio' => 'nullable|date',
         'f_cuadro_comparativo_fin' => 'nullable|date|after_or_equal:f_cuadro_comparativo_inicio',
 
-        'f_elaboracion_certificado_inicio' => 'nullable|date',
-        'f_elaboracion_certificado_fin' => 'nullable|date|after_or_equal:f_elaboracion_certificado_inicio',
+        'f_numero_certificacion_inicio' => 'nullable|date',
+        'f_numero_certificacion_fin' => 'nullable|date|after_or_equal:f_numero_certificacion_inicio',
 
         'f_orden_servicio_inicio' => 'nullable|date',
         'f_orden_servicio_fin' => 'nullable|date|after_or_equal:f_orden_servicio_inicio',
@@ -197,9 +195,6 @@ class ServiciosController extends Controller
         'f_notificacion_inicio' => 'nullable|date',
         'f_notificacion_fin' => 'nullable|date|after_or_equal:f_notificacion_inicio',
 
-        'f_retorno_SGEP_inicio' => 'nullable|date',
-        'f_retorno_SGEP_fin' => 'nullable|date|after_or_equal:f_retorno_SGEP_inicio',
-        
         'f_mesa_partes_inicio'  => 'nullable|date',
         'fecha_derivar_proyectista'  => 'nullable|date',
         'fecha_informe_conformidad'  => 'nullable|date',
@@ -209,15 +204,16 @@ class ServiciosController extends Controller
         'conformidad' => 'nullable|string|max:255',
         'idInversion' => 'nullable|exists:inversion,idInversion',
         'idUsuario' => 'nullable|exists:users,idUsuario',
-    ], [
+        
+    ],[
+        'nombre_servicio.nullable' => 'El campo del nombre es Obligatorio',
         'f_presentacion_req_fin.after_or_equal' => 'La fecha final de presentación debe ser posterior o igual a la fecha de inicio.',
         'f_designacion_cotizador_fin.after_or_equal' => 'La fecha final de designación debe ser posterior o igual a la fecha de inicio.',
         'f_estudio_mercado_fin.after_or_equal' => 'La fecha final del estudio de mercado debe ser posterior o igual a la fecha de inicio.',
         'f_cuadro_comparativo_fin.after_or_equal' => 'La fecha final del cuadro comparativo debe ser posterior o igual a la fecha de inicio.',
-        'f_elaboracion_certificado_fin.after_or_equal' => 'La fecha final de elaboración del certificado debe ser posterior o igual a la fecha de inicio.',
+        'f_numero_certificacion_fin.after_or_equal' => 'La fecha final numero de certificacion debe ser posterior o igual a la fecha de inicio.',
         'f_orden_servicio_fin.after_or_equal' => 'La fecha final de orden de servicio debe ser posterior o igual a la fecha de inicio.',
         'f_notificacion_fin.after_or_equal' => 'La fecha final de notificación debe ser posterior o igual a la fecha de inicio.',
-        'f_retorno_SGEP_fin.after_or_equal' => 'La fecha final de retorno SGEP debe ser posterior o igual a la fecha de inicio.',
     ]);
 
     // Recuperar el servicio existente
@@ -227,44 +223,66 @@ class ServiciosController extends Controller
     $servicio->nombre_servicio = $request->nombre_servicio;
     $servicio->meta = $request->meta;
     $servicio->siaf = $request->siaf;
+    ///
+    $servicio->nombre_requerimientos = $request->nombre_requerimientos;
     $servicio->f_presentacion_req_inicio = $request->f_presentacion_req_inicio;
     $servicio->f_presentacion_req_fin = $request->f_presentacion_req_fin;
     $servicio->presentacion_dias = $request->presentacion_dias;
+    ///
+    $servicio->nombre_cotizador= $request->nombre_cotizador;
     $servicio->f_designacion_cotizador_inicio = $request->f_designacion_cotizador_inicio;
     $servicio->f_designacion_cotizador_fin = $request->f_designacion_cotizador_fin;
     $servicio->designacion_dias = $request->designacion_dias;
+    ///
     $servicio->f_estudio_mercado_inicio = $request->f_estudio_mercado_inicio;
     $servicio->f_estudio_mercado_fin = $request->f_estudio_mercado_fin;
-    $servicio->estudiomercado_dias = $request->estudiomercado_dias;
+    $servicio->estudiomercado_dias= $request->estudiomercado_dias;
+    ///
     $servicio->f_cuadro_comparativo_inicio = $request->f_cuadro_comparativo_inicio;
     $servicio->f_cuadro_comparativo_fin = $request->f_cuadro_comparativo_fin;
     $servicio->cuadro_comparativo_dias = $request->cuadro_comparativo_dias;
-    $servicio->f_elaboracion_certificado_inicio = $request->f_elaboracion_certificado_inicio;
-    $servicio->f_elaboracion_certificado_fin = $request->f_elaboracion_certificado_fin;
-    $servicio->elaboracion_certificado_dias = $request->elaboracion_certificado_dias;
+    
+    ///
+    $servicio->numero_certificacion = $request->numero_certificacion;
+    $servicio->f_numero_certificacion_inicio = $request->f_numero_certificacion_inicio;
+    $servicio->f_numero_certificacion_fin = $request->f_numero_certificacion_fin;
+    $servicio->numero_certificacion_dias = $request->numero_certificacion_dias;
+    ///
+    $servicio->numero_orden = $request->numero_orden;
     $servicio->f_orden_servicio_inicio = $request->f_orden_servicio_inicio;
     $servicio->f_orden_servicio_fin = $request->f_orden_servicio_fin;
     $servicio->orden_servicio_dias = $request->orden_servicio_dias;
+    //
+    $servicio->email_presencial = $request->email_presencial;
     $servicio->f_notificacion_inicio = $request->f_notificacion_inicio;
     $servicio->f_notificacion_fin = $request->f_notificacion_fin;
     $servicio->notificacion_dias = $request->notificacion_dias;
-    $servicio->f_retorno_SGEP_inicio = $request->f_retorno_SGEP_inicio;
-    $servicio->f_retorno_SGEP_fin = $request->f_retorno_SGEP_fin;
-    $servicio->retorno_SGEP_dias = $request->retorno_SGEP_dias;
+    //
     $servicio->fecha_plazo_ejecucion = $request->fecha_plazo_ejecucion;
     $servicio->plazo_ejecucion_dias = $request->plazo_ejecucion_dias;
+    //
     $servicio->ampliacion_plazo_dias = $request->ampliacion_plazo_dias;
     $servicio->fecha_ampliacion_plazo = $request->fecha_ampliacion_plazo;
+    //
     $servicio->observaciones = $request->observaciones;
+    //
     $servicio->fecha_carta_desestimiento = $request->fecha_carta_desestimiento;
-    $servicio->f_mesa_partes_inicio = $request->f_mesa_partes_inicio;
+    //
+    $servicio->f_entrega_producto= $request->f_entrega_producto;
     $servicio->fecha_derivar_proyectista = $request->fecha_derivar_proyectista;
     $servicio->fecha_informe_conformidad = $request->fecha_informe_conformidad;
     $servicio->fecha_SGEP_administracion = $request->fecha_SGEP_administracion;
-    $servicio->conformidad = $request->conformidad; // Manejar la conformidad
+    
+   
+    
+    $servicio->conformidad = $request->conformidad;
+   
     $servicio->fecha_SGASA_penalidad = $request->fecha_SGASA_penalidad;
+
     $servicio->envio = $request->envio;
+
     $servicio->penalidad_dias = $request->penalidad_dias;
+    
     $servicio->idInversion = $request->idInversion;
     $servicio->idUsuario = $request->idUsuario;
 
