@@ -34,6 +34,7 @@ return new class extends Migration
             $table->date('f_estudio_mercado_fin')->nullable();
             $table->integer('estudiomercado_dias')->nullable()->default(0);
             //Cuadro Comparativo
+            $table->string('nombre_cuadro_comparativo')->nullable();
             $table->date('f_cuadro_comparativo_inicio')->nullable();
             $table->date('f_cuadro_comparativo_fin')->nullable();
             $table->integer('cuadro_comparativo_dias')->nullable()->default(0);

@@ -119,9 +119,16 @@ class ComplementarioController extends Controller
 
         // Buscamos el complementario
         $complementarios = Complementario::findOrFail($id);
+        
+        if (!Auth::check()) {
+            return redirect()->route('complementario.index')->withErrors('Debe estar autenticado para realizar esta acción.');
+        }
 
-        // Editamos el complementario
-        $complementarios->update($request->all());
+        // Agregar el ID del usuario autenticado al arreglo de datos
+        $data = $request->all();
+        $data['idUsuario'] = Auth::user()->idUsuario;  // Asigna el ID del usuario autenticado
+            // Editamos el complementario
+        $complementarios->update($data);
 
         return redirect()->route('complementario.index')->with('message', 'Elemento actualizado correctamente.');
     }

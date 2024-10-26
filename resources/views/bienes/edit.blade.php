@@ -101,7 +101,7 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->designacion_dias_bs}}" name="designacion_dias_bs" id="designacion_dias_edit_{{ $bien->idBienes }}"  readonly  >
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-1">
                             <div class="col-4"><b>Cotización</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_cotizacion_inicio_bs}}" name="f_cotizacion_inicio_bs" id="f_cotizacion_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_cotizacion_inicio_edit', 'f_cotizacion_fin_edit', 'cotizacion_dias_edit', {{ $bien->idBienes }})" >
@@ -113,8 +113,11 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->cotizacion_dias_bs}}" name="cotizacion_dias_bs" id="cotizacion_dias_edit_{{ $bien->idBienes }}" readonly  >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Cuadro Comparativo</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Cuadro Comparativo</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cuadro_comparativo_bs" value="{{ $bien->nombre_cuadro_comparativo_bs}}" class="form-control input-auth" id="nombre_cuadro_comparativo" placeholder="Ingrese Cuadro Comparativo" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_cuadro_comparativo_inicio_bs}}" name="f_cuadro_comparativo_inicio_bs" id="f_cuadro_comparativo_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_cuadro_comparativo_inicio_edit', 'f_cuadro_comparativo_fin_edit', 'cuadro_comparativo_dias_edit', {{ $bien->idBienes }})" >
                             </div>
@@ -128,7 +131,7 @@
                         <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
                             <div class="col-4">
-                                <input type="number"  name="numero_certificacion_bs" value="{{ $bien->numero_certificacion_bs}}" class="form-control input-auth" id="numero_certificacion_bs" placeholder="Ingrese Cotizador">
+                                <input type="number"  name="numero_certificacion_bs" value="{{ $bien->numero_certificacion_bs}}" class="form-control input-auth" id="numero_certificacion_bs" placeholder="Ingrese Nº" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_numero_certificacion_inicio_bs}}" name="f_numero_certificacion_inicio_bs" id="f_numero_certificacion_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_numero_certificacion_inicio_edit', 'f_numero_certificacion_fin_edit', 'numero_certificacion_dias_edit', {{ $bien->idBienes }})" >
@@ -153,9 +156,9 @@
                             </div>
                         </div> -->
                         <div class="row mb-2"><b>Orden de Compra</b></div>
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-4">
-                                <input type="number"  name="numero_orden_compra_bs" value="{{ $bien->numero_orden_compra_bs}}" class="form-control input-auth" id="numero_orden_compra_bs" placeholder="Ingrese Cotizador">
+                                <input type="number"  name="numero_orden_compra_bs" value="{{ $bien->numero_orden_compra_bs}}" class="form-control input-auth" id="numero_orden_compra_bs" placeholder="Ingrese Nº" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_orden_compra_inicio_bs}}" name="f_orden_compra_inicio_bs" id="f_orden_compra_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('f_orden_compra_inicio_edit', 'f_orden_compra_fin_edit', 'orden_compra_dias_edit', {{ $bien->idBienes }})" >
@@ -167,7 +170,7 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->orden_compra_dias_bs}}" name="orden_compra_dias_bs" id="orden_compra_dias_edit_{{ $bien->idBienes }}"  readonly >
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-4"><b>Notificación</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->f_notificacion_inicio_bs}}" name="f_notificacion_inicio_bs" id="f_notificacion_inicio_edit_{{ $bien->idBienes }}" onchange="calcularDiasedit_bs('f_notificacion_inicio_edit', 'f_notificacion_fin_edit', 'notificacion_dias_edit', {{ $bien->idBienes }})" >
@@ -182,7 +185,7 @@
                         <div class="row mb-2">
                             <div class="col-4"><b>Plazo de Ejecución (Días)</b></div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias_bs" id="plazo_bs_edit_{{ $bien->idBienes }}" value="{{ $bien->plazo_ejecucion_dias_bs}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit_bs({{ $bien->idBienes }})" min="0" oninput="this.value = Math.abs(this.value)">
+                                <input type="number" class="form-control input-auth"  placeholder="Días" name="plazo_ejecucion_dias_bs" id="plazo_bs_edit_{{ $bien->idBienes }}" value="{{ $bien->plazo_ejecucion_dias_bs}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit_bs({{ $bien->idBienes }})" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth" value="{{ $bien->fecha_plazo_ejecucion_bs}}" name="fecha_plazo_ejecucion_bs" id="fecha_plazo_ejecucion_bs_edit_{{ $bien->idBienes }}" readonly  onchange="calcularFechaAmpliacionPlazoedit_bs({{ $bien->idBienes }})">
@@ -205,7 +208,7 @@
                                                 <label for="ampliacionPlazo" class="form-label">Ampliación de Plazo (Días):</label>
                                             </div>
                                             <div class="col-2">
-                                                <input type="number" name="ampliacion_plazo_dias_bs" class="form-control input-auth" value="{{ $bien->ampliacion_plazo_dias_bs}}" id="ampliacionPlazo_bs_edit_{{ $bien->idBienes }}" style="width: 100px;"  onchange="calcularFechaAmpliacionPlazoedit_bs({{ $bien->idBienes }})" min="0" oninput="this.value = Math.abs(this.value)">
+                                                <input type="number" name="ampliacion_plazo_dias_bs"  placeholder="Días" class="form-control input-auth" value="{{ $bien->ampliacion_plazo_dias_bs}}" id="ampliacionPlazo_bs_edit_{{ $bien->idBienes }}" style="width: 100px;"  onchange="calcularFechaAmpliacionPlazoedit_bs({{ $bien->idBienes }})" min="0" oninput="this.value = Math.abs(this.value)">
                                             </div>
                                             <div class="col-3">
                                                 <input type="date" name="fecha_ampliacion_plazo_bs" class="form-control input-auth date-input mt-2" value="{{ $bien->fecha_ampliacion_plazo_bs}}" id="fecha_ampliacion_plazo_bs_edit_{{ $bien->idBienes }}" readonly>
@@ -243,21 +246,9 @@
                                 <input type="date" name="f_recepcion_bien_inicio_bs" value="{{ $bien->f_recepcion_bien_inicio_bs}}"  class="form-control input-auth date-input" >
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-4"><b>Patrimonizacion</b></div>
-                            <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_inicio_bs}}" name="fecha_patrimonizacion_inicio_bs" id="fecha_patrimonizacion_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('fecha_patrimonizacion_inicio_edit', 'fecha_patrimonizacion_fin_edit', 'patrimonizacion_dias_edit', {{ $bien->idBienes }})" >
-                            </div>
-                            <div class="col-3">
-                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_fin_bs}}" name="fecha_patrimonizacion_fin_bs" id="fecha_patrimonizacion_fin_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('fecha_patrimonizacion_inicio_edit', 'fecha_patrimonizacion_fin_edit', 'patrimonizacion_dias_edit', {{ $bien->idBienes }})" >
-                            </div>
-                            <div class="col-2">
-                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->patrimonizacion_dias_bs}}" name="patrimonizacion_dias_bs" id="patrimonizacion_dias_edit_{{ $bien->idBienes }}"  readonly >
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-4"><b>Conformidad Patrimonización</b></div>
-                            <div class="col-3">
+                        <div class="col-3"><b>Conformidad Patrimonización</b></div>
+                        <div class="row mb-1">
+                            <div class="col-4 py-2">
                                 <div class="checkbox-container">
                                     <div class="form-check me-2">
                                         <input class="form-check-input" type="radio" name="conformidad_patrimonizacion_bs" id="conformidadSi_pa" value="SI" {{ $bien->conformidad_patrimonizacion_bs === 'SI' ? 'checked' : '' }}>
@@ -273,8 +264,17 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_inicio_bs}}" name="fecha_patrimonizacion_inicio_bs" id="fecha_patrimonizacion_inicio_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('fecha_patrimonizacion_inicio_edit', 'fecha_patrimonizacion_fin_edit', 'patrimonizacion_dias_edit', {{ $bien->idBienes }})" >
+                            </div>
+                            <div class="col-3">
+                                <input type="date" class="form-control input-auth proceso-fecha" value="{{ $bien->fecha_patrimonizacion_fin_bs}}" name="fecha_patrimonizacion_fin_bs" id="fecha_patrimonizacion_fin_edit_{{ $bien->idBienes }}"  onchange="calcularDiasedit_bs('fecha_patrimonizacion_inicio_edit', 'fecha_patrimonizacion_fin_edit', 'patrimonizacion_dias_edit', {{ $bien->idBienes }})" >
+                            </div>
+                            <div class="col-2">
+                                <input type="number" class="form-control input-auth proceso-dias" value="{{ $bien->patrimonizacion_dias_bs}}" name="patrimonizacion_dias_bs" id="patrimonizacion_dias_edit_{{ $bien->idBienes }}"  readonly >
+                            </div>
                         </div>
-                        <div class="row mb-3"><b>Informe de Conformidad <br>(Proyectista)</b></div>
+                        <div class="row mb-2"><b>Informe de Conformidad <br>(Proyectista)</b></div>
                         <div class="row mb-3">
                             <div class="col-4">
                                 <div class="checkbox-container">
@@ -330,7 +330,7 @@
                         </div>
                         <div class="col-12 py-2 text-center">
                             <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
-                            <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
+                            <button type="submit" class="btn btn-warning mx-1" onclick="return validarFechaYAgregarEdit({{ $bien->idBienes }})"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
                         </div>
                     </div>
                 </div>
@@ -351,7 +351,8 @@
             noResults: function () {
               return "No se encontró la inversión";
             }
-          }
+          },
+          dropdownParent: $('#Modaleditbienes{{ $bien->idBienes }}')
         });
         // Comprobar si ya se ha añadido el listener para evitar duplicados
         if (!inversionSelect.data('listener-added')) {
@@ -575,117 +576,46 @@ function calcularFechaAmpliacionPlazoedit_bs(serviceId) {
     }
 }
 </script>
-<style>
-    /* Ajustar el z-index de Select2 */
-    .select2-container .select2-selection--single {
-      height: 38px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
+<script>
+    function validarFechaYAgregarEdit(serviceId) {
+        // Obtener los valores de los campos usando el serviceId pasado como parámetro
+        var fechaNotificacionInicio = document.getElementById('f_notificacion_inicio_edit_' + serviceId).value;
+        //var fechaNotificacionFin = document.getElementById('f_notificacion_fin_edit_' + serviceId).value;
+        var plazoDias = document.getElementById('plazo_bs_edit_' + serviceId).value;
+        var ampliacionPlazoDias = document.getElementById('ampliacionPlazo_bs_edit_' + serviceId).value;
+        var fechaPlazoEjecucion = document.getElementById('fecha_plazo_ejecucion_bs_edit_' + serviceId);
+        var fechaAmpliacionPlazo = document.getElementById('fecha_ampliacion_plazo_bs_edit_' + serviceId);
+
+        // Convertir el valor de plazo y ampliación de plazo en números para manejar correctamente (0 será tratado como vacío)
+        plazoDias = parseInt(plazoDias);
+        ampliacionPlazoDias = parseInt(ampliacionPlazoDias);
+
+        // Validar si ambos campos de fecha de notificación están vacíos y el plazo es 0
+        if ((!plazoDias && plazoDias !== 0) && !fechaNotificacionInicio) {
+            return true;  // No mostrar alerta, continuar normalmente
+        }
+
+        // Validar si el plazo tiene un valor pero faltan fechas de notificación
+        if (plazoDias) {
+            if (!fechaNotificacionInicio) {
+                alert('Por favor, ingrese una fecha de notificación de inicio antes de agregar el plazo.');
+                document.getElementById('plazo_bs_edit_' + serviceId).value = 0;
+                fechaPlazoEjecucion.value = '';  // Limpiar el campo fecha_plazo_ejecucion
+                return false;
+            }
+        }
+
+        // Validar si el campo de ampliación de plazo tiene un valor pero falta la fecha de plazo de ejecución
+        if (ampliacionPlazoDias > 0 && !fechaPlazoEjecucion.value) {
+            alert('Por favor, seleccione una fecha de plazo de ejecución antes de agregar una ampliación de plazo.');
+            document.getElementById('ampliacionPlazo_bs_edit_' + serviceId).value = 0;
+            fechaAmpliacionPlazo.value = '';  // Limpiar el campo fecha_ampliacion_plazo
+            return false;
+        }
+
+        // Si todo está bien, permitir la acción
+        return true;
     }
-    .select2-container .select2-selection--single:focus {
-      border-color: #72081f;
-      outline: none;
-      box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-    }
-    .style-button {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-    }
-    .select2-container .select2-dropdown {
-      z-index: 9999;
-    }
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
-      background-color: #9C0C27 !important; /* Cambia este color al que desees */
-      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
-    }
-    body {
-      background-color: #000;
-    }
-    select {
-      font-weight: normal;
-      }
-    select option.bold {
-      font-weight: bold;
-    }
-    section {
-      margin-top: 100px;
-    }
-    #crearCuenta {
-      display: none;
-    }
-    /* Others */
-    .center-items {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Card Style */
-    .cascading-left {
-      margin-left: -50px;
-    }
-    /* Input Style  */
-    .input-auth {
-      display: block;
-      width: 100%;
-      height: calc(1.5em + 0.75rem + 2px);
-      padding: 0.375rem 0.75rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #495057;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      border-radius: 0.25rem;
-      transition: all 0.3s ease-in-out;
-    }
-    .form-check-input:checked {
-      background-color: #9C0C27;
-      border-color: #9C0C27;
-    }
-    .form-check-input:focus {
-      box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-    }
-    .input-auth:focus {
-      border-color: #72081f;
-      outline: none;
-      box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-    }
-    .input-autht:focus::placeholder {
-      color: transparent;
-    }
-    /* Btn Style  */
-    .btn-gorec {
-      width: 250px;
-      height: 50px;
-      background-color: #9C0C27;
-      color: #fff;
-      border-radius: 50px
-    }
-    .btn-gorec:hover {
-      background-color: #72081f;
-      color: #fff;;
-    }
-    /* Line */
-    .line {
-      border: 0;
-      border-top: 1px solid #72081f;
-      margin: 1rem 0;
-      width: 50%;
-    }
-    /* Redirection */
-    .login-direction {
-      color: #72081f;
-      text-decoration: none;
-    }
-    @media (max-width: 991.98px) {
-      .cascading-left {
-        margin-left: 0px;
-      }
-      section {
-        margin-top: 0px;
-      }
-    }
-  </style>
+</script>
 
     

@@ -7,164 +7,164 @@
 @stop
 
 @section('content')
-  <div class="card">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-12">
-          <!-- Agregar -->
-          <div class="row">
-            @if (Auth::user()->isAdmin)
-              <div class="col-6">
-                <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
-              </div>
-              <div class="col-6 text-end">
-                <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
-              </div>
-            @endif
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <!-- Agregar -->
+        <div class="row">
+          @if (Auth::user()->isAdmin)
+            <div class="col-6">
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
+            </div>
+            <div class="col-6 text-end">
+              <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+            </div>
+          @endif
+        </div>
+        <!-- Alert -->
+        @if ($message = Session::get('message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
           </div>
-          <!-- Alert -->
-          @if ($message = Session::get('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
-            </div>
-          @endif
-          @if ($errors->any())
-            <div class="alert alert-danger alert-dismissible pb-0">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <h6><i class="icon fas fa-ban"></i> Error! Por favor corrige los errores en el formulario.</h6>
-              <ul>
-                @foreach ($errors->all() as $error)
-                  <li>{{ $error }}</li>
-                @endforeach
-              </ul>
-            </div>
-          @endif
+        @endif
+        @if ($errors->any())
+          <div class="alert alert-danger alert-dismissible pb-0">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h6><i class="icon fas fa-ban"></i> Error! Por favor corrige los errores en el formulario.</h6>
+            <ul>
+              @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+        @endif
           <!-- Tabla -->
-          <div class="table-responsive">
-            <table id="segmentosTable" class="table table-bordered table-striped">
-              <thead class="table-header">
+        <div class="table-responsive">
+          <table id="segmentosTable" class="table table-bordered table-striped">
+            <thead class="table-header">
+              <tr>
+                <th>#</th>
+                <th class="text-nowrap">CUI</th>
+                <th class="text-nowrap" style="min-width: 400px">Nombre</th>
+                <th class="text-nowrap">Nombre Corto</th>
+                <th class="text-center">Responsable</th>
+                <th class="text-center">Avance</th>
+                <th class="text-center">Provincia</th>
+                <th class="text-center">Distrito</th>
+                <th class="text-center">Estado</th>
+                <th class="text-nowrap">Fecha Inicio</th>
+                <th class="text-nowrap">Fecha Final</th>
+                <th class="text-center">Nivel</th>
+                <th class="text-center">Función</th>
+                <th class="text-center">Modalidad</th>
+                <th class="text-nowrap">Presupuesto Formulación</th>
+                <th class="text-nowrap">Presupuesto Ejecución</th>
+                <th class="text-nowrap">Fecha Inicio Consistencia</th>
+                <th class="text-nowrap">Fecha Final Consistencia</th>
+                <th class="text-center">Extras</th>
+                <th class="text-center">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($inversiones as $inversion)
                 <tr>
-                  <th>#</th>
-                  <th class="text-nowrap">CUI</th>
-                  <th class="text-nowrap" style="min-width: 400px">Nombre</th>
-                  <th class="text-nowrap">Nombre Corto</th>
-                  <th class="text-center">Responsable</th>
-                  <th class="text-center">Avance</th>
-                  <th class="text-center">Provincia</th>
-                  <th class="text-center">Distrito</th>
-                  <th class="text-center">Estado</th>
-                  <th class="text-nowrap">Fecha Inicio</th>
-                  <th class="text-nowrap">Fecha Final</th>
-                  <th class="text-center">Nivel</th>
-                  <th class="text-center">Función</th>
-                  <th class="text-center">Modalidad</th>
-                  <th class="text-nowrap">Presupuesto Formulación</th>
-                  <th class="text-nowrap">Presupuesto Ejecución</th>
-                  <th class="text-nowrap">Fecha Inicio Consistencia</th>
-                  <th class="text-nowrap">Fecha Final Consistencia</th>
-                  <th class="text-center">Extras</th>
-                  <th class="text-center">Opciones</th>
+                  <td class="text-left">{{ $loop->index + 1 }}</td>
+                  <td class="text-nowrap">{{ $inversion->cuiInversion }}</td>
+                  <td>{{ $inversion->nombreInversion }}</td>
+                  <td>{{ $inversion->nombreCortoInversion }}</td>
+                  <td class="text-nowrap text-center">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+                  <td class="project_progress text-nowrap">
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-striped
+                        @if($inversion->avanceInversion < 25)
+                            bg-danger
+                        @elseif($inversion->avanceInversion >= 25 && $inversion->avanceInversion < 75)
+                            bg-warning
+                        @elseif($inversion->avanceInversion >= 75 && $inversion->avanceInversion < 100)
+                            bg-success
+                        @else
+                            bg-info
+                        @endif"
+                        role="progressbar"
+                        aria-valuenow="{{ $inversion->avanceInversion }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        style="width: {{ $inversion->avanceInversion }}%">
+                    </div>
+                      </div>
+                    </div>
+                    <small>{{ $inversion->avanceInversion }}% Completado</small>
+                  </td>
+                  <td class="text-center">{{ $inversion->provinciaInversion }}</td>
+                  <td class="text-center">{{ $inversion->distritoInversion }}</td>
+                  <td class="text-center">{{ $inversion->estadoInversion }}</td>
+                  <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaInicioInversion }}</td>
+                  <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaFinalInversion }}</td>
+                  <td class="text-center">{{ $inversion->nivelInversion }}</td>
+                  <td class="text-center">{{ $inversion->funcionInversion }}</td>
+                  <td class="text-center">{{ $inversion->modalidadInversion }}</td>
+                  <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
+                  <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
+                  <td class="text-center">
+                    <i class="fas fa-calendar-alt"></i>&nbsp;
+                    @if(is_null($inversion->fechaInicioConsistenciaInversion))
+                      Por Definir
+                    @else
+                      {{ $inversion->fechaInicioConsistenciaInversion }}
+                    @endif
+                  </td>
+                  <td class="text-center">
+                    <i class="fas fa-calendar-alt"></i>&nbsp;
+                    @if(is_null($inversion->fechaFinalConsistenciaInversion))
+                      Por Definir
+                    @else
+                      {{ $inversion->fechaFinalConsistenciaInversion }}
+                    @endif
+                  </td>
+                  <td class="text-center text-nowrap">
+                    <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
+                    @if ($inversion->archivoInversion)
+                      <a  class="btn btn-dark" href="{{ route('inversion.download', $inversion->idInversion) }}"><i class="fas fa-file-download"></i></a>
+                    @endif
+                    @if (Auth::user()->isAdmin)
+                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceInversionLog{{$inversion->idInversion}}"><i class="fas fa-chart-line"></i></a>
+                    @endif
+                  </td>
+                  <td class="text-center text-nowrap">
+                    <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
+                    @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $inversion->idUsuario)
+                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
+                    @endif
+                    @if (Auth::user()->isAdmin)
+                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
+                    @endif
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                @foreach ($inversiones as $inversion)
-                  <tr>
-                    <td class="text-left">{{ $loop->index + 1 }}</td>
-                    <td class="text-nowrap">{{ $inversion->cuiInversion }}</td>
-                    <td>{{ $inversion->nombreInversion }}</td>
-                    <td>{{ $inversion->nombreCortoInversion }}</td>
-                    <td class="text-nowrap text-center">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
-                    <td class="project_progress text-nowrap">
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-striped
-                          @if($inversion->avanceInversion < 25)
-                              bg-danger
-                          @elseif($inversion->avanceInversion >= 25 && $inversion->avanceInversion < 75)
-                              bg-warning
-                          @elseif($inversion->avanceInversion >= 75 && $inversion->avanceInversion < 100)
-                              bg-success
-                          @else
-                              bg-info
-                          @endif"
-                          role="progressbar"
-                          aria-valuenow="{{ $inversion->avanceInversion }}"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                          style="width: {{ $inversion->avanceInversion }}%">
-                      </div>
-                        </div>
-                      </div>
-                      <small>{{ $inversion->avanceInversion }}% Completado</small>
-                    </td>
-                    <td class="text-center">{{ $inversion->provinciaInversion }}</td>
-                    <td class="text-center">{{ $inversion->distritoInversion }}</td>
-                    <td class="text-center">{{ $inversion->estadoInversion }}</td>
-                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaInicioInversion }}</td>
-                    <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaFinalInversion }}</td>
-                    <td class="text-center">{{ $inversion->nivelInversion }}</td>
-                    <td class="text-center">{{ $inversion->funcionInversion }}</td>
-                    <td class="text-center">{{ $inversion->modalidadInversion }}</td>
-                    <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
-                    <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
-                    <td class="text-center">
-                      <i class="fas fa-calendar-alt"></i>&nbsp;
-                      @if(is_null($inversion->fechaInicioConsistenciaInversion))
-                        Por Definir
-                      @else
-                        {{ $inversion->fechaInicioConsistenciaInversion }}
-                      @endif
-                    </td>
-                    <td class="text-center">
-                      <i class="fas fa-calendar-alt"></i>&nbsp;
-                      @if(is_null($inversion->fechaFinalConsistenciaInversion))
-                        Por Definir
-                      @else
-                        {{ $inversion->fechaFinalConsistenciaInversion }}
-                      @endif
-                    </td>
-                    <td class="text-center text-nowrap">
-                      <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
-                      @if ($inversion->archivoInversion)
-                        <a  class="btn btn-dark" href="{{ route('inversion.download', $inversion->idInversion) }}"><i class="fas fa-file-download"></i></a>
-                      @endif
-                      @if (Auth::user()->isAdmin)
-                        <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
-                        <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceInversionLog{{$inversion->idInversion}}"><i class="fas fa-chart-line"></i></a>
-                      @endif
-                    </td>
-                    <td class="text-center text-nowrap">
-                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
-                      @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $inversion->idUsuario)
-                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
-                      @endif
-                      @if (Auth::user()->isAdmin)
-                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
-                      @endif
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-            @include('inversion.create')
-          </div>
+              @endforeach
+            </tbody>
+          </table>
+          @include('inversion.create')
         </div>
       </div>
-      @foreach ($inversiones as $inversion)
-        @include('inversion.delete', ['inversion' => $inversion])
-        @include('inversion.edit', ['inversion' => $inversion])
-        @include('inversion.show', ['inversion' => $inversion])
-        @include('inversion.estadoLog', [
-          'inversion' => $inversion,
-          'logs' => $logs->where('idInversion', $inversion->idInversion),
-        ])
-        @include('inversion.avanceInversionLog', [
-          'inversion' => $inversion,
-          'logs' => $avanceInversionLog->where('idInversion', $inversion->idInversion),
-        ])
-      @endforeach
     </div>
+    @foreach ($inversiones as $inversion)
+      @include('inversion.delete', ['inversion' => $inversion])
+      @include('inversion.edit', ['inversion' => $inversion])
+      @include('inversion.show', ['inversion' => $inversion])
+      @include('inversion.estadoLog', [
+        'inversion' => $inversion,
+        'logs' => $logs->where('idInversion', $inversion->idInversion),
+      ])
+      @include('inversion.avanceInversionLog', [
+        'inversion' => $inversion,
+        'logs' => $avanceInversionLog->where('idInversion', $inversion->idInversion),
+      ])
+    @endforeach
   </div>
+</div>
 @stop
 
 @section('content_top_nav_right')

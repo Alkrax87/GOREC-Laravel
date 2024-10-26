@@ -87,7 +87,7 @@
                                 <input type="number" class="form-control input-auth proceso-dias" name="designacion_dias_bs" id="designacion_dias_bs" readonly placeholder="Días"  >
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-1">
                             <div class="col-4"><b>Cotización</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_cotizacion_inicio_bs" id="f_cotizacion_inicio_bs" onchange="calcularDias('f_cotizacion_inicio_bs', 'f_cotizacion_fin_bs', 'cotizacion_dias_bs')"  >
@@ -99,8 +99,11 @@
                                 <input type="number" class="form-control input-auth proceso-dias" name="cotizacion_dias_bs" id="cotizacion_dias_bs" readonly placeholder="Días"  >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Cuadro Comparativo</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Cuadro Comparativo</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cuadro_comparativo_bs" class="form-control input-auth" id="nombre_cuadro_comparativo_bs" placeholder="Ingrese Cuadro Comparativo" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_cuadro_comparativo_inicio_bs" id="f_cuadro_comparativo_inicio_bs" onchange="calcularDias('f_cuadro_comparativo_inicio_bs', 'f_cuadro_comparativo_fin_bs', 'cuadro_comparativo_diasv')"  >
                             </div>
@@ -114,7 +117,7 @@
                         <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
                             <div class="col-4">
-                                <input type="number"  name="numero_certificacion_bs" class="form-control input-auth" id="numero_certificacion_bs" placeholder="Ingrese Cotizador">
+                                <input type="number"  name="numero_certificacion_bs" class="form-control input-auth" id="numero_certificacion_bs" placeholder="Ingrese Nº " min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_certificacion_inicio_bs" id="f_numero_certificacion_inicio_bs" onchange="calcularDias('f_numero_certificacion_inicio_bs', 'f_numero_certificacion_fin_bs', 'numero_certificacion_dias_bs')"  >
@@ -139,9 +142,9 @@
                             </div>
                         </div>-->
                         <div class="row mb-2"><b>Orden de Compra</b></div>
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-4">
-                                <input type="number"  name="numero_orden_compra_bs" class="form-control input-auth" id="numero_orden_compra_bs" placeholder="Ingrese Cotizador">
+                                <input type="number"  name="numero_orden_compra_bs" class="form-control input-auth" id="numero_orden_compra_bs" placeholder="Ingrese Nº " min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_compra_inicio_bs" id="f_orden_compra_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_orden_compra_inicio_bs', 'f_orden_compra_fin_bs', 'orden_compra_dias_bs')"  >
@@ -153,7 +156,7 @@
                                 <input type="number" class="form-control input-auth proceso-dias" name="orden_compra_dias_bs" id="orden_compra_dias_bs" placeholder="Días" readonly  >
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-4"><b>Notificación</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_notificacion_inicio_bs" id="f_notificacion_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_notificacion_inicio_bs', 'f_notificacion_fin_bs', 'notificacion_dias_bs')"  >
@@ -168,7 +171,7 @@
                         <div class="row mb-3">
                             <div class="col-4"><b>Plazo de Ejecución (Días):</b></div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias_bs" id="plazo_bs" onchange="calcularFechaPlazoEjecucion()" min="0" oninput="this.value = Math.abs(this.value)" >
+                                <input type="number" class="form-control input-auth" placeholder="Días" name="plazo_ejecucion_dias_bs" id="plazo_bs" onchange="calcularFechaPlazoEjecucion()" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="fecha_plazo_ejecucion_bs" id="fecha_plazo_ejecucion_bs" readonly  >
@@ -191,7 +194,7 @@
                                                 <label class="form-label">Ampliación de Plazo (Días):</label>
                                             </div>
                                             <div class="col-2">
-                                                <input type="number" name="ampliacion_plazo_dias_bs" class="form-control input-auth" id="ampliacionPlazo_bs" onchange="calcularFechaAmpliacionPlazo()" min="0" oninput="this.value = Math.abs(this.value)">
+                                                <input type="number" name="ampliacion_plazo_dias_bs" class="form-control input-auth" placeholder="Días" id="ampliacionPlazo_bs" onchange="calcularFechaAmpliacionPlazo()" min="0" oninput="this.value = Math.abs(this.value)">
                                             </div>
                                             <div class="col-3">
                                                 <input type="date" name="fecha_ampliacion_plazo_bs" class="form-control input-auth" id="fecha_ampliacion_plazo_bs" readonly>
@@ -234,8 +237,20 @@
                                 <input type="date" name="f_recepcion_bien_inicio_bs" class="form-control input-auth date-input"  >
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-4"><b>Patrimonizacion</b></div>
+                        <div class="col-3"><b>Conformidad Patrimonización</b></div>
+                        <div class="row mb-1">
+                            <div class="col-4 py-2">
+                                <div class="checkbox-container">
+                                    <div class="form-check me-2">
+                                        <input class="form-check-input" type="radio" name="conformidad_patrimonizacion_bs" id="conformidadSi_pa" value="SI">
+                                        <label class="form-check-label" for="conformidadSi_pa">Sí</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="conformidad_patrimonizacion_bs" id="conformidadNo_pa" value="NO">
+                                        <label class="form-check-label" for="conformidadNo_pa">No</label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="fecha_patrimonizacion_inicio_bs" id="fecha_patrimonizacion_inicio_bs"  onchange="calcularDias('fecha_patrimonizacion_inicio_bs', 'fecha_patrimonizacion_fin_bs', 'patrimonizacion_dias_bs')">
                             </div>
@@ -246,22 +261,7 @@
                                 <input type="number" class="form-control input-auth proceso-fecha" name="patrimonizacion_dias_bs" id="patrimonizacion_dias_bs" readonly placeholder="Días" >
                             </div>
                         </div> 
-                        <div class="row mb-3">
-                            <div class="col-4"><b>Conformidad Patrimonización</b></div>
-                            <div class="col-3">
-                                <div class="checkbox-container">
-                                    <div class="form-check me-2">
-                                        <input class="form-check-input" type="radio" name="conformidad_patrimonizacion_bs" id="conformidadSi_pa" value="COMPLETADO">
-                                        <label class="form-check-label" for="conformidadSi_pa">Sí</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="conformidad_patrimonizacion_bs" id="conformidadNo_pa" value="CANCELADO">
-                                        <label class="form-check-label" for="conformidadNo_pa">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3"><b>Informe de Conformidad <br>(Proyectista)</b></div>
+                        <div class="row mb-2"><b>Informe de Conformidad <br>(Proyectista)</b></div>
                         <div class="row mb-3">
                             <div class="col-4">
                                 <div class="checkbox-container">
@@ -275,7 +275,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_conformidad_proyectista_inicio_bs" id="f_conformidad_proyectista_inicio_bs" placeholder="F. Inicio" onchange="calcularDias('f_conformidad_proyectista_inicio_bs', 'f_conformidad_proyectista_fin_bs', 'conformidad_proyectista_dias_bs')" >
                             </div>
@@ -309,7 +308,7 @@
                         </div>
                         <div class="col-12 py-2 text-center">
                             <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
-                            <button type="submit" class="btn btn-success mx-1"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
+                            <button type="submit" class="btn btn-success mx-1" onclick="return validarFechaYAgregar()"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -333,7 +332,8 @@
                 noResults: function() {
                     return "No se encontró la inversión";
                 }
-            }
+            },
+            dropdownParent: $('#ModalCreateBien')
         });
         // Añadir el event listener al select de inversión solo una vez
         if (!$('#idInversion-create_bs').data('listener-added')) {
@@ -387,6 +387,7 @@
         const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
 
         diasInput.value = dias >= 0 ? dias : 0;
+        calcularFechaPlazoEjecucion();
     } else {
         diasInput.value = '';
     }
@@ -406,6 +407,7 @@ function calcularFechaPlazoEjecucion() {
 
         const nuevaFecha = fechaFin.toISOString().split('T')[0];
         fechaPlazoEjecucionInput.value = nuevaFecha;
+        calcularFechaAmpliacionPlazo();
     } else {
         fechaPlazoEjecucionInput.value = '';
     }
@@ -461,6 +463,52 @@ document.getElementById('mi-formulario_bs').addEventListener('submit', function(
 
 </script>
 <script>
+    function validarFechaYAgregar() {
+    // Obtener los valores de los campos
+    var fechaNotificacionInicio = document.getElementById('f_notificacion_inicio_bs').value;
+    var fechaNotificacionFin = document.getElementById('f_notificacion_fin_bs').value;
+    var plazoDias = document.getElementById('plazo_bs').value;
+    var ampliacionPlazoDias = document.getElementById('ampliacionPlazo_bs').value;
+    var fechaPlazoEjecucion = document.getElementById('fecha_plazo_ejecucion_bs');
+    var fechaAmpliacionPlazo = document.getElementById('fecha_ampliacion_plazo_bs');
+
+    // Convertir el valor de plazo y ampliación de plazo en números para manejar correctamente (0 será tratado como vacío)
+    plazoDias = parseInt(plazoDias);
+    ampliacionPlazoDias = parseInt(ampliacionPlazoDias);
+
+    // Validar si ambos campos de fecha de notificación están vacíos y el plazo es 0
+    if ((!plazoDias && plazoDias !== 0) && !fechaNotificacionInicio && !fechaNotificacionFin) {
+        return true;  // No mostrar alerta, continuar normalmente
+    }
+
+    // Validar si el plazo tiene un valor pero faltan fechas de notificación
+    if (plazoDias) {
+        if (!fechaNotificacionInicio) {
+            alert('Por favor, ingrese una fecha de notificación de inicio antes de agregar el plazo.');
+            document.getElementById('plazo_bs').value = 0;
+            fechaPlazoEjecucion.value = '';  // Limpiar el campo fecha_plazo_ejecucion_bs
+            return false;
+        }
+        if (!fechaNotificacionFin) {
+            alert('Por favor, ingrese una fecha de notificación de fin antes de agregar el plazo.');
+            document.getElementById('plazo_bs').value = 0;
+            fechaPlazoEjecucion.value = '';  // Limpiar el campo fecha_plazo_ejecucion_bs
+            return false;
+        }
+    }
+
+    // Validar si el campo de ampliación de plazo tiene un valor pero falta la fecha de plazo de ejecución
+    if (ampliacionPlazoDias > 0 && !fechaPlazoEjecucion.value) {
+        alert('Por favor, seleccione una fecha de plazo de ejecución antes de agregar una ampliación de plazo.');
+        document.getElementById('ampliacionPlazo_bs').value = 0;
+        fechaAmpliacionPlazo.value = '';  // Restablecer el campo de ampliación a 0
+        return false;
+    }
+    // Si todo está bien, permitir la acción
+    return true;
+}
+</script>
+<script>
     // Seleccionar el checkbox y el div
     const extenderPlazo_bs = document.getElementById('extenderPlazo_bs');
     const ampliacion_bs = document.getElementById('ampliacion_bs');
@@ -476,7 +524,6 @@ document.getElementById('mi-formulario_bs').addEventListener('submit', function(
   </script>
 
 <style>
-
     .select2-container--default .select2-selection--single .select2-selection__rendered { 
         line-height: 24px;
         padding-left: 10px; /* Ajustar el padding izquierdo */
@@ -493,29 +540,12 @@ document.getElementById('mi-formulario_bs').addEventListener('submit', function(
           background-color: #9C0C27 !important; /* Cambia este color al que desees */
           color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
     }
-    .form-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
     .date-input {
-        width: 150px;
-    }
-    .divider {
-        border-top: 2px solid black;
-        margin: 15px 0;
+        width: 20px;
     }
     .checkbox-container {
         display: flex;
         align-items: center;
-    }
-    .proceso-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .proceso-label {
-        flex: 1;
-        font-weight: bold;
     }
     .proceso-fecha {
         flex: 1;
@@ -523,47 +553,8 @@ document.getElementById('mi-formulario_bs').addEventListener('submit', function(
     .proceso-dias {
         width: 100px;
     }
-    .form-group {
-        margin-bottom: 20px;
-    }
-    .proceso-titulos {
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .proceso-titulos div {
-        flex: 1;
-        text-align: center;
-    }
-    .titulo-dias {
-        width: 100px;
-        text-align: center;
-    }
 </style>
 <style>
-    /* Ajustar el z-index de Select2 */
-    .select2-container .select2-selection--single {
-      height: 38px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
-    .select2-container .select2-selection--single:focus {
-      border-color: #72081f;
-      outline: none;
-      box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-    }
-    .style-button {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-    }
-    .select2-container .select2-dropdown {
-      z-index: 9999;
-    }
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
-      background-color: #9C0C27 !important; /* Cambia este color al que desees */
-      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
-    }
     body {
       background-color: #000;
     }
@@ -575,19 +566,6 @@ document.getElementById('mi-formulario_bs').addEventListener('submit', function(
     }
     section {
       margin-top: 100px;
-    }
-    #crearCuenta {
-      display: none;
-    }
-    /* Others */
-    .center-items {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Card Style */
-    .cascading-left {
-      margin-left: -50px;
     }
     /* Input Style  */
     .input-auth {
@@ -620,30 +598,7 @@ document.getElementById('mi-formulario_bs').addEventListener('submit', function(
     .input-autht:focus::placeholder {
       color: transparent;
     }
-    /* Btn Style  */
-    .btn-gorec {
-      width: 250px;
-      height: 50px;
-      background-color: #9C0C27;
-      color: #fff;
-      border-radius: 50px
-    }
-    .btn-gorec:hover {
-      background-color: #72081f;
-      color: #fff;;
-    }
-    /* Line */
-    .line {
-      border: 0;
-      border-top: 1px solid #72081f;
-      margin: 1rem 0;
-      width: 50%;
-    }
     /* Redirection */
-    .login-direction {
-      color: #72081f;
-      text-decoration: none;
-    }
     @media (max-width: 991.98px) {
       .cascading-left {
         margin-left: 0px;

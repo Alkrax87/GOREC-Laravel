@@ -3,44 +3,93 @@
 @section('title', 'Lista')
 
 @section('content_header')
-  <h1><i class="fas fa-truck-moving"></i> Lista</h1>
+  <h1><i class="fas fa-clipboard-list"></i> Lista</h1>
 @stop
 
 @section('content')
-<table id="segmentosTables" class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Inversión</th>
-            <th>Proyectistas</th>
-            <th>Asistentes</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($inversiones as $inversion)
-            @foreach($inversion->profesional as $proyectista)
-                <tr>
-                    <td>{{ $inversion->nombreInversion }}</td>
-                    <td>{{ $proyectista->usuario->nombreUsuario }} ({{ $proyectista->especialidad }})</td>
-                    <td>
-                        @php
-                            $asistentes = $inversion->asistente->where('idJefe', $proyectista->usuario->idUsuario);
-                        @endphp
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="table-responsive">
+        <table id="segmentosTables" class="table table-bordered">
+          <thead>
+              <tr>
+                  <th class="text-nowrap">Inversión</th>
+                  <th>Proyectistas</th>
+                  <th>Asistentes</th>
+              </tr>
+          </thead>
+          <tbody>
+              @foreach($inversiones as $inversion)
+                  @foreach($inversion->profesional as $proyectista)
+                      <tr>
+                        <td>{{ $inversion->nombreInversion }}</td>
+                        <td>{{ $proyectista->usuario->nombreUsuario . ' ' . $proyectista->usuario->apellidoUsuario }} <br> <b>P:</b> (
+                          @if ($proyectista->usuario->profesiones->isNotEmpty())
+                            @foreach ($proyectista->usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          <br>
+                          <b>E:</b> (
+                          @if ($proyectista->usuario->especialidades->isNotEmpty())
+                            @foreach ($proyectista->usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )</td>
+                        <td>
+                            @php
+                                $asistentes = $inversion->asistente->where('idJefe', $proyectista->usuario->idUsuario);
+                            @endphp
+    
+                            @if($asistentes->isEmpty())
+                                <i>Sin asistentes</i>
+                            @else
+                                <ul>
+                                    @foreach($asistentes as $asistente)
+                                        <li>{{ $asistente->usuario->nombreUsuario . ' ' . $asistente->usuario->apellidoUsuario }} <br> <b>P:</b> (
+                                          @if ($asistente->usuario->profesiones->isNotEmpty())
+                                            @foreach ($asistente->usuario->profesiones as $profesion)
+                                              {{ $profesion->nombreProfesion }}
+                                              @if (!$loop->last)
+                                                ,
+                                              @endif
+                                            @endforeach
+                                          @endif
+                                          )
+                                          <br>
+                                          <b>E:</b> (
+                                          @if ($asistente->usuario->especialidades->isNotEmpty())
+                                            @foreach ($asistente->usuario->especialidades as $especialidad)
+                                              {{ $especialidad->nombreEspecialidad }}
+                                              @if (!$loop->last)
+                                                ,
+                                              @endif
+                                            @endforeach
+                                          @endif
+                                          )</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </td>
+                    </tr>
+                  @endforeach
+              @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-                        @if($asistentes->isEmpty())
-                            <i>Sin asistentes</i>
-                        @else
-                            <ul>
-                                @foreach($asistentes as $asistente)
-                                    <li>{{ $asistente->usuario->nombreUsuario }} ({{ $asistente->usuario->especialidad }})</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-        @endforeach
-    </tbody>
-</table>
 @stop
 
 @section('js')
@@ -97,24 +146,32 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
   <style>
-    a {
-      text-decoration: none;
-    }
-    .btn-option{
-      height: 38px;
-    }
-    .btn-option i{
-      padding-top: 4px;
-    }
-  </style>
-  <style>
-    td {
-      vertical-align: top;
-    }
-    
-    td[rowspan] {
-      vertical-align: middle; /* Alinea el contenido en el centro cuando se usa rowspan */
-    }
+  td {
+    vertical-align: top;
+    word-wrap: break-word; /* Hace que el texto largo se ajuste a la siguiente línea */
+    white-space: normal; /* Permite que el texto use varias líneas */
+  }
+
+  td[rowspan] {
+    vertical-align: middle; /* Alinea el contenido en el centro cuando se usa rowspan */
+  }
+
+  /* Establecer un ancho máximo para la columna de "Inversión" para evitar que se extienda demasiado */
+  .table td:first-child {
+    max-width: 140px; /* Puedes ajustar el valor según tus necesidades */
+    word-wrap: break-word; /* Rompe el texto largo en varias líneas */
+    white-space: normal; /* Permite que el texto use varias líneas */
+  }
+  .table td:nth-child(2) {
+  max-width: 110px; /* Ajusta este valor según sea necesario */
+  word-wrap: break-word;
+  white-space: normal;
+  }
+  .table td:nth-child(3) {
+  max-width: 110px; /* Ajusta este valor según sea necesario */
+  word-wrap: break-word;
+  white-space: normal;
+  }
   </style>
 @stop
 

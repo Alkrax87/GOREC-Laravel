@@ -114,6 +114,7 @@ class ServiciosController extends Controller
     $servicio->f_estudio_mercado_fin = $request->f_estudio_mercado_fin;
     $servicio->estudiomercado_dias= $request->estudiomercado_dias;
     ///
+    $servicio->nombre_cuadro_comparativo = $request->nombre_cuadro_comparativo;
     $servicio->f_cuadro_comparativo_inicio = $request->f_cuadro_comparativo_inicio;
     $servicio->f_cuadro_comparativo_fin = $request->f_cuadro_comparativo_fin;
     $servicio->cuadro_comparativo_dias = $request->cuadro_comparativo_dias;
@@ -238,6 +239,7 @@ class ServiciosController extends Controller
     $servicio->f_estudio_mercado_fin = $request->f_estudio_mercado_fin;
     $servicio->estudiomercado_dias= $request->estudiomercado_dias;
     ///
+    $servicio->nombre_cuadro_comparativo = $request->nombre_cuadro_comparativo;
     $servicio->f_cuadro_comparativo_inicio = $request->f_cuadro_comparativo_inicio;
     $servicio->f_cuadro_comparativo_fin = $request->f_cuadro_comparativo_fin;
     $servicio->cuadro_comparativo_dias = $request->cuadro_comparativo_dias;

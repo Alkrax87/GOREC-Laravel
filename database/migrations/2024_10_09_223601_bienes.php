@@ -35,6 +35,7 @@ return new class extends Migration
             $table->date('f_cotizacion_fin_bs')->nullable();
             $table->integer('cotizacion_dias_bs')->nullable()->default(0);
             //Cuadro Comparativo
+            $table->string('nombre_cuadro_comparativo_bs')->nullable();
             $table->date('f_cuadro_comparativo_inicio_bs')->nullable();
             $table->date('f_cuadro_comparativo_fin_bs')->nullable();
             $table->integer('cuadro_comparativo_dias_bs')->nullable()->default(0);

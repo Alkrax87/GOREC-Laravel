@@ -50,8 +50,8 @@
                   <th class="text-nowrap">Nombre Bien</th>
                   <th class="text-nowrap">Proyectista</th>
                   <th class="text-nowrap">Meta</th>
-                  <th class="text-nowrap">Conformidad Patrimonizacion</th>
                   <th class="text-nowrap">Informe de Conformidad<br>(Proyectista)</th>
+                  <th class="text-nowrap">Conformidad Patrimonización</th>
                   <th class="text-nowrap">SGASA Penalidad</th>
                   <th class="text-center">Opciones</th>
                 </tr>
@@ -86,6 +86,14 @@
                         )
                     </td>
                     <td>{{ $bien->meta_bienes }}</td>
+                    <td class="text-nowrap">@if ($bien->conformidad_proyectista_bs === 'COMPLETADO')
+                      <span class="badge badge-success" ><i class="fas fa-check-circle"></i> COMPLETADO</span>
+                      @elseif ($bien->conformidad_proyectista_bs === 'CANCELADO')
+                      <span class="badge badge-danger"><i class="fas fa-times-circle"></i> CANCELADO</span>
+                      @else
+                         <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i> EN PROCESO</span> 
+                      @endif
+                    </td>
                     <td class="text-nowrap">@if ($bien->conformidad_patrimonizacion_bs === 'SI')
                       <span class="badge badge-success" >SI</span>
                       @elseif ($bien->conformidad_patrimonizacion_bs === 'NO')
@@ -94,16 +102,6 @@
                          <span class="badge badge-warning">EN ESPERA</span> 
                       @endif
                     </td>
-
-                    <td class="text-nowrap">@if ($bien->conformidad_proyectista_bs === 'COMPLETADO')
-                      <span class="badge badge-success" >COMPLETADO</span>
-                      @elseif ($bien->conformidad_proyectista_bs === 'CANCELADO')
-                      <span class="badge badge-danger">CANCELADO</span>
-                      @else
-                         <span class="badge badge-warning">EN PROCESO</span> 
-                      @endif
-                    </td>
-                    
                     <td class="text-nowrap"> @if ($bien->envio_bs === 'SI')
                       <span class="badge badge-danger" >SI</span>
                       @elseif ($bien->envio_bs === 'NO')
