@@ -59,9 +59,9 @@
                 <div class="card text-white bg-dark">
                   <div class="card-body pb-0">
                     <div class="col-12">
-                      <b><i class="fas fa-clipboard-list"></i> Responsable en:</b>
+                      <b><i class="fas fa-clipboard-list"></i> Responsable en ({{ $usuario->inversion->unique('idInversion')->count() }}):</b>
                       <ul>
-                        @foreach ($usuario->inversion as $inversion)
+                        @foreach ($usuario->inversion->unique('idInversion') as $inversion)
                           <li>{{ $inversion->nombreCortoInversion }}</li>
                         @endforeach
                       </ul>
@@ -75,9 +75,9 @@
                 <div class="card text-white bg-dark">
                   <div class="card-body pb-0">
                     <div class="col-12">
-                      <b><i class="fas fa-user-tie"></i> Profesional en:</b>
+                      <b><i class="fas fa-user-tie"></i> Profesional en ({{ $usuario->asignacionesProfesional->unique('idInversion')->count() }}):</b>
                       <ul>
-                        @foreach ($usuario->asignacionesProfesional as $asignacion)
+                        @foreach ($usuario->asignacionesProfesional->unique('idInversion') as $asignacion)
                           <li>{{ $asignacion->inversion->nombreCortoInversion  }}</li>
                         @endforeach
                       </ul>
@@ -91,9 +91,9 @@
                 <div class="card text-white bg-dark">
                   <div class="card-body pb-0">
                     <div class="col-12">
-                      <b><i class="fas fa-users-cog"></i> Asistente en:</b>
+                      <b><i class="fas fa-users-cog"></i> Asistente en ({{ $usuario->asignacionesAsistente->unique('idInversion')->count() }}):</b>
                       <ul>
-                        @foreach ($usuario->asignacionesAsistente as $asignacion)
+                        @foreach ($usuario->asignacionesAsistente->unique('idInversion') as $asignacion)
                           <li>{{ $asignacion->inversion->nombreCortoInversion }}</li>
                         @endforeach
                       </ul>
