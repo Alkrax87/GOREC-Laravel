@@ -23,7 +23,7 @@
               @foreach($inversiones as $inversion)
                   @foreach($inversion->profesional as $proyectista)
                       <tr>
-                        <td>{{ $inversion->nombreInversion }}</td>
+                        <td>{{ $inversion->nombreCortoInversion }}</td>
                         <td>{{ $proyectista->usuario->nombreUsuario . ' ' . $proyectista->usuario->apellidoUsuario }} <br> <b>P:</b> (
                           @if ($proyectista->usuario->profesiones->isNotEmpty())
                             @foreach ($proyectista->usuario->profesiones as $profesion)
@@ -158,17 +158,17 @@
 
   /* Establecer un ancho máximo para la columna de "Inversión" para evitar que se extienda demasiado */
   .table td:first-child {
-    max-width: 140px; /* Puedes ajustar el valor según tus necesidades */
+    max-width: 110px; /* Puedes ajustar el valor según tus necesidades */
     word-wrap: break-word; /* Rompe el texto largo en varias líneas */
     white-space: normal; /* Permite que el texto use varias líneas */
   }
   .table td:nth-child(2) {
-  max-width: 110px; /* Ajusta este valor según sea necesario */
+  max-width: 130px; /* Ajusta este valor según sea necesario */
   word-wrap: break-word;
   white-space: normal;
   }
   .table td:nth-child(3) {
-  max-width: 110px; /* Ajusta este valor según sea necesario */
+  max-width: 130px; /* Ajusta este valor según sea necesario */
   word-wrap: break-word;
   white-space: normal;
   }
