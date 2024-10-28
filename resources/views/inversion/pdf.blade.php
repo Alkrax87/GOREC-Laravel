@@ -91,7 +91,7 @@
         <div class="footer-content">
             <img src="images/footter.jpg" class="footer-image" alt="Logo">
             <div class="date-time">
-                <p>Fecha: {{ date('d/m/Y') }} <span class="time">Hora: {{ date('H:i:s') }}</span></p>
+                <p>Fecha: {{ date('d/m/Y') }} <span class="time" style="margin-left: 50px">Hora: {{ date('H:i:s') }}</span></p>
             </div>
         </div>
     </footer>
