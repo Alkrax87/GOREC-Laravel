@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Reporte de Inversión</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,6 @@
         @page {
             margin: 140px 30px 100px 30px;
             size: A3 landscape;
-            /* Espacio para encabezado y pie de página */
         }
         header {
             position: fixed;
@@ -26,12 +25,11 @@
         }
         footer {
             position: fixed;
-            bottom: -90px; /* Ajustar la posición del footer */
+            bottom: -90px;
             left: 0;
             right: 0;
             height: 50px;
             text-align: center;
-            
         }
         .footer-content {
             position: relative;
@@ -39,29 +37,27 @@
             justify-content: center;
             align-items: center;
         }
-        .footer-image {
-            width: 680px;
-            height: 80px;
-        }
         .date-time {
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(15, 15, 15, 0.863); /* Ajusta este color según el fondo de la imagen */
+            color: rgba(15, 15, 15, 0.863);
             font-weight: bold;
             font-size: 12px;
-            text-shadow: 1px 1px 2px #000; /* Sombra para mejorar la legibilidad */
-        }
-        .date-time .time {
-        margin-left: 60px; /* Ajusta el valor para controlar la distancia */
+            text-shadow: 1px 1px 2px #000;
         }
         .content {
-            margin-top: 20px;
+            margin-top: -60px;
         }
         .header img {
             width: 1515px;
             height: 75px;
+        }
+        h1 {
+            text-align: center;
+            color: #991818;
+            margin-bottom: 10px;
         }
         .table-responsive {
             width: 100%;
@@ -72,25 +68,50 @@
             border-collapse: collapse;
         }
         .table th, .table td {
-            padding: 5px; /* Reduce el padding */
+            padding: 5px;
             border: 1px solid #ddd;
-            font-size: 12px; /* Reduce el tamaño de la fuente si es necesario */
-            word-wrap: break-word; /* Permite que el texto largo se divida */
+            font-size: 12px;
+            word-wrap: break-word;
         }
         .table th {
-            background-color: #851010;
+            background-color: #991818;
+            color: #fff;
         }
-        .text-nowrap {
-            white-space: nowrap; /* Evitar que el texto se ajuste */
+        .bg-color {
+            background-color: #991818;
+            color: #fff;
         }
-        .text-center {
+        .table .text-nowrap {
+            white-space: nowrap;
+        }
+        .table .text-center {
             text-align: center;
         }
-        .text-left {
+        .table .text-left {
             text-align: left;
         }
-        .cabecera{
-            color: #f7f3f3;
+        hr.custom-hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #991818, transparent);
+            margin: 10px 0;
+            position: relative;
+        }
+        hr.custom-hr::before,
+        hr.custom-hr::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #991818;
+            opacity: 0.3;
+        }
+        hr.custom-hr::before {
+            top: -4px;
+        }
+        hr.custom-hr::after {
+            bottom: -4px
         }
     </style>
 </head>
@@ -108,60 +129,67 @@
             </div>
         </div>
     </footer>
-    
-    <h3>SUB GERENCIA DE ESTUDIOS Y PROYECTOS (INVERSIONES)</h3>
-    <div class="table-responsive">
-        <table id="segmentosTable" class="table">
-          <thead class="cabecera">
-            <tr>
-              <th>#</th>
-              <th class="text-nowrap">CUI</th>
-              <th class="text-nowrap">Nombre</th>
-              <th class="text-nowrap">Nombre Corto</th>
-              <th class="text-center">Responsable</th>
-              <th class="text-center">Provincia</th>
-              <th class="text-center">Distrito</th>
-              <th class="text-center">Nivel</th>
-              <th class="text-center">Función</th>
-              <th class="text-center">Modalidad</th>
-              <th class="text-center">Estado</th>
-              <th class="text-center">Avance</th>
-              <th class="text-nowrap">Fecha Inicio</th>
-              <th class="text-nowrap">Fecha Final</th>
-              <th class="text-nowrap">Presupuesto <p>Formulación</p></th>
-              <th class="text-nowrap">Presupuesto <p>Ejecución</p></th>
-              <th class="text-nowrap">Fecha Inicio: <p>Consistencia</p></th>
-              <th class="text-nowrap">Fecha Final: <p>Consistencia</p></th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($inversiones as $inversion)
-              <tr>
-                <td class="text-left">{{ $loop->index + 1 }}</td>
-                <td class="text-nowrap">{{ $inversion->cuiInversion }}</td>
-                <td>{{ $inversion->nombreInversion }}</td>
-                <td>{{ $inversion->nombreCortoInversion }}</td>
-                <td class="text-nowrap"><b>{{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</b></td>
-                <td class="text-center">{{ $inversion->provinciaInversion }}</td>
-                <td class="text-center">{{ $inversion->distritoInversion }}</td>
-                <td class="text-center">{{ $inversion->nivelInversion }}</td>
-                <td class="text-center">{{ $inversion->funcionInversion }}</td>
-                <td class="text-center">{{ $inversion->modalidadInversion }}</td>
-                <td class="text-center">{{ $inversion->estadoInversion }}</td>
-                <td class="text-center">{{ $inversion->avanceInversion }}%</td>
-                <td class="text-center">{{ $inversion->fechaInicioInversion }}</td>
-                <td class="text-center">{{ $inversion->fechaFinalInversion }}</td>
-                <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</td>
-                <td class="text-center">{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</td>
-                <td class="text-center">{{ $inversion->fechaInicioConsistenciaInversion  }}</td>
-                <td class="text-center">{{ $inversion->fechaFinalConsistenciaInversion  }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+
+    <div class="content">
+        <h1>PROYECTOS DE INVERSIÓN</h1>
+        <div class="table-responsive">
+            <table id="segmentosTable" class="table">
+                <tbody>
+                    @foreach ($inversiones as $inversion)
+                        <tr>
+                            <th rowspan="6">{{ $loop->index + 1 }}</th>
+                            <th style="min-width: 140px">CUI</th>
+                            <th style="max-width: 50px; min-width: 50px;">Avance</th>
+                            <th colspan="13">Nombre</th>
+                        </tr>
+                        <tr>
+                            <td class="text-center">{{ $inversion->cuiInversion }}</td>
+                            <td class="text-center"><b>{{ $inversion->avanceInversion }}%</b></td>
+                            <td colspan="13">{{ $inversion->nombreInversion }}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="5">Nombre Corto</th>
+                            <th>Usuario</th>
+                            <th>Provincia</th>
+                            <th>Distrito</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Final</th>
+                            <th>Modalidad</th>
+                            <th colspan="4">Función</th>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="text-center">{{ $inversion->nombreCortoInversion }}</td>
+                            <td class="text-center"><b>{{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</b></td>
+                            <td class="text-center">{{ $inversion->provinciaInversion }}</td>
+                            <td class="text-center">{{ $inversion->distritoInversion }}</td>
+                            <td class="text-center">{{ $inversion->fechaInicioInversion }}</td>
+                            <td class="text-center">{{ $inversion->fechaFinalInversion }}</td>
+                            <td class="text-center">{{ $inversion->modalidadInversion }}</td>
+                            <td class="text-center" colspan="4">{{ $inversion->funcionInversion }}</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Nivel</th>
+                            <th colspan="5">Estado</th>
+                            <th colspan="3">Presupuesto Formulación</th>
+                            <th colspan="3">Presupuesto Ejecución</th>
+                            <th style="min-width: 120px; max-width: 120px;">Inicio Consistencia</th>
+                            <th style="min-width: 120px; max-width: 120px;">Final Consistencia</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2" class="text-center">{{ $inversion->nivelInversion }}</td>
+                            <td colspan="5" class="text-center">{{ $inversion->estadoInversion }}</td>
+                            <td colspan="3" class="text-center"><b>{{ 's/ ' . number_format($inversion->presupuestoFormulacionInversion, 2, '.', ',') }}</b></td>
+                            <td colspan="3" class="text-center"><b>{{ 's/ ' . number_format($inversion->presupuestoEjecucionInversion, 2, '.', ',') }}</b></td>
+                            <td class="text-center">{{ $inversion->fechaInicioConsistenciaInversion  }}</td>
+                            <td class="text-center">{{ $inversion->fechaFinalConsistenciaInversion  }}</td>
+                        </tr>
+                        <tr>
+                            <td style="border: none; padding: 0px" colspan="16"><hr class="custom-hr"></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
-
-
-  

@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Reporte de Inversión</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            font-size: 12px;
             margin: 0;
             padding: 0;
         }
         @page {
-            margin: 140px 30px 100px 30px; /* Espacio para encabezado y pie de página */
+            margin: 140px 30px 100px 30px;
+            size: A4;
         }
         header {
             position: fixed;
@@ -24,7 +26,7 @@
         }
         footer {
             position: fixed;
-            bottom: -90px; /* Ajustar la posición del footer */
+            bottom: -90px;
             left: 0;
             right: 0;
             height: 50px;
@@ -45,41 +47,55 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(15, 15, 15, 0.863); /* Ajusta este color según el fondo de la imagen */
+            color: rgba(15, 15, 15, 0.863);
             font-weight: bold;
-            font-size: 12px;
-            text-shadow: 1px 1px 2px #000; /* Sombra para mejorar la legibilidad */
+            font-size: 10px;
+            text-shadow: 1px 1px 2px #000;
         }
         .date-time .time {
-        margin-left: 50px; /* Ajusta el valor para controlar la distancia */
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
+            margin-left: 50px;
         }
         .header img {
             width: 745px;
             height: 57px;
         }
-
-        .logo img {
-            margin-right: 5px; /* Espacio entre la imagen y el texto */
+        h1 {
+            text-align: center;
+            color: #991818;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        h3 {
+            text-align: center;
+            color: #991818;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .h3s {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .content {
+            margin-top: -70px;
+            padding: 0 20px;
         }
         .container {
             width: 100%;
             margin: 0 auto;
         }
         .especialidad {
-            margin-bottom: 10px;
-            border: 3px solid #756d6d;
-            padding: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #756d6d;
+            padding: 15px;
             border-radius: 5px;
+            background-color: #f9f9f9;
         }
-        .especialidad p, ul, {
+        .especialidad p, ul {
             margin-bottom: 6px;
-            margin-top: 1px
-           
+        }
+        .table-container {
+            margin-top: 20px;
         }
         table {
             width: 100%;
@@ -87,28 +103,45 @@
             margin-bottom: 20px;
         }
         th, td {
-            padding: 10px;
+            padding: 8px;
             text-align: left;
             border: 1px solid #a33030;
+            font-size: 11px;
         }
         th {
-            background-color: #b41919;
-        }
-        .table-container {
-            margin-bottom: 20px;
+            background-color: #991818;
+            color: #fff;
+            font-weight: bold;
         }
         .sub-table {
             margin-top: 10px;
             width: 100%;
         }
-        h3 {
-            text-align: center;
-        }
-        #table-container th {
-            background-color: #991818;
-            color: #fff;
-            font-size: 12px;
+        .text-bold {
             font-weight: bold;
+        }
+        hr.custom-hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #991818, transparent);
+            margin: 20px 0;
+            position: relative;
+        }
+        hr.custom-hr::before,
+        hr.custom-hr::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: #991818;
+            opacity: 0.3;
+        }
+        hr.custom-hr::before {
+            top: -4px;
+        }
+        hr.custom-hr::after {
+            bottom: -4px;
         }
     </style>
 </head>
@@ -120,36 +153,40 @@
     </header>
     <footer>
         <div class="footer-content">
-            <img src="images/footter.jpg" style="width: 730px; height: 80px" alt="Logo">
+            <img src="images/footter.jpg" class="footer-image" alt="Footer Logo">
             <div class="date-time">
                 <p>Fecha: {{ date('d/m/Y') }} <span class="time">Hora: {{ date('H:i:s') }}</span></p>
             </div>
         </div>
     </footer>
-    
-    <h3 style="text-align: center; margin: -5%">PROYECTO DE INVERSION</h3>
-    @foreach ($inversiones as $inversion)
-        <h3><strong>{{ $inversion->nombreInversion }}</strong></h3>
-        <p class="text-nowrap"><span style="font-size: 20px;">Responsable:</span> <b>{{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</b></p>
-    @endforeach
-    
-    <div class="container">
-        @foreach ($especialidades as $especialidad)
-            <div class="especialidad">
-                <p style="font-size: 20px;">Especialidad:  <b>{{ $especialidad->nombreEspecialidad }}</b></p>
-                <p><b>Avance Programado:</b> {{ $especialidad->porcentajeAvanceEspecialidad }}% &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><b>Avance Total:</b> {{ $especialidad->avanceTotalEspecialidad }}%</span></p>
-                <p>Proyectistas:</p>
-                @foreach ($especialidad->usuarios as $usuario)
-                <ul class="mb-0"><li>{{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }} <span style="font-size: 11px"> (P: {{ $usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) |
-                    (E: {{ $usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }})</span>  </li></ul>
-                
-                 @endforeach
-                
+
+    <div class="content">
+        <h1>PROYECTO DE INVERSIÓN</h1>
+        @foreach ($inversiones as $inversion)
+            <hr class="custom-hr">
+            <h3 class="h3s">{{ $inversion->nombreInversion }}</h3>
+            <div style="text-align: right">
+                <p style="margin: 0px; padding: 0px"><span class="text-bold">Responsable:</span> {{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}</p>
+            </div>
+            <hr class="custom-hr">
+        @endforeach
+
+            <h3>Lista de Especialidades</h3>
+
+            @foreach ($especialidades as $especialidad)
+                <p class="text-bold" style="margin: 0px; padding: 0px; font-size: 14px">Especialidad: {{ $especialidad->nombreEspecialidad }}</p>
+                <p style="margin: 0px; padding: 0px"><span class="text-bold">Avance Programado:</span> {{ $especialidad->porcentajeAvanceEspecialidad }}% &nbsp;&nbsp; <span class="text-bold">Avance Total:</span> {{ $especialidad->avanceTotalEspecialidad }}%</p>
+                <p style="margin: 0px; padding: 0px"><span class="text-bold">Proyectistas:</span></p>
+                <ul style="margin: 0px; padding: 5px 20px">
+                    @foreach ($especialidad->usuarios as $usuario)
+                        <li>{{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }} <span style="font-size: 11px"> (P: {{ $usuario->profesiones->pluck('nombreProfesion')->implode(', ') }}) | (E: {{ $usuario->especialidades->pluck('nombreEspecialidad')->implode(', ') }})</span></li>
+                    @endforeach
+                </ul>
                 @if ($especialidad->fases && $especialidad->fases->count() > 0)
                     @foreach ($especialidad->fases as $fase)
-                        <div class="table-container">
-                            <table id="table-container">
-                                <thead>
+                        <div class="table-container" style="margin: 0px; padding: 0px">
+                            <table style="margin: 0px; padding: 0px">
+                                <thead style="margin: 0px; padding: 0px">
                                     <tr>
                                         <th>Actividad</th>
                                         <th>Avance Programado</th>
@@ -159,14 +196,14 @@
                                 <tbody>
                                     <tr>
                                         <td>{{ $fase->nombreFase }}</td>
-                                        <td>{{ $fase->porcentajeAvanceFase }}</td>
-                                        <td>{{ $fase->avanceTotalFase }}</td>
+                                        <td>{{ $fase->porcentajeAvanceFase }}%</td>
+                                        <td>{{ $fase->avanceTotalFase }}%</td>
                                     </tr>
                                     @if ($fase->subfases && $fase->subfases->count() > 0)
                                         <tr>
                                             <td colspan="3">
                                                 <div class="table-container sub-table">
-                                                    <table>
+                                                    <table style="margin: 0px; padding: 0px">
                                                         <thead>
                                                             <tr>
                                                                 <th>Sub Actividad</th>
@@ -182,8 +219,8 @@
                                                                     <td>{{ $subfase->nombreSubfase }}</td>
                                                                     <td>{{ $subfase->fechaInicioSubfase }}</td>
                                                                     <td>{{ $subfase->fechaFinalSubfase }}</td>
-                                                                    <td>{{ $subfase->porcentajeAvanceProgramadoSubFase }}</td>
-                                                                    <td>{{ $subfase->avanceRealTotalSubFase }}</td>
+                                                                    <td>{{ $subfase->porcentajeAvanceProgramadoSubFase }}%</td>
+                                                                    <td>{{ $subfase->avanceRealTotalSubFase }}%</td>
                                                                 </tr>
                                                             @endforeach
                                                         </tbody>
@@ -203,8 +240,9 @@
                 @else
                     <p>No hay fases disponibles.</p>
                 @endif
-            </div>
-        @endforeach
+
+            @endforeach
+
     </div>
 </body>
 </html>
