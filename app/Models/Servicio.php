@@ -34,6 +34,7 @@ class Servicio extends Model
          'f_estudio_mercado_inicio',
          'f_estudio_mercado_fin',
          'estudiomercado_dias',
+         'nombre_cuadro_comparativo',
          'f_cuadro_comparativo_inicio',
          'f_cuadro_comparativo_fin',
          'cuadro_comparativo_dias',

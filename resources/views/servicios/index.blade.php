@@ -13,7 +13,7 @@
         <div class="col-12">
           <div class="row">
             <div class="col-6">
-              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Servicios</button>
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateServicio"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Servicios</button>
             </div>
           </div>
           <!-- Alert -->
@@ -42,7 +42,7 @@
                   <th>#</th>
                   <th class="text-nowrap">Inversión</th>
                   <th class="text-nowrap">Nombre Servicio</th>
-                  <th class="text-nowrap">Proyectista</th>
+                  <th class="text-nowrap" style="min-width: 400px">Proyectista</th>
                   <th class="text-nowrap">Meta</th>
                   <th class="text-center">Siaf</th>
                   <th class="text-nowrap">Conformidad</th>
@@ -82,11 +82,11 @@
                     <td>{{ $servicio->meta }}</td>
                     <td>{{ $servicio->siaf }}</td>
                     <td class="text-nowrap">@if ($servicio->conformidad === 'COMPLETADO')
-                      <span class="badge badge-success" ><i class="fas fa-check-circle"></i>&nbsp;COMPLETADO</span>
+                      <span class="badge badge-success" ><i class="fas fa-check-circle"></i> COMPLETADO</span>
                       @elseif ($servicio->conformidad === 'CANCELADO')
-                      <span class="badge badge-danger"><i class="fas fa-times-circle"></i>&nbsp;CANCELADO</span>
+                      <span class="badge badge-danger"><i class="fas fa-times-circle"></i> CANCELADO</span>
                       @else
-                         <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i>&nbsp;EN PROCESO</span> 
+                         <span class="badge badge-warning"><i class="fas fa-exclamation-circle"></i> EN PROCESO</span> 
                       @endif
                     </td>
                     <td class="text-nowrap"> @if ($servicio->envio === 'SI')

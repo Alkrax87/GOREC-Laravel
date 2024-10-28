@@ -100,7 +100,7 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->designacion_dias}}" name="designacion_dias" id="designacion_dias_edit_{{ $servicio->idServicio }}"  readonly>
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-1">
                             <div class="col-4"><b>Estudio de Mercado</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_estudio_mercado_inicio}}" name="f_estudio_mercado_inicio" id="f_estudio_mercado_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_estudio_mercado_inicio_edit', 'f_estudio_mercado_fin_edit', 'estudiomercado_dias_edit', {{ $servicio->idServicio }})" >
@@ -112,8 +112,11 @@
                                 <input type="number" class="form-control input-auth proceso-dias" value="{{ $servicio->estudiomercado_dias}}" name="estudiomercado_dias" id="estudiomercado_dias_edit_{{ $servicio->idServicio }}" readonly >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Cuadro Comparativo</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Cuadro Comparativo</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cuadro_comparativo" value="{{ $servicio->nombre_cuadro_comparativo}}" class="form-control input-auth" id="nombre_cuadro_comparativo" placeholder="Ingrese Cuadro Comparativo" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_cuadro_comparativo_inicio}}" name="f_cuadro_comparativo_inicio" id="f_cuadro_comparativo_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_cuadro_comparativo_inicio_edit', 'f_cuadro_comparativo_fin_edit', 'cuadro_comparativo_dias_edit', {{ $servicio->idServicio }})" >
                             </div>
@@ -127,7 +130,7 @@
                         <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
                             <div class="col-4">
-                                <input type="number"  name="numero_certificacion" value="{{ $servicio->numero_certificacion}}" class="form-control input-auth" id="numero_certificacion" placeholder="Ingrese Nº">
+                                <input type="number"  name="numero_certificacion" value="{{ $servicio->numero_certificacion}}" class="form-control input-auth" id="numero_certificacion" placeholder="Ingrese Nº" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_numero_certificacion_inicio}}" name="f_numero_certificacion_inicio" id="f_numero_certificacion_inicio_edit_{{ $servicio->idServicio }}" onchange="calcularDiasedit('f_numero_certificacion_inicio_edit_', 'f_numero_certificacion_fin_edit_', 'numero_certificacion_dias_edit_', {{ $servicio->idServicio }})" >
@@ -142,7 +145,7 @@
                         <div class="row mb-2"><b>Orden de Servicio / Contrato</b></div>
                         <div class="row mb-2">
                             <div class="col-4">
-                                <input type="text"  name="numero_orden" value="{{ $servicio->numero_orden}}" class="form-control input-auth" id="numero_orden" placeholder="Ingrese Nº" >
+                                <input type="number"  name="numero_orden" value="{{ $servicio->numero_orden}}" class="form-control input-auth" id="numero_orden" placeholder="Ingrese Nº" min="0" oninput="this.value = Math.abs(this.value)" >
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->f_orden_servicio_inicio}}" name="f_orden_servicio_inicio" id="f_orden_servicio_inicio_edit_{{ $servicio->idServicio }}"  onchange="calcularDiasedit('f_orden_servicio_inicio_edit', 'f_orden_servicio_fin_edit', 'orden_servicio_dias_edit', {{ $servicio->idServicio }})" >
@@ -181,7 +184,7 @@
                         <div class="row mb-3">
                             <div class="col-4"><b>Plazo de Ejecución (Días)</b></div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias" id="plazo_edit_{{ $servicio->idServicio }}" value="{{ $servicio->plazo_ejecucion_dias}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
+                                <input type="number" class="form-control input-auth"  placeholder="Días" name="plazo_ejecucion_dias" id="plazo_edit_{{ $servicio->idServicio }}" value="{{ $servicio->plazo_ejecucion_dias}}" style="width: 100px;" onchange="calcularFechaPlazoEjecucionedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" value="{{ $servicio->fecha_plazo_ejecucion}}" name="fecha_plazo_ejecucion" id="fecha_plazo_ejecucion_edit_{{ $servicio->idServicio }}" readonly onchange="calcularFechaAmpliacionPlazoedit({{ $servicio->idServicio }})">
@@ -204,7 +207,7 @@
                                                 <label for="ampliacionPlazo" class="form-label">Ampliación de Plazo (Días)</label>
                                             </div>
                                             <div class="col-2">
-                                                <input type="number" name="ampliacion_plazo_dias" class="form-control input-auth" value="{{ $servicio->ampliacion_plazo_dias}}" id="ampliacionPlazo_edit_{{ $servicio->idServicio }}" style="width: 100px;"  onchange="calcularFechaAmpliacionPlazoedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
+                                                <input type="number" name="ampliacion_plazo_dias"  placeholder="Días" class="form-control input-auth" value="{{ $servicio->ampliacion_plazo_dias}}" id="ampliacionPlazo_edit_{{ $servicio->idServicio }}" style="width: 100px;"  onchange="calcularFechaAmpliacionPlazoedit({{ $servicio->idServicio }})" min="0" oninput="this.value = Math.abs(this.value)">
                                             </div>
                                             <div class="col-3">
                                                 <input type="date" name="fecha_ampliacion_plazo" class="form-control input-auth" value="{{ $servicio->fecha_ampliacion_plazo}}" id="fecha_ampliacion_plazo_edit_{{ $servicio->idServicio }}" readonly>
@@ -310,7 +313,7 @@
                         </div>
                         <div class="col-12 py-2 text-center">
                             <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
-                            <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
+                            <button type="submit" class="btn btn-warning mx-1" onclick="return validarFechaYAgregar({{ $servicio->idServicio }})"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
                         </div>
                     </div>
                 </div>
@@ -331,7 +334,8 @@
             noResults: function () {
               return "No se encontró la inversión";
             }
-          }
+          },
+          dropdownParent: $('#Modaleditservicios{{ $servicio->idServicio }}')
         });
         // Comprobar si ya se ha añadido el listener para evitar duplicados
         if (!inversionSelect.data('listener-added')) {
@@ -562,5 +566,44 @@ function calcularFechaAmpliacionPlazoedit(serviceId) {
 
 </script>
 
+<script>
+    function validarFechaYAgregar(serviceId) {
+        // Obtener los valores de los campos usando el serviceId pasado como parámetro
+        var fechaNotificacionInicio = document.getElementById('f_notificacion_inicio_edit_' + serviceId).value;
+        //var fechaNotificacionFin = document.getElementById('f_notificacion_fin_edit_' + serviceId).value;
+        var plazoDias = document.getElementById('plazo_edit_' + serviceId).value;
+        var ampliacionPlazoDias = document.getElementById('ampliacionPlazo_edit_' + serviceId).value;
+        var fechaPlazoEjecucion = document.getElementById('fecha_plazo_ejecucion_edit_' + serviceId);
+        var fechaAmpliacionPlazo = document.getElementById('fecha_ampliacion_plazo_edit_' + serviceId);
 
-    
+        // Convertir el valor de plazo y ampliación de plazo en números para manejar correctamente (0 será tratado como vacío)
+        plazoDias = parseInt(plazoDias);
+        ampliacionPlazoDias = parseInt(ampliacionPlazoDias);
+
+        // Validar si ambos campos de fecha de notificación están vacíos y el plazo es 0
+        if ((!plazoDias && plazoDias !== 0) && !fechaNotificacionInicio) {
+            return true;  // No mostrar alerta, continuar normalmente
+        }
+
+        // Validar si el plazo tiene un valor pero faltan fechas de notificación
+        if (plazoDias) {
+            if (!fechaNotificacionInicio) {
+                alert('Por favor, ingrese una fecha de notificación de inicio antes de agregar el plazo.');
+                document.getElementById('plazo_edit_' + serviceId).value = 0;
+                fechaPlazoEjecucion.value = '';  // Limpiar el campo fecha_plazo_ejecucion
+                return false;
+            }
+        }
+
+        // Validar si el campo de ampliación de plazo tiene un valor pero falta la fecha de plazo de ejecución
+        if (ampliacionPlazoDias > 0 && !fechaPlazoEjecucion.value) {
+            alert('Por favor, seleccione una fecha de plazo de ejecución antes de agregar una ampliación de plazo.');
+            document.getElementById('ampliacionPlazo_edit_' + serviceId).value = 0;
+            fechaAmpliacionPlazo.value = '';  // Limpiar el campo fecha_ampliacion_plazo
+            return false;
+        }
+
+        // Si todo está bien, permitir la acción
+        return true;
+    }
+</script>

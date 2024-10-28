@@ -39,7 +39,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idInversion">Inversión</label>
-                <select name="idInversion" id="idInversions" class="form-select form-select-sm input-auth" required>
+                <select name="idInversion" id="idInversions{{$segmento->idSegmento}}" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}" {{ $segmento->idInversion == $inversion->idInversion ? 'selected' : '' }}>
@@ -50,7 +50,7 @@
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idUsuario">Usuario</label>
-                <select name="idUsuario" id="idUsuarios" class="form-select form-select-sm input-auth" required>
+                <select name="idUsuario" id="idUsuarios{{$segmento->idSegmento}}" class="form-select form-select-sm input-auth" required>
                   <option value="" disabled selected>Selecciona un usuario</option>
                   @foreach ($usuarios as $usuario)
                     <option value="{{ $usuario->idUsuario }}" {{ $segmento->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>
@@ -95,7 +95,7 @@
 <script>
   $(document).ready(function() {
     $('#ModalEdit{{$segmento->idSegmento}}').on('shown.bs.modal', function () {
-      $('#idInversions').select2({
+      $('#idInversions{{$segmento->idSegmento}}').select2({
         placeholder: "Selecciona una inversión",
         allowClear: true,
           language: {
@@ -104,7 +104,7 @@
             }
           }
       });
-      $('#idUsuarios').select2({
+      $('#idUsuarios{{$segmento->idSegmento}}').select2({
         placeholder: "Selecciona un usuario",
         allowClear: true,
           language: {
@@ -117,8 +117,8 @@
 
     // Destruye Select2 cuando el modal se cierra para evitar problemas
     $('#ModalEdit{{$segmento->idSegmento}}').on('hidden.bs.modal', function () {
-      $('#idInversions').select2('destroy');
-      $('#idUsuarios').select2('destroy');
+      $('#idInversions{{$segmento->idSegmento}}').select2('destroy');
+      $('#idUsuarios{{$segmento->idSegmento}}').select2('destroy');
     });
   });
 </script>

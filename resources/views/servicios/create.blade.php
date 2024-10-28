@@ -1,6 +1,6 @@
 <form id="mi-formulario" action="{{ route('servicios.store') }}" method="POST">
     {{ csrf_field() }}
-    <div class="modal fade text-left" id="ModalCreate">
+    <div class="modal fade text-left" id="ModalCreateServicio">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,7 +93,7 @@
                                 <input type="number" class="form-control input-auth proceso-dias" name="designacion_dias" id="designacion_dias" readonly placeholder="Días" >
                             </div>
                         </div>
-                        <div class="row mb-2">
+                        <div class="row mb-1">
                             <div class="col-4"><b>Estudio de Mercado</b></div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_estudio_mercado_inicio" id="f_estudio_mercado_inicio" onchange="calcularDias('f_estudio_mercado_inicio', 'f_estudio_mercado_fin', 'estudiomercado_dias')" >
@@ -105,8 +105,11 @@
                                 <input type="number" class="form-control input-auth proceso-fecha" name="estudiomercado_dias" id="estudiomercado_dias" readonly placeholder="Días" >
                             </div>
                         </div>
+                        <div class="row mb-2"><b>Cuadro Comparativo</b></div>
                         <div class="row mb-2">
-                            <div class="col-4"><b>Cuadro Comparativo</b></div>
+                            <div class="col-4">
+                                <input type="text"  name="nombre_cuadro_comparativo" class="form-control input-auth" id="nombre_cuadro_comparativo" placeholder="Ingrese Cuadro Comparativo" >
+                            </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_cuadro_comparativo_inicio" id="f_cuadro_comparativo_inicio" onchange="calcularDias('f_cuadro_comparativo_inicio', 'f_cuadro_comparativo_fin', 'cuadro_comparativo_dias')" >
                             </div>
@@ -120,7 +123,7 @@
                         <div class="row mb-2"><b>Nº de Certificación</b></div>
                         <div class="row mb-2">
                             <div class="col-4">
-                                <input type="number"  name="numero_certificacion" class="form-control input-auth" id="numero_certificacion" placeholder="Ingrese Nº" >
+                                <input type="number"  name="numero_certificacion" class="form-control input-auth" id="numero_certificacion" placeholder="Ingrese Nº" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_numero_certificacion_inicio" id="f_numero_certificacion_inicio" onchange="calcularDias('f_numero_certificacion_inicio', 'f_numero_certificacion_fin', 'numero_certificacion_dias')" >
@@ -135,7 +138,7 @@
                         <div class="row mb-2"><b>Orden de Servicio / Contrato</b></div>
                         <div class="row mb-2">
                             <div class="col-4">
-                                <input type="number"  name="numero_orden" class="form-control input-auth" id="numero_orden" placeholder="Ingrese Nº" >
+                                <input type="number"  name="numero_orden" class="form-control input-auth" id="numero_orden" placeholder="Ingrese Nº" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="f_orden_servicio_inicio" id="f_orden_servicio_inicio" placeholder="F. Inicio" onchange="calcularDias('f_orden_servicio_inicio', 'f_orden_servicio_fin', 'orden_servicio_dias')" >
@@ -174,7 +177,7 @@
                         <div class="row mb-3">
                             <div class="col-4"><b>Plazo de Ejecución (Días):</b></div>
                             <div class="col-2">
-                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias" id="plazo" onchange="calcularFechaPlazoEjecucion()" min="0" oninput="this.value = Math.abs(this.value)">
+                                <input type="number" class="form-control input-auth" name="plazo_ejecucion_dias"  placeholder="Días" id="plazo" onchange="calcularFechaPlazoEjecucion()" min="0" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="col-3">
                                 <input type="date" class="form-control input-auth proceso-fecha" name="fecha_plazo_ejecucion" id="fecha_plazo_ejecucion" readonly >
@@ -197,7 +200,7 @@
                                                 <label class="form-label">Ampliación de Plazo (Días)</label>
                                             </div>
                                             <div class="col-2">
-                                                <input type="number" name="ampliacion_plazo_dias" class="form-control input-auth" id="ampliacionPlazo" onchange="calcularFechaAmpliacionPlazo()" min="0" oninput="this.value = Math.abs(this.value)">
+                                                <input type="number" name="ampliacion_plazo_dias"  placeholder="Días" class="form-control input-auth" id="ampliacionPlazo" onchange="calcularFechaAmpliacionPlazo()" min="0" oninput="this.value = Math.abs(this.value)">
                                             </div>
                                             <div class="col-3">
                                                 <input type="date" name="fecha_ampliacion_plazo" class="form-control input-auth" id="fecha_ampliacion_plazo" readonly>
@@ -300,7 +303,7 @@
                         </div>
                         <div class="col-12 py-2 text-center">
                             <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
-                            <button type="submit" class="btn btn-success mx-1"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
+                            <button type="submit" class="btn btn-success mx-1" onclick="return validarFechaYAgregars()"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -314,7 +317,7 @@
     //SCRIPT PARA EL SELECT2 Y SELECCINAR UNA INVERSION Y MOSTRAR SUS USUARIOS
     $(document).ready(function() {
     // Ejecutar cuando el modal se muestra
-    $('#ModalCreate').on('shown.bs.modal', function () {
+    $('#ModalCreateServicio').on('shown.bs.modal', function () {
         // Inicializar select2 en el select de inversión
         $('#idInversion-create').select2({
             placeholder: "Selecciona una inversión",
@@ -324,7 +327,8 @@
                 noResults: function() {
                     return "No se encontró la inversión";
                 }
-            }
+            },
+            dropdownParent: $('#ModalCreateServicio')
         });
         // Añadir el event listener al select de inversión solo una vez
         if (!$('#idInversion-create').data('listener-added')) {
@@ -358,7 +362,7 @@
         }
     });
     // Destruir el select2 en el select de inversión cuando se cierra el modal
-    $('#ModalCreate').on('hidden.bs.modal', function () {
+    $('#ModalCreateServicio').on('hidden.bs.modal', function () {
         $('#idInversion-create').select2('destroy');
     });
 });
@@ -398,6 +402,7 @@ function calcularFechaPlazoEjecucion() {
 
         const nuevaFecha = fechaFin.toISOString().split('T')[0];
         fechaPlazoEjecucionInput.value = nuevaFecha;
+        calcularFechaAmpliacionPlazo();
     } else {
         fechaPlazoEjecucionInput.value = '';
     }
@@ -453,6 +458,52 @@ document.getElementById('mi-formulario').addEventListener('submit', function(eve
 
 </script>
 <script>
+    function validarFechaYAgregars() {
+    // Obtener los valores de los campos
+    var fechaNotificacionInicio = document.getElementById('f_notificacion_inicio').value;
+    var fechaNotificacionFin = document.getElementById('f_notificacion_fin').value;
+    var plazoDias = document.getElementById('plazo').value;
+    var ampliacionPlazoDias = document.getElementById('ampliacionPlazo').value;
+    var fechaPlazoEjecucion = document.getElementById('fecha_plazo_ejecucion');
+    var fechaAmpliacionPlazo = document.getElementById('fecha_ampliacion_plazo');
+
+    // Convertir el valor de plazo y ampliación de plazo en números para manejar correctamente (0 será tratado como vacío)
+    plazoDias = parseInt(plazoDias);
+    ampliacionPlazoDias = parseInt(ampliacionPlazoDias);
+
+    // Validar si ambos campos de fecha de notificación están vacíos y el plazo es 0
+    if ((!plazoDias && plazoDias !== 0) && !fechaNotificacionInicio && !fechaNotificacionFin) {
+        return true;  // No mostrar alerta, continuar normalmente
+    }
+
+    // Validar si el plazo tiene un valor pero faltan fechas de notificación
+    if (plazoDias) {
+        if (!fechaNotificacionInicio) {
+            alert('Por favor, ingrese una fecha de notificación de inicio antes de agregar el plazo.');
+            document.getElementById('plazo').value = 0;
+            fechaPlazoEjecucion.value = '';  // Limpiar el campo fecha_plazo_ejecucion_bs
+            return false;
+        }
+        if (!fechaNotificacionFin) {
+            alert('Por favor, ingrese una fecha de notificación de fin antes de agregar el plazo.');
+            document.getElementById('plazo').value = 0;
+            fechaPlazoEjecucion.value = '';  // Limpiar el campo fecha_plazo_ejecucion_bs
+            return false;
+        }
+    }
+
+    // Validar si el campo de ampliación de plazo tiene un valor pero falta la fecha de plazo de ejecución
+    if (ampliacionPlazoDias > 0 && !fechaPlazoEjecucion.value) {
+        alert('Por favor, seleccione una fecha de plazo de ejecución antes de agregar una ampliación de plazo.');
+        document.getElementById('ampliacionPlazo').value = 0;
+        fechaAmpliacionPlazo.value = '';  // Restablecer el campo de ampliación a 0
+        return false;
+    }
+    // Si todo está bien, permitir la acción
+    return true;
+}
+</script>
+<script>
     // Seleccionar el checkbox y el div
     const activarCrearCuenta = document.getElementById('extenderPlazo');
     const crearCuenta = document.getElementById('crearCuenta');
@@ -468,7 +519,6 @@ document.getElementById('mi-formulario').addEventListener('submit', function(eve
   </script>
 
 <style>
-
     .select2-container--default .select2-selection--single .select2-selection__rendered { 
         line-height: 24px;
         padding-left: 10px; /* Ajustar el padding izquierdo */
@@ -485,77 +535,15 @@ document.getElementById('mi-formulario').addEventListener('submit', function(eve
           background-color: #9C0C27 !important; /* Cambia este color al que desees */
           color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
     }
-    .form-container {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-    .date-input {
-        width: 150px;
-    }
-    .divider {
-        border-top: 2px solid black;
-        margin: 15px 0;
-    }
     .checkbox-container {
         display: flex;
         align-items: center;
     }
-    .proceso-row {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .proceso-label {
-        flex: 1;
-        font-weight: bold;
-    }
     .proceso-fecha {
         flex: 1;
     }
-    .proceso-dias {
-        width: 100px;
-    }
-    .form-group {
-        margin-bottom: 20px;
-    }
-    .proceso-titulos {
-        display: flex;
-        align-items: center;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .proceso-titulos div {
-        flex: 1;
-        text-align: center;
-    }
-    .titulo-dias {
-        width: 100px;
-        text-align: center;
-    }
 </style>
 <style>
-    /* Ajustar el z-index de Select2 */
-    .select2-container .select2-selection--single {
-      height: 38px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-    }
-    .select2-container .select2-selection--single:focus {
-      border-color: #72081f;
-      outline: none;
-      box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-    }
-    .style-button {
-      border-top-left-radius: 0px;
-      border-bottom-left-radius: 0px;
-    }
-    .select2-container .select2-dropdown {
-      z-index: 9999;
-    }
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
-      background-color: #9C0C27 !important; /* Cambia este color al que desees */
-      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
-    }
     body {
       background-color: #000;
     }
@@ -630,11 +618,6 @@ document.getElementById('mi-formulario').addEventListener('submit', function(eve
       border-top: 1px solid #72081f;
       margin: 1rem 0;
       width: 50%;
-    }
-    /* Redirection */
-    .login-direction {
-      color: #72081f;
-      text-decoration: none;
     }
     @media (max-width: 991.98px) {
       .cascading-left {

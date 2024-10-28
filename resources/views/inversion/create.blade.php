@@ -159,7 +159,7 @@
                 </div>
                 <div class="form-group mb-4">
                   <label for="archivoInversion">Archivo</label>
-                  <input type="file" name="archivoInversion" accept="application/pdf" class="form-control">
+                  <input type="file" name="archivoInversion" accept="application/pdf" class="form-control" id="archivoInversion">
                 </div>
               </div>
               <div class="col-12 py-2 text-center">
@@ -171,8 +171,9 @@
       </div>
     </div>
   </div>
+</form>
   <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
- 
+  
 
 <script> 
 //script para el select2
@@ -185,16 +186,26 @@
             noResults: function() {
               return "No se encontró el usuario";
             }
-          }
+          },
+          dropdownParent: $('#ModalCreate') // Esto asegura que Select2 aparezca dentro del modal
       });
     });
     // Destruye Select2 cuando el modal se cierra para evitar problemas
     $('#ModalCreate').on('hidden.bs.modal', function () {
       $('#idUsuario').select2('destroy');
     });
-  });
+     // Validación del archivo (tamaño máximo 1MB)
+     document.getElementById('archivoInversion').addEventListener('change', function () {
+        const file = this.files[0];
+        if (file && file.size > 1 * 1024 * 1024) {
+          alert('El archivo es mayor a 1 MB. Por favor, selecciona un archivo más pequeño.');
+          this.value = ''; // Limpia el input para que el usuario seleccione otro archivo
+        }
+      });
+    });
 </script>
-  <script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
       const provinciaSelect = document.getElementById('provinciaInversion');
       const distritoSelect = document.getElementById('distritoInversion');
@@ -255,5 +266,4 @@
       color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
   }
   </style>
-  
-</form>
+

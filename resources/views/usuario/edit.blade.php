@@ -172,9 +172,10 @@
         width: '100%',
         language: {
           noResults: function() {
-            return "No se encontró el usuario";
+            return "No se encontró la profesión";
           }
-        }
+        },
+        dropdownParent: $('#ModalEdit{{$usuario->idUsuario}}')
       });
     });
 
@@ -235,9 +236,10 @@
       width: '100%',
       language: {
         noResults: function() {
-          return "No se encontró el usuario";
+          return "No se encontró la profesión";
         }
-      }
+      },
+      dropdownParent: $('#ModalEdit' + usuarioId) 
     });
   }
   function addEspecialidadEdit(usuarioId) {

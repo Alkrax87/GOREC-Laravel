@@ -36,6 +36,7 @@ class Bien extends Model
          'f_cotizacion_fin_bs',
          'cotizacion_dias_bs',
 
+         'nombre_cuadro_comparativo_bs',
          'f_cuadro_comparativo_inicio_bs',
          'f_cuadro_comparativo_fin_bs',
          'cuadro_comparativo_dias_bs',

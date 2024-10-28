@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label" for="idUsuario">Responsable</label>
-                  <select name="idUsuario" id="idUsuarios" class="form-select form-select-sm input-auth" required>
+                  <select name="idUsuario" id="idUsuarios{{$inversion->idInversion}}" class="form-select form-select-sm input-auth" required>
                     <option value="" disabled>Selecciona un usuario</option>
                     @foreach ($usuarios as $usuario)
                       <option value="{{ $usuario->idUsuario }}" {{ $inversion->idUsuario == $usuario->idUsuario ? 'selected' : '' }}>
@@ -156,7 +156,7 @@
                 </div>
                 <div class="form-group mb-4">
                   <label for="archivoInversion">Archivo</label>
-                  <input type="file" name="archivoInversion" accept="application/pdf" class="form-control">
+                  <input type="file" name="archivoInversion" accept="application/pdf" class="form-control" id="archivoInversionedit{{ $inversion->idInversion }}">
                   @if ($inversion->archivoInversion)
                     <p class="text-danger mb-0">Ya existe un archivo vinculado a esta Inversión.</p>
                     <a href="{{ route('inversion.download', $inversion->idInversion) }}" class="btn btn-dark">
@@ -212,19 +212,28 @@
     //script para el select2
       $(document).ready(function() {
         $('#ModalEdit{{$inversion->idInversion}}').on('shown.bs.modal', function () {
-          $('#idUsuarios').select2({
+          $('#idUsuarios{{$inversion->idInversion}}').select2({
             placeholder: "Selecciona un usuario",
             allowClear: true,
               language: {
                 noResults: function() {
                   return "No se encontró el usuario";
                 }
-              }
+              },
+              dropdownParent: $('#ModalEdit{{$inversion->idInversion}}')
           });
         });
         // Destruye Select2 cuando el modal se cierra para evitar problemas
         $('#ModalEdit{{$inversion->idInversion}}').on('hidden.bs.modal', function () {
-          $('#idUsuarios').select2('destroy');
+          $('#idUsuarios{{$inversion->idInversion}}').select2('destroy');
+        });
+          // Validación del archivo (tamaño máximo 1MB)
+        document.getElementById('archivoInversionedit{{ $inversion->idInversion }}').addEventListener('change', function () {
+          const file = this.files[0];
+          if (file && file.size > 1 * 1024 * 1024) {
+            alert('El archivo es mayor a 1 MB. Por favor, selecciona un archivo más pequeño.');
+            this.value = ''; // Limpia el input para que el usuario seleccione otro archivo
+          }
         });
       });
     </script>

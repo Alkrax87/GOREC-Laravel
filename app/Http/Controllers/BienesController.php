@@ -126,6 +126,7 @@ class BienesController extends Controller
     $bien->f_cotizacion_fin_bs = $request->f_cotizacion_fin_bs;
     $bien->cotizacion_dias_bs = $request->cotizacion_dias_bs;
     ///
+    $bien->nombre_cuadro_comparativo_bs = $request->nombre_cuadro_comparativo_bs;
     $bien->f_cuadro_comparativo_inicio_bs = $request->f_cuadro_comparativo_inicio_bs;
     $bien->f_cuadro_comparativo_fin_bs = $request->f_cuadro_comparativo_fin_bs;
     $bien->cuadro_comparativo_dias_bs = $request->cuadro_comparativo_dias_bs;
@@ -265,6 +266,7 @@ class BienesController extends Controller
     $bien->f_cotizacion_fin_bs = $request->f_cotizacion_fin_bs;
     $bien->cotizacion_dias_bs = $request->cotizacion_dias_bs;
     ///
+    $bien->nombre_cuadro_comparativo_bs = $request->nombre_cuadro_comparativo_bs;
     $bien->f_cuadro_comparativo_inicio_bs = $request->f_cuadro_comparativo_inicio_bs;
     $bien->f_cuadro_comparativo_fin_bs = $request->f_cuadro_comparativo_fin_bs;
     $bien->cuadro_comparativo_dias_bs = $request->cuadro_comparativo_dias_bs;

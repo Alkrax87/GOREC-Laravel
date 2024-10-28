@@ -310,6 +310,12 @@ return [
             'icon' => 'fas fa-user-shield',
             'icon_color' => 'white'
         ],
+        [
+            'text' => 'Lista Asignaciones',
+            'url' => 'listaInversion',
+            'icon' => 'fas fa-address-card',
+            'icon_color' => 'white'
+        ],
         ['header' => 'PROYECTOS'],
         [
             'text' => 'Inversión',
@@ -360,12 +366,6 @@ return [
                     'icon_color' => 'white'
                 ],
             ],
-        ],
-        [
-            'text' => 'Lista Asignaciones',
-            'url' => 'listaInversion',
-            'icon' => 'fas fa-address-card',
-            'icon_color' => 'white'
         ],
         ['header' => 'REPORTES'],
         [
