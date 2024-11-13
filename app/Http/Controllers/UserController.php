@@ -49,6 +49,8 @@ class UserController extends Controller
             'categoriaUsuario' => 'required|string',
             'profesionUsuario' => 'array',
             'especialidadUsuario' => 'array',
+            'ObservacionUser' => 'nullable|string|max:1024',
+            
         ], [
             'nombreUsuario.required' => 'El campo de nombre es obligatorio.',
             'apellidoUsuario.required' => 'El campo de apellido es obligatorio.',
@@ -125,6 +127,7 @@ class UserController extends Controller
             'categoriaUsuario' => 'required|string',
             'profesionUsuario' => 'array',
             'especialidadUsuario' => 'array',
+            'ObservacionUser' => 'nullable|string|max:1024',
         ], [
             'nombreUsuario.required' => 'El campo de nombre es obligatorio.',
             'apellidoUsuario.required' => 'El campo de apellido es obligatorio.',
@@ -147,6 +150,7 @@ class UserController extends Controller
             'apellidoUsuario' => $request->apellidoUsuario,
             'email' => $request->filled('email') ? $request->email . '@gorec.com' : null,
             'categoriaUsuario' => $request->categoriaUsuario,
+            'ObservacionUser' => $request->input('ObservacionUser'),
         ];
 
         // Actualizar la contraseña si se proporciona una nueva

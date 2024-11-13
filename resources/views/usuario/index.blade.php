@@ -13,7 +13,7 @@
         <div class="col-12">
           <!-- Agregar -->
           @if (Auth::user()->isAdmin)
-            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Usuario</button>
+            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-user-plus"></i>&nbsp; Agregar Usuario</button>
           @endif
           <!-- Alert -->
           @if ($message = Session::get('message'))

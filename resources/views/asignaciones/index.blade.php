@@ -37,6 +37,13 @@
             <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;  {!! session('asistente_message') !!}</p>
           </div>
           @endif
+
+          @if ($message_observacion = Session::get('message_observacion'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;  {!! session('message_observacion') !!}</p>
+          </div>
+          @endif
           <!-- Tabla -->
           <div class="table-responsive">
             <table id="asignacionesTable" class="table table-bordered table-striped w-100">

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('isAdministrativo')->default(false);
             $table->string('categoriaUsuario')->nullable();
             $table->boolean('password_changed')->default(false);
+            $table->string('ObservacionUser', 1024)->nullable();
             $table->timestamps(false);
         });
 

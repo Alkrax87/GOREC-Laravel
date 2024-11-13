@@ -102,6 +102,25 @@
                 </div>
               </div>
             @endif
+            @if ($usuario->asignacionesAsistente->isNotEmpty())
+              <div class="col-12 mt-2">
+                <div class="card text-white bg-dark">
+                  <div class="card-body pb-0">
+                    <div class="col-12">
+                      <b><i class="fas fa-eye"></i> Observación:</b>
+                      <ul style="text-align: justify;">
+                        @if (is_null($usuario->ObservacionUser))
+                          Ninguna Observación
+                        @else
+                          {{ $usuario->ObservacionUser }}
+                        @endif
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            @endif
+            
             <div class="col-12 py-2 text-center">
               <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>

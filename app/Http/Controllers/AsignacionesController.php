@@ -56,4 +56,37 @@ class AsignacionesController extends Controller
 
         return view('asignaciones.index', compact('inversiones','profesionales','asistentes','usuariosProfesionales','usuariosAsistentes','notificaciones'));
     }
+    public function update(Request $request, $id){
+
+        $request->validate([
+            'ObservacionUser' => 'nullable|string|max:1024',
+        ]);
+
+        // Buscar el asistente por ID (usando `User::findOrFail` si los asistentes están en esta tabla)
+        $usuario = User::findOrFail($id);
+
+        // Actualizar solo la observación para no sobreescribir otros datos
+        $usuario->update([
+            'ObservacionUser' => $request->input('ObservacionUser'),
+        ]);
+
+        return redirect()->back()->with('message_observacion', 'Observación actualizada correctamente para el asistente.');
+    }
+    public function showInversion($idInversion)
+{
+    // Suponiendo que tienes el jefe autenticado
+    $jefeId = Auth::user()->id;
+
+    // Obtén la inversión específica
+    $inversion = Inversion::findOrFail($idInversion);
+
+    // Obtén los profesionales y asistentes asignados al jefe
+    $profesionales = Profesional::whereHas('asistentes', function ($query) use ($jefeId) {
+        $query->where('idJefe', $jefeId);
+    })->get();
+
+    $asistentes = Asistente::where('idJefe', $jefeId)->get();
+
+    return view('nombre_de_tu_vista', compact('inversion', 'profesionales', 'asistentes'));
+}
 }

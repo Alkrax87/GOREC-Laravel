@@ -63,6 +63,10 @@
                 <th class="text-nowrap">Presupuesto Ejecución</th>
                 <th class="text-nowrap">Fecha Inicio Consistencia</th>
                 <th class="text-nowrap">Fecha Final Consistencia</th>
+                <th class="text-nowrap">Fecha Conformidad</th>
+                <th class="text-nowrap">Conformidad Tecnica</th>
+                <th class="text-nowrap">Fecha Acto Resolutivo</th>
+                <th class="text-nowrap">Acto Resolutivo URL <i class="fas fa-link"></i></th>
                 <th class="text-center">Extras</th>
                 <th class="text-center">Opciones</th>
               </tr>
@@ -121,6 +125,36 @@
                       Por Definir
                     @else
                       {{ $inversion->fechaFinalConsistenciaInversion }}
+                    @endif
+                  </td>
+                  <td class="text-center">
+                    <i class="fas fa-calendar-alt"></i>&nbsp;
+                    @if(is_null($inversion->Fecha_ConformidadTecnica_Inversion))
+                      Por Definir
+                    @else
+                      {{ $inversion->Fecha_ConformidadTecnica_Inversion }}
+                    @endif
+                  </td>
+                  <td class="text-nowrap"> @if ($inversion->ConformidadTecnica === 'SI')
+                    <span class="badge badge-success" ><i class="fas fa-check-circle"></i> SI</span>
+                    @elseif ($inversion->ConformidadTecnica === 'NO')
+                    <span class="badge badge-danger"><i class="fas fa-times-circle"></i> NO</span>
+                    @endif
+                  </td>
+                  <td class="text-center">
+                    <i class="fas fa-calendar-alt"></i>&nbsp;
+                    @if(is_null($inversion->fecha_ActoResolutivo_Inversion))
+                      Por Definir
+                    @else
+                      {{ $inversion->fecha_ActoResolutivo_Inversion }}
+                    @endif
+                  </td>
+                  <td class="text-center">
+                    &nbsp;
+                    @if(is_null($inversion->ActoResolutivo_URL))
+                      Por Definir
+                    @else
+                      {{ $inversion->ActoResolutivo_URL }}
                     @endif
                   </td>
                   <td class="text-center text-nowrap">

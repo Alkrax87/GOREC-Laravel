@@ -23,6 +23,7 @@ class User extends Authenticatable
         'isAdmin',
         'isAdministrativo',
         'categoriaUsuario',
+        'ObservacionUser',
     ];
 
     // Ocultamos el campo password

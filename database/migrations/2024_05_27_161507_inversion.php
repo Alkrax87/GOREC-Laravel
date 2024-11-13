@@ -28,6 +28,10 @@ return new class extends Migration
             $table->decimal('presupuestoEjecucionInversion', 23, 2);
             $table->date('fechaInicioConsistenciaInversion')->nullable();
             $table->date('fechaFinalConsistenciaInversion')->nullable();
+            $table->date('Fecha_ConformidadTecnica_Inversion')->nullable();
+            $table->string('ConformidadTecnica')->nullable();
+            $table->date('fecha_ActoResolutivo_Inversion')->nullable();
+            $table->string('ActoResolutivo_URL')->nullable();
             $table->binary('archivoInversion')->nullable();
             $table->timestamps(false);
         });

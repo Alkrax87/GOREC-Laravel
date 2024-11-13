@@ -98,6 +98,9 @@
                   @endforeach
                 </div>
               </div>
+              <div>
+                <input type="hidden" class="form-control input-auth" name="ObservacionUser" value="{{ $usuario->ObservacionUser }}">
+              </div>
               <!-- <div class="form-outline mb-4">
                 <label class="form-label">Especialidad</label>
                 <button type="button" class="btn btn-success btn-sm mb-2" onclick="addEspecialidadEdit({{$usuario->idUsuario}})"><i class="fas fa-plus"></i></button>

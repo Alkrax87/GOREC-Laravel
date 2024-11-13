@@ -37,6 +37,10 @@ class Inversion extends Model
         'presupuestoEjecucionInversion',
         'fechaInicioConsistenciaInversion',
         'fechaFinalConsistenciaInversion',
+        'Fecha_ConformidadTecnica_Inversion',
+        'ConformidadTecnica',
+        'fecha_ActoResolutivo_Inversion',
+        'ActoResolutivo_URL',
         'archivoInversion',
     ];
 

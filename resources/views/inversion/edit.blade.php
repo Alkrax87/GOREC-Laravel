@@ -186,6 +186,27 @@
               </select>
             </div>
             <div class="col-12">
+              <h6 class="text-center">Conformidad Técnica</h6>
+              <div class="row align-items-center">
+                <!-- FECHA -->
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha</label>
+                  <input type="date" name="Fecha_ConformidadTecnica_Inversion" value="{{ $inversion->Fecha_ConformidadTecnica_Inversion }}" class="input-auth" />
+                </div>
+                <!-- SI / NO / EN ESPERA -->
+                <div class="col-6 d-flex align-items-center">
+                  <div class="form-check me-4">
+                    <input class="form-check-input" type="radio" name="ConformidadTecnica" id="envioSi" value="SI" {{ $inversion->ConformidadTecnica === 'SI' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="envioSi">Sí</label>
+                  </div>
+                  <div class="form-check me-3">
+                    <input class="form-check-input" type="radio" name="ConformidadTecnica" id="envioNo" value="NO" {{ $inversion->ConformidadTecnica === 'NO' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="envioNo">No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
               <h6 class="text-center">Aprobación de Consistencia</h6>
               <div class="row">
                 <div class="col-6 form-outline mb-4">
@@ -194,7 +215,20 @@
                 </div>
                 <div class="col-6 form-outline mb-4">
                   <label class="form-label">Fecha Final</label>
-                  <input type="date" name="fechaFinalConsistenciaInversion" value="{{ $inversion->fechaFinalConsistenciaInversion }}" class="input-auth"/>
+                  <input type="date" name="fechaFinalConsistenciaInversion" value="{{ $inversion->fechaFinalConsistenciaInversion }}" class="input-auth" />
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <h6 class="text-center">Acto Resolutivo</h6>
+              <div class="row">
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">Fecha Inicio</label>
+                  <input type="date" name="fecha_ActoResolutivo_Inversion" value="{{ $inversion->fecha_ActoResolutivo_Inversion }}" class="input-auth"/>
+                </div>
+                <div class="col-6 form-outline mb-4">
+                  <label class="form-label">URL <i class="fas fa-link"></i></label>
+                  <input type="text" name="ActoResolutivo_URL" value="{{ $inversion->ActoResolutivo_URL }}" class="input-auth" placeholder="Ingrese Url"/>
                 </div>
               </div>
             </div>
