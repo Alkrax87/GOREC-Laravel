@@ -120,12 +120,12 @@
 											<!-- Usuario input -->
 											<div class="form-outline mb-4">
 												<label class="form-label">Usuario</label>
-												<input type="text" name="email" id="email" class="input-auth" required/>
+												<input type="text" name="email" id="email" class="input-auth" placeholder="Ingrese Usuario" required/>
 											</div>
 											<!-- Password input -->
 											<div class="form-outline mb-4">
 												<label class="form-label">Contraseña</label>
-												<input type="password" name="password" id="password" class="input-auth" required/>
+												<input type="password" name="password" id="password" placeholder="Ingrese Password" class="input-auth" required/>
 											</div>
 											<!-- Button -->
 											<div class="text-center">

@@ -119,6 +119,7 @@
 
       // Ocultar valores repetidos en la columna de "Inversión"
       // Agrupación de filas por "Inversión" usando rowspan
+      /*
       var lastInversion = null;
       var rowspan = 1;
 
@@ -135,7 +136,7 @@
           lastInversion = currentInversion;
           rowspan = 1;
         }
-      });
+      });*/
     });
   </script>
 @stop
@@ -152,7 +153,7 @@
     white-space: normal; /* Permite que el texto use varias líneas */
   }
 
-  td[rowspan] {
+  /*td[rowspan] {
     vertical-align: middle; /* Alinea el contenido en el centro cuando se usa rowspan */
   }
 
