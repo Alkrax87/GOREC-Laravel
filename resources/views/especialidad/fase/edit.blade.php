@@ -16,6 +16,13 @@
               <label class="form-label">Nombre</label>
               <input type="text" name="nombreFase" value="{{ $fase->nombreFase  }}" class="input-auth" placeholder="Nombre Fase" required/>
             </div>
+            <div class="col-4 form-outline mb-4">
+              <label class="form-label">Porcentaje Programado</label>
+              <div class="input-group">
+                <input type="number" class="form-control input-auth" name="porcentajeAvanceFase" value="{{ $fase->porcentajeAvanceFase }}" required min="0" max="100" step="0.01">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
             <div class="col-12 text-center">
               <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
               <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>

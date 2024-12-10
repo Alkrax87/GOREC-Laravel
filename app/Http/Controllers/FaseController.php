@@ -20,11 +20,24 @@ class FaseController extends Controller
             'idEspecialidad.exists' => 'La inversión seleccionada no existe.',
         ]);
 
+        $porcentaje = $request->porcentajeAvanceFase;
+        $totalPorcentaje = Fase::where('idEspecialidad', $request->idEspecialidad)
+                                       ->sum('porcentajeAvanceFase');
+        if ($totalPorcentaje + $porcentaje > 100) {
+            return redirect()->back()->with('errorPorcentajefase', 'La suma de los porcentajes de las fases no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
+        }
+        
+        $fase = Fase::create([
+            'nombreFase' => $request->nombreFase,
+            'porcentajeAvanceFase' => $request->porcentajeAvanceFase,
+            'avanceTotalFase' => 0,
+            'idEspecialidad' => $request->idEspecialidad,
+        ]);
         // Creamos un registro
-        Fase::create($request->all());
+        //Fase::create($request->all());
 
         // Calculamos el avance
-        $this->recalcularPorcentajeAvanceFase();
+        //$this->recalcularPorcentajeAvanceFase();
 
         // Calculamos el avance total
         $this->recalcularAvanceTotalFase();
@@ -44,11 +57,27 @@ class FaseController extends Controller
         // Buscamos la fase
         $fase = Fase::findOrFail($id);
 
-        // Editamos la inversión
-        $fase->update($request->all());
+        // Obtener el porcentaje de avance de la especialidad actual
+        $nuevoPorcentaje = $request->porcentajeAvanceFase;
+        $porcentajeAnterior = $fase->porcentajeAvanceFase;
 
+        // Verificar la suma de los porcentajes en la inversión
+         $totalPorcentaje = Fase::where('idEspecialidad', $request->idEspecialidad)
+                                       ->sum('porcentajeAvanceFase');
+        if ($totalPorcentaje + $nuevoPorcentaje - $porcentajeAnterior > 100) {
+            return redirect()->back()->with('errorPorcentajefase', 'La suma de los porcentajes de las fases no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
+        }
+        
+        $fase->update([
+            'nombreFase' => $request->nombreFase,
+            'porcentajeAvanceFase' => $request->porcentajeAvanceFase,
+            'avanceTotalFase' => 0,
+        ]);
+        // Editamos la inversión
+        //$fase->update($request->all());
+        $this->recalcularAvanceTotalFase();
         // Calculamos el avance
-        $this->recalcularPorcentajeAvanceFase();
+        //$this->recalcularPorcentajeAvanceFase();
 
         return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $request->nombreFase . ' ha sido actualizada correctamente.');
     }

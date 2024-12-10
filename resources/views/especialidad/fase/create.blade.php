@@ -29,6 +29,13 @@
                   <label class="form-label">Nombre Actividad</label>
                   <input type="text" name="nombreFase" class="input-auth" required />
                 </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label">Porcentaje Programado</label>
+                  <div class="input-group">
+                    <input type="number" class="form-control input-auth" value="0" name="porcentajeAvanceFase" required min="0" max="100" step="0.01">
+                    <span class="input-group-text">%</span>
+                  </div>
+                </div>
               </div>
               <div class="col-12 py-2 text-center">
                 <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>

@@ -59,6 +59,12 @@
               <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentaje }}</p>
             </div>
           @endif
+          @if ($errorPorcentajefase = Session::get('errorPorcentajefase'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentajefase }}</p>
+            </div>
+          @endif
           @if ($errorusuario = Session::get('errorusuario'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
