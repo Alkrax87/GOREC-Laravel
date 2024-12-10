@@ -24,6 +24,7 @@ class Inversion extends Model
         'nombreInversion',
         'nombreCortoInversion',
         'idUsuario',
+        'idCordinador',
         'provinciaInversion',
         'distritoInversion',
         'nivelInversion',
@@ -47,6 +48,11 @@ class Inversion extends Model
     // Define la relación con el modelo User
     public function usuario(){
         return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
+    }
+
+    // Define la relación con el modelo User
+    public function cordinador(){
+        return $this->belongsTo(User::class, 'idCordinador', 'idUsuario');
     }
 
     // Define la relación con el modelo Segmento

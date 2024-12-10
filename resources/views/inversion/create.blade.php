@@ -66,6 +66,38 @@
                     @endforeach
                   </select>
                 </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="idCordinador">Coordinador</label>
+                  <select name="idCordinador" id="idCordinador" class="form-select form-select-sm input-auth" required>
+                    <option value="" disabled selected>Selecciona un usuario</option>
+                    @foreach ($usuarios as $usuario)
+                      <option value="{{ $usuario->idUsuario }}">
+                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                        P: (
+                          @if ($usuario->profesiones->isNotEmpty())
+                            @foreach ($usuario->profesiones as $profesion)
+                              {{ $profesion->nombreProfesion }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                          &nbsp; | &nbsp;
+                          E: (
+                          @if ($usuario->especialidades->isNotEmpty())
+                            @foreach ($usuario->especialidades as $especialidad)
+                              {{ $especialidad->nombreEspecialidad }}
+                              @if (!$loop->last)
+                                ,
+                              @endif
+                            @endforeach
+                          @endif
+                          )
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
                 <div class="row">
                   <div class="col-6 form-outline mb-4">
                     <label class="form-label" for="provinciaInversion">Provincia</label>
