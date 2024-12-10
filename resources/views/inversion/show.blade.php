@@ -44,6 +44,30 @@
               @endif
               )
             </div>
+            <div class="col-12 py-2">
+              <b><i class="fas fa-portrait"></i> Coordinador:</b>&nbsp; {{ strtoupper($inversion->cordinador->nombreUsuario . ' ' . $inversion->cordinador->apellidoUsuario) }}
+              ( P: 
+              @if ($inversion->cordinador->profesiones->isNotEmpty())
+                  @foreach ($inversion->cordinador->profesiones as $profesion)
+                    {{ $profesion->nombreProfesion }}
+                    @if (!$loop->last)
+                        ,
+                    @endif
+                  @endforeach
+              @endif
+              )
+              &nbsp; | &nbsp;
+              ( E: 
+              @if ($inversion->cordinador->especialidades->isNotEmpty())
+                  @foreach ($inversion->cordinador->especialidades as $especialidad)
+                    {{ $especialidad->nombreEspecialidad }}
+                    @if (!$loop->last)
+                        ,
+                    @endif
+                  @endforeach
+              @endif
+              )
+            </div>
             <div class="col-6 py-2">
               <b><i class="fas fa-map-marker-alt"></i> Provincia:</b>&nbsp; {{ $inversion->provinciaInversion }}
             </div>

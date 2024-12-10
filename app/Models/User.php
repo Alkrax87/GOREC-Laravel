@@ -55,6 +55,12 @@ class User extends Authenticatable
         return $this->hasMany(Inversion::class, 'idUsuario', 'idUsuario');
     }
 
+    // Define la relación con el modelo Inversión
+    public function inversionesComoCoordinador()
+    {
+        return $this->hasMany(Inversion::class, 'idCordinador', 'idUsuario');
+    }
+
     // Define la relación con el modelo EspecialidadUsers
     public function especialidad_users()
     {

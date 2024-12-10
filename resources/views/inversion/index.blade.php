@@ -50,6 +50,7 @@
                 <th class="text-nowrap" style="min-width: 400px">Nombre</th>
                 <th class="text-nowrap">Nombre Corto</th>
                 <th class="text-center">Responsable</th>
+                <th class="text-center">Coordinador</th>
                 <th class="text-center">Avance</th>
                 <th class="text-center">Provincia</th>
                 <th class="text-center">Distrito</th>
@@ -79,6 +80,7 @@
                   <td>{{ $inversion->nombreInversion }}</td>
                   <td>{{ $inversion->nombreCortoInversion }}</td>
                   <td class="text-nowrap text-center">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+                  <td class="text-nowrap text-center">{{ $inversion->cordinador->nombreUsuario . ' ' . $inversion->cordinador->apellidoUsuario }}</td>
                   <td class="project_progress text-nowrap">
                     <div class="progress">
                       <div class="progress-bar progress-bar-striped
