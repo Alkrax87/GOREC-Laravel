@@ -22,7 +22,7 @@
             </div>
             <div class="col-12 py-2">
               <b><i class="fas fa-portrait"></i> Responsable:</b>&nbsp; {{ strtoupper($inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario) }}
-              ( P: 
+              ( P:
               @if ($inversion->usuario->profesiones->isNotEmpty())
                   @foreach ($inversion->usuario->profesiones as $profesion)
                     {{ $profesion->nombreProfesion }}
@@ -33,7 +33,7 @@
               @endif
               )
               &nbsp; | &nbsp;
-              ( E: 
+              ( E:
               @if ($inversion->usuario->especialidades->isNotEmpty())
                   @foreach ($inversion->usuario->especialidades as $especialidad)
                     {{ $especialidad->nombreEspecialidad }}
@@ -44,30 +44,38 @@
               @endif
               )
             </div>
-            <div class="col-12 py-2">
-              <b><i class="fas fa-portrait"></i> Coordinador:</b>&nbsp; {{ strtoupper($inversion->cordinador->nombreUsuario . ' ' . $inversion->cordinador->apellidoUsuario) }}
-              ( P: 
-              @if ($inversion->cordinador->profesiones->isNotEmpty())
-                  @foreach ($inversion->cordinador->profesiones as $profesion)
-                    {{ $profesion->nombreProfesion }}
-                    @if (!$loop->last)
-                        ,
+            @if ($inversion->cordinador)
+                <div class="col-12 py-2">
+                    <b><i class="fas fa-portrait"></i> Coordinador:</b>&nbsp;
+                    {{ strtoupper(optional($inversion->cordinador)->nombreUsuario . ' ' . optional($inversion->cordinador)->apellidoUsuario ?? 'Sin coordinador') }}
+                    ( P:
+                    @if (optional(optional($inversion->cordinador)->profesiones)->isNotEmpty())
+                        @foreach (optional($inversion->cordinador)->profesiones as $profesion)
+                            {{ $profesion->nombreProfesion }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    @else
+                        Sin profesiones
                     @endif
-                  @endforeach
-              @endif
-              )
-              &nbsp; | &nbsp;
-              ( E: 
-              @if ($inversion->cordinador->especialidades->isNotEmpty())
-                  @foreach ($inversion->cordinador->especialidades as $especialidad)
-                    {{ $especialidad->nombreEspecialidad }}
-                    @if (!$loop->last)
-                        ,
+                    )
+                    &nbsp; | &nbsp;
+                    ( E:
+                    @if (optional(optional($inversion->cordinador)->especialidades)->isNotEmpty())
+                        @foreach (optional($inversion->cordinador)->especialidades as $especialidad)
+                            {{ $especialidad->nombreEspecialidad }}
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    @else
+                        Sin especialidades
                     @endif
-                  @endforeach
-              @endif
-              )
-            </div>
+                    )
+                </div>
+            @endif
+
             <div class="col-6 py-2">
               <b><i class="fas fa-map-marker-alt"></i> Provincia:</b>&nbsp; {{ $inversion->provinciaInversion }}
             </div>
