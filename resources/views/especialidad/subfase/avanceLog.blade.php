@@ -1,4 +1,4 @@
-<div class="modal fade text-left" id="ModalLog{{$subfase->idSubfase}}">
+<div class="modal fade text-left" id="ModalLog{{ $subfase->idSubfase }}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">

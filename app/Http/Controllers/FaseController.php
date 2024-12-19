@@ -1,15 +1,53 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\AvanceLog;
+use Auth;
 use Illuminate\Http\Request;
 use App\Models\Fase;
 use App\Models\SubFase;
+use App\Models\Inversion;
 use App\Models\Especialidad;
 
 class FaseController extends Controller
 {
+    public function index($id)
+    {
+        $user = Auth::user();
+
+        if ($user->isAdmin) {
+            $especialidad = Especialidad::findOrFail($id);
+            $fases = Fase::where('idEspecialidad', $id)->get();
+            $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
+
+            // Obtenermos los logs de las subfases
+            $subfaseIds = $subfases->pluck('idSubfase');
+            $logs = AvanceLog::whereIn('idSubfase', $subfaseIds)->get();
+
+            return view('especialidad.fase.index', compact('especialidad', 'fases', 'subfases', 'logs'));
+        } else {
+            // obtener las invesiones donde el usuario esta asignado
+            $inveriones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $especialidadFind = Especialidad::whereIn('idInversion', $inveriones->pluck('idInversion'))->get();
+            if ($especialidadFind->count() > 0) {
+                $especialidad = Especialidad::findOrFail($id);
+                $fases = Fase::where('idEspecialidad', $id)->get();
+                $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
+
+                // Obtenermos los logs de las subfases
+                $subfaseIds = $subfases->pluck('idSubfase');
+                $logs = AvanceLog::whereIn('idSubfase', $subfaseIds)->get();
+
+                return view('especialidad.fase.index', compact('especialidad', 'fases', 'subfases', 'logs'));
+            } else {
+                return redirect()->route('especialidad.index')->with('message', 'No tienes permisos para acceder a esta especialidad.');
+            }
+        }
+    }
+
     // Funcion de agregar un registro
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         // Validaciones
         $request->validate([
             'nombreFase' => 'required|string|max:255',
@@ -29,11 +67,12 @@ class FaseController extends Controller
         // Calculamos el avance total
         $this->recalcularAvanceTotalFase();
 
-        return redirect()->route('especialidad.index')->with('message','La Fase ' . $request->nombreFase . ' ha sido creada correctamente.');
+        return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $request->nombreFase . ' ha sido creada correctamente.');
     }
 
     // Función editar un registro
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         // Validaciones
         $request->validate([
             'nombreFase' => 'required|string|max:255',
@@ -53,7 +92,8 @@ class FaseController extends Controller
         return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $request->nombreFase . ' ha sido actualizada correctamente.');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         // Buscamos la fase
         $fase = Fase::findOrFail($id);
 
@@ -70,7 +110,8 @@ class FaseController extends Controller
     }
 
     // Funcion recalcular el porcentaje de Avance
-    private function recalcularPorcentajeAvanceFase(){
+    private function recalcularPorcentajeAvanceFase()
+    {
         // Obtener todas las fases agrupadas por idEspecialidad
         $fasesPorEspecialidad = Fase::all()->groupBy('idEspecialidad');
 
@@ -88,7 +129,8 @@ class FaseController extends Controller
     }
 
     // Funcion recalcular el porcentaje de avance total
-    private function recalcularAvanceTotalFase(){
+    private function recalcularAvanceTotalFase()
+    {
         // Buscamos las fases
         $fases = Fase::all();
 

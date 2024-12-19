@@ -14,7 +14,8 @@
             <div class="col-12">
               <div class="form-outline mb-4">
                 <label class="form-label">Inversión</label>
-                <select name="idInversion" id="idInversion-create" class="form-select form-select-sm input-auth" required>
+                <select name="idInversion" id="idInversion-create" class="form-select form-select-sm input-auth"
+                  required>
                   <option value="" disabled selected>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
                     <option value="{{ $inversion->idInversion }}">
@@ -26,26 +27,31 @@
               <div class="row">
                 <div class="col-8 form-outline mb-4">
                   <label class="form-label">Nombre Especialidad</label>
-                  <input type="text" name="nombreEspecialidad" class="input-auth" placeholder="Ingrese Especialidad" required />
+                  <input type="text" name="nombreEspecialidad" class="input-auth" placeholder="Ingrese Especialidad"
+                    required />
                 </div>
                 <div class="col-4 form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>
                   <div class="input-group">
-                    <input type="number" class="form-control input-auth" value="0" name="porcentajeAvanceEspecialidad" required min="0" max="100" step="0.01">
+                    <input type="number" class="form-control input-auth" value="0"
+                      name="porcentajeAvanceEspecialidad" required min="0" max="100" step="0.01">
                     <span class="input-group-text">%</span>
                   </div>
                 </div>
               </div>
               <div class="form-outline mb-4">
                 <label class="form-label" for="idUsuario">Proyectistas</label>
-                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuariosCreate()"><i class="fas fa-plus"></i></button>
+                <button type="button" class="btn btn-success btn-sm mb-2" onclick="addUsuariosCreate()"><i
+                    class="fas fa-plus"></i></button>
                 <div id="usuarios-container-create">
                   <div class="input-group mb-2">
-                    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required id="usuariosSelect-create">
+                    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required
+                      id="usuariosSelect-create">
                       <option value="" disabled selected>Selecciona un usuario</option>
                       <!-- Aquí se llenarán los usuarios dinámicamente -->
                     </select>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i
+                        class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
               </div>
@@ -69,24 +75,26 @@
 <script>
   $(document).ready(function() {
     // Ejecutar cuando el modal se muestra
-    $('#ModalCreate').on('shown.bs.modal', function () {
+    $('#ModalCreate').on('shown.bs.modal', function() {
       // Inicializar select2 en el select de inversión
       $('#idInversion-create').select2({
         placeholder: "Selecciona una inversión",
         allowClear: true,
-          language: {
-            noResults: function() {
-              return "No se encontró la inversión";
-            }
+        language: {
+          noResults: function() {
+            return "No se encontró la inversión";
           }
+        }
       });
       // Añadir el event listener al select de inversión solo una vez
       if (!$('#idInversion-create').data('listener-added')) {
         // Evento para manejar el cambio de selección en el select de inversión
         $('#idInversion-create').on('change', function() {
           const inversionId = this.value; // Obtener el ID de la inversión seleccionada
-          const usuariosSelect = document.getElementById('usuariosSelect-create'); // Obtener el select de usuarios
-          usuariosSelect.innerHTML = '<option value="" disabled selected>Selecciona un usuario</option>'; // Limpiar el select de usuarios
+          const usuariosSelect = document.getElementById(
+          'usuariosSelect-create'); // Obtener el select de usuarios
+          usuariosSelect.innerHTML =
+          '<option value="" disabled selected>Selecciona un usuario</option>'; // Limpiar el select de usuarios
           // Realizar una solicitud fetch para obtener los usuarios según la inversión seleccionada
           fetch(`/usuarios-por-inversion/${inversionId}`)
             .then(response => {
@@ -101,12 +109,15 @@
                 option.value = usuario.idUsuario;
                 // Construir el texto del option con profesiones y especialidades
                 const profesiones = usuario.profesiones.map(p => p.nombreProfesion).join(', ');
-                const especialidades = usuario.especialidades.map(e => e.nombreEspecialidad).join(', ');
-                option.innerHTML = `${usuario.nombreUsuario} ${usuario.apellidoUsuario} => P: (${profesiones}) &nbsp; | &nbsp; E: (${especialidades})`;
+                const especialidades = usuario.especialidades.map(e => e.nombreEspecialidad).join(
+                  ', ');
+                option.innerHTML =
+                  `${usuario.nombreUsuario} ${usuario.apellidoUsuario} => P: (${profesiones}) &nbsp; | &nbsp; E: (${especialidades})`;
                 usuariosSelect.appendChild(option); // Añadir el option al select de usuarios
               });
               // Actualizar todos los selects de usuarios en el contenedor
-              const allUserSelects = document.querySelectorAll('#usuarios-container-create select[name="idUsuario[]"]');
+              const allUserSelects = document.querySelectorAll(
+                '#usuarios-container-create select[name="idUsuario[]"]');
               allUserSelects.forEach(select => {
                 if (select !== usuariosSelect) {
                   select.innerHTML = usuariosSelect.innerHTML;
@@ -120,7 +131,7 @@
     });
 
     // Destruir el select2 en el select de inversión cuando se cierra el modal
-    $('#ModalCreate').on('hidden.bs.modal', function () {
+    $('#ModalCreate').on('hidden.bs.modal', function() {
       $('#idInversion-create').select2('destroy');
     });
   });
@@ -134,7 +145,8 @@
     const newSelect = usuariosSelect.cloneNode(true); // Clonar el select principal
     newSelect.id = ''; // Eliminar el id del nuevo select clonado
     div.appendChild(newSelect); // Añadir el nuevo select al div
-    div.innerHTML += `<button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>`; // Añadir un botón para eliminar el div
+    div.innerHTML +=
+      `<button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i class="fas fa-trash-alt"></i></button>`; // Añadir un botón para eliminar el div
     container.appendChild(div); // Añadir el div al contenedor de usuarios
   }
 
@@ -161,31 +173,39 @@
     border-radius: 0.25rem;
     transition: all 0.3s ease-in-out;
   }
+
   .input-auth:focus {
     border-color: #72081f;
     outline: none;
     box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
   }
+
   .input-autht:focus::placeholder {
     color: transparent;
   }
 </style>
 <style>
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 24px;
+    padding-left: 10px;
+    /* Ajustar el padding izquierdo */
+    /* Asegurar que el texto esté alineado a la izquierda */
+  }
 
-  .select2-container--default .select2-selection--single .select2-selection__rendered { 
-      line-height: 24px;
-      padding-left: 10px; /* Ajustar el padding izquierdo */
-       /* Asegurar que el texto esté alineado a la izquierda */
-    }
-    .select2-container .select2-selection--single {
-      height: 35px;
-      padding-left: 0px; /* Ajustar el padding izquierdo */
-    }
-      .select2-container .select2-dropdown {
-        z-index: 9999;
-      }
-      .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
-        background-color: #9C0C27 !important; /* Cambia este color al que desees */
-        color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
-    }
-  </style>
+  .select2-container .select2-selection--single {
+    height: 35px;
+    padding-left: 0px;
+    /* Ajustar el padding izquierdo */
+  }
+
+  .select2-container .select2-dropdown {
+    z-index: 9999;
+  }
+
+  .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #9C0C27 !important;
+    /* Cambia este color al que desees */
+    color: rgb(248, 243, 243) !important;
+    /* Cambia el color del texto si es necesario */
+  }
+</style>

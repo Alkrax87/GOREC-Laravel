@@ -11,9 +11,11 @@
         </div>
         <div class="modal-body pt-0">
           <div class="form-group">
-            <input type="hidden" name="idFase" value="{{ $fase->idFase}}">
+            <input type="hidden" name="idFase" value="{{ $fase->idFase }}">
           </div>
-          <button type="button" class="btn btn-success mb-2" onclick="addSubfase({{ $fase->idFase }})"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-success mb-2" onclick="addSubfase({{ $fase->idFase }})">
+            <i class="fas fa-plus"></i>
+          </button>
           <div id="subfases-container-{{ $fase->idFase }}">
             <div class="subfase">
               <div class="card border-dark mb-3">
@@ -26,19 +28,21 @@
                     <div class="col-4 form-outline mb-4">
                       <label class="form-label">Avance (%)</label>
                       <div class="input-group">
-                        <input type="number" value="0" class="form-control input-auth" name="subfases[0][avance_por_usuario_realSubFase]" required min="0" max="100" step="0.01">
+                        <input type="number" value="0" class="form-control input-auth"
+                          name="subfases[0][avance_por_usuario_realSubFase]" required min="0" max="100"
+                          step="0.01">
                         <span class="input-group-text">%</span>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-6 form-outline mb-4">
+                    <div class="col-6 form-outline">
                       <label class="form-label">Fecha Inicio</label>
-                      <input type="date" name="subfases[0][fechaInicioSubfase]" class="input-auth" required/>
+                      <input type="date" name="subfases[0][fechaInicioSubfase]" class="input-auth" required />
                     </div>
-                    <div class="col-6 form-outline mb-4">
+                    <div class="col-6 form-outline">
                       <label class="form-label">Fecha Final</label>
-                      <input type="date" name="subfases[0][fechaFinalSubfase]" class="input-auth" required/>
+                      <input type="date" name="subfases[0][fechaFinalSubfase]" class="input-auth" required />
                     </div>
                   </div>
                 </div>
@@ -46,8 +50,12 @@
             </div>
           </div>
           <div class="col-12 py-2 text-center">
-            <button class="btn btn-primary mx-1" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
-            <button type="submit" class="btn btn-success mx-1"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar</button>
+            <button class="btn btn-primary mx-1" data-dismiss="modal">
+              <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+            </button>
+            <button type="submit" class="btn btn-success mx-1">
+              <i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar
+            </button>
           </div>
         </div>
       </div>
@@ -77,11 +85,11 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-6 form-outline mb-4">
+            <div class="col-6 form-outline">
               <label class="form-label">Fecha Inicio</label>
               <input type="date" name="subfases[${index}][fechaInicioSubfase]" class="input-auth" required/>
             </div>
-            <div class="col-6 form-outline mb-4">
+            <div class="col-6 form-outline">
               <label class="form-label">Fecha Final</label>
               <input type="date" name="subfases[${index}][fechaFinalSubfase]" class="input-auth" required/>
             </div>
@@ -98,11 +106,12 @@
   }
 </script>
 <style>
-  .carf-new{
+  .carf-new {
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
   }
-  .delete{
+
+  .delete {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
   }

@@ -11,35 +11,36 @@
     <div class="card-body">
       <div class="row">
         <div class="col-12">
-          <!-- Agregar -->
           <div class="row">
-            <div class="col-6">
-              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Crear Especialidad</button>
+            <!-- Agregar -->
+            <div class="col-9 d-flex align-items-end">
+              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate">
+                <i class="fas fa-plus"></i>&nbsp;&nbsp; Crear Especialidad
+              </button>
             </div>
-            <div class="col-3 offset-3 text-end">
-                <form action="{{ route('especialidad.pdf') }}" method="GET" target="_blank">
-                  
-                    <label  class="form-label" style="text-align: left; display: block;">Inversión:</label>
-                    <select name="idInversion" id="idInversion-especialidad" class="form-select form-select-sm input-auth" required>
-                        <option value="" disabled selected>Selecciona una inversión</option>
-                        @foreach ($inversiones as $inversion)
-                            <option value="{{ $inversion->idInversion }}">
-                                {{ $inversion->nombreCortoInversion }}
-                            </option>
-                        @endforeach
-                    </select>
-                    <br>
-                    <br>
-                   
-                    <button type="submit" class="btn btn-dark"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</button>
-                </form>
+            <!-- Imprimir -->
+            <div class="col-3 mb-4">
+              <form action="{{ route('especialidad.pdf') }}" method="GET" target="_blank">
+                <label class="form-label" style="text-align: left; display: block;">Inversión:</label>
+                <select name="idInversion" id="idInversion-especialidad" class="form-select form-select-sm input-auth"
+                  required>
+                  <option value="" disabled selected>Selecciona una inversión</option>
+                  @foreach ($inversiones as $inversion)
+                    <option value="{{ $inversion->idInversion }}">
+                      {{ $inversion->nombreCortoInversion }}
+                    </option>
+                  @endforeach
+                </select>
+                <button type="submit" class="btn btn-dark w-100"><i class="fas fa-print"></i>&nbsp;&nbsp;
+                  Imprimir</button>
+              </form>
             </div>
           </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {!! session('message') !!}</p>   
+              <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {!! session('message') !!}</p>
             </div>
           @endif
           @if ($errors->any())
@@ -56,13 +57,25 @@
           @if ($errorPorcentaje = Session::get('errorPorcentaje'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentaje }}</p>
+              <p class="alert-message mb-0">
+                <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentaje }}
+              </p>
+            </div>
+          @endif
+          @if ($errorPorcentajefase = Session::get('errorPorcentajefase'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0">
+                <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentajefase }}
+              </p>
             </div>
           @endif
           @if ($errorusuario = Session::get('errorusuario'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorusuario }}</p>
+              <p class="alert-message mb-0">
+                <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorusuario }}
+              </p>
             </div>
           @endif
           <!-- Tabla -->
@@ -88,14 +101,14 @@
                     <td class="text-center text-nowrap">{{ $especialidad->nombreEspecialidad }}</td>
                     <td class="text-nowrap text-center">
                       @foreach ($especialidad->usuarios as $usuario)
-                        <i class="fas fa-caret-right"></i> {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}<br>
+                        <i class="fas fa-caret-right"></i>
+                        {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}<br>
                       @endforeach
                     </td>
                     <td class="project_progress text-nowrap">
                       <div class="progress">
                         <div class="progress-bar progress-bar-striped bg-info" role="progressbar"
-                          aria-valuenow="{{ $especialidad->porcentajeAvanceEspecialidad }}"
-                          aria-valuemin="0"
+                          aria-valuenow="{{ $especialidad->porcentajeAvanceEspecialidad }}" aria-valuemin="0"
                           aria-valuemax="{{ $especialidad->porcentajeAvanceEspecialidad }}"
                           style="width: {{ $especialidad->porcentajeAvanceEspecialidad }}%">
                         </div>
@@ -106,21 +119,22 @@
                     </td>
                     <td class="project_progress text-nowrap">
                       <div class="progress">
-                        <div class="progress-bar progress-bar-striped
-                          @if($especialidad->avanceTotalEspecialidad < ($especialidad->porcentajeAvanceEspecialidad*0.25))
-                              bg-danger
-                          @elseif($especialidad->avanceTotalEspecialidad >= ($especialidad->porcentajeAvanceEspecialidad*0.25) && $especialidad->avanceTotalEspecialidad < ($especialidad->porcentajeAvanceEspecialidad*0.75))
+                        <div
+                          class="progress-bar progress-bar-striped
+                          @if ($especialidad->avanceTotalEspecialidad < $especialidad->porcentajeAvanceEspecialidad * 0.25) bg-danger
+                          @elseif(
+                              $especialidad->avanceTotalEspecialidad >= $especialidad->porcentajeAvanceEspecialidad * 0.25 &&
+                                  $especialidad->avanceTotalEspecialidad < $especialidad->porcentajeAvanceEspecialidad * 0.75)
                               bg-warning
-                          @elseif($especialidad->avanceTotalEspecialidad >= ($especialidad->porcentajeAvanceEspecialidad*0.75) && $especialidad->avanceTotalEspecialidad < $especialidad->porcentajeAvanceEspecialidad)
+                          @elseif(
+                              $especialidad->avanceTotalEspecialidad >= $especialidad->porcentajeAvanceEspecialidad * 0.75 &&
+                                  $especialidad->avanceTotalEspecialidad < $especialidad->porcentajeAvanceEspecialidad)
                               bg-success
                           @else
-                              bg-info
-                          @endif"
-                          role="progressbar"
-                          aria-valuenow="{{ $especialidad->avanceTotalEspecialidad }}"
-                          aria-valuemin="0"
-                          aria-valuemax="{{ $especialidad->porcentajeAvanceEspecialidad }}"
-                          style="width: {{$especialidad->avanceTotalEspecialidad }}%">
+                              bg-info @endif"
+                          role="progressbar" aria-valuenow="{{ $especialidad->avanceTotalEspecialidad }}"
+                          aria-valuemin="0" aria-valuemax="{{ $especialidad->porcentajeAvanceEspecialidad }}"
+                          style="width: {{ $especialidad->avanceTotalEspecialidad }}%">
                         </div>
                       </div>
                       <div class="w-100 text-center">
@@ -128,16 +142,35 @@
                       </div>
                     </td>
                     <td class="text-center text-nowrap">
-                      <a class="btn bg-olive color-palette" data-toggle="modal" data-target="#ModalFase{{ $especialidad->idEspecialidad }}"><i class="fas fa-briefcase"></i> Actividades</a>
+                      <a class="btn bg-olive color-palette"
+                        href="{{ route('especialidad.actividades', ['id' => $especialidad->idEspecialidad]) }}">
+                        <i class="fas fa-briefcase"></i> Actividades
+                      </a>
                     </td>
-                    <td class="text-center" style="white-space: nowrap"">
-                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{ $especialidad->idEspecialidad }}"><i class="fas fa-eye"></i></a>
+                    <td class="text-center text-nowrap">
+                      <a class="btn btn-info"
+                        href="{{ route('especialidad.show', ['id' => $especialidad->idEspecialidad]) }}">
+                        <i class="fas fa-eye"></i>
+                      </a>
                       @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $especialidad->inversion->idUsuario)
-                        <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceEspecialidadLog{{$especialidad->idEspecialidad}}"><i class="fas fa-chart-line"></i></a>
-                        <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEditEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-edit"></i></a>
-                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDeleteEspecialidad{{ $especialidad->idEspecialidad }}"><i class="fas fa-trash-alt"></i></a>
+                        <a class="btn btn-secondary"
+                          href="{{ route('especialidad.avance', ['id' => $especialidad->idEspecialidad]) }}">
+                          <i class="fas fa-chart-line"></i>
+                        </a>
+                        <a class="btn btn-warning"
+                          href="{{route('especialidad.edit', ['id' => $especialidad->idEspecialidad])}}">
+                          <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="{{ route('especialidad.destroy', $especialidad->idEspecialidad) }}"
+                          method="POST" style="display:inline-block;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de borrar {{$especialidad->nombreEspecialidad}}?')">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </form>
                       @endif
-                      </td>
+                    </td>
                   </tr>
                 @endforeach
               </tbody>
@@ -147,20 +180,15 @@
         </div>
       </div>
       @foreach ($especialidades as $especialidad)
-        @include('especialidad.fase.index', [
+        {{-- @include('especialidad.show', [
           'especialidad' => $especialidad,
           'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
-        ])
-        @include('especialidad.show', [
-          'especialidad' => $especialidad,
-          'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
-        ])
-        @include('especialidad.delete', ['especialidad' => $especialidad])
-        @include('especialidad.edit', ['especialidad' => $especialidad])
-        @include('especialidad.avanceEspecialidadLog', [
+        ]) --}}
+        {{-- @include('especialidad.edit', ['especialidad' => $especialidad]) --}}
+        {{-- @include('especialidad.avanceEspecialidadLog', [
           'especialidad' => $especialidad,
           'logs' => $avanceEstadoLogs->where('idEspecialidad', $especialidad->idEspecialidad),
-        ])
+        ]) --}}
       @endforeach
     </div>
   </div>
@@ -169,16 +197,20 @@
 @section('content_top_nav_right')
   <li class="nav-item dropdown">
     <a class="nav-link" data-toggle="dropdown" aria-expanded="false">
-      <i class="fas fa-bell"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-danger ml-3 navbar-badge"> {{ count($notificaciones) }}</span>
+      <i class="fas fa-bell"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-danger ml-3 navbar-badge">
+        {{ count($notificaciones) }}</span>
     </a>
-    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: 600px;">
-      <spa style="background-color: #9C0C27; color: azure;" class="dropdown-item dropdown-header text-center"><i class="fas fa-bell"></i> {{ count($notificaciones) }} Notificationes</spa>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"
+      style="left: inherit; right: 0px; min-width: 600px;">
+      <spa style="background-color: #9C0C27; color: azure;" class="dropdown-item dropdown-header text-center"><i
+          class="fas fa-bell"></i> {{ count($notificaciones) }} Notificationes</spa>
       <div class="dropdown-divider"></div>
       @foreach ($notificaciones as $notificacion)
         <div class="dropdown-item">
           <span><i class="fas fa-clipboard-list"></i>&nbsp; <b>INVERSIÓN</b></span>
           <p>{{ $notificacion->nombreCortoInversion }} esta por finalizar.</p>
-          <p class="pt-2 text-end"><i class="fas fa-calendar-alt"></i> Fecha de finalización: {{ $notificacion->fechaFinalInversion }}</p>
+          <p class="pt-2 text-end"><i class="fas fa-calendar-alt"></i> Fecha de finalización:
+            {{ $notificacion->fechaFinalInversion }}</p>
         </div>
       @endforeach
       <div class="dropdown-divider"></div>
@@ -190,22 +222,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
-  <style>
-    a {
-      text-decoration: none;
-    }
-    .btn-option{
-      height: 38px;
-    }
-    .btn-option i{
-      padding-top: 4px;
-    }
-    .select2-container .select2-selection--single {
-    text-align: left;
-}
-  </style>
-  <!--estilos para los select2-->
-  
 @stop
 
 @section('js')
@@ -216,17 +232,17 @@
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
   <script>
     $(document).ready(function() {
-        $('#idInversion-especialidad').select2({
-          placeholder: "Selecciona una inversion",
-          allowClear: true,
-          width: '100%', 
-            language: {
-              noResults: function() {
-                return "No se encontró la inversión";
-              }
-            }
-        });
+      $('#idInversion-especialidad').select2({
+        placeholder: "Selecciona una inversion",
+        allowClear: true,
+        width: '100%',
+        language: {
+          noResults: function() {
+            return "No se encontró la inversión";
+          }
+        }
       });
+    });
   </script>
   <script>
     $(document).ready(function() {

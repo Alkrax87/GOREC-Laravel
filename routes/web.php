@@ -29,9 +29,9 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login');
 
 // Rutas protegidas (requieren autenticación)
 Route::middleware('auth')->group(function () {
-    Route::get('inversion/pdfs',[InversionController::class, 'pdfs'])->name('inversion.pdfs');
-    Route::get('inversion/pdf/{id}',[InversionController::class, 'pdf'])->name('inversion.pdf');
-    Route::get('especialidad/pdf',[EspecialidadController::class, 'pdf'])->name('especialidad.pdf');
+    Route::get('inversion/pdfs', [InversionController::class, 'pdfs'])->name('inversion.pdfs');
+    Route::get('inversion/pdf/{id}', [InversionController::class, 'pdf'])->name('inversion.pdf');
+    Route::get('especialidad/pdf', [EspecialidadController::class, 'pdf'])->name('especialidad.pdf');
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
     Route::resource('inversion', InversionController::class);
     Route::resource('usuario', UserController::class)->middleware([AdminMiddleware::class]);
@@ -40,10 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('asignaciones', AsignacionesController::class);
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);
-    Route::resource('especialidad', EspecialidadController::class);
+
     Route::resource('complementario', ComplementarioController::class);
     Route::resource('subfase', SubFaseController::class);
-    Route::resource('fase', FaseController::class);
     Route::resource('reportes', Reportes::class);
     Route::resource('servicios', ServiciosController::class)->middleware([AdministradorMiddleware::class]);
     Route::resource('bienes', BienesController::class)->middleware([AdministradorMiddleware::class]);
@@ -64,6 +63,19 @@ Route::middleware('auth')->group(function () {
 
     Route::post('reportes/generate-pdf', [Reportes::class, 'generatePDF'])->name('reportes.graficos');
 
+    // ======= Especialidad =========
+    // Route::resource('especialidad', EspecialidadController::class);
+    Route::get('/especialidad', [EspecialidadController::class, 'index'])->name('especialidad.index');
+    Route::post('/especialidad', [EspecialidadController::class, 'store'])->name('especialidad.store');
+    Route::get('/especialidad/edit/{id}', [EspecialidadController::class, 'edit'])->name('especialidad.edit');
+    Route::post('/especialidad/update/{id}', [EspecialidadController::class, 'update'])->name('especialidad.update');
+    Route::get('/especialidad/show/{id}', [EspecialidadController::class, 'show'])->name('especialidad.show');
+    Route::get('/especialidad/avance/{id}', [EspecialidadController::class, 'avance'])->name('especialidad.avance');
+    Route::delete('/especialidad/{id}', [EspecialidadController::class, 'destroy'])->name('especialidad.destroy');
+
+    // =========== Fase =============
+    Route::resource('fase', FaseController::class);
+    Route::get('/especialidad/actividades/{id}', [FaseController::class, 'index'])->name('especialidad.actividades');
 
 
     // Cerrar sesión
