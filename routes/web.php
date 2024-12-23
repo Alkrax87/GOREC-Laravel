@@ -74,9 +74,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/especialidad/{id}', [EspecialidadController::class, 'destroy'])->name('especialidad.destroy');
 
     // =========== Fase =============
-    Route::resource('fase', FaseController::class);
+    Route::resource('fase', FaseController::class)->except(['show']);
     Route::get('/especialidad/actividades/{id}', [FaseController::class, 'index'])->name('especialidad.actividades');
-
+    Route::get('/fase/{id}', [FaseController::class, 'index'])->name('fase.index');
 
     // Cerrar sesión
     Route::post('/logout', 'App\Http\Controllers\HomeController@logout')->name('logout');

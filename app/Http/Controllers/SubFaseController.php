@@ -109,7 +109,15 @@ class SubFaseController extends Controller
             $fase->save();
         }
 
-        return redirect()->route('especialidad.index')->with('message', 'La Sub Actividades creadas con éxito');
+        // Obtener los nombres de todas las subfases y concatenarlos
+        $subfaseNombres = collect($request->subfases)
+        ->pluck('nombreSubfase')  // Obtener solo los nombres de las subfases
+        ->implode(', ');          // Concatenar los nombres con coma y espacio
+
+        // Redirigir con el mensaje que contiene todos los nombres de las subfases
+        return redirect()->route('fase.index', ['id' => $request->idFase])
+        ->with('message', 'Las Sub Actividades ' . $subfaseNombres . ' creadas con éxito');
+
     }
 
     // Funcion editar un registro
@@ -197,7 +205,7 @@ class SubFaseController extends Controller
             $fase->save();
         }
 
-        return redirect()->route('especialidad.index')->with('message', 'La Sub Actividad ' . $request->nombreSubfase . ' actualizada con éxito');
+        return redirect()->route('fase.index', ['id' => $subfase->idFase])->with('message', 'La Sub Actividad ' . $request->nombreSubfase . ' actualizada con éxito');
     }
 
     public function destroy($id){
@@ -235,7 +243,7 @@ class SubFaseController extends Controller
             $fase->save();
         }
 
-        return redirect()->route('especialidad.index')->with('message', 'La Sub Actividad ' . $subfase->nombreSubfase . ' eliminada con éxito');
+        return redirect()->route('fase.index', ['id' => $idFase])->with('message', 'La Sub Actividad ' . $subfase->nombreSubfase . ' eliminada con éxito');
     }
 
     // Funcion de contar dias entre la fecha inicial y final

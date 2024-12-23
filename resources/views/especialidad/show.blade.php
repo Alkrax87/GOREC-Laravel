@@ -3,7 +3,13 @@
 @section('title', 'Detalle Especialidad')
 
 @section('content_header')
-  <h1><i class="fas fa-eye"></i> Detalle Especialidad "{{ $especialidad->nombreEspecialidad }}"</h1>
+  
+  <div class="d-flex justify-content-between align-items-center">
+    <h1><i class="fas fa-eye"></i> Detalle Especialidad "{{ $especialidad->nombreEspecialidad }}"</h1>
+    <a href="{{ route('especialidad.index') }}" class="btn btn-primary mx-1">
+      <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+    </a>
+  </div>
 @stop
 
 @section('content')

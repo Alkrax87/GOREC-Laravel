@@ -14,7 +14,7 @@
 
           <form action="{{ route('especialidad.update', $especialidad->idEspecialidad) }}" method="POST">
             @csrf
-            @method('PATCH')
+            
             <div class="col-12">
               <select name="idInversion" id="idInversion-{{ $especialidad->idEspecialidad }}"
                 class="form-select form-select-sm input-auth" required hidden>
@@ -67,8 +67,13 @@
                 </div>
               </div>
             </div>
+            <div class="col-12 py-2 text-center">
+              <a href="{{ route('especialidad.index') }}" class="btn btn-primary mx-1">
+                <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+              </a>
+              <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
+            </div>
           </form>
-
         </div>
       </div>
     </div>

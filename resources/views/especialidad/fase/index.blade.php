@@ -3,7 +3,7 @@
 @section('title', 'Especialidad')
 
 @section('content_header')
-  <h1><i class="fas fa-briefcase"></i> Actividades "{{ $especialidad->nombreEspecialidad }}"</h1>
+  <h1><i class="fas fa-briefcase"></i> Actividades que pertenecen a la Especialidad "{{ $especialidad->nombreEspecialidad }}"</h1>
 @stop
 
 @section('content')
@@ -12,18 +12,38 @@
       <div class="row">
         <div class="col-12">
           <!-- Agregar -->
-          <button class="btn btn-success mb-4" data-toggle="modal"
+         
+          <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-success mb-4" data-toggle="modal"
             data-target="#ModalCreateFase{{ $especialidad->idEspecialidad }}">
             <i class="fas fa-plus"></i>&nbsp;&nbsp; Nueva Actividad
           </button>
+            <a href="{{ route('especialidad.index') }}" class="btn btn-primary mx-1">
+              <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+            </a>
+          </div>
+          @if ($errorPorcentajefase = Session::get('errorPorcentajefase'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <p class="alert-message mb-0">
+                <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentajefase }}
+              </p>
+            </div>
+          @endif
+          @if ($message = Session::get('message'))
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {!! session('message') !!}</p>
+          </div>
+        @endif
           <!-- Tabla -->
           <div class="table-responsive">
-            <table class="table table-striped w-100">
+            <table id="faseTable" class="table table-striped w-100">
               <thead class="table-header">
                 <tr>
                   <th class="text-center">#</th>
                   <th class="text-left">Actividad</th>
-                  <th class="text-center text-nowrap">Porcentaje de Actividad</th>
+                  <th class="text-center text-nowrap">Porcentaje de Actividad Programado</th>
                   <th class="text-center text-nowrap">Porcentaje de Avance</th>
                   <th class="text-center">Sub Actividad</th>
                   <th class="text-center">Opciones</th>
@@ -101,6 +121,8 @@
 
 @section('css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
 @stop
 
 @section('js')
@@ -108,4 +130,29 @@
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
     integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#faseTable').DataTable({
+        responsive: true,
+        language: {
+          search: "Buscar:",
+          lengthMenu: "Mostrar _MENU_ registros por página",
+          zeroRecords: "No se encontraron resultados",
+          info: "Mostrando página _PAGE_ de _PAGES_",
+          infoEmpty: "No hay registros disponibles",
+          infoFiltered: "(filtrado de _MAX_ registros totales)",
+          paginate: {
+            first: "Primero",
+            last: "Último",
+            next: "Siguiente",
+            previous: "Anterior"
+          }
+        }
+      });
+    });
+  </script>
 @stop

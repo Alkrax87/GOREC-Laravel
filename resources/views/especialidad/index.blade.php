@@ -22,7 +22,8 @@
             <div class="col-3 mb-4">
               <form action="{{ route('especialidad.pdf') }}" method="GET" target="_blank">
                 <label class="form-label" style="text-align: left; display: block;">Inversión:</label>
-                <select name="idInversion" id="idInversion-especialidad" class="form-select form-select-sm input-auth"
+                <div class="mb-3">
+                  <select name="idInversion" id="idInversion-especialidad" class="form-select form-select-sm input-auth"
                   required>
                   <option value="" disabled selected>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
@@ -30,9 +31,13 @@
                       {{ $inversion->nombreCortoInversion }}
                     </option>
                   @endforeach
-                </select>
-                <button type="submit" class="btn btn-dark w-100"><i class="fas fa-print"></i>&nbsp;&nbsp;
-                  Imprimir</button>
+                  </select>
+                </div>
+                <div>
+                  <button type="submit" class="btn btn-dark w-100"><i class="fas fa-print"></i>&nbsp;&nbsp;
+                    Imprimir</button>
+                </div>
+                
               </form>
             </div>
           </div>
@@ -60,20 +65,6 @@
               <p class="alert-message mb-0">
                 <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentaje }}
               </p>
-            </div>
-          @endif
-          @if ($errorPorcentajefase = Session::get('errorPorcentajefase'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0">
-                <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentajefase }}
-              </p>
-            </div>
-          @endif
-          @if ($errorPorcentajefase = Session::get('errorPorcentajefase'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <p class="alert-message mb-0"><i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp; {{ $errorPorcentajefase }}</p>
             </div>
           @endif
           @if ($errorusuario = Session::get('errorusuario'))

@@ -13,10 +13,10 @@
         <div class="modal-body">
           <div class="row">
             <div class="form-outline mb-4">
-              <label class="form-label">Nombre</label>
+              <label class="form-label">Nombre Actividad</label>
               <input type="text" name="nombreFase" value="{{ $fase->nombreFase }}" class="input-auth" placeholder="Nombre Actividad" required />
             </div>
-            <div class="col-4 form-outline mb-4">
+            <div class="form-outline mb-4">
               <label class="form-label">Porcentaje Programado</label>
               <div class="input-group">
                 <input type="number" class="form-control input-auth" name="porcentajeAvanceFase" value="{{ $fase->porcentajeAvanceFase }}" required min="0" max="100" step="0.01">

@@ -80,62 +80,66 @@ class FaseController extends Controller
         // Calculamos el avance total
         $this->recalcularAvanceTotalFase();
 
-        return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $request->nombreFase . ' ha sido creada correctamente.');
+        return redirect()->route('fase.index', ['id' => $request->idEspecialidad])->with('message', 'La Fase ' . $request->nombreFase . ' ha sido creada correctamente.');
     }
 
     // Función editar un registro
     public function update(Request $request, $id)
-    {
-        // Validaciones
-        $request->validate([
-            'nombreFase' => 'required|string|max:255',
-        ], [
-            'nombreFase.required' => 'El nombre es obligatorio.',
-        ]);
+{
+    // Validaciones
+    $request->validate([
+        'nombreFase' => 'required|string|max:255',
+    ], [
+        'nombreFase.required' => 'El nombre es obligatorio.',
+    ]);
 
-        // Buscamos la fase
-        $fase = Fase::findOrFail($id);
+    // Buscamos la fase
+    $fase = Fase::findOrFail($id);
 
-        // Obtener el porcentaje de avance de la especialidad actual
-        $nuevoPorcentaje = $request->porcentajeAvanceFase;
-        $porcentajeAnterior = $fase->porcentajeAvanceFase;
+    // Obtener el identificador de la especialidad desde la fase
+    $idEspecialidad = $fase->idEspecialidad;
 
-        // Verificar la suma de los porcentajes en la inversión
-         $totalPorcentaje = Fase::where('idEspecialidad', $request->idEspecialidad)
-                                       ->sum('porcentajeAvanceFase');
-        if ($totalPorcentaje + $nuevoPorcentaje - $porcentajeAnterior > 100) {
-            return redirect()->back()->with('errorPorcentajefase', 'La suma de los porcentajes de las fases no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
-        }
-        
-        $fase->update([
-            'nombreFase' => $request->nombreFase,
-            'porcentajeAvanceFase' => $request->porcentajeAvanceFase,
-            'avanceTotalFase' => 0,
-        ]);
-        // Editamos la inversión
-        //$fase->update($request->all());
-        $this->recalcularAvanceTotalFase();
-        // Calculamos el avance
-        //$this->recalcularPorcentajeAvanceFase();
+    // Obtener el porcentaje de avance de la especialidad actual
+    $nuevoPorcentaje = $request->porcentajeAvanceFase;
+    $porcentajeAnterior = $fase->porcentajeAvanceFase;
 
-        return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $request->nombreFase . ' ha sido actualizada correctamente.');
+    // Verificar la suma de los porcentajes en la especialidad
+    $totalPorcentaje = Fase::where('idEspecialidad', $idEspecialidad)->sum('porcentajeAvanceFase');
+    if ($totalPorcentaje + $nuevoPorcentaje - $porcentajeAnterior > 100) {
+        return redirect()->back()->with('errorPorcentajefase', 'La suma de los porcentajes de las fases no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
     }
+
+    // Actualizar la fase
+    $fase->update([
+        'nombreFase' => $request->nombreFase,
+        'porcentajeAvanceFase' => $request->porcentajeAvanceFase,
+        'avanceTotalFase' => 0,
+    ]);
+
+    // Recalcular avance total de las fases
+    $this->recalcularAvanceTotalFase();
+
+    // Redirigir al índice de fases de la especialidad correspondiente
+    return redirect()->route('fase.index', ['id' => $idEspecialidad])
+                     ->with('message', 'La Fase ' . $request->nombreFase . ' ha sido actualizada correctamente.');
+}
 
     public function destroy($id)
     {
         // Buscamos la fase
         $fase = Fase::findOrFail($id);
-
+        // Obtener el identificador de la especialidad desde la fase
+        $idEspecialidad = $fase->idEspecialidad;
         // Eliminamos la fase
         $fase->delete();
 
         // Calculamos el avance
-        $this->recalcularPorcentajeAvanceFase();
+        //$this->recalcularPorcentajeAvanceFase();
 
         // Calculamos el avance total
         $this->recalcularAvanceTotalFase();
 
-        return redirect()->route('especialidad.index')->with('message', 'La Fase ' . $fase->nombreFase . ' ha sido eliminado correctamente.');
+        return redirect()->route('fase.index', ['id' => $idEspecialidad])->with('message', 'La Fase ' . $fase->nombreFase . ' ha sido eliminado correctamente.');
     }
 
     // Funcion recalcular el porcentaje de Avance
