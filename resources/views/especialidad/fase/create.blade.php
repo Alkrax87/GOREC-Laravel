@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Nombre Actividad</label>
-                  <input type="text" name="nombreFase" class="input-auth" required />
+                  <input type="text" name="nombreFase" class="form-control input-auth" required />
                 </div>
                 <div class="form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>
