@@ -199,10 +199,11 @@ class UserController extends Controller
 
     // Función mostrar un registro
     public function show($id){
-        // Buscamos un usuario
         $usuario = User::findOrFail($id);
+
         return view('usuario.show', compact('usuario'));
     }
+
     public function showChangePasswordForm()
     {
         return view('password_change'); // Asegúrate de que la vista exista

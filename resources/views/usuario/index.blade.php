@@ -13,7 +13,9 @@
         <div class="col-12">
           <!-- Agregar -->
           @if (Auth::user()->isAdmin)
-            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-user-plus"></i>&nbsp; Agregar Usuario</button>
+            <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate">
+              <i class="fas fa-user-plus"></i>&nbsp; Agregar Usuario
+            </button>
           @endif
           <!-- Alert -->
           @if ($message = Session::get('message'))
@@ -85,10 +87,23 @@
                       @endforeach
                     </td>
                     <td class="text-center" style="white-space: nowrap">
-                      <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$usuario->idUsuario}}"><i class="fas fa-eye"></i></a>
-                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$usuario->idUsuario}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-info"
+                        href="{{ route('usuario.show', ['id' => $usuario->idUsuario]) }}">
+                        <i class="fas fa-eye"></i>
+                      </a>
+                      <a class="btn btn-warning"
+                        href="{{route('usuario.edit', ['id' => $usuario->idUsuario])}}">
+                        <i class="fas fa-edit"></i>
+                      </a>
                       @if (!$loop->first)
-                        <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$usuario->idUsuario}}"><i class="fas fa-trash-alt"></i></a>
+                        <form action="{{ route('usuario.destroy', $usuario->idUsuario) }}"
+                          method="POST" style="display:inline-block;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de borrar {{$usuario->nombreUsuario}} {{$usuario->apellidoUsuario }}?')">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </form>
                       @endif
                     </td>
                   </tr>
@@ -99,11 +114,6 @@
           </div>
         </div>
       </div>
-      @foreach ($usuarios as $usuario)
-        @include('usuario.delete', ['usuario' => $usuario])
-        @include('usuario.edit', ['usuario' => $usuario])
-        @include('usuario.show', ['usuario' => $usuario])
-      @endforeach
     </div>
   </div>
 @stop

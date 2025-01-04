@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::get('especialidad/pdf', [EspecialidadController::class, 'pdf'])->name('especialidad.pdf');
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
     Route::resource('inversion', InversionController::class);
-    Route::resource('usuario', UserController::class)->middleware([AdminMiddleware::class]);
     Route::resource('roles', RolesController::class)->middleware([AdminMiddleware::class]);
     Route::resource('segmento', SegmentoController::class)->middleware([AdminMiddleware::class]);
     Route::resource('asignaciones', AsignacionesController::class);
@@ -72,6 +71,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/especialidad/show/{id}', [EspecialidadController::class, 'show'])->name('especialidad.show');
     Route::get('/especialidad/avance/{id}', [EspecialidadController::class, 'avance'])->name('especialidad.avance');
     Route::delete('/especialidad/{id}', [EspecialidadController::class, 'destroy'])->name('especialidad.destroy');
+
+    // ======= Especialidad =========
+    // Route::resource('usuario', UserController::class)->middleware([AdminMiddleware::class]);
+    Route::get('/usuario', [UserController::class, 'index'])->name('usuario.index')->middleware([AdminMiddleware::class]);
+    Route::post('/usuario', [UserController::class, 'store'])->name('usuario.store')->middleware([AdminMiddleware::class]);
+    Route::get('/usuario/edit/{id}', [UserController::class, 'edit'])->name('usuario.edit')->middleware([AdminMiddleware::class]);
+    Route::patch('/usuario/update/{id}', [UserController::class, 'update'])->name('usuario.update')->middleware([AdminMiddleware::class]);
+    Route::get('/usuario/show/{id}', [UserController::class, 'show'])->name('usuario.show')->middleware([AdminMiddleware::class]);
+    Route::delete('/usuario/{id}', [UserController::class, 'destroy'])->name('usuario.destroy')->middleware([AdminMiddleware::class]);
 
     // =========== Fase =============
     Route::resource('fase', FaseController::class);

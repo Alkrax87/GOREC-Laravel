@@ -1,16 +1,17 @@
-<form action="{{ route('usuario.show', $usuario->idUsuario) }}" method="POST">
-  {{ csrf_field() }}
-  <div class="modal fade" id="ModalShow{{$usuario->idUsuario}}">
-    <div class="modal-dialog modal-md">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"><i class="fas fa-users"></i> Detalle Usuario</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
+@extends('adminlte::page')
+
+@section('title', 'Detalle Usuario')
+
+@section('content_header')
+  <h1><i class="fas fa-eye"></i> Detalle Usuario "{{ $usuario->nombreUsuario . " " . $usuario->apellidoUsuario }}"</h1>
+@stop
+
+@section('content')
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+        <div class="row">
             <div class="col-12 py-2">
               <b><i class="fas fa-user"></i> Nombres y Apellidos:</b>&nbsp; {{ $usuario->nombreUsuario . " " . $usuario->apellidoUsuario }}
             </div>
@@ -120,7 +121,6 @@
                 </div>
               </div>
             @endif
-            
             <div class="col-12 py-2 text-center">
               <button class="btn btn-primary" data-dismiss="modal"><i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver</button>
             </div>
@@ -129,4 +129,15 @@
       </div>
     </div>
   </div>
-</form>
+@stop
+
+@section('css')
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+@stop
+
+@section('js')
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+@stop
