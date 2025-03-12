@@ -80,7 +80,11 @@
                   <td>{{ $inversion->nombreInversion }}</td>
                   <td>{{ $inversion->nombreCortoInversion }}</td>
                   <td class="text-nowrap text-center">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
-                  <td class="text-nowrap text-center">{{ optional($inversion->cordinador)->nombreUsuario . ' ' . optional($inversion->cordinador)->apellidoUsuario ?? '' }}</td>
+                  <td class="text-nowrap text-center">
+                    @foreach ($inversion->coordinadores as $coordinador)
+                      {{ $coordinador->nombreUsuario . ' ' . $coordinador->apellidoUsuario }}<br>
+                    @endforeach
+                  </td>
                   <td class="project_progress text-nowrap">
                     <div class="progress">
                       <div class="progress-bar progress-bar-striped
@@ -186,7 +190,7 @@
         </div>
       </div>
     </div>
-    @foreach ($inversiones as $inversion)
+    <!-- @foreach ($inversiones as $inversion)
       @include('inversion.delete', ['inversion' => $inversion])
       @include('inversion.edit', ['inversion' => $inversion])
       @include('inversion.show', ['inversion' => $inversion])
@@ -198,7 +202,7 @@
         'inversion' => $inversion,
         'logs' => $avanceInversionLog->where('idInversion', $inversion->idInversion),
       ])
-    @endforeach
+    @endforeach -->
   </div>
 </div>
 @stop

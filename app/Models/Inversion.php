@@ -89,4 +89,8 @@ class Inversion extends Model
     public function especialidades(){
         return $this->hasMany(Especialidad::class, 'idInversion');
     }
+
+    public function coordinadores() {
+        return $this->belongsToMany(User::class, 'inversion_coordinador', 'idInversion', 'idUsuario');
+    }
 }
