@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Inversion')
+@section('title', 'GOREC • Inversion')
 
 @section('content_header')
   <h1><i class="fas fa-clipboard-list"></i> Inversiones</h1>
@@ -11,26 +11,30 @@
   <div class="card-body">
     <div class="row">
       <div class="col-12">
-        <!-- Agregar -->
+        <!-- Top Buttons -->
         <div class="row">
           @if (Auth::user()->isAdmin)
-            <div class="col-6">
-              <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Inversión</button>
+            <div class="col-6 text-start">
+              <button class="btn btn-success" data-toggle="modal" data-target="#ModalCreate">
+                <i class="fas fa-plus"></i>&nbsp; Agregar Inversión
+              </button>
             </div>
             <div class="col-6 text-end">
-              <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
+              <a href="{{ route('inversion.pdfs') }}" class="btn btn-dark" target="_blank">
+                <i class="fas fa-print"></i>&nbsp; Imprimir
+              </a>
             </div>
           @endif
         </div>
         <!-- Alert -->
         @if ($message = Session::get('message'))
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <div class="alert alert-success alert-dismissible fade show mt-4 mb-2" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <p class="alert-message mb-0"><i class="fas fa-check-circle"></i>&nbsp;&nbsp; {{ $message }}</p>
           </div>
         @endif
         @if ($errors->any())
-          <div class="alert alert-danger alert-dismissible pb-0">
+          <div class="alert alert-danger alert-dismissible fade show mt-4 mb-2" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h6><i class="icon fas fa-ban"></i> Error! Por favor corrige los errores en el formulario.</h6>
             <ul>
@@ -40,14 +44,14 @@
             </ul>
           </div>
         @endif
-          <!-- Tabla -->
-        <div class="table-responsive">
-          <table id="segmentosTable" class="table table-bordered table-striped">
+        <!-- Table -->
+        <div class="table-responsive mt-2">
+          <table id="inversionTable" class="table table-bordered table-striped">
             <thead class="table-header">
               <tr>
                 <th>#</th>
-                <th class="text-nowrap">CUI</th>
-                <th class="text-nowrap" style="min-width: 400px">Nombre</th>
+                <th>CUI</th>
+                <th style="min-width: 400px">Nombre</th>
                 <th class="text-nowrap">Nombre Corto</th>
                 <th class="text-center">Responsable</th>
                 <th class="text-center">Coordinador</th>
@@ -75,34 +79,33 @@
             <tbody>
               @foreach ($inversiones as $inversion)
                 <tr>
-                  <td class="text-left">{{ $loop->index + 1 }}</td>
+                  <td class="text-nowrap">{{ $loop->index + 1 }}</td>
                   <td class="text-nowrap">{{ $inversion->cuiInversion }}</td>
                   <td>{{ $inversion->nombreInversion }}</td>
                   <td>{{ $inversion->nombreCortoInversion }}</td>
-                  <td class="text-nowrap text-center">{{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
-                  <td class="text-nowrap text-center">
+                  <td class="text-center text-nowrap"><i class="fas fa-user-alt"></i> {{ $inversion->usuario->nombreUsuario . ' ' . $inversion->usuario->apellidoUsuario }}</td>
+                  <td class="text-center text-nowrap">
                     @foreach ($inversion->coordinadores as $coordinador)
-                      {{ $coordinador->nombreUsuario . ' ' . $coordinador->apellidoUsuario }}<br>
+                      <i class="fas fa-user-alt"></i> {{ $coordinador->nombreUsuario . ' ' . $coordinador->apellidoUsuario }}<br>
                     @endforeach
                   </td>
                   <td class="project_progress text-nowrap">
                     <div class="progress">
                       <div class="progress-bar progress-bar-striped
                         @if($inversion->avanceInversion < 25)
-                            bg-danger
+                          bg-danger
                         @elseif($inversion->avanceInversion >= 25 && $inversion->avanceInversion < 75)
-                            bg-warning
+                          bg-warning
                         @elseif($inversion->avanceInversion >= 75 && $inversion->avanceInversion < 100)
-                            bg-success
+                          bg-success
                         @else
-                            bg-info
+                          bg-info
                         @endif"
                         role="progressbar"
                         aria-valuenow="{{ $inversion->avanceInversion }}"
                         aria-valuemin="0"
                         aria-valuemax="100"
                         style="width: {{ $inversion->avanceInversion }}%">
-                    </div>
                       </div>
                     </div>
                     <small>{{ $inversion->avanceInversion }}% Completado</small>
@@ -110,8 +113,8 @@
                   <td class="text-center">{{ $inversion->provinciaInversion }}</td>
                   <td class="text-center">{{ $inversion->distritoInversion }}</td>
                   <td class="text-center">{{ $inversion->estadoInversion }}</td>
-                  <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaInicioInversion }}</td>
-                  <td class="text-center"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaFinalInversion }}</td>
+                  <td class="text-center text-nowrap"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaInicioInversion }}</td>
+                  <td class="text-center text-nowrap"><i class="fas fa-calendar-alt"></i>&nbsp; {{ $inversion->fechaFinalInversion }}</td>
                   <td class="text-center">{{ $inversion->nivelInversion }}</td>
                   <td class="text-center">{{ $inversion->funcionInversion }}</td>
                   <td class="text-center">{{ $inversion->modalidadInversion }}</td>
@@ -141,10 +144,13 @@
                       {{ $inversion->Fecha_ConformidadTecnica_Inversion }}
                     @endif
                   </td>
-                  <td class="text-nowrap"> @if ($inversion->ConformidadTecnica === 'SI')
-                    <span class="badge badge-success" ><i class="fas fa-check-circle"></i> SI</span>
+                  <td class="text-nowrap"> 
+                    @if (is_null($inversion->ConformidadTecnica))
+                      Por Definir
+                    @elseif ($inversion->ConformidadTecnica === 'SI')
+                      <span class="badge badge-success" ><i class="fas fa-check-circle"></i> SI</span>
                     @elseif ($inversion->ConformidadTecnica === 'NO')
-                    <span class="badge badge-danger"><i class="fas fa-times-circle"></i> NO</span>
+                      <span class="badge badge-danger"><i class="fas fa-times-circle"></i> NO</span>
                     @endif
                   </td>
                   <td class="text-center">
@@ -164,9 +170,9 @@
                     @endif
                   </td>
                   <td class="text-center text-nowrap">
-                    <a class="btn btn-dark btn-option" href="{{route('inversion.pdf', $inversion->idInversion)}}" target="_blank"><i class="fas fa-print"></i></a>
+                    <a class="btn btn-dark btn-option" href="{{ route('inversion.pdf', $inversion->idInversion) }}" target="_blank"><i class="fas fa-print"></i></a>
                     @if ($inversion->archivoInversion)
-                      <a  class="btn btn-dark" href="{{ route('inversion.download', $inversion->idInversion) }}"><i class="fas fa-file-download"></i></a>
+                      <a  class="btn btn-dark btn-option" href="{{ route('inversion.download', $inversion->idInversion) }}"><i class="fas fa-file-download"></i></a>
                     @endif
                     @if (Auth::user()->isAdmin)
                       <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
@@ -190,7 +196,7 @@
         </div>
       </div>
     </div>
-    <!-- @foreach ($inversiones as $inversion)
+    @foreach ($inversiones as $inversion)
       @include('inversion.delete', ['inversion' => $inversion])
       @include('inversion.edit', ['inversion' => $inversion])
       @include('inversion.show', ['inversion' => $inversion])
@@ -202,7 +208,7 @@
         'inversion' => $inversion,
         'logs' => $avanceInversionLog->where('idInversion', $inversion->idInversion),
       ])
-    @endforeach -->
+    @endforeach
   </div>
 </div>
 @stop
@@ -241,25 +247,6 @@
     .btn-option i{
       padding-top: 4px;
     }
-  </style>
-  <style>
-    body {
-      background-color: #000;
-    }
-    section {
-      margin-top: 100px;
-    }
-    /* Others */
-    .center-items {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    /* Card Style */
-    .cascading-left {
-      margin-left: -50px;
-    }
-    /* Input Style  */
     .input-auth {
       display: block;
       width: 100%;
@@ -283,38 +270,6 @@
     .input-autht:focus::placeholder {
       color: transparent;
     }
-    /* Btn Style  */
-    .btn-gorec {
-      width: 250px;
-      height: 50px;
-      background-color: #9C0C27;
-      color: #fff;
-      border-radius: 50px
-    }
-    .btn-gorec:hover {
-      background-color: #72081f;
-      color: #fff;;
-    }
-    /* Line */
-    .line {
-      border: 0;
-      border-top: 1px solid #72081f;
-      margin: 1rem 0;
-      width: 50%;
-    }
-    /* Redirection */
-    .login-direction {
-      color: #72081f;
-      text-decoration: none;
-    }
-    @media (max-width: 991.98px) {
-      .cascading-left {
-        margin-left: 0px;
-      }
-      section {
-        margin-top: 0px;
-      }
-    }
   </style>
 @stop
 
@@ -325,7 +280,7 @@
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
   <script>
     $(document).ready(function(){
-      $('#segmentosTable').DataTable({
+      $('#inversionTable').DataTable({
         responsive: true,
         language: {
           search: "Buscar:",
@@ -345,4 +300,3 @@
     });
   </script>
 @stop
-

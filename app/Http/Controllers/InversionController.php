@@ -62,7 +62,7 @@ class InversionController extends Controller
         return view('inversion.index', compact('inversiones', 'provincias', 'avanceInversionLog', 'usuarios', 'logs', 'notificaciones'));
     }
 
-    // Función de agreagar un registro
+    // Función de agregar un registro
     public function store(Request $request){
         // Validaciones
         $request->validate([
@@ -70,7 +70,8 @@ class InversionController extends Controller
             'nombreInversion' => 'required|string|max:1024',
             'nombreCortoInversion' => 'required|string|max:255',
             'idUsuario' => 'required|exists:users,idUsuario',
-            'idCordinador' => 'required|exists:users,idUsuario',
+            'idCoordinador' => 'required|array',
+            'idCoordinador.*' => 'exists:users,idUsuario',
             'provinciaInversion' => 'required|string|max:255',
             'distritoInversion' => 'required|string|max:255',
             'nivelInversion' => 'required|string|max:255',
@@ -87,8 +88,9 @@ class InversionController extends Controller
             'nombreCortoInversion.required' => 'El campo Nombre Corto es obligatorio.',
             'idUsuario.required' => 'El Usuario es obligatorio.',
             'idUsuario.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
-            'idCordinador.required' => 'El Usuario es obligatorio.',
-            'idCordinador.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
+            'idCoordinador.required' => 'El campo Coordinador es obligatorio.',
+            'idCoordinador.*.exists' => 'Uno o más usuarios seleccionados no existen.',
+            'idCoordinador.*.distinct' => 'Un usuario no puede ser agregado más de una vez a la misma inversión.',
             'provinciaInversion.required' => 'El campo Provincia es obligatorio.',
             'distritoInversion.required' => 'El campo Distrito es obligatorio.',
             'nivelInversion.required' => 'El campo Nivel es obligatorio.',
@@ -107,7 +109,12 @@ class InversionController extends Controller
             'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
-        $data = $request->all();
+        $dataCoordinador = $request->get('idCoordinador', []);
+        $data = $request->except('idCoordinador');
+        // $data['idCoordinador'] = 1;
+        // ======== ELIMINAR idCordinador DE TABLA INVERSIÓN ========
+        // ALTER TABLE inversion DROP FOREIGN KEY inversion_idCordinador_foreign;
+        // ALTER TABLE inversion DROP COLUMN idCordinador;
 
         // Manejar la subida del archivo
         if ($request->hasFile('archivoInversion')) {
@@ -116,7 +123,11 @@ class InversionController extends Controller
         }
 
         // Creamos un registro
-        Inversion::create($data);
+        $inversion = Inversion::create($data);
+
+        if (!empty($dataCoordinador)) {
+            $inversion->coordinadores()->sync($dataCoordinador);
+        }
 
         return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' creada exitosamente.');
     }
