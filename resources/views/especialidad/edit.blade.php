@@ -14,7 +14,6 @@
 
           <form action="{{ route('especialidad.update', $especialidad->idEspecialidad) }}" method="POST">
             @csrf
-            
             <div class="col-12">
               <select name="idInversion" id="idInversion-{{ $especialidad->idEspecialidad }}"
                 class="form-select form-select-sm input-auth" required hidden>
@@ -60,8 +59,8 @@
                           </option>
                         @endforeach
                       </select>
-                      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i
-                          class="fas fa-trash-alt"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)">
+                        <i class="fas fa-trash-alt"></i></button>
                     </div>
                   @endforeach
                 </div>
@@ -258,10 +257,13 @@
         container.appendChild(div);
       };
 
-      // Función para eliminar un elemento del DOM
-      function removeElement(element) {
-        element.parentNode.remove();
-      }
+      // Definir la función en el ámbito global
+window.removeElement = function(button) {
+  const div = button.closest('.input-group'); // Encuentra el div más cercano con la clase .input-group
+  if (div) {
+    div.remove(); // Elimina el div completo
+  }
+};
     });
   </script>
 @stop

@@ -18,6 +18,7 @@ use App\Http\Middleware\AdministradorMiddleware;
 use App\Http\Controllers\ServiciosController;
 use App\Http\Controllers\BienesController;
 use App\Http\Controllers\ListaInversionesAsigController;
+use App\Http\Controllers\ComentarioControllerInversion;
 // Ruta por defecto
 Route::get('/', function () {
     return view('login');
@@ -33,10 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::get('inversion/pdf/{id}', [InversionController::class, 'pdf'])->name('inversion.pdf');
     Route::get('especialidad/pdf', [EspecialidadController::class, 'pdf'])->name('especialidad.pdf');
     Route::get('/home', 'App\Http\Controllers\HomeController@showHomeForm')->name('home');
-    Route::resource('inversion', InversionController::class);
+    
     Route::resource('usuario', UserController::class)->middleware([AdminMiddleware::class]);
     Route::resource('roles', RolesController::class)->middleware([AdminMiddleware::class]);
-    Route::resource('segmento', SegmentoController::class)->middleware([AdminMiddleware::class]);
+    Route::resource('segmento', SegmentoController::class);
     Route::resource('asignaciones', AsignacionesController::class);
     Route::resource('profesional', ProfesionalController::class);
     Route::resource('asistente', AsistenteController::class);
@@ -62,7 +63,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/reportes/fase/{idFase}/subfase', [Reportes::class, 'getSubFases']);
 
     Route::post('reportes/generate-pdf', [Reportes::class, 'generatePDF'])->name('reportes.graficos');
-
+    // ======= Inversion =========
+    //Route::resource('inversion', InversionController::class);
+    Route::get('/inversion', [InversionController::class, 'index'])->name('inversion.index');
+    Route::post('/inversion', [InversionController::class, 'store'])->name('inversion.store');
+    Route::get('/inversion/edit/{id}', [InversionController::class, 'edit'])->name('inversion.edit');
+    Route::post('/inversion/update/{id}', [InversionController::class, 'update'])->name('inversion.update');
+    Route::get('/inversion/show/{id}', [InversionController::class, 'show'])->name('inversion.show');
+    Route::get('/inversion/estadoLog/{id}', [InversionController::class, 'estadoLog'])->name('inversion.estadoLog');
+    Route::get('/inversion/avanceInversionLog/{id}', [InversionController::class, 'avanceInversionLog'])->name('inversion.avanceInversionLog');
+    Route::delete('/inversion/{id}', [InversionController::class, 'destroy'])->name('inversion.destroy');
     // ======= Especialidad =========
     // Route::resource('especialidad', EspecialidadController::class);
     Route::get('/especialidad', [EspecialidadController::class, 'index'])->name('especialidad.index');
@@ -77,7 +87,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('fase', FaseController::class)->except(['show']);
     Route::get('/especialidad/actividades/{id}', [FaseController::class, 'index'])->name('especialidad.actividades');
     Route::get('/fase/{id}', [FaseController::class, 'index'])->name('fase.index');
+    Route::get('/especialidad/{id}/fase', [FaseController::class, 'index'])->name('especialidad.fase.index');
 
+     // =========== Comentarios =============
+    Route::get('/comentario', [ComentarioControllerInversion::class, 'index'])->name('comentario.index');
+    Route::post('/comentario', [ComentarioControllerInversion::class, 'store'])->name('comentario.store');
+    Route::get('/comentario/edit/{id}', [ComentarioControllerInversion::class, 'edit'])->name('comentario.edit');
+    Route::post('/comentario/update/{id}', [ComentarioControllerInversion::class, 'update'])->name('comentario.update');
+    Route::get('/comentario/show/{id}', [ComentarioControllerInversion::class, 'show'])->name('comentario.show');
+    //Route::get('/comentario/avance/{id}', [ComentarioControllerInversion::class, 'avance'])->name('comentario.avance');
+    Route::delete('/comentario/{id}', [ComentarioControllerInversion::class, 'destroy'])->name('comentario.destroy');
     // Cerrar sesión
     Route::post('/logout', 'App\Http\Controllers\HomeController@logout')->name('logout');
 });

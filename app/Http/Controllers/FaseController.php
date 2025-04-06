@@ -8,41 +8,60 @@ use App\Models\Fase;
 use App\Models\SubFase;
 use App\Models\Inversion;
 use App\Models\Especialidad;
+use Carbon\Carbon;
 
 class FaseController extends Controller
 {
     public function index($id)
     {
+        
         $user = Auth::user();
+            // Calcular notificaciones para todas las inversiones
+        $inversiones = Inversion::all();
+        $notificaciones = [];
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversion;
+            }
+        }
 
         if ($user->isAdmin) {
+            // Lógica para administrador
             $especialidad = Especialidad::findOrFail($id);
             $fases = Fase::where('idEspecialidad', $id)->get();
             $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
-
-            // Obtenermos los logs de las subfases
             $subfaseIds = $subfases->pluck('idSubfase');
             $logs = AvanceLog::whereIn('idSubfase', $subfaseIds)->get();
 
-            return view('especialidad.fase.index', compact('especialidad', 'fases', 'subfases', 'logs'));
+            return view('especialidad.fase.index', compact('especialidad', 'fases', 'subfases', 'logs', 'notificaciones'));
         } else {
-            // obtener las invesiones donde el usuario esta asignado
-            $inveriones = Inversion::where('idUsuario', $user->idUsuario)->get();
-            $especialidadFind = Especialidad::whereIn('idInversion', $inveriones->pluck('idInversion'))->get();
-            if ($especialidadFind->count() > 0) {
-                $especialidad = Especialidad::findOrFail($id);
+            // Verificar si el usuario es responsable de una inversión
+            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $especialidadFind = Especialidad::whereHas('inversion', function ($query) use ($inversiones) {
+                $query->whereIn('idInversion', $inversiones->pluck('idInversion'));
+            })->where('idEspecialidad', $id)->first();
+
+            // Verificar si el usuario está asignado a esta especialidad
+            $especialidadAsignada = Especialidad::whereHas('usuarios', function ($query) use ($user) {
+                $query->where('especialidad_users.idUsuario', $user->idUsuario);
+            })->where('idEspecialidad', $id)->first();
+
+            // Si el usuario tiene acceso por cualquiera de los dos casos
+            $especialidad = $especialidadFind ?? $especialidadAsignada;
+
+            if ($especialidad) {
                 $fases = Fase::where('idEspecialidad', $id)->get();
                 $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
-
-                // Obtenermos los logs de las subfases
                 $subfaseIds = $subfases->pluck('idSubfase');
                 $logs = AvanceLog::whereIn('idSubfase', $subfaseIds)->get();
 
-                return view('especialidad.fase.index', compact('especialidad', 'fases', 'subfases', 'logs'));
-            } else {
-                return redirect()->route('especialidad.index')->with('message', 'No tienes permisos para acceder a esta especialidad.');
+                return view('especialidad.fase.index', compact('especialidad', 'fases', 'subfases', 'logs', 'notificaciones'));
             }
+            // Redirigir si no tiene acceso
+            return redirect()->route('especialidad.index');
         }
+
     }
 
     // Funcion de agregar un registro

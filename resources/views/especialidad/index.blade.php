@@ -176,7 +176,7 @@
           </div>
         </div>
       </div>
-      @foreach ($especialidades as $especialidad)
+      {{-- @foreach ($especialidades as $especialidad)
         {{-- @include('especialidad.show', [
           'especialidad' => $especialidad,
           'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
@@ -186,7 +186,7 @@
           'especialidad' => $especialidad,
           'logs' => $avanceEstadoLogs->where('idEspecialidad', $especialidad->idEspecialidad),
         ]) --}}
-      @endforeach
+      
     </div>
   </div>
 @stop
@@ -216,9 +216,15 @@
 @endsection
 
 @section('css')
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
+  <style>
+    a {
+        text-decoration: none;
+      }
+  </style>
 @stop
 
 @section('js')

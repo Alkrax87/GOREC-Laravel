@@ -324,6 +324,12 @@ return [
             'icon_color' => 'white'
         ],
         [
+            'text' => 'Comentario',
+            'url' => 'comentario',
+            'icon' => 'fas fa-clipboard-list',
+            'icon_color' => 'white'
+        ],
+        [
             'text' => 'Asignaciones',
             'url' => 'asignaciones',
             'icon' => 'fas fa-user-tag',

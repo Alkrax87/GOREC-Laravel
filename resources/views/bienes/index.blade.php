@@ -13,14 +13,9 @@
         <div class="col-12">
           <!-- Agregar -->
           <div class="row">
-            @if (Auth::user()->isAdmin)
               <div class="col-6">
                 <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreateBien"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar bienes</button>
               </div>
-             <!-- <div class="col-6 text-end">
-                <a href="{{route('inversion.pdfs')}}" class="btn btn-dark" target="_blank"><i class="fas fa-print"></i>&nbsp;&nbsp; Imprimir</a>
-              </div> -->
-            @endif
           </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))

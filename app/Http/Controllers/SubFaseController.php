@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SubFase;
 use App\Models\Fase;
+use App\Models\Especialidad;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Models\AvanceLog;
@@ -34,6 +35,10 @@ class SubFaseController extends Controller
             'subfases.*.avance_por_usuario_realSubFase.required' => 'El avance es obligatorio.',
             'subfases.*.avance_por_usuario_realSubFase.integer' => 'El avance debe ser un número entero.',
         ]);
+            // Obtén la fase y su especialidad
+        $fase = Fase::findOrFail($request->idFase);
+        $especialidad = Especialidad::findOrFail($fase->idEspecialidad);
+
 
         // Buscamos si ya existen SubFases con el id de una Fase
         $existingSubfases = SubFase::where('idFase', $request->idFase)->get();
@@ -114,9 +119,9 @@ class SubFaseController extends Controller
         ->pluck('nombreSubfase')  // Obtener solo los nombres de las subfases
         ->implode(', ');          // Concatenar los nombres con coma y espacio
 
-        // Redirigir con el mensaje que contiene todos los nombres de las subfases
-        return redirect()->route('fase.index', ['id' => $request->idFase])
-        ->with('message', 'Las Sub Actividades ' . $subfaseNombres . ' creadas con éxito');
+
+        // Redirección con idEspecialidad y mensaje
+        return redirect()->route('especialidad.fase.index', ['id' => $especialidad->idEspecialidad])->with('message', 'Las Sub Actividades ' . $subfaseNombres . ' fueron creadas con éxito.');
 
     }
 
@@ -205,7 +210,18 @@ class SubFaseController extends Controller
             $fase->save();
         }
 
-        return redirect()->route('fase.index', ['id' => $subfase->idFase])->with('message', 'La Sub Actividad ' . $request->nombreSubfase . ' actualizada con éxito');
+        // Obtener la especialidad asociada a la fase
+        $especialidad = Especialidad::whereHas('fases', function ($query) use ($fase) {
+            $query->where('idFase', $fase->idFase);
+        })->first();
+
+        if (!$especialidad) {
+            return redirect()->back()->with('error', 'No se encontró la especialidad asociada.');
+        }
+
+        return redirect()->route('especialidad.fase.index', ['id' => $especialidad->idEspecialidad])
+            ->with('message', 'La Sub Actividad ' . $request->nombreSubfase . ' actualizada con éxito');
+
     }
 
     public function destroy($id){
@@ -243,7 +259,22 @@ class SubFaseController extends Controller
             $fase->save();
         }
 
-        return redirect()->route('fase.index', ['id' => $idFase])->with('message', 'La Sub Actividad ' . $subfase->nombreSubfase . ' eliminada con éxito');
+        
+        // Obtener la especialidad asociada a la fase
+        $especialidad = Especialidad::whereHas('fases', function ($query) use ($fase) {
+            $query->where('idFase', $fase->idFase);
+        })->first();
+
+        if (!$especialidad) {
+            return redirect()->back()->with('error', 'No se encontró la especialidad asociada.');
+        }
+
+        // Redirigir a la ruta especialidad.fase.index
+
+        return redirect()->route('especialidad.fase.index', ['id' => $especialidad->idEspecialidad])
+        ->with('message', 'La Sub Actividad ' . $subfase->nombreSubfase . ' eliminada con éxito');
+
+
     }
 
     // Funcion de contar dias entre la fecha inicial y final
