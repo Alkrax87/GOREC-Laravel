@@ -47,9 +47,9 @@ class InversionController extends Controller
             $usuarios = User::where('idUsuario', $user->idUsuario)->get();
         }
         // Cargamos logs
-        $logs = EstadoLog::all();
+        //$logs = EstadoLog::all();
 
-        $avanceInversionLog = AvanceInversionLog::all();
+        //$avanceInversionLog = AvanceInversionLog::all();
 
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
@@ -59,7 +59,7 @@ class InversionController extends Controller
             }
         }
 
-        return view('inversion.index', compact('inversiones', 'provincias', 'avanceInversionLog', 'usuarios', 'logs', 'notificaciones'));
+        return view('inversion.index', compact('inversiones', 'provincias', 'usuarios','notificaciones'));
     }
 
     // Función de agregar un registro
@@ -140,9 +140,18 @@ class InversionController extends Controller
         $provincias = $data['provincias'];
 
         // Cargamos los datos de inversion
+        $usuarios = User::all();
+        $inversion = Inversion::findOrFail($id);
         $inversiones = Inversion::all();
+        $notificaciones = [];
+        foreach ($inversiones as $inversions) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversions;
+            }
+        }
 
-        return view('inversion.edit', compact('inversiones', 'provincias'));
+        return view('inversion.edit', compact('inversion', 'usuarios', 'provincias', 'notificaciones'));
     }
 
     // Función editar un registro
@@ -205,8 +214,17 @@ class InversionController extends Controller
     public function show($id){
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
+        $inversiones = Inversion::all(); // Agregamos esta línea para definir $inversiones
+        $notificaciones = [];
+        foreach ($inversiones as $inversions) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversions;
+            }
+        }
+        
 
-        return view('inversion.show', compact('inversion'));
+        return view('inversion.show', compact('inversion', 'inversion', 'notificaciones'));
     }
 
     // Función para descargar el PDF (Opcional)
@@ -222,15 +240,43 @@ class InversionController extends Controller
                     ->header('Content-Type', 'application/pdf')
                     ->header('Content-Disposition', 'attachment; filename="' . $inversion->nombreCortoInversion . '.pdf"');
     }
+    public function estadoLog($id){
+        
+        $inversion = Inversion::findOrFail($id);
+        $logs = EstadoLog::where('idInversion', $id)->get();
+        $notificaciones = [];
 
-    
+        // Obtener todas las inversiones
+        $inversiones = Inversion::all(); // Agregamos esta línea para definir $inversiones
+
+        foreach ($inversiones as $inversions) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversions;
+            }
+        }
+        return view('inversion.estadoLog', compact('inversion', 'logs', 'notificaciones'));
+    }
+    public function avanceInversionLog($id){
+        $inversion = Inversion::findOrFail($id);
+        $avancelogs = AvanceInversionLog::where('idInversion', $id)->get();
+        $notificaciones = [];
+        $inversiones = Inversion::all(); // Agregamos esta línea para definir $inversiones
+
+        foreach ($inversiones as $inversions) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversions;
+            }
+        }
+        return view('inversion.avanceInversionLog', compact('inversion', 'avancelogs', 'notificaciones'));
+    }
     public function pdf($id) {
         date_default_timezone_set('America/Lima');
         $inversion = Inversion::findOrFail($id);
         $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
         $pdf->setPaper('A4', 'portrait');
          // Establecer opciones adicionales
-        
         return $pdf->stream();
     }
 

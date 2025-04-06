@@ -3,7 +3,13 @@
 @section('title', 'Registros de Cambios')
 
 @section('content_header')
+<div class="d-flex justify-content-between align-items-center">
   <h1><i class="fas fa-chart-line"></i> Registro de cambios "{{ $especialidad->nombreEspecialidad }}"</h1>
+  <a href="{{ route('especialidad.index') }}" class="btn btn-primary mx-1">
+    <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+  </a>
+</div>
+  
 @stop
 
 @section('content')

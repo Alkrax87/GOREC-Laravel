@@ -15,7 +15,7 @@ class BienesController extends Controller
     {
         // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
-        if ($user->isAdmin) {
+        if ($user->isAdministrativo) {
             // Si el usuario es administrador, carga todas las inversiones
             $inversiones = Inversion::all();
         } else {

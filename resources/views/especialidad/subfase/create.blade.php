@@ -23,7 +23,7 @@
                   <div class="row">
                     <div class="col-8 form-outline mb-4">
                       <label class="form-label">Nombre</label>
-                      <input type="text" name="subfases[0][nombreSubfase]" class="input-auth" required">
+                      <input type="text" name="subfases[0][nombreSubfase]" class="input-auth" required />
                     </div>
                     <div class="col-4 form-outline mb-4">
                       <label class="form-label">Avance (%)</label>
@@ -74,7 +74,7 @@
           <div class="row">
             <div class="col-8 form-outline mb-4">
               <label class="form-label">Nombre Sub Actividad</label>
-              <input type="text" name="subfases[${index}][nombreSubfase]" class="input-auth" required">
+              <input type="text" name="subfases[${index}][nombreSubfase]" class="input-auth" required/>
             </div>
             <div class="col-4 form-outline mb-4">
               <label class="form-label">Avance (%)</label>

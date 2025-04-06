@@ -14,10 +14,10 @@ class ServiciosController extends Controller
     //
     public function index(Request $request)
     {
-        $servicios = Servicio::all();
+        
         // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
-        if ($user->isAdmin) {
+        if ($user->isAdministrativo) {
             // Si el usuario es administrador, carga todas las inversiones
             $inversiones = Inversion::all();
         } else {
@@ -32,7 +32,7 @@ class ServiciosController extends Controller
             // Combina las inversiones propias y las asignadas
             $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
         }
-        $usuarios = User::all();
+       
         $notificaciones = [];
 
         foreach ($inversiones as $inversion) {
@@ -41,7 +41,9 @@ class ServiciosController extends Controller
                 $notificaciones[] = $inversion;
             }
         }
-
+        $servicios = Servicio::all();
+        $inversiones = Inversion::all();
+        $usuarios = User::all();
         return view('servicios.index', compact('servicios','inversiones','usuarios','notificaciones'));
     }
     public function store(Request $request){

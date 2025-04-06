@@ -14,7 +14,6 @@
 
           <form action="{{ route('especialidad.update', $especialidad->idEspecialidad) }}" method="POST">
             @csrf
-            @method('PATCH')
             <div class="col-12">
               <select name="idInversion" id="idInversion-{{ $especialidad->idEspecialidad }}"
                 class="form-select form-select-sm input-auth" required hidden>
@@ -60,15 +59,20 @@
                           </option>
                         @endforeach
                       </select>
-                      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)"><i
-                          class="fas fa-trash-alt"></i></button>
+                      <button type="button" class="btn btn-danger btn-sm" onclick="removeElement(this)">
+                        <i class="fas fa-trash-alt"></i></button>
                     </div>
                   @endforeach
                 </div>
               </div>
             </div>
+            <div class="col-12 py-2 text-center">
+              <a href="{{ route('especialidad.index') }}" class="btn btn-primary mx-1">
+                <i class="fas fa-undo-alt"></i>&nbsp;&nbsp; Volver
+              </a>
+              <button type="submit" class="btn btn-warning mx-1"><i class="fas fa-edit"></i>&nbsp;&nbsp; Editar</button>
+            </div>
           </form>
-
         </div>
       </div>
     </div>
@@ -253,10 +257,13 @@
         container.appendChild(div);
       };
 
-      // Función para eliminar un elemento del DOM
-      function removeElement(element) {
-        element.parentNode.remove();
-      }
+      // Definir la función en el ámbito global
+window.removeElement = function(button) {
+  const div = button.closest('.input-group'); // Encuentra el div más cercano con la clase .input-group
+  if (div) {
+    div.remove(); // Elimina el div completo
+  }
+};
     });
   </script>
 @stop

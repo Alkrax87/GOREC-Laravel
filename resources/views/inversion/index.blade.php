@@ -175,17 +175,41 @@
                       <a  class="btn btn-dark btn-option" href="{{ route('inversion.download', $inversion->idInversion) }}"><i class="fas fa-file-download"></i></a>
                     @endif
                     @if (Auth::user()->isAdmin)
-                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
-                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceInversionLog{{$inversion->idInversion}}"><i class="fas fa-chart-line"></i></a>
+                    <a class="btn btn-secondary"
+                      href="{{ route('inversion.estadoLog', ['id' => $inversion->idInversion]) }}">
+                      <i class="fas fa-list"></i>
+                    </a>
+                    <a class="btn btn-secondary"
+                      href="{{ route('inversion.avanceInversionLog', ['id' => $inversion->idInversion]) }}">
+                      <i class="fas fa-chart-line"></i>
+                    </a>
+                     <!-- <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalLog{{$inversion->idInversion}}"><i class="fas fa-list"></i></a>
+                      <a class="btn btn-secondary btn-option" data-toggle="modal" data-target="#ModalAvanceInversionLog{{$inversion->idInversion}}"><i class="fas fa-chart-line"></i></a>-->
                     @endif
                   </td>
                   <td class="text-center text-nowrap">
-                    <a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>
+                    <a class="btn btn-info"
+                        href="{{ route('inversion.show', ['id' => $inversion->idInversion]) }}">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <!--<a class="btn btn-info btn-option" data-toggle="modal" data-target="#ModalShow{{$inversion->idInversion}}"><i class="fas fa-eye"></i></a>-->
                     @if (Auth::user()->isAdmin || Auth::user()->idUsuario == $inversion->idUsuario)
-                      <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>
+                      <a class="btn btn-warning"
+                          href="{{route('inversion.edit', ['id' => $inversion->idInversion])}}">
+                          <i class="fas fa-edit"></i>
+                      </a>
+                      <!-- Tabla <a class="btn btn-warning btn-option" data-toggle="modal" data-target="#ModalEdit{{$inversion->idInversion}}"><i class="fas fa-edit"></i></a>-->
                     @endif
                     @if (Auth::user()->isAdmin)
-                      <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>
+                    <form action="{{ route('inversion.destroy', $inversion->idInversion) }}"
+                      method="POST" style="display:inline-block;">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de borrar {{$inversion->nombreCortoInversion}}?')">
+                        <i class="fas fa-trash-alt"></i>
+                      </button>
+                    </form>
+                      <!--  <a class="btn btn-danger btn-option" data-toggle="modal" data-target="#ModalDelete{{$inversion->idInversion}}"><i class="fas fa-trash-alt"></i></a>-->
                     @endif
                   </td>
                 </tr>
@@ -196,8 +220,8 @@
         </div>
       </div>
     </div>
-    @foreach ($inversiones as $inversion)
-      @include('inversion.delete', ['inversion' => $inversion])
+   {{-- @foreach ($inversiones as $inversion)
+     {{-- @include('inversion.delete', ['inversion' => $inversion])
       @include('inversion.edit', ['inversion' => $inversion])
       @include('inversion.show', ['inversion' => $inversion])
       @include('inversion.estadoLog', [
@@ -207,8 +231,8 @@
       @include('inversion.avanceInversionLog', [
         'inversion' => $inversion,
         'logs' => $avanceInversionLog->where('idInversion', $inversion->idInversion),
-      ])
-    @endforeach
+      ])--}}
+   
   </div>
 </div>
 @stop

@@ -98,8 +98,9 @@ class EspecialidadController extends Controller
     {
         $especialidad = Especialidad::findOrFail($id);
         $inversiones = Inversion::all();
+        $usuarios = User::all();
 
-        return view('especialidad.edit', compact("especialidad", 'inversiones'));
+        return view('especialidad.edit', compact('especialidad', 'inversiones', 'usuarios'));
     }
 
     public function update(Request $request, $id)
@@ -128,7 +129,7 @@ class EspecialidadController extends Controller
         $totalPorcentaje = Especialidad::where('idInversion', $request->idInversion)
             ->sum('porcentajeAvanceEspecialidad');
         if ($totalPorcentaje + $nuevoPorcentaje - $porcentajeAnterior > 100) {
-            return redirect()->back()->with('errorPorcentaje', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
+            return redirect()->route('especialidad.index')->with('errorPorcentaje', 'La suma de los porcentajes de las especialidades no puede superar 100. Por favor, ingrese un valor menor.')->withInput();
         }
         // Eliminar duplicados en el array de usuarios
         $usuariosUnicos = array_unique($request->idUsuario);
