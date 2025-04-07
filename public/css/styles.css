@@ -1,0 +1,30 @@
+/* Title Gorec */
+a {
+  text-decoration: none;
+}
+
+/* Input */
+.form-control:focus {
+  border-color: #d85e79;
+  box-shadow: 0 0 0 0.1rem #ff6a8580;
+}
+.form-select:focus {
+  border-color: #d85e79;
+  box-shadow: 0 0 0 0.1rem #ff6a8580;
+}
+.form-check-input:focus {
+  border-color: #d85e79;
+  outline: 0;
+  box-shadow: 0 0 0 0.1rem #ff6a8580;
+}
+.form-check-input:checked {
+  background-color: #c42743;
+  border-color: #c42743;
+  box-shadow: 0 0 0 0.1rem #ff6a8580;
+}
+
+/* Notifications */
+.gorec-notifications {
+  background-color: #9C0C27;
+  color: #fff;
+}

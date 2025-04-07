@@ -17,40 +17,45 @@ use Auth;
 
 class InversionController extends Controller
 {
-    // Función de carga de datos
+    // Función carga de datos
     public function index(Request $request){
         // Carga de datos de provincias y distritos mediante un JSON
         $json = File::get(public_path('json/cusco.json'));
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
-        $profesionales = AsignacionProfesional::all();
 
         // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
         if ($user->isAdmin) {
-            // Si el usuario es administrador, carga todas las inversiones
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
             $inversiones = Inversion::all();
             $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
         } else {
-            // Si no es administrador, carga las inversiones propias y aquellas en las que ha sido asignado como profesional
-            $inversionesPropias = Inversion::where('idUsuario', $user->idUsuario)->get();
-
-            // Obtén las inversiones donde el usuario ha sido asignado como profesional
-            $inversionesAsignadas = Inversion::whereHas('profesional', function ($query) use ($user) {
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
                 $query->where('idUsuario', $user->idUsuario);
             })->get();
 
-            // Combina las inversiones propias y las asignadas
-            $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
 
             // Carga los usuarios relacionados
             $usuarios = User::where('idUsuario', $user->idUsuario)->get();
         }
-        // Cargamos logs
-        //$logs = EstadoLog::all();
 
-        //$avanceInversionLog = AvanceInversionLog::all();
-
+        // Carga las notificaciones de las inversiones por finalizar
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
@@ -62,7 +67,7 @@ class InversionController extends Controller
         return view('inversion.index', compact('inversiones', 'provincias', 'usuarios','notificaciones'));
     }
 
-    // Función de agregar un registro
+    // Función agregar un registro
     public function store(Request $request){
         // Validaciones
         $request->validate([
@@ -84,13 +89,12 @@ class InversionController extends Controller
             'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
             'cuiInversion.required' => 'El campo CUI Inversión es obligatorio.',
-            'nombreInversion.required' => 'El campo Nombre de Inversión es obligatorio.',
+            'nombreInversion.required' => 'El campo Nombre es obligatorio.',
             'nombreCortoInversion.required' => 'El campo Nombre Corto es obligatorio.',
-            'idUsuario.required' => 'El Usuario es obligatorio.',
+            'idUsuario.required' => 'El campo Responsable es obligatorio.',
             'idUsuario.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
             'idCoordinador.required' => 'El campo Coordinador es obligatorio.',
             'idCoordinador.*.exists' => 'Uno o más usuarios seleccionados no existen.',
-            'idCoordinador.*.distinct' => 'Un usuario no puede ser agregado más de una vez a la misma inversión.',
             'provinciaInversion.required' => 'El campo Provincia es obligatorio.',
             'distritoInversion.required' => 'El campo Distrito es obligatorio.',
             'nivelInversion.required' => 'El campo Nivel es obligatorio.',
@@ -103,15 +107,18 @@ class InversionController extends Controller
             'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
             'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
             'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
-            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulacióndebe estar entre 0 y 999999999999999999999.99.',
+            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulación debe estar entre 0 y 999999999999999999999.99.',
             'presupuestoEjecucionInversion.required' => 'El campo Presupuesto de Ejecución es obligatorio.',
             'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
             'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
 
+        // Obtenemos el array que contiene los id de los coordinadores
         $dataCoordinador = $request->get('idCoordinador', []);
+
+        // Obtenemos el resto de datos del request
         $data = $request->except('idCoordinador');
-        // $data['idCoordinador'] = 1;
+
         // ======== ELIMINAR idCordinador DE TABLA INVERSIÓN ========
         // ALTER TABLE inversion DROP FOREIGN KEY inversion_idCordinador_foreign;
         // ALTER TABLE inversion DROP COLUMN idCordinador;
@@ -122,12 +129,11 @@ class InversionController extends Controller
             $data['archivoInversion'] = file_get_contents($file->getRealPath());
         }
 
-        // Creamos un registro
+        // Hacer un registro
         $inversion = Inversion::create($data);
 
-        if (!empty($dataCoordinador)) {
-            $inversion->coordinadores()->sync($dataCoordinador);
-        }
+        // Agregamos los coordinadores a la tabla pivote "inversion_coordinador"
+        $inversion->coordinadores()->sync($dataCoordinador);
 
         return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' creada exitosamente.');
     }
@@ -139,10 +145,38 @@ class InversionController extends Controller
         $data = json_decode($json, true);
         $provincias = $data['provincias'];
 
-        // Cargamos los datos de inversion
-        $usuarios = User::all();
+        // Cargamos los datos de la inversion
         $inversion = Inversion::findOrFail($id);
-        $inversiones = Inversion::all();
+        $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
+
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
+            $inversiones = Inversion::all();
+        } else {
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
+                $query->where('idUsuario', $user->idUsuario);
+            })->get();
+
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
+        }
+
+        // Carga las notificaciones de las inversiones por finalizar
         $notificaciones = [];
         foreach ($inversiones as $inversions) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
@@ -158,17 +192,55 @@ class InversionController extends Controller
     public function update(Request $request, $id){
         // Validaciones
         $request->validate([
+            'cuiInversion' => 'required|string|max:255',
+            'nombreInversion' => 'required|string|max:1024',
+            'nombreCortoInversion' => 'required|string|max:255',
+            'idUsuario' => 'required|exists:users,idUsuario',
+            'idCoordinador' => 'required|array',
+            'idCoordinador.*' => 'exists:users,idUsuario',
+            'provinciaInversion' => 'required|string|max:255',
+            'distritoInversion' => 'required|string|max:255',
+            'nivelInversion' => 'required|string|max:255',
+            'funcionInversion' => 'required|string|max:255',
+            'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
+            'fechaInicioInversion' => 'required|date',
+            'fechaFinalInversion' => 'required|date',
+            'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
+            'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
+            'cuiInversion.required' => 'El campo CUI Inversión es obligatorio.',
+            'nombreInversion.required' => 'El campo Nombre es obligatorio.',
+            'nombreCortoInversion.required' => 'El campo Nombre Corto es obligatorio.',
+            'idUsuario.required' => 'El campo Responsable es obligatorio.',
+            'idUsuario.exists' => 'El usuario seleccionado no existe en la tabla de usuarios.',
+            'idCoordinador.required' => 'El campo Coordinador es obligatorio.',
+            'idCoordinador.*.exists' => 'Uno o más usuarios seleccionados no existen.',
+            'provinciaInversion.required' => 'El campo Provincia es obligatorio.',
+            'distritoInversion.required' => 'El campo Distrito es obligatorio.',
+            'nivelInversion.required' => 'El campo Nivel es obligatorio.',
+            'funcionInversion.required' => 'El campo Función es obligatorio.',
+            'modalidadInversion.required' => 'El campo Modalidad es obligatorio.',
             'estadoInversion.required' => 'El campo Estado es obligatorio.',
+            'fechaInicioInversion.required' => 'El campo Fecha Inicio es obligatorio.',
+            'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
+            'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
+            'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
+            'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
+            'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
+            'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulación debe estar entre 0 y 999999999999999999999.99.',
+            'presupuestoEjecucionInversion.required' => 'El campo Presupuesto de Ejecución es obligatorio.',
+            'presupuestoEjecucionInversion.numeric' => 'El campo Presupuesto de Ejecución debe ser un número.',
+            'presupuestoEjecucionInversion.between' => 'El campo Presupuesto de Ejecución debe estar entre 0 y 999999999999999999999.99.',
         ]);
+
+        // Obtenemos el array que contiene los id de los coordinadores
+        $dataCoordinador = $request->get('idCoordinador', []);
 
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
 
-        // Guardamos el estado actual
-        $CurrentEstadoInversion = $inversion->estadoInversion;
-
+        // Obtenemos el reques sin el archivoInversion
         $data = $request->except(['archivoInversion', 'deleteFile']);
 
         // Manejar la subida del archivo
@@ -179,14 +251,13 @@ class InversionController extends Controller
 
         // Verificar si se ha solicitado eliminar el archivo
         if ($request->has('deleteFile') && $request->input('deleteFile') == '1') {
-            // Borramos el archivo
             $data['archivoInversion'] = null;
         }
 
-        // Editamos la inversión
-        $inversion->update($data);
+        // Guardamos el estado actual
+        $CurrentEstadoInversion = $inversion->estadoInversion;
 
-         // Comprobamos si el estado ha cambiado
+        // Comprobamos si el estado ha cambiado
         if ($request->estadoInversion != $CurrentEstadoInversion) {
             EstadoLog::create([
                 'estadoInversionOLD' => $CurrentEstadoInversion,
@@ -195,6 +266,9 @@ class InversionController extends Controller
                 'idInversion' => $id,
             ]);
         }
+
+        // Actualizar los coordinadores en la tabla pivote
+        $inversion->coordinadores()->sync($dataCoordinador);
 
         return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' actualizada exitosamente.');
     }
@@ -214,7 +288,35 @@ class InversionController extends Controller
     public function show($id){
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
-        $inversiones = Inversion::all(); // Agregamos esta línea para definir $inversiones
+
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
+            $inversiones = Inversion::all();
+        } else {
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
+                $query->where('idUsuario', $user->idUsuario);
+            })->get();
+
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
+        }
+
+        // Carga las notificaciones de las inversiones por finalizar
         $notificaciones = [];
         foreach ($inversiones as $inversions) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
@@ -222,12 +324,11 @@ class InversionController extends Controller
                 $notificaciones[] = $inversions;
             }
         }
-        
 
         return view('inversion.show', compact('inversion', 'inversion', 'notificaciones'));
     }
 
-    // Función para descargar el PDF (Opcional)
+    // Función para descargar el PDF
     public function download($id)
     {
         $inversion = Inversion::findOrFail($id);
@@ -237,11 +338,12 @@ class InversionController extends Controller
         }
 
         return response($inversion->archivoInversion)
-                    ->header('Content-Type', 'application/pdf')
-                    ->header('Content-Disposition', 'attachment; filename="' . $inversion->nombreCortoInversion . '.pdf"');
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="' . $inversion->nombreCortoInversion . '.pdf"');
     }
+
     public function estadoLog($id){
-        
+
         $inversion = Inversion::findOrFail($id);
         $logs = EstadoLog::where('idInversion', $id)->get();
         $notificaciones = [];
