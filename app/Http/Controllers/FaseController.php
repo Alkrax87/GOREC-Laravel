@@ -5,7 +5,7 @@ use App\Models\AvanceLog;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\Fase;
-use App\Models\SubFase;
+use App\Models\Subfase;
 use App\Models\Inversion;
 use App\Models\Especialidad;
 use Carbon\Carbon;
@@ -30,7 +30,7 @@ class FaseController extends Controller
             // Lógica para administrador
             $especialidad = Especialidad::findOrFail($id);
             $fases = Fase::where('idEspecialidad', $id)->get();
-            $subfases = SubFase::query()->orderBy('idSubfase', 'desc')->get();
+            $subfases = Subfase::query()->orderBy('idSubfase', 'desc')->get();
             $subfaseIds = $subfases->pluck('idSubfase');
             $logs = AvanceLog::whereIn('idSubfase', $subfaseIds)->get();
 

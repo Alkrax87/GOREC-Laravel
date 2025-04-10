@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SubFase;
+use App\Models\Subfase;
 use App\Models\Fase;
 use App\Models\Especialidad;
 use Carbon\Carbon;
@@ -41,7 +41,7 @@ class SubFaseController extends Controller
 
 
         // Buscamos si ya existen SubFases con el id de una Fase
-        $existingSubfases = SubFase::where('idFase', $request->idFase)->get();
+        $existingSubfases = Subfase::where('idFase', $request->idFase)->get();
 
         // Definimos un array para almacenar las subfases
         $subfases = [];
@@ -102,10 +102,10 @@ class SubFaseController extends Controller
         }
 
         // Eliminamos las fases de la tabla
-        SubFase::where('idFase', $request->idFase)->delete();
+        Subfase::where('idFase', $request->idFase)->delete();
 
         // Creamos un nuevo registro
-        SubFase::insert($subfases);
+        Subfase::insert($subfases);
 
         // Verificar que la fase se esté obteniendo y actualizando correctamente
         $fase = Fase::find($request->idFase);
@@ -173,7 +173,7 @@ class SubFaseController extends Controller
             ]);
 
             // Buscamos la inversión
-            $subfase = SubFase::findOrFail($id);
+            $subfase = Subfase::findOrFail($id);
 
             // Guardamos el % de avance actual
             $currentAvanceSubfase = $subfase->avance_por_usuario_realSubFase;
@@ -198,7 +198,7 @@ class SubFaseController extends Controller
         }
 
         // Obtenemos las subfases en base al id de la fase padre
-        $subfases = SubFase::where('idFase', $subfase->idFase)->get();
+        $subfases = Subfase::where('idFase', $subfase->idFase)->get();
 
         // Recalculamos el avance
         $totalAvanceRealTotalSubFase = $subfases->sum('avanceRealTotalSubFase');
@@ -226,7 +226,7 @@ class SubFaseController extends Controller
 
     public function destroy($id){
         // Buscamos la subfase
-        $subfase = SubFase::findOrFail($id);
+        $subfase = Subfase::findOrFail($id);
 
         // Elimina la subfase
         $subfase->delete();
@@ -235,7 +235,7 @@ class SubFaseController extends Controller
         $idFase = $subfase->idFase;
 
         // Obtenemos las subfases restantes
-        $subfases = SubFase::where('idFase', $idFase)->get();
+        $subfases = Subfase::where('idFase', $idFase)->get();
 
         // Recalcula el total de días
         $totalDias = 0;
