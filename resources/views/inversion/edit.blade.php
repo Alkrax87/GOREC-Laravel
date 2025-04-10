@@ -159,8 +159,8 @@
                 <option value="JUSTICIA" {{ $inversion->funcionInversion == 'JUSTICIA' ? 'selected' : '' }}>JUSTICIA</option>
                 <option value="TRANSPORTE" {{ $inversion->funcionInversion == 'TRANSPORTE' ? 'selected' : '' }}>TRANSPORTE</option>
                 <option value="SANEAMIENTO" {{ $inversion->funcionInversion == 'SANEAMIENTO' ? 'selected' : '' }}>SANEAMIENTO</option>
-                <option value="SALUD" {{ $inversion->funcionInversion == 'IOARR' ? 'SALUD' : '' }}>SALUD</option>
-                <option value="EDUCACIÓN" {{ $inversion->funcionInversion == 'IOARR' ? 'EDUCACIÓN' : '' }}>EDUCACIÓN</option>
+                <option value="SALUD" {{ $inversion->funcionInversion == 'SALUD' ? 'selected' : '' }}>SALUD</option>
+                <option value="EDUCACIÓN" {{ $inversion->funcionInversion == 'EDUCACIÓN' ? 'selected' : '' }}>EDUCACIÓN</option>
               </select>
             </div>
           </div>
