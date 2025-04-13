@@ -326,7 +326,7 @@ return [
         [
             'text' => 'Comentario',
             'url' => 'comentario',
-            'icon' => 'fas fa-clipboard-list',
+            'icon' => 'fas fa-comments',
             'icon_color' => 'white'
         ],
         [
