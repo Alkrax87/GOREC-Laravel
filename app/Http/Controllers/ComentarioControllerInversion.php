@@ -43,23 +43,16 @@ class ComentarioControllerInversion extends Controller
         return view('comentario.index', compact('comentarios', 'inversiones','notificaciones'));
     }
 
-    public function create()
-    {
-        
-    }
-
     public function store(Request $request)
     {
+        date_default_timezone_set('America/Lima');
         $request->validate([
             'asuntoComentarioInversion' => 'required|string|max:255',
             'comentariosInversion' => 'required|string|max:255',
-            'fechaComentarioInversion' => 'required|date',
             'idInversion' => 'required|exists:inversion,idInversion',
         ],[
             'asuntoComentarioInversion.required' => 'El nombre es obligatorio.',
             'comentariosInversion.required' => 'La obervación es obligatoria.',
-            'fechaComentarioInversion.required' => 'La fecha inicio es obligatoria.',
-            'fechaComentarioInversion.date' => 'La fecha final debe ser una fecha válida.',
             'idInversion.required' => 'La inversión es obligatoria.',
             'idInversion.exists' => 'La inversión seleccionada no existe.',
         ]);
@@ -72,15 +65,25 @@ class ComentarioControllerInversion extends Controller
         // Agregar el ID del usuario autenticado al arreglo de datos
         $data = $request->all();
         $data['idUsuario'] = Auth::user()->idUsuario;  // Asigna el ID del usuario autenticado
+        $data['fechaComentarioInversion'] = Carbon::now(); // <- Asignar fecha actual automáticamente
 
         // Crear el registro
         ComentarioInversion::create($data);
-            return redirect()->route('comentario.index')->with('message','Elemento creado correctamente.');
+            return redirect()->route('comentario.index')->with('message','Comentario creado correctamente.');
     }
 
     public function show($id)
     {
-        // Mostrar un producto específico
+        $comentarios = ComentarioInversion::findOrFail($id);
+
+        $user = Auth::user();
+
+        if ($comentarios->idUsuario !== Auth::id() && !$user->isAdmin) {
+            abort(403, 'No tienes permiso para ver este comentario.');
+        }
+
+
+        return view('comentario.show', compact('comentarios'));
     }
 
     public function edit($id)
@@ -89,17 +92,57 @@ class ComentarioControllerInversion extends Controller
         $comentarios = ComentarioInversion::findOrFail($id);
         $inversiones = Inversion::all();
         //$usuarios = User::all();
+        $user = Auth::user();
+
+        if ($comentarios->idUsuario !== Auth::id() && !$user->isAdmin) {
+            abort(403, 'No tienes permiso para editar este comentario.');
+        }
 
         return view('comentario.edit', compact('comentarios','inversiones'));
     }
 
     public function update(Request $request, $id)
     {
-        // Actualizar el producto
+        date_default_timezone_set('America/Lima');
+         // Validaciones
+         $request->validate([
+            'asuntoComentarioInversion' => 'required|string|max:255',
+            'comentariosInversion' => 'required|string|max:255',
+            'idInversion' => 'required|exists:inversion,idInversion',
+        ],[
+            'asuntoComentarioInversion.required' => 'El nombre es obligatorio.',
+            'comentariosInversion.required' => 'La obervación es obligatoria.',
+            'idInversion.required' => 'La inversión es obligatoria.',
+            'idInversion.exists' => 'La inversión seleccionada no existe.',
+        ]);
+
+        // Buscamos el complementario
+        $comentarios = ComentarioInversion::findOrFail($id);
+
+        if (!Auth::check()) {
+            return redirect()->route('comentario.index')->withErrors('Debe estar autenticado para realizar esta acción.');
+        }
+
+        // Agregar el ID del usuario autenticado al arreglo de datos
+        $data = $request->all();
+        $data['idUsuario'] = Auth::user()->idUsuario; // Asigna el ID del usuario autenticado
+        $data['fechaComentarioInversion'] = Carbon::now();
+            // Editamos el complementario
+        $comentarios->update($data);
+
+        return redirect()->route('comentario.index')->with('message', 'Comentario actualizado correctamente.');
     }
 
     public function destroy($id)
     {
-        // Eliminar el producto
+        $comentarios = ComentarioInversion::findOrFail($id);
+        $user = Auth::user();
+
+        if ($comentarios->idUsuario !== Auth::id() && !$user->isAdmin) {
+            abort(403, 'No tienes permiso para borrar este comentario.');
+        }
+        $comentarios->delete();
+
+        return redirect()->route('comentario.index')->with('message','Comentario ' . $comentarios->asuntoComentarioInversion . ' eliminada exitosamente.');
     }
 }

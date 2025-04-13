@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Complementario')
+@section('title', 'Comentario')
 
 @section('content_header')
-  <h1><i class="fas fa-window-restore"></i> Comentario Inversión</h1>
+  <h1><i class="fas fa-comments"></i> Comentario Inversión</h1>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
       <div class="row">
         <!-- Agregar -->
         <div class="col-12">
-          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Estudios</button>
+          <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Comentario</button>
         </div>
         <!-- Tabla y alert -->
         <div class="col-12">
