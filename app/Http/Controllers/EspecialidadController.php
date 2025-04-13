@@ -200,22 +200,39 @@ class EspecialidadController extends Controller
     // Función para calcular el % de avance de la inversión
     private function calcularAvanceTotalInversión()
     {
-        // Carga de datos de inversiones
         $inversiones = Inversion::all();
 
-        // Sumamos los avances en base a sus especialidades de cada inversión
         foreach ($inversiones as $inversion) {
             $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
             $sumAvanceTotalInversion = $especialidades->sum('avanceTotalEspecialidad');
-            $CurrentAvanceInversion = $inversion->avanceInversion;
 
-            if ($CurrentAvanceInversion != $sumAvanceTotalInversion) {
+            // Obtener último log
+            $ultimoLog = AvanceInversionLog::where('idInversion', $inversion->idInversion)
+                ->latest('fechaCambioAvanceInversion')
+                ->first();
+
+            $deberiaRegistrar = false;
+
+            if (!$ultimoLog) {
+                $deberiaRegistrar = true;
+            } else {
+                $diasDiferencia = Carbon::parse($ultimoLog->fechaCambioAvanceInversion)->diffInDays(now());
+                if (
+                    $diasDiferencia > 6 ||
+                    $sumAvanceTotalInversion == 100
+                ) {
+                    $deberiaRegistrar = true;
+                }
+            }
+
+            if ($deberiaRegistrar) {
                 AvanceInversionLog::create([
                     'avanceInversionValor' => $sumAvanceTotalInversion,
                     'fechaCambioAvanceInversion' => Carbon::now()->subHours(5),
                     'idInversion' => $inversion->idInversion,
                 ]);
             }
+
             $inversion->avanceInversion = $sumAvanceTotalInversion;
             $inversion->save();
         }

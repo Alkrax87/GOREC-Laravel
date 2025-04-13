@@ -362,35 +362,87 @@ class InversionController extends Controller
         }
         return view('inversion.estadoLog', compact('inversion', 'logs', 'notificaciones'));
     }
+
     public function avanceInversionLog($id){
         $inversion = Inversion::findOrFail($id);
-        $avancelogs = AvanceInversionLog::where('idInversion', $id)->get();
-        $notificaciones = [];
-        $inversiones = Inversion::all(); // Agregamos esta línea para definir $inversiones
+        $fullLogs  = AvanceInversionLog::where('idInversion', $id)->orderBy('fechaCambioAvanceInversion')->get();
 
+        $maxPuntos = 30;
+        $resumenLogs = collect();
+
+        if ($fullLogs->count() > $maxPuntos) {
+            $chunkSize = ceil($fullLogs->count() / $maxPuntos);
+
+            for ($i = 0; $i < $fullLogs->count(); $i += $chunkSize) {
+                $grupo = $fullLogs->slice($i, $chunkSize);
+                $fecha = $grupo->first()->fechaCambioAvanceInversion;
+                $valor = round($grupo->avg('avanceInversionValor'), 2);
+
+                $resumenLogs->push((object)[
+                    'fechaCambioAvanceInversion' => $fecha,
+                    'avanceInversionValor' => $valor
+                ]);
+            }
+
+            // Asegurar primero y último reales
+            $resumenLogs[0] = $fullLogs->first();
+            $resumenLogs[$resumenLogs->count() - 1] = $fullLogs->last();
+            $resumenLogs = $resumenLogs->values();
+        } else {
+            $resumenLogs = $fullLogs;
+        }
+
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
+        $user = Auth::user();
+        if ($user->isAdmin) {
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
+            $inversiones = Inversion::all();
+        } else {
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
+                $query->where('idUsuario', $user->idUsuario);
+            })->get();
+
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
+        }
+
+        // Carga las notificaciones de las inversiones por finalizar
+        $notificaciones = [];
         foreach ($inversiones as $inversions) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversions->fechaFinalInversion, false);
             if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
                 $notificaciones[] = $inversions;
             }
         }
-        return view('inversion.avanceInversionLog', compact('inversion', 'avancelogs', 'notificaciones'));
+
+        return view('inversion.avanceInversionLog', compact('inversion', 'fullLogs', 'resumenLogs', 'notificaciones'));
     }
+
     public function pdf($id) {
         date_default_timezone_set('America/Lima');
         $inversion = Inversion::findOrFail($id);
         $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
         $pdf->setPaper('A4', 'portrait');
-         // Establecer opciones adicionales
         return $pdf->stream();
     }
 
-
     public function pdfs(){
         date_default_timezone_set('America/Lima');
-        $inversiones = Inversion::all(); // Carga todas las inversiones
+        $inversiones = Inversion::all();
         $pdfs = Pdf::loadView('inversion.pdfs', compact('inversiones'));
         return $pdfs->stream();
-        //return view('especialidad.pdf', compact('especialidades', 'inversiones', 'usuarios', 'fases', 'subfases'));
     }
 }
