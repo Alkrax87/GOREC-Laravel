@@ -260,7 +260,7 @@
         <h4 class="text-center">Acto Resolutivo</h4>
         <div class="row mb-3">
           <div class="col-6">
-            <label>Fecha Inicio</label>
+            <label>Fecha</label>
             <input type="date" name="fecha_ActoResolutivo_Inversion" value="{{ $inversion->fecha_ActoResolutivo_Inversion }}" class="form-control"/>
           </div>
           <div class="col-6">
