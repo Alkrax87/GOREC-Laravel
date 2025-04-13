@@ -84,7 +84,7 @@ class InversionController extends Controller
             'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
             'fechaInicioInversion' => 'required|date',
-            'fechaFinalInversion' => 'required|date',
+            'fechaFinalInversion' => 'required|date|after_or_equal:fechaInicioInversion',
             'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
             'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
@@ -105,6 +105,7 @@ class InversionController extends Controller
             'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
             'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
             'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
+            'fechaFinalInversion.after_or_equal' => 'El campo fecha final debe ser una fecha posterior a la fecha inicial.',
             'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
             'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
             'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulación debe estar entre 0 y 999999999999999999999.99.',
@@ -205,7 +206,7 @@ class InversionController extends Controller
             'modalidadInversion' => 'required|string|max:255',
             'estadoInversion' => 'required|string|max:255',
             'fechaInicioInversion' => 'required|date',
-            'fechaFinalInversion' => 'required|date',
+            'fechaFinalInversion' => 'required|date|after_or_equal:fechaInicioInversion',
             'presupuestoFormulacionInversion' => 'required|numeric|between:0,999999999999999999999.99',
             'presupuestoEjecucionInversion' => 'required|numeric|between:0,999999999999999999999.99',
         ], [
@@ -226,6 +227,7 @@ class InversionController extends Controller
             'fechaInicioInversion.date' => 'El campo Fecha Inicio debe ser una fecha válida.',
             'fechaFinalInversion.required' => 'El campo Fecha Final es obligatorio.',
             'fechaFinalInversion.date' => 'El campo Fecha Final debe ser una fecha válida.',
+            'fechaFinalInversion.after_or_equal' => 'El campo fecha final debe ser una fecha posterior a la fecha inicial.',
             'presupuestoFormulacionInversion.required' => 'El campo Presupuesto de Formulación es obligatorio.',
             'presupuestoFormulacionInversion.numeric' => 'El campo Presupuesto de Formulación debe ser un número.',
             'presupuestoFormulacionInversion.between' => 'El campo Presupuesto de Formulación debe estar entre 0 y 999999999999999999999.99.',
@@ -240,7 +242,7 @@ class InversionController extends Controller
         // Buscamos la inversión
         $inversion = Inversion::findOrFail($id);
 
-        // Obtenemos el reques sin el archivoInversion
+        // Obtenemos el request sin el archivoInversion
         $data = $request->except(['archivoInversion', 'deleteFile']);
 
         // Manejar la subida del archivo
@@ -250,8 +252,8 @@ class InversionController extends Controller
         }
 
         // Verificar si se ha solicitado eliminar el archivo
-        if ($request->has('deleteFile') && $request->input('deleteFile') == '1') {
-            $data['archivoInversion'] = null;
+        if ($request->has('deleteFile') && $request->input('deleteFile') == '1' && $request->hasFile('archivoInversion')) {
+            return back()->withErrors(['archivoInversion' => 'No puedes subir un archivo y eliminarlo al mismo tiempo.']);
         }
 
         // Guardamos el estado actual
@@ -267,7 +269,8 @@ class InversionController extends Controller
             ]);
         }
 
-        // Actualizar los coordinadores en la tabla pivote
+        // Actualizamos la Inversion
+        $inversion->update($data);
         $inversion->coordinadores()->sync($dataCoordinador);
 
         return redirect()->route('inversion.index')->with('message','Inversión ' . $request->nombreCortoInversion . ' actualizada exitosamente.');
