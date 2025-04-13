@@ -13,16 +13,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="form-outline mb-4">
-                  <label class="form-label">Asunto Comentario</label>
-                  <input type="text" name="asuntoComentarioInversion" class="input-auth" placeholder="Ingrese Asunto" required/>
-                </div>
-                <div class="form-outline mb-4">
-                  <label class="form-label">Descripcion</label>
-                  <textarea class="form-control input-auth" name="comentariosInversion" placeholder="Ingrese Observación" rows="4" required></textarea>
-                </div>
-                
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="idInversion">Inversión</label>
+                  <label class="form-label" for="idInversion">Inversión</label>
                     <select name="idInversion" id="idInversion" class="form-select form-select-sm input-auth" required>
                       <option value="" disabled selected>Selecciona una inversión</option>
                       @foreach ($inversiones as $inversion)
@@ -32,11 +23,13 @@
                       @endforeach
                     </select>
                 </div>
-                <div class="row">
-                  <div class="col-6 form-outline mb-4">
-                    <label class="form-label">Fecha Comentario</label>
-                    <input type="date" name="fechaComentarioInversion" class="input-auth" required/>
-                  </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label">Asunto Comentario</label>
+                  <input type="text" name="asuntoComentarioInversion" class="input-auth" placeholder="Ingrese Asunto" required/>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label">Descripcion</label>
+                  <textarea class="form-control input-auth" name="comentariosInversion" placeholder="Ingrese Observación" rows="4" required></textarea>
                 </div>
               </div>
               <div class="col-12 py-2 text-center">
@@ -51,8 +44,7 @@
   </form>
   <!-- Incluir el JS de jQuery y Select2 -->
   <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-  
+
   <script>
     $(document).ready(function() {
       $('#ModalCreate').on('shown.bs.modal', function () {

@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/especialidad/avance/{id}', [EspecialidadController::class, 'avance'])->name('especialidad.avance');
     Route::delete('/especialidad/{id}', [EspecialidadController::class, 'destroy'])->name('especialidad.destroy');
 
-    // ======= Especialidad =========
+    // ======= USUARIO =========
     // Route::resource('usuario', UserController::class)->middleware([AdminMiddleware::class]);
     Route::get('/usuario', [UserController::class, 'index'])->name('usuario.index')->middleware([AdminMiddleware::class]);
     Route::post('/usuario', [UserController::class, 'store'])->name('usuario.store')->middleware([AdminMiddleware::class]);
@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/comentario/show/{id}', [ComentarioControllerInversion::class, 'show'])->name('comentario.show');
     //Route::get('/comentario/avance/{id}', [ComentarioControllerInversion::class, 'avance'])->name('comentario.avance');
     Route::delete('/comentario/{id}', [ComentarioControllerInversion::class, 'destroy'])->name('comentario.destroy');
+    
     // Cerrar sesión
     Route::post('/logout', 'App\Http\Controllers\HomeController@logout')->name('logout');
 });
