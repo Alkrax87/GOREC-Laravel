@@ -78,7 +78,7 @@
             label: 'Avance',
             data: resumenData,
             borderColor: 'rgb(156, 12, 39)',
-            backgroundColor: 'rgba(156, 12, 39, 0.2)',
+            // backgroundColor: 'rgba(156, 12, 39, 0.2)',
             fill: true,
             tension: 0.4,
             pointRadius: 6,
