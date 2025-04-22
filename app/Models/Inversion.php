@@ -45,52 +45,57 @@ class Inversion extends Model
         'archivoInversion',
     ];
 
-    // Define la relación con el modelo User
-    public function usuario(){
+    // Relación muchos a uno: Esta inversión pertenece a un usuario (responsable principal)
+    public function usuario()
+    {
         return $this->belongsTo(User::class, 'idUsuario', 'idUsuario');
     }
 
-    // Define la relación con el modelo User
-    public function cordinador(){
-        return $this->belongsTo(User::class, 'idCordinador', 'idUsuario');
-    }
-
-    // Define la relación con el modelo Segmento
-    public function segmentos(){
+    // Relación uno a muchos: Esta inversión está compuesta por varios segmentos
+    public function segmentos()
+    {
         return $this->hasMany(Segmento::class, 'idInversion', 'idInversion');
     }
 
-    // Define la relación con el modelo EstadoLog
-    public function estado_log(){
+    // Relación uno a muchos: Esta inversión tiene un historial de estados
+    public function estado_log()
+    {
         return $this->hasMany(EstadoLog::class, 'idInversion', 'idInversion');
     }
 
-    // Define la relación con el modelo AvanceInversionLog
-    public function avance_inversion_log(){
+    // Relación uno a muchos: Esta inversión tiene registros de avance en el tiempo
+    public function avance_inversion_log()
+    {
         return $this->hasMany(AvanceInversionLog::class, 'idInversion', 'idInversion');
     }
 
-    // Define la relación con el modelo AsignacionProfesional
-    public function profesional(){
+    // Relación uno a muchos: Esta inversión tiene profesionales asignados
+    public function profesional()
+    {
         return $this->hasMany(AsignacionProfesional::class, 'idInversion', 'idInversion');
     }
 
-    // Define la relación con el modelo AsignacionAsistente
-    public function asistente(){
+    // Relación uno a muchos: Esta inversión tiene asistentes asignados
+    public function asistente()
+    {
         return $this->hasMany(AsignacionAsistente::class, 'idInversion', 'idInversion');
     }
 
-    // Define la relación con el modelo Complementario
-    public function complementario(){
+    // Relación uno a muchos: Esta inversión tiene registros complementarios asociados
+    public function complementario()
+    {
         return $this->hasMany(Complementario::class, 'idInversion');
     }
 
-    // Define la relación con el modelo Especialidad
-    public function especialidades(){
+    // Relación uno a muchos: Esta inversión está relacionada con varias especialidades
+    public function especialidades()
+    {
         return $this->hasMany(Especialidad::class, 'idInversion');
     }
 
-    public function coordinadores() {
+    // Relación muchos a muchos: Esta inversión puede tener varios coordinadores asociados
+    public function coordinadores()
+    {
         return $this->belongsToMany(User::class, 'inversion_coordinador', 'idInversion', 'idUsuario');
     }
 }
