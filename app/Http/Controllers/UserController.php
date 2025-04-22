@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\User;
@@ -14,8 +13,8 @@ class UserController extends Controller
 {
     // Función de carga de datos
     public function index(Request $request){
-        // Cargamos los datos de inversion filtrador en base al usuario logeado
-        $usuarios = User::with(['inversion', 'asignacionesProfesional.inversion', 'asignacionesAsistente.inversion'])->get();
+        // Cargamos los datos de usuarios y las inversiones
+        $usuarios = User::all();
         $inversiones = Inversion::all();
 
         $notificaciones = [];
@@ -30,14 +29,9 @@ class UserController extends Controller
         return view('usuario.index', compact('usuarios','notificaciones'),);
     }
 
-    // Función que devuelve el formulario de crear
-    public function create(){
-        return view('usuario.create');
-    }
-
     // Función de agreagar un registro
     public function store(Request $request){
-        // Inicio validacion usuario
+        // Validaciones
         $request->merge(['email' => $request->email . '@gorec.com']);
 
         // Validaciones
@@ -47,21 +41,20 @@ class UserController extends Controller
             'email' => 'nullable|string|max:255|unique:users',
             'password' => 'nullable|string|min:8',
             'categoriaUsuario' => 'required|string',
-            'profesionUsuario' => 'array',
-            'especialidadUsuario' => 'array',
+            'profesionUsuario' => 'required|array',
+            'especialidadUsuario' => 'required|array',
             'ObservacionUser' => 'nullable|string|max:1024',
-            
         ], [
-            'nombreUsuario.required' => 'El campo de nombre es obligatorio.',
-            'apellidoUsuario.required' => 'El campo de apellido es obligatorio.',
-            'email.unique' => 'El nombre de usuario  ya está en uso.',
-            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
-            'categoriaUsuario.required' => 'El campo de categoría es obligatorio.',
-            'profesionUsuario.required' => 'El campo de profesión es obligatorio.',
-            'especialidadUsuario.required' => 'El campo de especialidad es obligatorio.',
+            'nombreUsuario.required' => 'El campo Nombre es obligatorio.',
+            'apellidoUsuario.required' => 'El campo Apellido es obligatorio.',
+            'email.unique' => 'El nombre de Usuario ya está en uso.',
+            'password.min' => 'La Contraseña debe tener al menos 8 caracteres.',
+            'categoriaUsuario.required' => 'El campo Categoría es obligatorio.',
+            'profesionUsuario.required' => 'El campo Profesión es obligatorio.',
+            'especialidadUsuario.required' => 'El campo Especialidad es obligatorio.',
         ]);
 
-        // Fin validacion usuario
+        // Fin validación usuario
         $request->merge(['email' => str_replace('@gorec.com', '', $request->email)]);
 
         // Preparar los datos para crear
@@ -71,13 +64,12 @@ class UserController extends Controller
             'categoriaUsuario' => $request->categoriaUsuario,
         ];
 
-        // Validamos si el Usuario ingresado va a tener o no un usuario y contraseña
-        if ($request->email == null && $request->password == null) {
-            $data['email'] = null;
-            $data['password'] = null;
-        } else {
+        if ($request->cuentaUsuario && $request->email !== null && $request->password !== null) {
             $data['email'] = $request->email . '@gorec.com';
             $data['password'] = Hash::make($request->password);
+        } else {
+            $data['email'] = null;
+            $data['password'] = null;
         }
 
         // Creamos un nuevo Usuario
@@ -105,7 +97,18 @@ class UserController extends Controller
         // Carga el usuario con un id especifico
         $usuario = User::findOrFail($id);
 
-        return view('usuario.edit',compact('usuario'));
+        $inversiones = Inversion::all();
+
+        $notificaciones = [];
+
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
+        return view('usuario.edit',compact('usuario', 'notificaciones'));
     }
 
     // Función editar un registro
@@ -117,25 +120,20 @@ class UserController extends Controller
         $request->validate([
             'nombreUsuario' => 'required|string|max:255',
             'apellidoUsuario' => 'required|string|max:255',
-            'email' => [
-                'nullable',
-                'string',
-                'max:255',
-                Rule::unique('users')->ignore($id, 'idUsuario')// Validación única excepto para el usuario actual
-            ],
+            'email' => ['nullable', 'string', 'max:255', Rule::unique('users')->ignore($id, 'idUsuario')],
             'password' => 'nullable|string|min:8',
             'categoriaUsuario' => 'required|string',
-            'profesionUsuario' => 'array',
-            'especialidadUsuario' => 'array',
+            'profesionUsuario' => 'required|array',
+            'especialidadUsuario' => 'required|array',
             'ObservacionUser' => 'nullable|string|max:1024',
         ], [
-            'nombreUsuario.required' => 'El campo de nombre es obligatorio.',
-            'apellidoUsuario.required' => 'El campo de apellido es obligatorio.',
-            'email.unique' => 'El nombre de usuario  ya está en uso.',
-            'password.min' => 'La contraseña debe tener al menos 8 caracteres.',
-            'categoriaUsuario.required' => 'El campo de categoría es obligatorio.',
-            'profesionUsuario.required' => 'El campo de profesión es obligatorio.',
-            'especialidadUsuario.required' => 'El campo de especialidad es obligatorio.',
+            'nombreUsuario.required' => 'El campo Nombre es obligatorio.',
+            'apellidoUsuario.required' => 'El campo Apellido es obligatorio.',
+            'email.unique' => 'El nombre de Usuario ya está en uso.',
+            'password.min' => 'La Contraseña debe tener al menos 8 caracteres.',
+            'categoriaUsuario.required' => 'El campo Categoría es obligatorio.',
+            'profesionUsuario.required' => 'El campo Profesión es obligatorio.',
+            'especialidadUsuario.required' => 'El campo Especialidad es obligatorio.',
         ]);
 
         // Fin validacion usuario
@@ -148,20 +146,21 @@ class UserController extends Controller
         $data = [
             'nombreUsuario' => $request->nombreUsuario,
             'apellidoUsuario' => $request->apellidoUsuario,
-            'email' => $request->filled('email') ? $request->email . '@gorec.com' : null,
             'categoriaUsuario' => $request->categoriaUsuario,
-            'ObservacionUser' => $request->input('ObservacionUser'),
+            'ObservacionUser' => $request->observacionUsuario,
         ];
-
-        // Actualizar la contraseña si se proporciona una nueva
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
-        }
-
-        // Validamos si el Usuario ingresado va a tener o no un usuario y contraseña
-        if ($request->email == null && $request->password == null) {
+        if ($request->cuentaUsuario && $request->filled('email')) {
+            $data['email'] = $request->email . '@gorec.com';
+            if ($request->filled('password')) {
+                $data['password'] = Hash::make($request->password);
+                $data['password_changed'] = false;
+            }
+        } else {
+            $data['email'] = null;
             $data['password'] = null;
             $data['isAdmin'] = false;
+            $data['isAdministrativo'] = false;
+            $data['password_changed'] = false;
         }
 
         // Aplicar los cambios y guardar el usuario
@@ -201,31 +200,39 @@ class UserController extends Controller
     public function show($id){
         $usuario = User::findOrFail($id);
 
-        return view('usuario.show', compact('usuario'));
+        $inversiones = Inversion::all();
+
+        $notificaciones = [];
+
+        foreach ($inversiones as $inversion) {
+            $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
+            if ($diferenciaHoras > 0 && $diferenciaHoras <= 168) {
+                $notificaciones[] = $inversion;
+            }
+        }
+
+        return view('usuario.show', compact('usuario', 'notificaciones'));
     }
 
-    public function showChangePasswordForm()
-    {
-        return view('password_change'); // Asegúrate de que la vista exista
+    public function showChangePasswordForm(){
+        return view('password_change');
     }
 
-    public function updatePassword(Request $request)
-{
-    try {
-        $request->validate([
-            'new_password' => 'required|string|min:8|confirmed',
-        ]);
+    public function updatePassword(Request $request){
+        try {
+            $request->validate([
+                'new_password' => 'required|string|min:8|confirmed',
+            ]);
 
-        $user = Auth::user();
-        $user->password = Hash::make($request->new_password);
-        $user->password_changed = true;
-        $user->save();
+            $user = Auth::user();
+            $user->password = Hash::make($request->new_password);
+            $user->password_changed = true;
+            $user->save();
 
-        return response()->json(['message' => 'Contraseña actualizada correctamente.']);
-    } catch (\Exception $e) {
-        \Log::error('Error al actualizar la contraseña: ' . $e->getMessage());
-        return response()->json(['message' => 'Error al actualizar la contraseña.'], 500);
+            return response()->json(['message' => 'Contraseña actualizada correctamente.']);
+        } catch (\Exception $e) {
+            \Log::error('Error al actualizar la contraseña: ' . $e->getMessage());
+            return response()->json(['message' => 'Error al actualizar la contraseña.'], 500);
+        }
     }
-}
-
 }
