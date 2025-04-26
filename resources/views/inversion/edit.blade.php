@@ -74,12 +74,12 @@
               <i class="fas fa-plus"></i>
             </button>
             <div id="coordinadoresContainer">
-              @foreach ($inversion->coordinadores as $coordinador)
+              @if ($inversion->coordinadores->isEmpty())
                 <div class="input-group mb-1">
                   <select name="idCoordinador[]" id="usuariosSelect" class="form-select" required>
                     <option value="" disabled selected>Selecciona un usuario</option>
                     @foreach ($usuarios as $usuario)
-                      <option value="{{ $usuario->idUsuario }}" {{ $usuario->idUsuario == $coordinador->idUsuario ? 'selected' : '' }}>
+                      <option value="{{ $usuario->idUsuario }}">
                         {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
                         P: (
                           @if ($usuario->profesiones->isNotEmpty())
@@ -105,11 +105,48 @@
                       </option>
                     @endforeach
                   </select>
-                  <button type="button" class="btn btn-danger btn-sm {{ $loop->first ? 'disabled' : '' }}" onclick="removeCoordinador(this)" {{ $loop->first ? 'disabled' : '' }}>
+                  <button type="button" class="btn btn-danger btn-sm disabled">
                     <i class="fas fa-trash-alt"></i>
                   </button>
                 </div>
-              @endforeach
+              @else
+                @foreach ($inversion->coordinadores as $coordinador)
+                  <div class="input-group mb-1">
+                    <select name="idCoordinador[]" id="usuariosSelect" class="form-select" required>
+                      <option value="" disabled selected>Selecciona un usuario</option>
+                      @foreach ($usuarios as $usuario)
+                        <option value="{{ $usuario->idUsuario }}" {{ $usuario->idUsuario == $coordinador->idUsuario ? 'selected' : '' }}>
+                          {{ $usuario->nombreUsuario . ' ' . $usuario->apellidoUsuario }}
+                          P: (
+                            @if ($usuario->profesiones->isNotEmpty())
+                              @foreach ($usuario->profesiones as $profesion)
+                                {{ $profesion->nombreProfesion }}
+                                @if (!$loop->last)
+                                  ,
+                                @endif
+                              @endforeach
+                            @endif
+                          )
+                          &nbsp; | &nbsp;
+                          E: (
+                            @if ($usuario->especialidades->isNotEmpty())
+                              @foreach ($usuario->especialidades as $especialidad)
+                                {{ $especialidad->nombreEspecialidad }}
+                                @if (!$loop->last)
+                                  ,
+                                @endif
+                              @endforeach
+                            @endif
+                          )
+                        </option>
+                      @endforeach
+                    </select>
+                    <button type="button" class="btn btn-danger btn-sm {{ $loop->first ? 'disabled' : '' }}" onclick="removeCoordinador(this)" {{ $loop->first ? 'disabled' : '' }}>
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                @endforeach
+              @endif
             </div>
           </div>
           <div class="row mb-3">
