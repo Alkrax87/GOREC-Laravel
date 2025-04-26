@@ -1,6 +1,77 @@
-/* Title Gorec */
-a {
+/* Nav */
+.nav-link {
+  box-shadow: none !important;
+}
+
+/* Aside */
+.bg-aside .brand-link {
+  color: #f8f8f8;
   text-decoration: none;
+  background-color: #9C0C27;
+  border-bottom: #fff 2px solid;
+}
+.bg-aside .brand-link .brand-image {
+  opacity: 1 !important;
+}
+.bg-aside .brand-link span{
+  font-weight: 500 !important;
+}
+.bg-aside .brand-link b{
+  font-weight: bold;
+}
+.bg-aside {
+  background-color: #b60d2c;
+}
+.bg-aside .nav-header {
+  font-weight: 700;
+  color: #f8f8f8;
+}
+.bg-aside .nav-link {
+  color: #ececec;
+}
+.bg-aside .nav-link i{
+  color: #ececec !important;
+}
+.bg-aside .nav-link:hover,
+.bg-aside .nav-link:focus {
+  background-color: #ececec !important;
+  color: #b60d2c !important;
+  font-weight: 500;
+  border-radius: 20px;
+}
+.bg-aside .nav-link:hover i,
+.bg-aside .nav-link:focus i {
+  color: #b60d2c !important;
+}
+.bg-aside .nav-link.active {
+  background-color: #ececec !important;
+  color: #b60d2c !important;
+  font-weight: 500;
+  border-radius: 20px;
+}
+.bg-aside .nav-link.active i {
+  color: #b60d2c !important;
+}
+
+/* Card User */
+.navbar-nav .user-menu .dropdown-menu {
+  border-radius: 20px;
+}
+.user-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+.user-header p small {
+  font-weight: 500;
+  font-size: 28px;
+}
+.user-footer {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 /* Input */
@@ -22,9 +93,46 @@ a {
   border-color: #c42743;
   box-shadow: 0 0 0 0.1rem #ff6a8580;
 }
+#dt-search-0 {
+  margin-right: 5px;
+}
+
+/* Table */
+table {
+  width: 100% !important;
+}
+
+/* Pagination */
+.page-link {
+  color: #3a3a3a;
+}
+.page-link:hover {
+  color: #c42743;
+}
+.page-link:focus {
+  box-shadow: none;
+}
+.page-item.active .page-link {
+  border: none;
+  z-index: 3;
+  color: #fff;
+  background-color: #c42743;
+  border-color: #c42743;
+}
+.page-item.disabled .page-link {
+  color: #878e94;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #dee2e6;
+}
+
+/* Errors */
+ul {
+  margin-bottom: 0px;
+}
 
 /* Notifications */
 .gorec-notifications {
-  background-color: #9C0C27;
+  background-color: #c42743;
   color: #fff;
 }
