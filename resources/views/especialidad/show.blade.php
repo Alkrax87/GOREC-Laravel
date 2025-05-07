@@ -1,9 +1,8 @@
 @extends('adminlte::page')
 
-@section('title', 'Detalle Especialidad')
+@section('title', 'Especialidad • Detalle')
 
 @section('content_header')
-  
   <div class="d-flex justify-content-between align-items-center">
     <h1><i class="fas fa-eye"></i> Detalle Especialidad "{{ $especialidad->nombreEspecialidad }}"</h1>
     <a href="{{ route('especialidad.index') }}" class="btn btn-primary mx-1">
@@ -234,6 +233,7 @@
 
 @section('css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
 @stop
 
 @section('js')

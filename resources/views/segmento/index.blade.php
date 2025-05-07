@@ -121,19 +121,9 @@
 
 @section('css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
-  <style>
-    a {
-      text-decoration: none;
-    }
-    .btn-option{
-      height: 38px;
-    }
-    .btn-option i{
-      padding-top: 4px;
-    }
-  </style>
 @stop
 
 @section('js')
@@ -145,6 +135,7 @@
     $(document).ready(function() {
       $('#segmentosTable').DataTable({
         responsive: true,
+        pageLength: 25,
         language: {
           search: "Buscar:",
           lengthMenu: "Mostrar _MENU_ registros por página",

@@ -36,7 +36,7 @@
           @endif
           <!-- Tabla -->
           <div class="table-responsive">
-            <table id="segmentosTable" class="table table-bordered table-striped">
+            <table id="comentariosTable" class="table table-bordered table-striped">
               <thead class="table-header">
                 <tr>
                   <th class="text-left">#</th>
@@ -116,7 +116,7 @@
       <i class="fas fa-bell"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge badge-danger ml-3 navbar-badge"> {{ count($notificaciones) }}</span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: 600px;">
-      <spa style="background-color: #9C0C27; color: azure;" class="dropdown-item dropdown-header text-center"><i class="fas fa-bell"></i> {{ count($notificaciones) }} Notificationes</spa>
+      <span class="gorec-notifications dropdown-header text-center"><i class="fas fa-bell"></i> {{ count($notificaciones) }} Notificationes</span>
       <div class="dropdown-divider"></div>
       @foreach ($notificaciones as $notificacion)
         <div class="dropdown-item">
@@ -132,13 +132,9 @@
 
 @section('css')
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
-  <style>
-    a {
-      text-decoration: none;
-    }
-  </style>
 @stop
 
 @section('js')
@@ -148,8 +144,9 @@
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap5.min.js"></script>
   <script>
     $(document).ready(function() {
-      $('#segmentosTable').DataTable({
+      $('#comentariosTable').DataTable({
         responsive: true,
+        pageLength: 25,
         language: {
           search: "Buscar:",
           lengthMenu: "Mostrar _MENU_ registros por página",

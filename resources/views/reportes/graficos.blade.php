@@ -129,6 +129,11 @@
   </li>
 @endsection
 
+@section('css')
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
+@stop
+
 @section('js')
   <script>
       // Definimos el elemento de charts
@@ -581,63 +586,4 @@
       });
     });
   </script>
-@stop
-
-@section('css')
-  <style>
-    /* Ajustar el z-index de Select2 */
-    .select2-container--default .select2-selection--single .select2-selection__rendered { 
-    line-height: 24px;
-    padding-left: 10px; /* Ajustar el padding izquierdo */
-     /* Asegurar que el texto esté alineado a la izquierda */
-  }
-  .select2-container .select2-selection--single {
-    height: 35px;
-    padding-left: 0px; /* Ajustar el padding izquierdo */
-  }
-    .select2-container .select2-dropdown {
-      z-index: 9999;
-    }
-    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable  {
-      background-color: #9C0C27 !important; /* Cambia este color al que desees */
-      color: rgb(248, 243, 243) !important;/* Cambia el color del texto si es necesario */
-  }
-  </style>
-  <style>
-    a {
-      text-decoration: none;
-    }
-    .container-fluid .row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .input-auth {
-      display: block;
-      width: 100%;
-      height: calc(1.5em + 0.75rem + 2px);
-      padding: 0.375rem 0.75rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #495057;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      border-radius: 0.25rem;
-      transition: all 0.3s ease-in-out;
-    }
-    .input-auth:focus {
-      border-color: #72081f;
-      outline: none;
-      box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-    }
-    .input-autht:focus::placeholder {
-      color: transparent;
-    }
-  </style>
-@stop
-
-@section('js')
-  
 @stop

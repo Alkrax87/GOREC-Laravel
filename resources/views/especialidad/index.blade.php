@@ -37,7 +37,6 @@
                   <button type="submit" class="btn btn-dark w-100"><i class="fas fa-print"></i>&nbsp;&nbsp;
                     Imprimir</button>
                 </div>
-                
               </form>
             </div>
           </div>
@@ -176,17 +175,6 @@
           </div>
         </div>
       </div>
-      {{-- @foreach ($especialidades as $especialidad)
-        {{-- @include('especialidad.show', [
-          'especialidad' => $especialidad,
-          'fases' => $fases->where('idEspecialidad', $especialidad->idEspecialidad),
-        ]) --}}
-        {{-- @include('especialidad.edit', ['especialidad' => $especialidad]) --}}
-        {{-- @include('especialidad.avanceEspecialidadLog', [
-          'especialidad' => $especialidad,
-          'logs' => $avanceEstadoLogs->where('idEspecialidad', $especialidad->idEspecialidad),
-        ]) --}}
-      
     </div>
   </div>
 @stop
@@ -216,19 +204,11 @@
 @endsection
 
 @section('css')
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.bootstrap5.css">
-  <style>
-    a {
-        text-decoration: none;
-      }
-  </style>
+  <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
 @stop
 
 @section('js')
-
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
@@ -251,6 +231,7 @@
     $(document).ready(function() {
       $('#especialidadTable').DataTable({
         responsive: true,
+        pageLength: 25,
         language: {
           search: "Buscar:",
           lengthMenu: "Mostrar _MENU_ registros por página",

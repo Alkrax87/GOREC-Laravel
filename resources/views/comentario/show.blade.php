@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Comentario')
+@section('title', 'Comentario • Detalle')
 
 @section('content_header')
   <h1><i class="fas fa-comments"></i> Detalle Comentario</h1>
@@ -67,10 +67,7 @@
 </form>
 @stop
 
-
 @section('css')
-
-@stop
-
-@section('js')
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('css/styles.css')}}">
 @stop

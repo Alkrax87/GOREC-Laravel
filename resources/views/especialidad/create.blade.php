@@ -14,7 +14,7 @@
             <div class="col-12">
               <div class="form-outline mb-4">
                 <label class="form-label">Inversión</label>
-                <select name="idInversion" id="idInversion-create" class="form-select form-select-sm input-auth"
+                <select name="idInversion" id="idInversion-create" class="form-select"
                   required>
                   <option value="" disabled selected>Selecciona una inversión</option>
                   @foreach ($inversiones as $inversion)
@@ -27,13 +27,13 @@
               <div class="row">
                 <div class="col-8 form-outline mb-4">
                   <label class="form-label">Nombre Especialidad</label>
-                  <input type="text" name="nombreEspecialidad" class="input-auth" placeholder="Ingrese Especialidad"
+                  <input type="text" name="nombreEspecialidad" class="form-control" placeholder="Ingrese Especialidad"
                     required />
                 </div>
                 <div class="col-4 form-outline mb-4">
                   <label class="form-label">Porcentaje Programado</label>
                   <div class="input-group">
-                    <input type="number" class="form-control input-auth" value="0"
+                    <input type="number" class="form-control" value="0"
                       name="porcentajeAvanceEspecialidad" required min="0" max="100" step="0.01">
                     <span class="input-group-text">%</span>
                   </div>
@@ -45,7 +45,7 @@
                     class="fas fa-plus"></i></button>
                 <div id="usuarios-container-create">
                   <div class="input-group mb-2">
-                    <select name="idUsuario[]" class="form-select form-select-sm input-auth" required
+                    <select name="idUsuario[]" class="form-select" required
                       id="usuariosSelect-create">
                       <option value="" disabled selected>Selecciona un usuario</option>
                       <!-- Aquí se llenarán los usuarios dinámicamente -->
@@ -150,62 +150,7 @@
     container.appendChild(div); // Añadir el div al contenedor de usuarios
   }
 
-  // Función para eliminar un elemento del DOM
   function removeElement(element) {
-    element.parentNode.remove(); // Eliminar el elemento padre del elemento pasado como parámetro (el div contenedor)
+    element.parentNode.remove();
   }
 </script>
-
-
-<style>
-  .input-auth {
-    display: block;
-    width: 100%;
-    height: calc(1.5em + 0.75rem + 2px);
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .input-auth:focus {
-    border-color: #72081f;
-    outline: none;
-    box-shadow: 0 0 5px 2px rgba(255, 106, 133, 0.5);
-  }
-
-  .input-autht:focus::placeholder {
-    color: transparent;
-  }
-</style>
-<style>
-  .select2-container--default .select2-selection--single .select2-selection__rendered {
-    line-height: 24px;
-    padding-left: 10px;
-    /* Ajustar el padding izquierdo */
-    /* Asegurar que el texto esté alineado a la izquierda */
-  }
-
-  .select2-container .select2-selection--single {
-    height: 35px;
-    padding-left: 0px;
-    /* Ajustar el padding izquierdo */
-  }
-
-  .select2-container .select2-dropdown {
-    z-index: 9999;
-  }
-
-  .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
-    background-color: #9C0C27 !important;
-    /* Cambia este color al que desees */
-    color: rgb(248, 243, 243) !important;
-    /* Cambia el color del texto si es necesario */
-  }
-</style>
