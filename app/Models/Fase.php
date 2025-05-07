@@ -33,6 +33,6 @@ class Fase extends Model
     // Define la relación con el modelo SubFase
     public function subfases()
     {
-        return $this->hasMany(SubFase::class, 'idFase');
+        return $this->hasMany(Subfase::class, 'idFase');
     }
 }
