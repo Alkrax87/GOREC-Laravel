@@ -24,19 +24,53 @@ class EspecialidadController extends Controller
         // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
         if ($user->isAdmin) {
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
             $inversiones = Inversion::all();
+            $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
             $especialidades = Especialidad::all();
+
         } else {
-            $inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
+                $query->where('idUsuario', $user->idUsuario);
+            })->get();
+
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
+            //$inversiones = Inversion::where('idUsuario', $user->idUsuario)->get();
             $inversionIds = $inversiones->pluck('idInversion');
             $especialidades = Especialidad::whereIn('idInversion', $inversionIds)->get();
-            $especialidadIds = $especialidades->pluck('idEspecialidad');
-            $especialidadesAdicionales = Especialidad::whereHas('usuarios', function ($query) use ($user) {
+            //$especialidadIds = $especialidades->pluck('idEspecialidad');
+            // Si es profesional → solo las especialidades que le han sido asignadas (de esas inversiones)
+            $especialidadesProfesional = Especialidad::whereHas('usuarios', function ($query) use ($user) {
                 $query->where('especialidad_users.idUsuario', $user->idUsuario);
-            })->whereNotIn('idEspecialidad', $especialidadIds)->get();
-            $especialidades = $especialidades->merge($especialidadesAdicionales);
+            })->whereIn('idInversion', $inversionIds)->get();
+
+            // Si es SOLO profesional (no responsable ni coordinador), sobrescribir la lista
+            $esResponsable = $inversionesResponsable->isNotEmpty();
+            $esCoordinador = $inversionesCoordinador->isNotEmpty();
+
+            if (!$esResponsable && !$esCoordinador) {
+                $especialidades = $especialidadesProfesional;
+            }
+            // Carga los usuarios relacionados
+            $usuarios = User::where('idUsuario', $user->idUsuario)->get();
+
         }
 
+        // Carga las notificaciones de las inversiones por finalizar
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
@@ -47,7 +81,6 @@ class EspecialidadController extends Controller
 
         return view('especialidad.index', compact('especialidades', 'inversiones', 'notificaciones'));
     }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -244,20 +277,25 @@ class EspecialidadController extends Controller
         // Obtener el usuario autenticado
         $usuario = auth()->user();
 
-        if ($usuario->isAdmin) {
-            // Obtener todas las inversiones si es admin y selecciona alguna en el formulario
-            $inversiones = Inversion::where('idInversion', $request->idInversion)->get();
-        } else {
-            // Obtener solo las inversiones del usuario autenticado
-            $inversiones = Inversion::where('idUsuario', $usuario->idUsuario)
-                ->where('idInversion', $request->idInversion)
-                ->get();
+         // Obtener la inversión solicitada
+        $inversion = Inversion::with('coordinadores')->findOrFail($request->idInversion);
+
+        // Verifica si el usuario puede acceder (admin, responsable o coordinador)
+        $esResponsable = $inversion->idUsuario == $usuario->idUsuario;
+        $esCoordinador = $inversion->coordinadores->contains('idUsuario', $usuario->idUsuario);
+
+        if ($usuario->isAdmin || $esResponsable || $esCoordinador) {
+            $especialidades = Especialidad::where('idInversion', $inversion->idInversion)->get();
+
+            $pdf = Pdf::loadView('especialidad.pdf', [
+                'inversiones' => collect([$inversion]),
+                'especialidades' => $especialidades,
+            ]);
+
+            return $pdf->stream();
         }
-        // Obtener las especialidades relacionadas a esas inversiones
-        $especialidades = Especialidad::whereIn('idInversion', $inversiones->pluck('idInversion'))->get();
-        // Generar el PDF
-        $pdf = Pdf::loadView('especialidad.pdf', compact('inversiones', 'especialidades'));
-        return $pdf->stream();
+
+        abort(403, 'No tienes permiso para ver esta inversión.');
     }
 
     public function getUsuariosPorInversion($idInversion)

@@ -6,32 +6,49 @@ use Illuminate\Http\Request;
 use App\Models\Inversion;
 use App\Models\ComentarioInversion;
 use Carbon\Carbon;
+use App\Models\User;
 use Auth;
 class ComentarioControllerInversion extends Controller
 {
     public function index()
     {
+        // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
         if ($user->isAdmin) {
-            // Si el usuario es administrador, carga todas las inversiones
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
             $inversiones = Inversion::all();
+            $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
             $comentarios = ComentarioInversion::all();
-        } else {
-            // Si no es administrador, carga las inversiones propias y aquellas en las que ha sido asignado como profesional
-            $inversionesPropias = Inversion::where('idUsuario', $user->idUsuario)->get();
 
-            // Obtén las inversiones donde el usuario ha sido asignado como profesional
-            $inversionesAsignadas = Inversion::whereHas('profesional', function ($query) use ($user) {
+        } else {
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
                 $query->where('idUsuario', $user->idUsuario);
             })->get();
 
-            // Combina las inversiones propias y las asignadas
-            $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
 
-            $inversionIds = $inversiones->pluck('idInversion');
-            $comentarios  = ComentarioInversion::whereIn('idInversion', $inversionIds)->get();
+            // Carga los usuarios relacionados
+            $usuarios = User::where('idUsuario', $user->idUsuario)->get();
+            $comentarios = ComentarioInversion::whereIn('idInversion', $inversiones->pluck('idInversion'))->get();
+            //$comentarios  = ComentarioInversion::whereIn('idInversion', $inversiones)->get();
+
         }
 
+        // Carga las notificaciones de las inversiones por finalizar
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);
@@ -75,10 +92,15 @@ class ComentarioControllerInversion extends Controller
     public function show($id)
     {
         $comentarios = ComentarioInversion::findOrFail($id);
-
         $user = Auth::user();
 
-        if ($comentarios->idUsuario !== Auth::id() && !$user->isAdmin) {
+        // Verifica si el usuario es coordinador en alguna inversión
+        $esCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+            $query->where('users.idUsuario', $user->idUsuario);
+        })->exists();
+
+        // Solo bloqueamos el acceso si NO es admin, NO es coordinador y NO es el autor del comentario
+        if (!$user->isAdmin && !$esCoordinador && $comentarios->idUsuario !== Auth::id()) {
             abort(403, 'No tienes permiso para ver este comentario.');
         }
 
@@ -135,13 +157,15 @@ class ComentarioControllerInversion extends Controller
 
     public function destroy($id)
     {
-        $comentarios = ComentarioInversion::findOrFail($id);
-        $user = Auth::user();
+         $comentarios = ComentarioInversion::findOrFail($id);
+    $user = Auth::user();
 
-        if ($comentarios->idUsuario !== Auth::id() && !$user->isAdmin) {
-            abort(403, 'No tienes permiso para borrar este comentario.');
-        }
-        $comentarios->delete();
+    // Solo permitir si es administrador
+    if (!$user->isAdmin) {
+        abort(403, 'Solo el administrador puede borrar comentarios.');
+    }
+
+    $comentarios->delete();
 
         return redirect()->route('comentario.index')->with('message','Comentario ' . $comentarios->asuntoComentarioInversion . ' eliminada exitosamente.');
     }

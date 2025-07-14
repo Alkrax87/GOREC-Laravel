@@ -9,6 +9,7 @@ use App\Models\Inversion;
 use App\Models\Fase;
 use Dompdf\Dompdf;
 use Carbon\Carbon;
+use App\Models\User;
 use Dompdf\Options;
 use Auth;
 
@@ -22,24 +23,38 @@ class Reportes extends Controller
         $fases = Fase::all();
         $subfases = Subfase::all();
 
-        // Cargamos los datos de inversion filtrador en base al usuario logeado
+         // Cargamos los datos de inversion filtrador en base al usuario logeado
         $user = Auth::user();
         if ($user->isAdmin) {
-            // Si el usuario es administrador, carga todas las inversiones
+            /*
+                Si el usuario es administrador, carga todas las inversiones
+            */
             $inversiones = Inversion::all();
+            $usuarios = User::whereNotNull('email')->where('idUsuario', '!=', 1)->get();
         } else {
-            // Si no es administrador, carga las inversiones propias y aquellas en las que ha sido asignado como profesional
-            $inversionesPropias = Inversion::where('idUsuario', $user->idUsuario)->get();
-
-            // Obtén las inversiones donde el usuario ha sido asignado como profesional
-            $inversionesAsignadas = Inversion::whereHas('profesional', function ($query) use ($user) {
+            /*
+                Si no es administrador, carga las inversiones asignadas como Responsable,
+                Coordinador y aquellas en las que ha sido asignado como profesional
+            */
+            $inversionesResponsable = Inversion::where('idUsuario', $user->idUsuario)->get();
+            $inversionesCoordinador = Inversion::whereHas('coordinadores', function ($query) use ($user) {
+                $query->where('users.idUsuario', $user->idUsuario);
+            })->get();
+            $inversionesProfesional = Inversion::whereHas('profesional', function ($query) use ($user) {
                 $query->where('idUsuario', $user->idUsuario);
             })->get();
 
-            // Combina las inversiones propias y las asignadas
-            $inversiones = $inversionesPropias->merge($inversionesAsignadas)->unique('idInversion');
+            // Combinamos las inversiones asignadas al usuario
+            $inversiones = $inversionesResponsable
+                ->merge($inversionesCoordinador)
+                ->merge($inversionesProfesional)
+                ->unique('idInversion');
+            // Carga los usuarios relacionados
+            $usuarios = User::where('idUsuario', $user->idUsuario)->get();
+
         }
 
+        // Carga las notificaciones de las inversiones por finalizar
         $notificaciones = [];
         foreach ($inversiones as $inversion) {
             $diferenciaHoras = Carbon::now()->subHours(5)->diffInHours($inversion->fechaFinalInversion, false);

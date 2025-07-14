@@ -12,12 +12,34 @@
       <div class="row">
         <div class="col-12">
           <div class="row">
+            @php
+              $usuario = Auth::user();
+              $esCoordinador = false;
+              $esResponsable = false;
+              $esProfesional = false;
+              $esAdmin = $usuario->isAdmin;
+
+              foreach ($inversiones as $inv) {
+                  if ($inv->coordinadores->contains('idUsuario', $usuario->idUsuario)) {
+                      $esCoordinador = true;
+                  }
+                  if ($inv->idUsuario == $usuario->idUsuario) {
+                      $esResponsable = true;
+                  }
+                  if ($inv->profesional->contains('idUsuario', $usuario->idUsuario)) {
+                      $esProfesional = true;
+                  }
+              }
+            @endphp
+            @if ($esAdmin || $esResponsable)
             <!-- Agregar -->
             <div class="col-9 d-flex align-items-end">
               <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate">
                 <i class="fas fa-plus"></i>&nbsp;&nbsp; Crear Especialidad
               </button>
             </div>
+           @endif
+             @if ($esAdmin || $esResponsable ||  $esCoordinador)
             <!-- Imprimir -->
             <div class="col-3 mb-4">
               <form action="{{ route('especialidad.pdf') }}" method="GET" target="_blank">
@@ -39,6 +61,7 @@
                 </div>
               </form>
             </div>
+             @endif
           </div>
           <!-- Alert -->
           @if ($message = Session::get('message'))

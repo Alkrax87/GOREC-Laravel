@@ -12,6 +12,7 @@ use App\Models\AsignacionProfesional;
 use App\Models\AsignacionAsistente;
 use App\Models\EstadoLog;
 use App\Models\AvanceInversionLog;
+use App\Models\ComentarioInversion;
 use Carbon\Carbon;
 use Auth;
 
@@ -433,9 +434,16 @@ class InversionController extends Controller
 
     public function pdf($id) {
         date_default_timezone_set('America/Lima');
+            // Obtener la inversión
         $inversion = Inversion::findOrFail($id);
-        $pdf = Pdf::loadView('inversion.pdf', compact('inversion'));
+
+        // Obtener los comentarios asociados a esta inversión
+        $comentarios = ComentarioInversion::where('idInversion', $id)->get();
+
+        // Generar el PDF pasando también los comentarios a la vista
+        $pdf = Pdf::loadView('inversion.pdf', compact('inversion', 'comentarios'));
         $pdf->setPaper('A4', 'portrait');
+
         return $pdf->stream();
     }
 

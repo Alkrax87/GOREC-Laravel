@@ -10,10 +10,31 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
+        @php
+          $usuario = Auth::user();
+          $esCoordinador = false;
+          $esResponsable = false;
+          $esProfesional = false;
+          $esAdmin = $usuario->isAdmin;
+
+          foreach ($inversiones as $inv) {
+              if ($inv->coordinadores->contains('idUsuario', $usuario->idUsuario)) {
+                  $esCoordinador = true;
+              }
+              if ($inv->idUsuario == $usuario->idUsuario) {
+                  $esResponsable = true;
+              }
+              if ($inv->profesional->contains('idUsuario', $usuario->idUsuario)) {
+                  $esProfesional = true;
+              }
+          }
+        @endphp
         <!-- Agregar -->
+        @if ($esAdmin || $esResponsable || $esProfesional)
         <div class="col-12">
           <button class="btn btn-success mb-4" data-toggle="modal" data-target="#ModalCreate"><i class="fas fa-plus"></i>&nbsp;&nbsp; Agregar Comentario</button>
         </div>
+        @endif
         <!-- Tabla y alert -->
         <div class="col-12">
           <!-- Alert -->
@@ -85,6 +106,7 @@
                       href="{{ route('comentario.show', ['id' => $comentario->idComentarioInversion]) }}">
                       <i class="fas fa-eye"></i>
                       </a>
+                       @if ($esAdmin || $esResponsable || $esProfesional)
                       <a class="btn btn-warning"
                       href="{{route('comentario.edit', ['id' => $comentario->idComentarioInversion])}}">
                       <i class="fas fa-edit"></i>
@@ -97,6 +119,7 @@
                           <i class="fas fa-trash-alt"></i>
                         </button>
                       </form>
+                      @endif
                     </td>
                   </tr>
                 @endforeach

@@ -203,6 +203,36 @@
                 @endforeach
             </tbody>
         </table>
+        <h3>Comentarios de la Inversión</h3>
+
+        @if($comentarios->isEmpty())
+            <p style="text-align: center;">No hay comentarios registrados para esta inversión.</p>
+        @else
+            <table>
+                <thead>
+                    <tr>
+                        <th width="30%">Asunto</th>
+                        <th width="30%">Profesional</th>
+                        <th width="40%">Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($comentarios as $comentario)
+                        <tr>
+                            <td><strong>{{ $comentario->asuntoComentarioInversion }}</strong></td>
+                            <td>
+                                {{ $comentario->usuario->nombreUsuario ?? 'Desconocido' }}
+                                {{ $comentario->usuario->apellidoUsuario ?? '' }}<br>
+                                <small><i>
+                                    Registrado el {{ \Carbon\Carbon::parse($comentario->fechaComentarioInversion)->format('d/m/Y') }}
+                                </i></small>
+                            </td>
+                            <td>{{ $comentario->comentariosInversion }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
     </div>
 </body>
 </html>
